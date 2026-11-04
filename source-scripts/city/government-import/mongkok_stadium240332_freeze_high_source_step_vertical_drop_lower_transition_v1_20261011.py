@@ -1,0 +1,13 @@
+"""DRAFT source-preserving two-wall necessary feasibility freeze; no installation state."""
+from pathlib import Path
+import importlib.util,json
+from run import ROOT,HERE,read,save,connect
+from exact_resumable_projected_inventory_v1_20261011 import decoded
+from mongkok_stadium240332_high_source_step_vertical_drop_lower_transition_v1_20261011 import validation_gate,ref,P,B,NAME,DOC,LOCAL,CAP,COLLAR
+PRODUCER=HERE/'mongkok_stadium240332_high_source_step_vertical_drop_lower_transition_v1_20261011.py'
+def state(uids):
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');return c.execute('SELECT row_to_json(t) FROM astra_modelling.model_reviews t WHERE uid=ANY(%s) ORDER BY uid,snapshot_id',(sorted(uids),)).fetchall()
+def main():
+ validation_refs=validation_gate();assert not(DOC/'result.json').exists();d=decoded(read(DOC/'diagnostic.json.gz'));assert d['completeOriginalAndJoinFaces']==14801 and d['completeExistingBandCells']==2666 and d['noCandidate']and d['noMeshOutput']and not d['currentAcceptance']and d['sourceGeometryChanges']==d['liveTerrainChanges']==0;assert ref(ROOT/d['currentManifest']['path'])==d['currentManifest'];assert all(ref(ROOT/e['path'])==e for e in d['evidenceRefs']);cap=read(CAP/'diagnostic.json.gz');assert cap['currentManifest']==d['currentManifest'];uids=cap['allProtectedReviewUIDs'];before=state(uids);spec=importlib.util.spec_from_file_location('reviewed_freezer',HERE/'parkview_block17_freeze_current_source_evidence_20261011.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);paths={p for p in DOC.rglob('*')if p.is_file()and not p.name.endswith('.tmp')};m.local_imports(PRODUCER,paths);m.local_imports(Path(__file__),paths);m.declared_refs(d,paths);paths.update(ROOT/e['path']for e in validation_refs);paths.update((B/(NAME+'-method')).glob('*'));note=d['qualification'];save(DOC/'review.json',dict(sourceOnly=True,currentAcceptance=False,noCandidate=True,finding=note,evidenceRefs=[ref(p)for p in sorted(paths)]));(DOC/'REVIEW.md').write_text(note+'\n');paths.update([DOC/'review.json',DOC/'REVIEW.md']);m.F.freeze(NAME,'genuine-high-edge-zero-projected-drop-lower-band-no-acceptance',sorted(paths),dict(uids=['landsd/240332:0','landsd/240527:0'],sourceOnly=True,currentAcceptance=False,noCandidate=True,installationApproved=False,sourceGeometryChanges=0,liveTerrainChanges=0,localFeasibility=d['completeBoundedHighStepProof']['localFeasibility'],qualification=note));assert state(uids)==before and ref(ROOT/d['currentManifest']['path'])==d['currentManifest'];print(json.dumps(dict(jobId=read(DOC/'result.json')['jobId'],protectedReviewStateUnchanged=True)))
+if __name__=='__main__':main()

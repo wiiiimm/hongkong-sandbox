@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Film Promotion and Facilitation Section - Location Library</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Location Library">
+    <meta name="description" content="Location Library">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../favicon.png">
+    <link rel="icon" href="../../favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="">
+    <!-- Bootstrap -->
+    <link id="styleSheet0" href="../../css/bootstrap.css" rel="stylesheet" media="screen" type="text/css">
+    <link id="styleSheet1" href="../../css/bsplus.css" rel="stylesheet" media="all" type="text/css">
+    <link id="styleSheet2" href="../../css/default.css" rel="stylesheet" media="screen" type="text/css">
+    <link id="styleSheet3" href="../../css/layout.css" rel="stylesheet" media="all" type="text/css">
+    <link id="styleSheet4" href="../../css/flexslider.css" rel="stylesheet" media="all" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:/ -->
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .cont>ol>li {
+    counter-increment: olli;
+}
+
+.cont>ol {
+    counter-reset: olli;
+}
+
+ol>li::marker {
+    content: "(" counter(olli) ") ";
+}
+
+div.myflex.flexBetween.flexWrapM:not(.applicationcontact):not(.applicationcategories) a:not(.externalUrl) {
+    color: #3058cc;
+}
+
+.applicationcontact .cont {
+    display: flex;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+
+.applicationcontact .flexTitleList>div>div:nth-child(1) {
+    min-width: 5em;
+    width: 5em;
+}
+
+.applicationcategories a {}
+
+/* object-fit cover for specific ratio . ref to js:25-34 */
+
+#flexslider-mdms.flexslider .slides .cover img[data-cover=true],
+#flexslider-mdts.flexslider .slides .cover img[data-cover=true] {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.mDocSlider.onePic {
+    padding: 0 0 0 3.75rem;
+}
+
+
+/* markdown table */
+body.fso_location .mDocTitleList .small {
+    white-space: nowrap;
+}
+
+.myIcon.eform a:before {
+    background-image: url(../../images/icon/icon_eform.svg);
+}
+
+@media screen and (max-width: 992px) {
+    .mDocSlider.onePic {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 620px) {
+
+    /* 3 row RWD */
+    body.fso_location table.mdTableCol3 td[data-label]:after {
+        content: " (" attr(data-label) ")";
+        font-size: 0.8em;
+    }
+
+    body.fso_location table.mdTableCol3 tr {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    body.fso_location table.mdTableCol3 td:nth-child(n+2) {
+        min-width: 50%;
+    }
+
+    body.fso_location table.mdTableCol3 td:first-child {
+        width: 100%;
+        font-weight: bold;
+    }
+
+    body.fso_location table.mdTableCol3 th {
+        display: none;
+    }
+
+    #flexslider-mdts.flexslider .slides .cover img[data-cover=true] {
+        height: auto;
+    }
+
+    /* remove padding of the image */
+    body.fso_location .mDocSlider {
+        padding: 0;
+    }
+
+    body.fso_location .mDocMainSlider .flex-direction-nav a.flex-next,
+    body.fso_location .mDocMainSlider .flexslider:hover .flex-direction-nav a.flex-next {
+        right: -9999px;
+        /* hide the button */
+    }
+
+    body.fso_location .mDocMainSlider .flex-direction-nav a.flex-prev,
+    body.fso_location .mDocMainSlider .flexslider:hover .flex-direction-nav a.flex-prev {
+        left: -9999px;
+        /* hide the button */
+    }
+
+}
+
+body.fso_location {
+    --smargin: 0.125rem;
+    --margin: 0.25rem;
+    --lmargin: 0.5rem;
+    --xlmargin: 1rem;
+}
+
+body.fso_location .cont .flexTitleList>div>div:nth-child(1) body.fso_location .cont ul>li {
+    margin-bottom: 0;
+}
+
+body.fso_location .cont table {
+    width: auto;
+    max-width: 100%;
+    min-width: 80%;
+}
+
+body.fso_location .cont table th,
+body.fso_location .cont table td {
+    padding: var(--smargin) 3rem var(--margin) 0rem;
+}
+
+body.fso_location .cont table th:last-child,
+body.fso_location .cont table td:last-child {
+    padding-right: 0;
+}
+
+body.fso_location .mDocTitleList .cont table {
+    margin-bottom: 2em;
+}
+
+body.fso_location td>li {
+    margin-left: var(--xlmargin);
+}
+
+body.fso_location td>li:last-child {
+    margin-bottom: var(--lmargin);
+}
+
+body.fso_location .cont p~ul,
+body.fso_location .cont p~ol {
+    margin-top: -1em;
+}
+
+body.fso_location .mDocDetail .cont ul>li,
+body.fso_location .cont li>ul,
+body.fso_location .cont li>ol {
+    margin-bottom: var(--margin);
+}
+
+.mDocDetail .cont :not(.myIcon)>a.externalUrl {
+    background-image: url(../../images/icon/icon_newwindow.svg);
+    padding-right: 1.8em;
+    background-repeat: no-repeat;
+    background-position: 99% 0.1em;
+    background-size: 1.1em;
+}
+
+body.fso_location .cont small {
+    white-space: nowrap;
+}
+
+body.fso_location a.related {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+}
+
+/* object-fit cover for specific ratio . ref to js:25-34 */
+
+#flexslider-mdms.flexslider .slides .cover img[data-cover=true],
+#flexslider-mdts.flexslider .slides .cover img[data-cover=true] {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* markdown table */
+body.fso_location .mDocTitleList .small {
+    white-space: nowrap;
+}
+
+
+@media screen and (max-width: 750px) {
+
+    /* 3 row RWD */
+    body.fso_location .cont table.mdTableCol3 {
+        width: 100%;
+    }
+
+    body.fso_location table.mdTableCol3 td[data-label]:after {
+        content: " (" attr(data-label) ")";
+        font-size: 0.9em;
+    }
+
+    body.fso_location table.mdTableCol3 tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body.fso_location .cont table th,
+    body.fso_location .cont table td {
+        padding: var(--margin);
+    }
+
+    body.fso_location .cont table td:first-child {
+        padding-right: var(--xlmargin);
+    }
+
+    body.fso_location table.mdTableCol3 td[colspan][data-label]:after {
+        content: "";
+    }
+
+    body.fso_location table.mdTableCol3 td[colspan][data-label] center {
+        text-align: left;
+    }
+
+    body.fso_location table.mdTableCol3 td:nth-child(n+2) {
+        display: list-item;
+        margin-left: 1em;
+        list-style-type: circle
+    }
+
+    body.fso_location table.mdTableCol3 td:first-child {
+        margin-top: var(--margin);
+    }
+
+    body.fso_location table.mdTableCol3 td:last-child {
+        padding-bottom: 1em;
+    }
+
+    body.fso_location table.mdTableCol3 thead>tr {
+        left: -9999px;
+        position: absolute;
+    }
+
+    #flexslider-mdts.flexslider .slides .cover img[data-cover=true] {
+        height: auto;
+    }
+
+    /* remove padding of the image */
+    body.fso_location .mDocSlider {
+        padding: 0;
+    }
+
+    body.fso_location .mDocMainSlider .flex-direction-nav a.flex-next,
+    body.fso_location .mDocMainSlider .flexslider:hover .flex-direction-nav a.flex-next {
+        right: -9999px;
+        /* hide the button */
+    }
+
+    body.fso_location .mDocMainSlider .flex-direction-nav a.flex-prev,
+    body.fso_location .mDocMainSlider .flexslider:hover .flex-direction-nav a.flex-prev {
+        left: -9999px;
+        /* hide the button */
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    body.fso_location.chineseVersion .flexTitleList>div>div:nth-child(1) {
+        min-width: 5em;
+        width: 5em;
+    }
+
+    body.fso_location.englishVersion .flexTitleList>div>div:nth-child(1) {
+        min-width: 6em;
+        width: 6em;
+    }
+
+    body.fso_location .cont table {
+        width: 100%;
+    }
+
+    body.fso_location td[data-label]:after {
+        content: " (" attr(data-label) ")";
+        font-size: 0.9em;
+    }
+
+    body.fso_location tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body.fso_location td:first-child {
+        margin-top: var(--margin);
+    }
+
+    body.fso_location td:nth-child(n+2) {
+        display: list-item;
+        margin-left: 1em;
+        list-style-type: circle
+            /*margin-left: 1em;*/
+    }
+
+    body.fso_location table.mdTableCol2 td:last-child {
+        padding-bottom: var(--margin);
+    }
+
+    body.fso_location thead>tr {
+        left: -9999px;
+        position: absolute;
+    }
+}
+
+.headingWith {
+    translate: 0rem 0rem;
+    transition: translate 0.2s ease-in;
+}
+
+.fixedHeader .headingWith {
+    position: fixed;
+    z-index: 9999999999999;
+    top: 0;
+    left: 0;
+    padding: 1rem 1.5rem 1rem 4rem;
+    translate: -2rem 5.5rem;
+    border-radius: 2rem;
+    background-color: white;
+    -webkit-box-shadow: 3px 3px 14px -6px rgba(0, 0, 0, 0.56);
+    -moz-box-shadow: 3px 3px 14px -6px rgba(0, 0, 0, 0.56);
+    box-shadow: 3px 3px 14px -6px rgba(0, 0, 0, 0.56);
+    min-width:20vw;
+    max-width:390px;
+}
+
+.fixedHeader .headingWith .h2 {
+    font-size: 1.75rem;
+}
+.englishVersion.fixedHeader .headingWith .h2 {
+    font-size: 1.5rem;
+}
+
+
+.fixedHeader .mainContent .headingWith p {
+    margin-bottom: 0px;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mainArea .headingWith a.tel {
+    display: none;
+}
+.fixedHeader .mainArea .headingWith a.tel {
+    display: block;
+    white-space: nowrap;
+}
+.fixedHeader .myDocumentContent {
+    margin-top: 20rem;
+}
+.mainArea .headingWith a.tel:before {
+    background-image: url(../../images/icon/icon_tel.svg);
+    background-size: 1rem;
+}
+.fixedHeader .mainArea .headingWith a.mi_location {
+    padding: 0 1rem 0rem 2rem;
+}
+@media screen and (max-width: 750px) {
+    body.fixedHeader .mainContent .headingWith p {
+        flex-direction: row;
+    }
+    body.fixedHeader .mainArea .headingWith a.mi_location {
+        padding: 0 0.5rem 0rem 2rem;
+    }
+
+    body.fixedHeader .headingWith {
+        translate: 0rem 5rem;
+        border-radius: 0rem;
+        min-width:20vw;
+        max-width:100%;
+        width: 100%;
+        padding: 1rem 1rem 1rem 1rem;
+    }
+}
+    </style>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/arrdata.js"></script>
+    <script src="../../js/menu.js"></script>
+    <script src="../../js/function.js"></script>
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script type="text/javascript">
+        
+var menu_id = '0';
+var section_id = '2022100717014066248';
+
+                                                                                       $( window ).on( "load", function() {
+    // add classes to markdown generated table
+    [...document.querySelectorAll('.mDocTitleList table')].forEach(table=>{
+        const th = table.querySelectorAll("thead th");
+        if(!th) return;
+        if(!th[0].parentElement.innerText) 
+            table.classList.add("emptyHeader"); // add .emptyHeader for future styling ctrl.
+        else {
+            // add data-label to respective tds
+            [...th].forEach((header,i)=>{
+                [...table.querySelectorAll('td:nth-child('+(i+1)+')')].forEach(td=>{
+                    if(header.innerText && td.innerText) td.dataset.label=header.innerText 
+                });
+            })
+        }
+        //const numOfColumns = th.length;
+        table.classList.add("mdTableCol"+th.length) // .mdTableCol3, .mdTableCol2   
+    });
+    if($("#flexslider-mdts ul>li").length == 1) {
+      $("#flexslider-mdts").hide();
+      $(".mDocSlider").addClass("onePic");
+    }
+    // add class to images. within 10% ratio diff is fine.
+    function setCover(img, targetRatio) {
+        const ratio = (img.naturalWidth/ img.naturalHeight) || (img.width / img.height);
+        img.dataset.cover = (ratio > targetRatio*0.8 && ratio < targetRatio*1.2);
+    }
+    $(".mDocMainSlider .cover img").each((i,img)=>{
+      setCover(img, 1.78);
+    });
+    $(".mDocThumbSlider .cover img").each((i,img)=>{
+      setCover(img, 1.5);
+    });
+    
+    timer = window.setTimeout(()=>{
+        scrollToAnchor();
+    },500);
+});
+let timer;
+function loadedImg(i) {
+    if(timer) window.clearTimeout(timer);
+    scrollToAnchor();
+}
+
+
+
+  function scrollToTargetAdjusted(targetElement) {
+        var element = document.querySelector(targetElement);
+      var headerOffset = 130;
+        var elementPosition = element.getBoundingClientRect().top;
+      var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+      });   
+  }
+    </script>
+</head>
+
+<body id="page_bg">
+    <div id="skipwrapper"><a id="top"></a><a id="skiptocontent" href="#mainContentSkip" class="access">Skip to
+            content</a></div>
+    <div id="wrap">
+        <div id="header" class="headerArea">
+            <script>
+                createHeader();
+            </script>
+        </div>
+        <div id="body" class="bodyArea">
+            <div class="mainbanner"></div>
+            <div class="mainArea mainAreaBC">
+                <div class="container">
+                    <div class="breadcrumb"></div>
+                </div>
+            </div>
+            <div class="mainArea mainAreaMC content_bg full">
+                <div class="container">
+                    <div class="subMenuFlex">
+                        <script>
+                            pageTop();
+                        </script>
+                        <div class="contentArea">
+                            <div class="mainHeader"></div>
+                            <a id="mainContentSkip"></a>
+                            <div id="mainContent" class="mainContent">
+                                <!--Begin Content-->
+                                    <script src="../../js/pannellum.js"></script>
+    <link href="../../css/pannellum.css" rel="stylesheet" media="all" type="text/css">
+    <script type="text/javascript">
+        
+        $(function() {
+            var original_title = $('title').text();
+            var new_title = original_title + " - " + "Youth Square";
+            $(document).prop("title", new_title);
+        
+        
+            var styleSheet = document.createElement("style")
+            //styleSheet.innerText = css_to_top
+            document.head.appendChild(styleSheet)
+
+                    });
+    </script>
+    <script>
+        $(function () { 
+            replaceLastRevisionDate(); 
+        });
+
+        function replaceLastRevisionDate() {
+            var last_post_date = '20 November 2023';
+            last_revision_date_r = $(".updateDate").text().split(': ');
+            origin_str = last_revision_date_r[0];
+            if(lang == 0) {
+                $(".updateDate").text(origin_str + ': ' + last_post_date);
+            } else {
+                var temp_post_date = new Date('2023-11-20 17:13:14');
+                var year = temp_post_date.getFullYear();
+                var month = temp_post_date.getMonth() + 1;
+                var date = temp_post_date.getDate();
+                var formattedDate = year+'年'+month+'月'+date+'日';
+                $(".updateDate").text(origin_str + ': ' + formattedDate);
+            }
+        }
+    </script>
+    <div class="myDocument myflex flexWrapM">
+        <div class="myDocumentMenu left-container">
+            <div class="mybtn mybtn1 mybtnBk"><a href="javascript:history.back();">Back</a></div>
+        </div>
+        <div class="myDocumentContent">
+            <div class="headingWith">
+                <h1 class="h2">Youth Square</h1>
+                                                    <p>
+                        <a class="myIcon mi_location mi_self" href="https://www.map.gov.hk/gm/s/wgs84/22.263128289355475/114.23663917225049">238, Chai Wan Road, Chai Wan</a>
+                        <a class="myIcon mi_location mi_self tel" href="#" onclick="scrollToTargetAdjusted('.applicationorganisation');return false;">Contact</a>                    </p>
+                            </div>
+            <div class="mDocSlider">
+                <div class="mDocMainSlider">
+                    <div id="flexslider-mdms" class="flexslider">
+                        <ul class="slides">
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547a.jpg')"><picture><source srcset="../../common/images/location/01547/01547a.jpg" alt="Photo 1: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547a.jpg" alt="Photo 1: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547b.jpg')"><picture><source srcset="../../common/images/location/01547/01547b.jpg" alt="Photo 2: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547b.jpg" alt="Photo 2: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547c.jpg')"><picture><source srcset="../../common/images/location/01547/01547c.jpg" alt="Photo 3: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547c.jpg" alt="Photo 3: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547d.jpg')"><picture><source srcset="../../common/images/location/01547/01547d.jpg" alt="Photo 4: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547d.jpg" alt="Photo 4: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547e.jpg')"><picture><source srcset="../../common/images/location/01547/01547e.jpg" alt="Photo 5: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547e.jpg" alt="Photo 5: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547f.jpg')"><picture><source srcset="../../common/images/location/01547/01547f.jpg" alt="Photo 6: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547f.jpg" alt="Photo 6: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547g.jpg')"><picture><source srcset="../../common/images/location/01547/01547g.jpg" alt="Photo 7: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547g.jpg" alt="Photo 7: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547h.jpg')"><picture><source srcset="../../common/images/location/01547/01547h.jpg" alt="Photo 8: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547h.jpg" alt="Photo 8: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547i.jpg')"><picture><source srcset="../../common/images/location/01547/01547i.jpg" alt="Photo 9: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547i.jpg" alt="Photo 9: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                <div class="mDocThumbSlider">
+                    <div id="flexslider-mdts" class="flexslider">
+                        <ul class="slides">
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547a.jpg')"><picture><source srcset="../../common/images/location/01547/01547a.jpg" alt="Photo 1: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547a.jpg" alt="Photo 1: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547b.jpg')"><picture><source srcset="../../common/images/location/01547/01547b.jpg" alt="Photo 2: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547b.jpg" alt="Photo 2: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547c.jpg')"><picture><source srcset="../../common/images/location/01547/01547c.jpg" alt="Photo 3: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547c.jpg" alt="Photo 3: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547d.jpg')"><picture><source srcset="../../common/images/location/01547/01547d.jpg" alt="Photo 4: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547d.jpg" alt="Photo 4: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547e.jpg')"><picture><source srcset="../../common/images/location/01547/01547e.jpg" alt="Photo 5: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547e.jpg" alt="Photo 5: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547f.jpg')"><picture><source srcset="../../common/images/location/01547/01547f.jpg" alt="Photo 6: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547f.jpg" alt="Photo 6: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547g.jpg')"><picture><source srcset="../../common/images/location/01547/01547g.jpg" alt="Photo 7: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547g.jpg" alt="Photo 7: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547h.jpg')"><picture><source srcset="../../common/images/location/01547/01547h.jpg" alt="Photo 8: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547h.jpg" alt="Photo 8: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                            <li>
+                                    <div class="cover" style="--bg: url('../../common/images/location/01547/01547i.jpg')"><picture><source srcset="../../common/images/location/01547/01547i.jpg" alt="Photo 9: Youth Square" type="image/jpeg"><img src="../../common/images/location/01547/01547i.jpg" alt="Photo 9: Youth Square" type="image/jpeg"></picture></div>                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mDocDetail">
+                <div class="mDocTitleList">
+                                            <div class="myflex flexBetween flexWrapM applicationcharacteristic">
+                            <div class="title">Characteristic</div>
+                            <div class="cont">
+                                <p>Youth Square was opened in 2009. It comprises a 14-storey main building and a 12-storey hostel, occupying an area of 42,000 sq m.  The main building is a complex for exhibition, performance and workshop purposes.  Its external wall is finished with translucent glass with frosted raindrops and wave designs.  The "Y Theatre" in the main building provides a large and adjustable stage with 643 seats in stalls and balcony.  On the 1st floor is the semi-open exhibition area "Y Platform" which occupies an area of 1,000 sq m, with a high ceiling that lets in natural light.  The "Y Studio" is another multi-functional venue which can accommodate about 500 persons for exhibition or performance purpose.</p>                            </div>
+                        </div>
+                                            <div class="myflex flexBetween flexWrapM applicationfacilities">
+                            <div class="title">Facilities</div>
+                            <div class="cont">
+                                <p>Y Theatre, Y Studio, Y Platform, dance studio, dance room, music studio, creative studio, D.I.Y. studio, conference room, piano rooms, multi-purpose rooms and exhibition area</p>                            </div>
+                        </div>
+                    
+                    <!-- Organisation -->
+                                                <div class="myflex flexBetween flexWrapM applicationform" id="application">
+                                <div class="title">Application Forms</div>
+                                <div class="cont">
+                                                                                                                                                            <div class="myIcon eform">
+                                            <a href="https://www.youthsquare.hk/stage/venues">
+                                                Online Application Form (Youth Square)</a>
+                                        </div>
+                                                                                                                    <div class="myIcon mi_pdf">
+                                            <a href="../forms/HAB_App_Eng.pdf">
+                                                Filming Application Form (Youth Square (Filming Application))</a>
+                                        </div>
+                                                                                                                </div>
+                            </div>
+                                                    <div class="myflex flexBetween flexWrapM applicationorganisation">
+                                <div class="title">Organisation</div>
+                                <div class="cont font-weight-bold">New World Facilities Management Co Ltd</div>
+                            </div>
+                        
+                        <!-- Contact -->
+                        <div class="myflex flexBetween flexWrapM applicationcontact">
+                            <div class="title">Contact</div>
+                            <div class="cont">
+                                                                    <div>
+                                    <div class="font-weight-bold">Senior Customer Services Executive</div>
+                                    <div class="myflexList flexTitleList">
+                                                                                    <div>
+                                                <div>Tel: </div>
+                                                <div>3721 8831</div>
+                                            </div>
+                                                                                    <div>
+                                                <div>Fax: </div>
+                                                <div>3721 8889</div>
+                                            </div>
+                                                                                    <div>
+                                                <div>Email: </div>
+                                                <div><a href="mailto:venuebooking@youthsquare.hk">venuebooking@youthsquare.hk</a></div>
+                                            </div>
+                                                                                    <div>
+                                                <div>Website: </div>
+                                                <div><a href="https://www.youthsquare.hk" target="_blank">www.youthsquare.hk</a></div>
+                                            </div>
+                                                                            </div>
+                                        </div>
+                                                            </div>
+                        </div>
+
+                        <!-- Organisation -->
+                                                    <div class="myflex flexBetween flexWrapM applicationhowtoapply">
+                                <div class="title">How to Apply</div>
+                                <div class="cont">
+                                    <p>Send the application form to Manager (Operations) with information on the location, date, time, description of the scenes, size of the crew and a copy of Business Registration Certificate.</p>  <p>Processing time : 7 working days.</p>                                </div>
+                            </div>
+                        
+                                                    <div class="myflex flexBetween flexWrapM applicationfees">
+                                <div class="title">Fees</div>
+                                <div class="cont">
+                                    <p><strong>Government charges</strong><br> $7,110 (basic charge) for the first 4 hours, $2,050 for each subsequent 4-hour block and a refundable deposit equal to the fees payable.</p>  <p>Please refer to <a href="https://www.youthsquare.hk">Youth Square's website</a> for rental and miscellaneous charges.</p>                                </div>
+                            </div>
+                        
+                                                    <div class="myflex flexBetween flexWrapM applicationplicover">
+                                <div class="title">PLI cover</div>
+                                <div class="cont">
+                                    <p>Applicants shall effect a public liability insurance in the sum of $10 million in the joint names of the Government of the HKSAR and the company at their own expense.</p>                                </div>
+                            </div>
+                        
+                        
+                                                    <div class="myflex flexBetween flexWrapM applicationremark">
+                                <div class="title">Remarks</div>
+                                <div class="cont">
+                                    <p>Extension of booking hours is subject to availability of facilities, equipment, manpower and the discretion of Youth Square.</p>                                </div>
+                            </div>
+                    
+                    <!-- Notification Information -->
+                    
+                    <!-- Tag -->
+                    <div class="myflex flexBetween flexWrapM tags">
+                        <div class="title">Tags</div>
+                        <div class="cont">
+                            <div class="type myflex flexWrap">
+                                                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                                            <div class="myflex flexBetween flexWrapM applicationcategories">
+                            <div class="title">Categories</div>
+                            <div class="cont">
+                                <a href="search.php?categories[]=30">Performing Venues / Theatres</a>
+                            </div>
+                        </div>
+                                    </div>
+            </div>
+            <p>Compliments to the government and public bodies that have agreed to consider applications to hire premises or facilities under their management for location filming.</p>
+        </div>
+    </div>
+<script>var last_revision_date = '26 April 2023';</script>
+                                <!--End Content-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                pageBottom();
+            </script>
+        </div>
+        <div id="footer" class="footerArea">
+            <script>
+                createFooter();
+            </script>
+        </div>
+    </div>
+</body>
+
+<script>
+var browser_notice = "https://"+location.host+"/"+langtxt+"/important_notice/supported_browsers.html";
+if (window.document.documentMode && location.href != browser_notice) {
+  location.href = browser_notice ;
+}
+</script>
+</html>

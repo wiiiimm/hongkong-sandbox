@@ -1,0 +1,73 @@
+--- source-scripts/city/government-import/west_wing26195_verified_body0_candidate_certificate_draft_v1_20261012.py
++++ source-scripts/city/government-import/west_wing26195_verified_body0_candidate_certificate_draft_v2_20261012.py
+@@ -3,6 +3,7 @@
+ UID='landsd/26195:0';SOURCE='50da67a3a009c3c832d2bfdbd08640c89d958ef8cf077d1c172e7059900f8af9'
+ def sha(v):return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+ def verify(replayed,root_record,interpretation):
++ replayed=json.loads(json.dumps(replayed,allow_nan=False))
+  assert replayed==root_record,'Exact completed source candidate reconciliation differs'
+  assert root_record['uid']==interpretation['uid']==UID and root_record['sourceSHA256']==interpretation['sourceSHA256']==SOURCE
+  assert interpretation['reviewer']=='ROOT'and interpretation['sourceIdentificationOnly']and interpretation['actualUnchangedSourceViewsInspected']
+
+--- source-scripts/city/government-import/test_west_wing26195_verified_body0_candidate_certificate_draft_v1_20261012.py
++++ source-scripts/city/government-import/test_west_wing26195_verified_body0_candidate_certificate_draft_v2_20261012.py
+@@ -1,7 +1,7 @@
+ """DRAFT source metadata guards against mutation of independently saved review."""
+ import copy,json,unittest
+ from pathlib import Path
+-from west_wing26195_verified_body0_candidate_certificate_draft_v1_20261012 import verify
++from west_wing26195_verified_body0_candidate_certificate_draft_v2_20261012 import verify
+ BASE=Path(__file__).resolve().parents[3]/'docs/astra-city/government-import/government-xl-west-wing26195-body0-source-bound-grade-role-proposal-v1-20261012'
+ def fixture():
+  r=json.loads((BASE/'ROOT-source-bound-candidate-reconciliation-v1.json').read_text());i=json.loads((BASE/'ROOT-bounded-source-interpretation-v1.json').read_text());return [copy.deepcopy(r),r,i]
+@@ -22,4 +22,19 @@
+  def test_root_transfer(self):self.bad(lambda x:x[2].update(gradeRootAccepted=True))
+  def test_missing_interpretation(self):self.bad(lambda x:x[2].update(actualUnchangedSourceViewsInspected=False))
+  def test_legacy_backfill(self):self.bad(lambda x:x[2].update(legacyAcceptanceBackfillAllowed=True))
++ def test_actual_integer_seed_keys_normalise(self):
++  x=fixture()
++  for r in x[0]['distinctRouteEvidence'].values():r['strictCapsBySeed']={int(k):v for k,v in r['strictCapsBySeed'].items()}
++  self.assertTrue(verify(*x)['body0SourceRoleCandidateQualified'])
++ def test_changed_cap_value_not_normalised_away(self):
++  def mutate(x):
++   r=next(iter(x[0]['distinctRouteEvidence'].values()));key=next(iter(r['strictCapsBySeed']));r['strictCapsBySeed'][key]+=1
++  self.bad(mutate)
++ def test_omitted_seed_not_normalised_away(self):
++  def mutate(x):
++   r=next(iter(x[0]['distinctRouteEvidence'].values()));r['strictCapsBySeed'].pop(next(iter(r['strictCapsBySeed'])))
++  self.bad(mutate)
++ def test_nonfinite_never_serialises(self):
++  x=fixture();x[0]['geometryChanges']=float('nan')
++  with self.assertRaises(ValueError):verify(*x)
+ if __name__=='__main__':unittest.main()
+
+--- source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v1_20261012.py
++++ source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012.py
+@@ -4,12 +4,12 @@
+ from run import ROOT,HERE,read,save,digest,connect,reservations
+ import west_wing26195_body0_saved_grade_role_reconciliation_caller_draft_v1_20261012 as R
+ import west_wing26195_body0_source_bound_grade_role_draft_v1_20261012 as H
+-import west_wing26195_verified_body0_candidate_certificate_draft_v1_20261012 as C
++import west_wing26195_verified_body0_candidate_certificate_draft_v2_20261012 as C
+ import west_wing26195_current_typed_visual_surface_roles_draft_v1_20261012 as T
+-BATCH='government-xl-west-wing26195-current-body0-source-bound-candidate-role-v1-20261012';DOC=R.BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=R.BASE/'government-xl-west-wing26195-current-body0-source-bound-candidate-role-proposal-v1-20261012';ROOT_PROPOSAL=R.PROPOSAL;INTERPRETATION=ROOT_PROPOSAL/'ROOT-bounded-source-interpretation-v1.json';ROOT_RECORD=ROOT_PROPOSAL/'ROOT-source-bound-candidate-reconciliation-v1.json';FREEZER=HERE/'west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v1_20261012.py';TEST=HERE/'test_west_wing26195_verified_body0_candidate_certificate_draft_v1_20261012.py';ref=T.ref
++BATCH='government-xl-west-wing26195-current-body0-source-bound-candidate-role-v2-20261012';DOC=R.BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=R.BASE/'government-xl-west-wing26195-current-body0-source-bound-candidate-role-proposal-v2-20261012';ROOT_PROPOSAL=R.PROPOSAL;INTERPRETATION=ROOT_PROPOSAL/'ROOT-bounded-source-interpretation-v1.json';ROOT_RECORD=ROOT_PROPOSAL/'ROOT-source-bound-candidate-reconciliation-v1.json';FREEZER=HERE/'west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v2_20261012.py';TEST=HERE/'test_west_wing26195_verified_body0_candidate_certificate_draft_v2_20261012.py';ref=T.ref
+ INTERPRETATION_SHA='c3c8e843f8b6f328df4ec2aeb6f62dc5c44946c75aaa7562dd245ac0b131921e';ROOT_RECORD_SHA='a57a321c8c7ed4ecefabd86e53bf9d6e3acefd3fc6bb4d44d076650153fdae55'
+ def validation():
+- v=read(PROPOSAL/'test-validation.json');assert v['exactTests']==12 and v['exitCode']==0 and v['noDBQueries']and v['noReservations']and v['noNumericRecomputation'];assert v['codeRefs']==[ref(p)for p in [Path(C.__file__),TEST,Path(__file__),FREEZER]];assert ref(ROOT/v['testLog']['path'])==v['testLog'];s=(ROOT/v['testLog']['path']).read_text();assert 'Ran 12 tests'in s and s.rstrip().endswith('OK');return [ref(PROPOSAL/'test-validation.json')]+v['codeRefs']+[v['testLog'],ref(PROPOSAL/'METHOD.md')]
++ v=read(PROPOSAL/'test-validation.json');assert v['exactTests']==16 and v['exitCode']==0 and v['noDBQueries']and v['noReservations']and v['noNumericRecomputation'];assert v['codeRefs']==[ref(p)for p in [Path(C.__file__),TEST,Path(__file__),FREEZER]];assert ref(ROOT/v['testLog']['path'])==v['testLog'];s=(ROOT/v['testLog']['path']).read_text();assert 'Ran 16 tests'in s and s.rstrip().endswith('OK');return [ref(PROPOSAL/'test-validation.json')]+v['codeRefs']+[v['testLog'],ref(PROPOSAL/'METHOD.md'),ref(R.BASE/'government-xl-west-wing26195-current-body0-source-bound-candidate-role-proposal-v1-20261012/actual-preflight-failure-audit-v1.json')]
+ def inputs():
+  assert ref(INTERPRETATION)['sha256']==INTERPRETATION_SHA and ref(ROOT_RECORD)['sha256']==ROOT_RECORD_SHA
+  data=[];receipts=[]
+
+--- source-scripts/city/government-import/west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v1_20261012.py
++++ source-scripts/city/government-import/west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v2_20261012.py
+@@ -2,7 +2,7 @@
+ import argparse,json
+ from pathlib import Path
+ from run import ROOT,HERE,read,connect,reservations
+-import west_wing26195_current_body0_source_bound_candidate_role_draft_v1_20261012 as P
++import west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012 as P
+ 
+ def main():
+  a=argparse.ArgumentParser();a.add_argument('--lease-file',required=True);a=a.parse_args();valid=P.validation();lease=read(Path(a.lease_file));assert reservations.owns(lease);scope,receipts,certificate=P.inputs();d=read(P.DOC/'diagnostic.json.gz');assert d['sourceOnly']and not d['physicalAccepted']and not d['installationApproved']and d['legacyDeliveryAnd15ReviewsUnchanged']and d['noCompletedNumericArithmeticRerun'];assert d['currentManifest']==scope['currentManifest']and d['allFourStreamBindings']==certificate['allFourStreamBindings'];assert d['body0CandidateRoleCertificate']==certificate and d['completeSourceFaces']==46918 and d['completeSourceBodies']==118 and d['raw42OrdinaryFailuresAnd443StrictWarningsRetained'];assert not any(d[k]for k in ['modelReviewWrites','sourceGeometryChanges','terrainGeometryChanges']);assert not any(certificate[k]for k in ['groundRootAccepted','bodySupportAccepted','physicalAccepted','installationApproved','legacyAcceptanceBackfillAllowed','sourceGeometryChanges'])

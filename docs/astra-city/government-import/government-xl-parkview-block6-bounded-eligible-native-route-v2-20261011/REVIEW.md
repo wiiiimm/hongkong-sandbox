@@ -1,0 +1,9 @@
+# Block 6: bounded original eligible native route
+
+A genuine exposed grade wall **60333** reaches clear cap **58400** through unchanged original faces **60333 → 38937 → 38936 → 54398 → 54397 → 54396 → 54656 → 54655 → 58400**. All eight complete shared edges are strictly exposed. Every intermediate facet has complete exact projection coverage and strictly positive whole finite clearance. Wall 60333 has its own positive exact upper-ground interface and complete vertex-exposure witness. The unchanged whole cap proof is reused; its 440 candidate pairs are not repeated.
+
+The bounded search checked **105 faces and 104 edges**, reusing the first 64-face checkpoint within a 192-face budget. Facet 54320 and partly buried edge 52248–52249 are explicitly excluded. Other new failures remain recorded, including coverage failure 60114 and negative strict-clear bounds on 54551, 60713, 52249 and 60113. Whole native body membership grants no eligibility.
+
+Each whole-edge proof uses the original exact endpoint coordinates and all finite terrain facets whose closed XZ AABB can meet the endpoint box. Only strictly separated closed boxes are excluded, without a tolerance or buffer. Every candidate ID, unmodified subset proof, and complete pinned terrain SHA is recorded. Positive coverage and strictly positive clearance are both required.
+
+This receipt is source-only against the unchanged earlier captured ground stream, not a fresh current Block 6 runtime proof. The successful Block 11 publication receipt is context only. No whole native acceptance, structural root certification, Block 6 current acceptance, installation, source geometry change, or roof role approval is granted. Four unattached roof bodies remain under investigation. Archived owner/contractor photos and original roof context in this directory are context only, not fixture identity or mounting approval.

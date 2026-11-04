@@ -1,0 +1,3 @@
+# Four original source facets: primary TIN comparison
+
+All4 unchanged implicated originalfacets3798/11277/11281/11282 pass complete finite originalgovernmentTIN clearance and exact full projection coverage;17 complete candidate pairs from394774 bound originalfacets. Each exact minimum originalTIN clearance is840597/32768m. Existing current-rendered negative finite pairs against retainedparent25018 remain unchanged. This compares originalTIN only and supplies no whole11351-source guarantee, terrain proposal, nativegrade-cap path, retainedforeign/native obligation discharge, geometry edit, visual/function/root/bridge role approval or currentacceptance.

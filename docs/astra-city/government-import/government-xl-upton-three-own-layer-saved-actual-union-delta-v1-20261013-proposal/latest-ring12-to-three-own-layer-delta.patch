@@ -1,0 +1,59 @@
+--- source-scripts/city/government-import/upton_current_ring12_saved_actual_union_delta_draft_v1_20261013.py
++++ source-scripts/city/government-import/upton_three_own_layer_saved_actual_union_delta_draft_v1_20261013.py
+@@ -1,29 +1,29 @@
+-"""Fresh saved-ring12 delta; exact complete relevant tuples only may reuse proofs."""
++"""Fresh three-own-layer delta against latest ring12 complete finite proof."""
+ from pathlib import Path
+ from fractions import Fraction as F
+ from collections import defaultdict,deque
+ import sys,json,time,uuid,subprocess
+ import numpy as np
+ import upton_v6_saved_actual_union_finite_regression_draft_v3_20261013 as baseline
+-import upton_current_ring12_actual_production_capture_draft_v1_20261013 as capture
+-import upton_scoped_subdivision_saved_actual_union_delta_draft_v1_20261013 as previous_delta
++import upton_three_own_layer_actual_production_capture_draft_v1_20261013 as capture
++import upton_current_ring12_saved_actual_union_delta_draft_v1_20261013 as previous_delta
+ from run import ROOT,HERE,read,save,connect,reservations
+ ref,check=baseline.ref,baseline.check
+ sha,triangles,finite_record,closed_face_scope=baseline.sha,baseline.triangles,baseline.finite_record,baseline.closed_face_scope
+-BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-current-ring12-saved-actual-union-delta-v1-20261013'
++BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-three-own-layer-saved-actual-union-delta-v1-20261013'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+-GROUND_SHA='49188567c55f7903d96a8a82e246d7fef436d3b9569858eb3eed45944bda7258'
+-CAP_JOB='8054682423db19952e6f6de614c792245a43a601ae363b3055d0e42100a1f06d'
+-OLD_JOB='d5ede71c98345b8d3e767d6ac428c29480e20e61b664b8ca01ca8a65577c1e6a'
++GROUND_SHA='a663fea6dcbd7a83086861462c2c1ed89161205dc866ddf496a4052cba93625f'
++CAP_JOB='e75d2f586b7a86fa6b4094fbfb53d70951b45c3f9420bcad0abd228b7111bbd2'
++OLD_JOB='c6b49de5e64e0033b086b80f97c92047db802ff0e46446e7777b65274eb78583'
+ def inputs():
+  pins=read(PROPOSAL/'draft-pins.json');assert pins['caller']==ref(Path(__file__))
+  for q in pins['codeRefs']+pins['inputRefs']:check(q)
+  _,before,_,_,attrs,scope,actors=previous_delta.inputs() # Latest completed delta: saved array/schema checks, no finite/source decoding.
+- previous=read(previous_delta.DOC/'complete-actual-union-finite-delta.json.gz');assert previous['newGroundSHA256']==sha(before)==previous_delta.GROUND_SHA and previous['completeNewDrawnFaces']==11604
++ previous=read(previous_delta.DOC/'complete-actual-union-finite-delta.json.gz');assert previous['newGroundSHA256']==sha(before)==previous_delta.GROUND_SHA and previous['completeNewDrawnFaces']==11605
+  assert previous['same6650WholeScope']==ref(baseline.V6/'complete-affected-scope.json.gz')and previous['secondaryHeldAsForeignReceivesNoSupportCredit']and not previous['physicalAccepted']and not previous['installationApproved']
+  check(previous['allZerosAnd23CrossingsRetained'])
+  replay=read(capture.DOC/'actual-production-replay.json.gz');ground=triangles(np.asarray(replay['after']['closedDomainDrawnTriplets'],dtype='<f8').reshape(-1,3,3))
+- assert len(ground)==11605 and sha(ground)==GROUND_SHA and replay['startEndAllInputsVerified']and replay['currentExteriorXYZOrderedHashMatched']and replay['currentManifestSHA256']==baseline.CURRENT
++ assert len(ground)==11608 and sha(ground)==GROUND_SHA and replay['startEndAllInputsVerified']and replay['currentExteriorXYZOrderedHashMatched']and replay['currentManifestSHA256']==baseline.CURRENT
+  for p,h in replay['inputHashes'].items():check(dict(path=p,sha256=h))
+  assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==baseline.CURRENT
+  assert [r['uid']for r in previous['actors']]==baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE]and len(previous['completeBasicRows'])==1911
+@@ -109,14 +109,14 @@
+  refs+=[ref(p)for p in DOC.rglob('*')if p.is_file()]
+  for q in refs:check(q);pulse()
+  assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==baseline.CURRENT;pulse(True)
+- baseline.module(baseline.FREEZER,'upton_ring12_finite_delta_freezer').freeze(BATCH,'current-ring12-saved-actual-union-finite-regression-only',[check(q)for q in{(q['path'],q['sha256']):q for q in refs}.values()],dict(uids=baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE],sourceOnly=True,physicalAccepted=False,newlyInstalled=0))
++ baseline.module(baseline.FREEZER,'upton_three_own_layer_finite_delta_freezer').freeze(BATCH,'three-own-layer-saved-actual-union-finite-regression-only',[check(q)for q in{(q['path'],q['sha256']):q for q in refs}.values()],dict(uids=baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE],sourceOnly=True,physicalAccepted=False,newlyInstalled=0))
+ def main():
+  if '--schema-only'in sys.argv:print(json.dumps(schema_only(),sort_keys=True));return
+  if '--owned'in sys.argv:return owned()
+- assert '--check-saved-current-ring12-actual-union-delta-only'in sys.argv and not DOC.exists()and not LOCAL.exists()
++ assert '--check-saved-three-own-layer-actual-union-delta-only'in sys.argv and not DOC.exists()and not LOCAL.exists()
+  inputs();prep=read(PROPOSAL/'actual-readonly-preparation.json');assert prep['passed']and prep['caller']==ref(Path(__file__))
+  uids=baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE,baseline.FOREIGN];resources=['building:'+u for u in uids]+['terrain-patch:'+u for u in uids]+['immutable-source-proof:'+BATCH]
+- claim=reservations.claim('upton-ring12-union-delta-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation']
++ claim=reservations.claim('upton-three-own-layer-union-delta-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation']
+  try:
+   save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  finally:

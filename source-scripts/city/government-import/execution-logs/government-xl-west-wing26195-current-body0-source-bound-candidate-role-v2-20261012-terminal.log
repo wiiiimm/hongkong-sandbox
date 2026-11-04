@@ -1,0 +1,35 @@
+{"body0SourceRoleCandidateQualified": true, "gradeRootAccepted": false, "remainingBodyObligations": 117, "physicalAccepted": false}
+{'batch': 'government-xl-west-wing26195-current-body0-source-bound-candidate-role-v2-20261012', 'jobId': '039aa8ed90b792aad9ed3fb51c408a2e87519e2cea7e06cb1b3960c9df268cef', 'neonVerified': True}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v2_20261012.py", line 18, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v2_20261012.py", line 16, in main
+    for e in result['evidenceRefs']:assert P.ref(ROOT/e['path'])==e
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012.py", line 47, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012.py", line 46, in main
+    print(json.dumps(dict(body0SourceRoleCandidateQualified=True,gradeRootAccepted=False,remainingBodyObligations=117,physicalAccepted=False)),flush=True);subprocess.run([sys.executable,str(FREEZER),'--lease-file',str(LOCAL/'reservation.json')],cwd=ROOT,check=True)
+                                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_freeze_current_body0_source_bound_candidate_role_draft_v2_20261012.py', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-west-wing26195-current-body0-source-bound-candidate-role-v2-20261012/reservation.json']' returned non-zero exit status 1.
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012.py", line 47, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012.py", line 42, in main
+    c=reservations.claim('westwing-body0-candidate-role-'+str(uuid.uuid4()),scope['canonicalReservationResources'],batch=BATCH,ttl=1800);assert c['ok'],c;save(LOCAL/'reservation.json',json.loads(json.dumps(c['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True);return
+                                                                                                                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-west-wing26195-current-body0-source-bound-candidate-role-v2-20261012/reservation.json', '--ttl', '1800', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012.py', '--owned']' returned non-zero exit status 1.

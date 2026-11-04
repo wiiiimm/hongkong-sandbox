@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-mei-choi-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Mei Choi House original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-mei-choi-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-264691-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-mei-choi-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "e07422e0bd4242730ddf1b17c7cfa61e06f513dbbbd70d24ae8fa2eac1f10364"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-264691-0.json": "3d64540c258464a192e957a91f0d188fbfa68fe18e862d3c0f5908a745bcf7ab",
+    "3d-viewer/city/data/official-models/government-xl-mei-choi-20260914/catalogue.json": "2afe2b01bc2207d1819cf3c73c8738ebb605655b9c3c1328266b71a66cf9d154",
+    "3d-viewer/city/data/manifest.json": "cb54f82936e66448787b2fbdcf1009d8575999d1056845daae4aa22a1528f950"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "0f4a6d57198e12490bc64c650f9db98c0006f271",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-264691-0.json",
+      "resolution": 5,
+      "area": "Mei Choi House bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "7072e6dddf07a1ca6ab418b971c2a216049c0cad729211643d5d6a7d11fbb729",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "sheet": "11-NW-14A",
+            "sourceETag": "\"3b11558-63dcdcbc0b3e9\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14A/terrain/TERRAIN(TB)/T34500210000106E12/T34500210000106E12.bin",
+                "sha256": "5d8358142e5f10370acfaa7a9a5f80139acee90e88dd3a50331200e97f8e68e0"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14A/terrain/TERRAIN(TB)/T34500210000106E12/T34500210000106E12.gltf",
+                "sha256": "951ea187c95eae0086b4edbfc25ddc7d01704d3360476e63cd1beb630af736ac"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "3d64540c258464a192e957a91f0d188fbfa68fe18e862d3c0f5908a745bcf7ab",
+      "bytes": 570448
+    }
+  ],
+  "estimatedBases": []
+}

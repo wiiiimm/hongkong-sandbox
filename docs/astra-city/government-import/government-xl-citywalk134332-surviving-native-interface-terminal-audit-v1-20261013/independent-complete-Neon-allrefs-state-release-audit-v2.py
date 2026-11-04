@@ -1,0 +1,22 @@
+import pathlib,sys,json,subprocess,os,gzip
+ROOT=pathlib.Path.cwd();HERE=ROOT/'source-scripts/city/government-import';A=ROOT/'docs/astra-city/government-import/government-xl-citywalk134332-surviving-native-interface-terminal-audit-v1-20261013';sys.path.insert(0,str(HERE))
+import citywalk134332_surviving_native_supervised_draft_v1_20261013 as W
+from types import SimpleNamespace
+D=W.Q.D;result=W.read(D/'result.json');before=W.read(W.LOCAL/'protected-state-before.json');lease=W.read(W.LEASE)
+for e in result['evidenceRefs']:assert W.ref(ROOT/e['path'])==e
+with W.connect()as c:
+ c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result);groups=[r[0]for r in c.execute('SELECT row_to_json(g) FROM astra_modelling.reservation_groups g WHERE batch=%s ORDER BY token',(W.BATCH,)).fetchall()]
+assert len(groups)==2 and all(g['released_at']is not None for g in groups);assert {len(g['resources'])for g in groups}=={1,21};assert any(g['token']==lease['token']and g['owner']==lease['owner']for g in groups);assert not W.reservations.owns(lease)
+a=SimpleNamespace(expected_manifest='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7');after=W.inputs(a);assert after==before and after['observedProtectedReviewRecords']==1704
+ps=subprocess.run(['ps','-eo','pid,ppid,args'],capture_output=True,text=True,check=True).stdout;names=['citywalk134332_surviving_native_supervised_draft_v1_20261013.py','citywalk134332_surviving_native_finite_interface_draft_v1_20261013.py','citywalk134332_actual_surviving_native_attributes_draft_v1_20261013.mjs','citywalk134332_freeze_surviving_native_interfaces_draft_v1_20261013.py'];survivors=[]
+for cmdline in pathlib.Path('/proc').glob('[0-9]*/cmdline'):
+ try:args=cmdline.read_bytes().decode(errors='replace').split(chr(0))
+ except (FileNotFoundError,ProcessLookupError,PermissionError):continue
+ if any(pathlib.Path(arg).name in names for arg in args if arg):survivors.append(dict(pid=int(cmdline.parent.name),args=args))
+assert not survivors,survivors
+for pid in [272601,272608,273086,273478,274264,275453]:assert not pathlib.Path('/proc/'+str(pid)).exists(),pid
+numeric=W.read(D/'diagnostic.json.gz');assert len(numeric['bindings'])==48;assert len(numeric['proofs'])==27;assert all(p['exactPairsTested']==0 and p['contacts']==[]and p['allCompleteFiniteFacesAccounted']for p in numeric['proofs'].values())
+actual=W.read(D/'actual-attributes.json.gz');closure=W.read(W.CLOSURE_OUTPUT)
+for path,h in actual['inputHashes'].items():assert W.ref(ROOT/path)['sha256']==h
+for path,h in closure['inputHashes'].items():assert W.ref(ROOT/path)['sha256']==h
+out=A/'independent-complete-Neon-allrefs-state-release-audit-v2.json';W.save(out,dict(jobId=result['jobId'],result=W.ref(D/'result.json'),completePinnedNeonExact=True,allLiteralRefsVerified=len(result['evidenceRefs']),sameAuthoritativePTY=13672,actualTerminalExitCode=0,originalWorkerCompletedNaturally=True,noStopOrReplacement=True,currentProtectedUIDCount=19,currentProtectedReviewRows=1704,currentNativeEntries=6650,currentBeforeAfterExact=True,currentManifest=after['currentManifest'],currentSourcePointer=after['sourcePointer'],reservationGroups=groups,allTwoGroupsReleased=True,ownsAfterRelease=False,knownExecutionPIDs=[272601,272608,273086,273478,274264,275453],noExecutionPIDsRemain=True,exactArgvTokenMatchNotSubstring=True,ancillarySubstringAuditFailurePreserved=True,completeSourceFaces=41277,completeOriginalBodies=193,bindings=48,distinctWholeTupleProofs=27,allExactPairsTested=0,allFiniteContacts=0,sourceOnly=True,physicalAccepted=False,installationApproved=False,evidenceRefs=[W.ref(D/'result.json'),W.ref(D/'diagnostic.json.gz'),W.ref(A/'actual-full-supervised-terminal-v1.log'),W.ref(pathlib.Path(__file__)),W.ref(W.LOCAL/'protected-state-before.json'),W.ref(W.LOCAL/'immutable-lease-at-start.json'),W.ref(W.CLOSURE_OUTPUT),W.ref(A/'actual-independent-PID-substring-audit-failure-v1.log'),W.ref(A/'independent-complete-Neon-allrefs-state-release-audit-v1.py')]));print(json.dumps(dict(jobId=result['jobId'],resultSHA256=W.ref(D/'result.json')['sha256'],audit=W.ref(out),refs=len(result['evidenceRefs']),all27ProofsZeroContacts=True,releasedGroups=2,noPIDs=True)),flush=True)

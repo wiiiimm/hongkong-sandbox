@@ -1,0 +1,1064 @@
+{
+  "result": "passed",
+  "testedAt": "2026-09-06T08:58:38.670Z",
+  "checks": [
+    "manual −1..4 m alters the rendered shoreline; low water stays above the −4 m seabed and ferries follow the surface",
+    "high-tide walking arrival stays within the 20 cm shallow-wading limit and outside buildings",
+    "live hourly prediction uses three HKT dates, correct CD→HKPD conversion, graph, source labels and station switching",
+    "Stargaze suspends water effects and manual tide restores unchanged after live mode",
+    "wind-driven waves animate, and Reduced Motion freezes their movement",
+    "tide controls fit 390 px and 320 px layouts"
+  ],
+  "snapshots": {
+    "initial": {
+      "tides": {
+        "mode": "manual",
+        "status": "idle",
+        "station": {
+          "code": "CCH",
+          "name": "Cheung Chau",
+          "zh": "長洲",
+          "lat": 22.214166666666667,
+          "lon": 114.02305555555556,
+          "source": "https://www.hko.gov.hk/tc/tide/tide_tables/2022/files/TideTable2022.pdf"
+        },
+        "manualLevelHKPD": 0.3,
+        "restingLevelHKPD": 0.3,
+        "basis": "manual",
+        "prediction": null,
+        "error": null,
+        "paused": false,
+        "suspended": false,
+        "datum": "HKPD",
+        "predictionKind": "astronomical",
+        "datumOffsetMetres": -0.146
+      },
+      "water": {
+        "restingLevelHKPD": 0.3,
+        "renderedLevelHKPD": 0.3,
+        "waveOffset": 0,
+        "shaderTime": 0,
+        "wavePhase": 0,
+        "waveStrength": 0.18,
+        "waveNormalAmplitude": 0.070952,
+        "rainSpark": 0,
+        "glint": 0.6040000000000001,
+        "paused": false,
+        "reducedMotion": true,
+        "suspended": false,
+        "approximateWaves": true,
+        "shorelineMaterials": 26,
+        "wetBandMetres": 0.6,
+        "foamStrength": 0.23724
+      }
+    },
+    "performance": {
+      "frames": 180,
+      "medianFrameMs": 16.699999999999818,
+      "p95FrameMs": 16.799999999999727,
+      "render": {
+        "calls": 91,
+        "triangles": 2378853
+      },
+      "camera": [
+        -15540.400000000001,
+        939.9999999999998,
+        3397.2000000000016
+      ]
+    },
+    "manualHigh": {
+      "water": {
+        "restingLevelHKPD": 4,
+        "renderedLevelHKPD": 4,
+        "waveOffset": 0,
+        "shaderTime": 0,
+        "wavePhase": 0,
+        "waveStrength": 0,
+        "waveNormalAmplitude": 0.05,
+        "rainSpark": 0,
+        "glint": 0.6040000000000001,
+        "paused": false,
+        "reducedMotion": true,
+        "suspended": false,
+        "approximateWaves": true,
+        "shorelineMaterials": 26,
+        "wetBandMetres": 0.6,
+        "foamStrength": 0.18
+      },
+      "ferries": [
+        {
+          "waterline": 4
+        },
+        {
+          "waterline": 4
+        },
+        {
+          "waterline": 4
+        }
+      ],
+      "changedCanvasPixels": 84535
+    },
+    "walk": {
+      "position": [
+        -16549.7,
+        3.833384535667008,
+        2284.598076211353
+      ],
+      "camera": [
+        -15540.400000000001,
+        939.9999999999998,
+        3397.2000000000016
+      ],
+      "water": {
+        "restingLevelHKPD": 4,
+        "renderedLevelHKPD": 4,
+        "waveOffset": 0,
+        "shaderTime": 0,
+        "wavePhase": 0,
+        "waveStrength": 0,
+        "waveNormalAmplitude": 0.05,
+        "rainSpark": 0,
+        "glint": 0.6040000000000001,
+        "paused": false,
+        "reducedMotion": true,
+        "suspended": false,
+        "approximateWaves": true,
+        "shorelineMaterials": 26,
+        "wetBandMetres": 0.6,
+        "foamStrength": 0.18
+      }
+    },
+    "liveCheungChau": {
+      "mode": "live",
+      "status": "live",
+      "station": {
+        "code": "CCH",
+        "name": "Cheung Chau",
+        "zh": "長洲",
+        "lat": 22.214166666666667,
+        "lon": 114.02305555555556,
+        "source": "https://www.hko.gov.hk/tc/tide/tide_tables/2022/files/TideTable2022.pdf"
+      },
+      "manualLevelHKPD": 0.65,
+      "restingLevelHKPD": 1.9893077611111112,
+      "basis": "prediction",
+      "prediction": {
+        "station": {
+          "code": "CCH",
+          "name": "Cheung Chau",
+          "zh": "長洲",
+          "lat": 22.214166666666667,
+          "lon": 114.02305555555556,
+          "source": "https://www.hko.gov.hk/tc/tide/tide_tables/2022/files/TideTable2022.pdf"
+        },
+        "sourceUrls": [
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=5",
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=6",
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=7"
+        ],
+        "fetchedAt": "2026-09-06T08:58:36.922Z",
+        "checkedAt": "2026-09-06T08:58:36.922Z",
+        "sourceFetches": [
+          {
+            "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=5",
+            "fetchedAt": "2026-09-06T08:58:36.922Z",
+            "cached": false
+          },
+          {
+            "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=6",
+            "fetchedAt": "2026-09-06T08:58:36.922Z",
+            "cached": false
+          },
+          {
+            "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=7",
+            "fetchedAt": "2026-09-06T08:58:36.922Z",
+            "cached": false
+          }
+        ],
+        "source": "Hong Kong Observatory",
+        "datumSource": "https://www.hko.gov.hk/en/tide/enotes.htm",
+        "partial": false,
+        "time": 1788685116922,
+        "heightCD": 2.135307761111111,
+        "heightHKPD": 1.9893077611111112,
+        "trend": "falling",
+        "series": [
+          {
+            "time": 1788541200000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788544800000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788548400000,
+            "heightCD": 2.45,
+            "heightHKPD": 2.3040000000000003
+          },
+          {
+            "time": 1788552000000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788555600000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788559200000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788562800000,
+            "heightCD": 1.48,
+            "heightHKPD": 1.334
+          },
+          {
+            "time": 1788566400000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788570000000,
+            "heightCD": 1.15,
+            "heightHKPD": 1.004
+          },
+          {
+            "time": 1788573600000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788577200000,
+            "heightCD": 1.47,
+            "heightHKPD": 1.324
+          },
+          {
+            "time": 1788580800000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788584400000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788588000000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788591600000,
+            "heightCD": 2.45,
+            "heightHKPD": 2.3040000000000003
+          },
+          {
+            "time": 1788595200000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788598800000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788602400000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788606000000,
+            "heightCD": 1.48,
+            "heightHKPD": 1.334
+          },
+          {
+            "time": 1788609600000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788613200000,
+            "heightCD": 1.15,
+            "heightHKPD": 1.004
+          },
+          {
+            "time": 1788616800000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788620400000,
+            "heightCD": 1.47,
+            "heightHKPD": 1.324
+          },
+          {
+            "time": 1788624000000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788627600000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788631200000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788634800000,
+            "heightCD": 2.45,
+            "heightHKPD": 2.3040000000000003
+          },
+          {
+            "time": 1788638400000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788642000000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788645600000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788649200000,
+            "heightCD": 1.48,
+            "heightHKPD": 1.334
+          },
+          {
+            "time": 1788652800000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788656400000,
+            "heightCD": 1.15,
+            "heightHKPD": 1.004
+          },
+          {
+            "time": 1788660000000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788663600000,
+            "heightCD": 1.47,
+            "heightHKPD": 1.324
+          },
+          {
+            "time": 1788667200000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788670800000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788674400000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788678000000,
+            "heightCD": 2.45,
+            "heightHKPD": 2.3040000000000003
+          },
+          {
+            "time": 1788681600000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788685200000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788688800000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788692400000,
+            "heightCD": 1.48,
+            "heightHKPD": 1.334
+          },
+          {
+            "time": 1788696000000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788699600000,
+            "heightCD": 1.15,
+            "heightHKPD": 1.004
+          },
+          {
+            "time": 1788703200000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788706800000,
+            "heightCD": 1.47,
+            "heightHKPD": 1.324
+          },
+          {
+            "time": 1788710400000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788714000000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788717600000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788721200000,
+            "heightCD": 2.45,
+            "heightHKPD": 2.3040000000000003
+          },
+          {
+            "time": 1788724800000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788728400000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788732000000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788735600000,
+            "heightCD": 1.48,
+            "heightHKPD": 1.334
+          },
+          {
+            "time": 1788739200000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788742800000,
+            "heightCD": 1.15,
+            "heightHKPD": 1.004
+          },
+          {
+            "time": 1788746400000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788750000000,
+            "heightCD": 1.47,
+            "heightHKPD": 1.324
+          },
+          {
+            "time": 1788753600000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788757200000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788760800000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788764400000,
+            "heightCD": 2.45,
+            "heightHKPD": 2.3040000000000003
+          },
+          {
+            "time": 1788768000000,
+            "heightCD": 2.36,
+            "heightHKPD": 2.214
+          },
+          {
+            "time": 1788771600000,
+            "heightCD": 2.13,
+            "heightHKPD": 1.984
+          },
+          {
+            "time": 1788775200000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          },
+          {
+            "time": 1788778800000,
+            "heightCD": 1.48,
+            "heightHKPD": 1.334
+          },
+          {
+            "time": 1788782400000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788786000000,
+            "heightCD": 1.15,
+            "heightHKPD": 1.004
+          },
+          {
+            "time": 1788789600000,
+            "heightCD": 1.24,
+            "heightHKPD": 1.094
+          },
+          {
+            "time": 1788793200000,
+            "heightCD": 1.47,
+            "heightHKPD": 1.324
+          },
+          {
+            "time": 1788796800000,
+            "heightCD": 1.8,
+            "heightHKPD": 1.6540000000000001
+          }
+        ]
+      },
+      "error": null,
+      "paused": false,
+      "suspended": false,
+      "datum": "HKPD",
+      "predictionKind": "astronomical",
+      "datumOffsetMetres": -0.146
+    },
+    "liveQuarryBay": {
+      "mode": "live",
+      "status": "live",
+      "station": {
+        "code": "QUB",
+        "name": "Quarry Bay",
+        "zh": "鰂魚涌",
+        "lat": 22.291111111111114,
+        "lon": 114.21333333333334,
+        "source": "https://www.hko.gov.hk/en/cis/stn.htm"
+      },
+      "manualLevelHKPD": 0.65,
+      "restingLevelHKPD": 2.1892903833333337,
+      "basis": "prediction",
+      "prediction": {
+        "station": {
+          "code": "QUB",
+          "name": "Quarry Bay",
+          "zh": "鰂魚涌",
+          "lat": 22.291111111111114,
+          "lon": 114.21333333333334,
+          "source": "https://www.hko.gov.hk/en/cis/stn.htm"
+        },
+        "sourceUrls": [
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=5",
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=6",
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=7"
+        ],
+        "fetchedAt": "2026-09-06T08:58:37.194Z",
+        "checkedAt": "2026-09-06T08:58:37.194Z",
+        "sourceFetches": [
+          {
+            "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=5",
+            "fetchedAt": "2026-09-06T08:58:37.194Z",
+            "cached": false
+          },
+          {
+            "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=6",
+            "fetchedAt": "2026-09-06T08:58:37.194Z",
+            "cached": false
+          },
+          {
+            "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=7",
+            "fetchedAt": "2026-09-06T08:58:37.194Z",
+            "cached": false
+          }
+        ],
+        "source": "Hong Kong Observatory",
+        "datumSource": "https://www.hko.gov.hk/en/tide/enotes.htm",
+        "partial": false,
+        "time": 1788685117194,
+        "heightCD": 2.3352903833333336,
+        "heightHKPD": 2.1892903833333337,
+        "trend": "falling",
+        "series": [
+          {
+            "time": 1788541200000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788544800000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788548400000,
+            "heightCD": 2.65,
+            "heightHKPD": 2.504
+          },
+          {
+            "time": 1788552000000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788555600000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788559200000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788562800000,
+            "heightCD": 1.68,
+            "heightHKPD": 1.534
+          },
+          {
+            "time": 1788566400000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788570000000,
+            "heightCD": 1.35,
+            "heightHKPD": 1.2040000000000002
+          },
+          {
+            "time": 1788573600000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788577200000,
+            "heightCD": 1.67,
+            "heightHKPD": 1.524
+          },
+          {
+            "time": 1788580800000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788584400000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788588000000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788591600000,
+            "heightCD": 2.65,
+            "heightHKPD": 2.504
+          },
+          {
+            "time": 1788595200000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788598800000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788602400000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788606000000,
+            "heightCD": 1.68,
+            "heightHKPD": 1.534
+          },
+          {
+            "time": 1788609600000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788613200000,
+            "heightCD": 1.35,
+            "heightHKPD": 1.2040000000000002
+          },
+          {
+            "time": 1788616800000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788620400000,
+            "heightCD": 1.67,
+            "heightHKPD": 1.524
+          },
+          {
+            "time": 1788624000000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788627600000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788631200000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788634800000,
+            "heightCD": 2.65,
+            "heightHKPD": 2.504
+          },
+          {
+            "time": 1788638400000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788642000000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788645600000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788649200000,
+            "heightCD": 1.68,
+            "heightHKPD": 1.534
+          },
+          {
+            "time": 1788652800000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788656400000,
+            "heightCD": 1.35,
+            "heightHKPD": 1.2040000000000002
+          },
+          {
+            "time": 1788660000000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788663600000,
+            "heightCD": 1.67,
+            "heightHKPD": 1.524
+          },
+          {
+            "time": 1788667200000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788670800000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788674400000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788678000000,
+            "heightCD": 2.65,
+            "heightHKPD": 2.504
+          },
+          {
+            "time": 1788681600000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788685200000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788688800000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788692400000,
+            "heightCD": 1.68,
+            "heightHKPD": 1.534
+          },
+          {
+            "time": 1788696000000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788699600000,
+            "heightCD": 1.35,
+            "heightHKPD": 1.2040000000000002
+          },
+          {
+            "time": 1788703200000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788706800000,
+            "heightCD": 1.67,
+            "heightHKPD": 1.524
+          },
+          {
+            "time": 1788710400000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788714000000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788717600000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788721200000,
+            "heightCD": 2.65,
+            "heightHKPD": 2.504
+          },
+          {
+            "time": 1788724800000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788728400000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788732000000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788735600000,
+            "heightCD": 1.68,
+            "heightHKPD": 1.534
+          },
+          {
+            "time": 1788739200000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788742800000,
+            "heightCD": 1.35,
+            "heightHKPD": 1.2040000000000002
+          },
+          {
+            "time": 1788746400000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788750000000,
+            "heightCD": 1.67,
+            "heightHKPD": 1.524
+          },
+          {
+            "time": 1788753600000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788757200000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788760800000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788764400000,
+            "heightCD": 2.65,
+            "heightHKPD": 2.504
+          },
+          {
+            "time": 1788768000000,
+            "heightCD": 2.56,
+            "heightHKPD": 2.414
+          },
+          {
+            "time": 1788771600000,
+            "heightCD": 2.33,
+            "heightHKPD": 2.184
+          },
+          {
+            "time": 1788775200000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          },
+          {
+            "time": 1788778800000,
+            "heightCD": 1.68,
+            "heightHKPD": 1.534
+          },
+          {
+            "time": 1788782400000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788786000000,
+            "heightCD": 1.35,
+            "heightHKPD": 1.2040000000000002
+          },
+          {
+            "time": 1788789600000,
+            "heightCD": 1.44,
+            "heightHKPD": 1.294
+          },
+          {
+            "time": 1788793200000,
+            "heightCD": 1.67,
+            "heightHKPD": 1.524
+          },
+          {
+            "time": 1788796800000,
+            "heightCD": 2,
+            "heightHKPD": 1.854
+          }
+        ]
+      },
+      "error": null,
+      "paused": false,
+      "suspended": false,
+      "datum": "HKPD",
+      "predictionKind": "astronomical",
+      "datumOffsetMetres": -0.146
+    },
+    "waves": {
+      "first": {
+        "restingLevelHKPD": 0.65,
+        "renderedLevelHKPD": 0.7233549950681921,
+        "waveOffset": 0.07335499506819204,
+        "shaderTime": 0.909854400000001,
+        "wavePhase": 2.6620740000000014,
+        "waveStrength": 1,
+        "waveNormalAmplitude": 0.327,
+        "rainSpark": 0,
+        "glint": 0.9325000000000001,
+        "paused": false,
+        "reducedMotion": false,
+        "suspended": false,
+        "approximateWaves": true,
+        "shorelineMaterials": 26,
+        "wetBandMetres": 0.6,
+        "foamStrength": 0.79
+      },
+      "second": {
+        "restingLevelHKPD": 0.65,
+        "renderedLevelHKPD": 0.536108743937716,
+        "waveOffset": -0.11389125606228405,
+        "shaderTime": 1.346654400000001,
+        "wavePhase": 3.940074,
+        "waveStrength": 1,
+        "waveNormalAmplitude": 0.327,
+        "rainSpark": 0,
+        "glint": 0.9325000000000001,
+        "paused": false,
+        "reducedMotion": false,
+        "suspended": false,
+        "approximateWaves": true,
+        "shorelineMaterials": 26,
+        "wetBandMetres": 0.6,
+        "foamStrength": 0.79
+      }
+    },
+    "mobile390": {
+      "width": 390,
+      "document": 390,
+      "panel": 273,
+      "scroll": 273
+    },
+    "mobile320": {
+      "width": 320,
+      "document": 320,
+      "panel": 273,
+      "scroll": 273
+    }
+  },
+  "requests": [
+    {
+      "station": "CCH",
+      "date": "2026-09-05",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=5"
+    },
+    {
+      "station": "CCH",
+      "date": "2026-09-06",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=6"
+    },
+    {
+      "station": "CCH",
+      "date": "2026-09-07",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=7"
+    },
+    {
+      "station": "QUB",
+      "date": "2026-09-05",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=5"
+    },
+    {
+      "station": "QUB",
+      "date": "2026-09-06",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=6"
+    },
+    {
+      "station": "QUB",
+      "date": "2026-09-07",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=QUB&year=2026&month=9&day=7"
+    }
+  ],
+  "errors": [],
+  "browser": "152.0.7977.76"
+}

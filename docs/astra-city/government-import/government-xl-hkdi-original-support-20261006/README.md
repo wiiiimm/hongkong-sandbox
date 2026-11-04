@@ -1,0 +1,3 @@
+# HKDI exact installed source support check
+
+Produced by Codex, 6 October 2026. Verified Neon job `590037ae21cd10bba1708e093597517f6d1dedebcef27f371c4fed24c73dac65`. Original Campus Blocks A 88343 and B 89613 are checked against already installed original campus source 22089. All three original meshes reuse exact local bytes, with zero downloads or geometry edits. The existing support has 6 and 50 unresolved original interface samples respectively; it is not enough to clear physical acceptance. Both remain technical holds. No installation credit or AI modelling calls. Exact hashes, prior installed identity reuse and all failed samples are preserved in the receipts. No historical Lantau imagery used.

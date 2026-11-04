@@ -1,0 +1,14 @@
+--- before/caller.py
++++ after/caller.py
+@@ -28,6 +28,11 @@
+  assert digest((ROOT/'3d-viewer/city/data/manifest.json').read_bytes())==MANIFEST
+  cat=read(ROOT/'3d-viewer/city/data/official-models/support-review-20260909/catalogue.json');assert [x for x in cat['models']if x['uid']==T]==[o['completeInstalledTower3EntryVerbatim']]
+  refs=[Path(__file__),METHOD,PRIOR/'result.json',PRIOR/'context.json.gz',HERE/'run.py',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py',HERE/'popcorn_original_ancillary_identity_20261009.py']+[HERE.parent/'shared-modelling'/x for x in ['db.py','jobs.py','reservations.py','reservation_runner.py']]
++ correction=METHOD.parent
++ refs.extend(correction/'offline-root-schema-validation-v1'/x for x in ['validation.json','preflight.log','caller.diff','method.diff'])
++ refs.extend(correction/'before-root-schema-correction-v1'/x for x in [Path(__file__).name,'METHOD.md'])
++ refs.extend(correction/'before-evidence-reference-correction-v1'/x for x in [Path(__file__).name,'METHOD.md'])
++ refs.append(correction/'offline-validation-bound-code-archive.json')
+  for pin in r['evidenceRefs']:
+   p=ROOT/pin['path'];assert digest(p.read_bytes())==pin['sha256'];refs.append(p)
+  packet=read(PRIMARY/'packet-file-bindings.json');refs.append(PRIMARY/'packet-file-bindings.json')

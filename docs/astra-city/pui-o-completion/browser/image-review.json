@@ -1,0 +1,59 @@
+{
+  "reviewedUTC": "2026-09-06T20:30:18.268148+00:00",
+  "executor": "Astra geography agent",
+  "method": "Opened and visually inspected the actual exported PNGs at native dimensions with view_image. The browser checks are recorded separately.",
+  "files": [
+    {
+      "file": "village-overview-day-1440x1000.png",
+      "sha256": "20bc0e096148e438abb4ebe4946d5efcc3a15606743e8fd51d658b6460a41031"
+    },
+    {
+      "file": "village-overview-night-1440x1000.png",
+      "sha256": "c896ff1b39f75be12481ffa8148b56a9c004a515511bf49392c68813c802a4bb"
+    },
+    {
+      "file": "west-village-source-1440x1000.png",
+      "sha256": "b3f64c9c1943682b9e04437028162de68593a1c4150980d684640ec6c7d17717"
+    },
+    {
+      "file": "beach-day-1440x1000.png",
+      "sha256": "6e025a84e81ce8029855823a126f5b5bc0d573ee0a87d730b552f99d12804107"
+    },
+    {
+      "file": "village-mobile-source-night-390x844.png",
+      "sha256": "a794abbf1431dcc7384f0cbea8884eb3ad5a80bdc86cb8e98c8ea3c371a7ff8e"
+    },
+    {
+      "file": "village-mobile-clean-day-390x844.png",
+      "sha256": "572bac61117296ae739bed59c89f761787777d7e9766549dc843d775017bc06d"
+    },
+    {
+      "file": "village-mobile-clean-night-390x844.png",
+      "sha256": "1cf756f5befb9d4e8554ac52024109d9597876f88938ce7c7277b45d6c008c54"
+    },
+    {
+      "file": "time-controls-mobile-390x844.png",
+      "sha256": "1edecc052d079386b51d7a97f522004b51b6fe13d715ef65cf3fbaf2e0ccaff4"
+    },
+    {
+      "file": "failed-model-visible-fallback-1440x1000.png",
+      "sha256": "94596ac81ec56acb09e451e826079667c7c0a9ada03334e12595c6a58d757431"
+    },
+    {
+      "file": "failed-model-recovered-1440x1000.png",
+      "sha256": "5a1bfb24b07fb7f5248998cbf58c73e43b661ed92a2f6eeec5d87cc2d5db2f34"
+    }
+  ],
+  "observations": [
+    "Source roof setbacks, parapets and terraces are visibly distinct from the ordinary extrusion fallback.",
+    "Failed-model screenshot retains the pickable outline, shows Retry, and the recovered screenshot shows detailed roof geometry plus the official source description.",
+    "390 px day/night scene exports keep the selected-building card closed; the separate source-card export remains readable. Time controls fit the viewport.",
+    "Night window patterns/material appearance remain illustrative.",
+    "Beach geometry is present, but the inherited stepped grid shoreline and coarse surrounding land-use surface styling remain apparent; these are not claimed complete."
+  ],
+  "remainingLimits": [
+    "Present wetland inundation/shoreline geometry is not inferred from the model terrain.",
+    "The inland village-to-beach shared-road connection remains under review.",
+    "Two unmodelled matching-buffer roof conflicts lie beyond the four current TIN sheets."
+  ]
+}

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_upward_floor_terrain_return_v6_20261101.py", line 88, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_upward_floor_terrain_return_v6_20261101.py", line 44, in main
+    after,proof=inset_faces(terrain,source);assert len(after)<=25000 and after[:,:,1].min()>=1.2
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_original_upward_floor_domains_v2_20261031.py", line 23, in inset
+    before=out;out,proof=single_inset(before,ramps[indices],core_margin,return_width)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_original_upward_floor_return_v2_20261031.py", line 33, in inset
+    below=lower_region(polygon,floor-coeff)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_affine_halfplane_clip_v1_20261024.py", line 47, in lower_region
+    return shapely.union_all([convex_positive(p, difference) for p in polygons])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_affine_halfplane_clip_v1_20261024.py", line 27, in convex_positive
+    assert abs(repaired.area-result.area) <= 1e-12
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

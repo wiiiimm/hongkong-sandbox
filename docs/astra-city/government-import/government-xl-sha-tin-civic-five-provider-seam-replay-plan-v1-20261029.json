@@ -1,0 +1,40 @@
+{
+  "batch": "government-xl-sha-tin-civic-five-provider-seam-replay-sequence-v1-20261029",
+  "uids": [
+    "landsd/271344:0",
+    "landsd/231013:0",
+    "landsd/23220:0",
+    "landsd/23759:0",
+    "landsd/23761:0"
+  ],
+  "resources": [
+    "building:landsd/271344:0",
+    "building:landsd/231013:0",
+    "building:landsd/23220:0",
+    "building:landsd/23759:0",
+    "building:landsd/23761:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-sha-tin-civic-five-provider-seam-runtime-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-sha-tin-civic-five-provider-seam-inset-v1-20261029",
+        "--capture",
+        "government-xl-sha-tin-civic-five-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-sha-tin-civic-five-provider-seam-scope-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-sha-tin-civic-five-provider-seam-inset-v1-20261029",
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+The older selection refresher correctly rejected stale renderer/decoder hashes. No source or approval was transferred; the phase lease was released. V2 instead uses the existing current-native selection merger and new current renderer captures, without weakening that historical-code guard. V1 later-phase CLI arguments were also corrected before any such phase ran.

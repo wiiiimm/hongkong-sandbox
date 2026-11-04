@@ -135,8 +135,11 @@ fine for everything except the path-based URLs.
 
 Production is hosted on **Vercel** at
 [hongkong-sandbox.wiiiimm.codes](https://hongkong-sandbox.wiiiimm.codes). Pushing to
-`main` auto-deploys `3d-viewer/` via Vercel's Git integration — no build step, no
-CI secrets. Config is `3d-viewer/vercel.json`; the locale routing + per-locale
+`main` auto-deploys `3d-viewer/` via Vercel's Git integration. The build runs
+`node scripts/build_progress.mjs` to refresh building statistics in place without
+credentials or network access. `3d-viewer/vercel.json` explicitly sets
+`outputDirectory` to `.` (relative to the Vercel Root Directory, `3d-viewer`);
+there is no generated `public/` directory. The locale routing + per-locale
 SEO run in `3d-viewer/middleware.js` (Vercel Edge Middleware).
 
 The repo also keeps a **Cloudflare Pages** path as an alternative/rollback:
@@ -285,7 +288,7 @@ npx wrangler pages dev 3d-viewer     # Cloudflare Pages Function → http://loca
 
 ### 部署（Vercel）
 
-生產環境託管於 **Vercel**，網址為 [hongkong-sandbox.wiiiimm.codes](https://hongkong-sandbox.wiiiimm.codes)。推送到 `main` 會經 Vercel 的 Git 整合自動部署 `3d-viewer/` —— 無建置步驟、無 CI secrets。設定檔為 `3d-viewer/vercel.json`；語言路由與各語言 SEO 由 `3d-viewer/middleware.js`（Vercel Edge Middleware）處理。
+生產環境託管於 **Vercel**，網址為 [hongkong-sandbox.wiiiimm.codes](https://hongkong-sandbox.wiiiimm.codes)。推送到 `main` 會經 Vercel 的 Git 整合自動部署 `3d-viewer/` 。建置時執行 `node scripts/build_progress.mjs`，直接更新建築統計，毋須憑證或網絡存取。`3d-viewer/vercel.json` 將 `outputDirectory` 明確設為 `.`（相對於 Vercel 根目錄 `3d-viewer`），不會產生 `public/` 目錄；語言路由與各語言 SEO 由 `3d-viewer/middleware.js`（Vercel Edge Middleware）處理。
 
 repo 亦保留一條 **Cloudflare Pages** 路徑作替代／回退：`.github/workflows/deploy-cloudflare-pages.yml`（需 `CLOUDFLARE_API_TOKEN` ＋ `CLOUDFLARE_ACCOUNT_ID`），對應的語言 Function 位於 `3d-viewer/functions/_middleware.js`。兩個平台都提供相同的靜態 `3d-viewer/`，fork 可自由選擇部署到任一平台。
 
@@ -331,3 +334,9 @@ repo 亦保留一條 **Cloudflare Pages** 路徑作替代／回退：`.github/wo
 - **資料：** 屬第三方，依上表授權（尤其 OSM 資料為 ODbL）。程式授權僅涵蓋本專案的*程式碼*，不會重新授權該等資料。
 
 © 2026 wiiiimm。為香港人而做，隨便 fork 隨便玩。🇭🇰
+
+## Reusable agent workflows
+
+| Skill | Use |
+| --- | --- |
+| [Hong Kong model improvement](.agents/skills/hong-kong-model-improvement/SKILL.md) | Resume source-backed landmark/building improvements, reuse the batch pipeline and recover working material on another device. |

@@ -1,0 +1,71 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-lee-kong-pair-private-stage-v1-20261020/plan.json",
+  "areas": [
+    {
+      "area": "Lee Kong unchanged government podium and tower",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-lee-kong-pair-private-stage-v1-20261020/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain/lee-kong-pair-private-v1.json": null,
+    "3d-viewer/city/data/official-models/government-xl-lee-kong-pair-private-stage-v1-20261020/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "1e988c1fb50466661b331994b5cd6e79f45fb2405e9681924a49591765eccdba"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain/lee-kong-pair-private-v1.json": "8b6e3342f909333674cef2785d7e7ee58736ded29f8213a88132272f2d194cab",
+    "3d-viewer/city/data/official-models/government-xl-lee-kong-pair-private-stage-v1-20261020/catalogue.json": "348f24b9719c2684968fcd38ecbbf646825a3083a078a346e7769cb4afff945d",
+    "3d-viewer/city/data/manifest.json": "26456bba87908868fe8d1c7fd92cc5e41cae81d0aa407146a5e32931941a9010"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "ba163041f072df62cde7964bf19938b298b4bd54",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-186864-0.json",
+      "sha256": "a6a9c04ac919f609cb51a8acb59e98a867cd22d09d224d1a70c38d4612aec81d",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain/lee-kong-pair-private-v1.json",
+      "resolution": 5,
+      "area": "Private 147996 native ground",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "provenanceReceipt": "2a40f41e82b0814e0d001a896e4f6480ac7babe74d65f777124bd9a40c59d313",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf"
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8b6e3342f909333674cef2785d7e7ee58736ded29f8213a88132272f2d194cab",
+      "bytes": 461405
+    }
+  ],
+  "estimatedBases": []
+}

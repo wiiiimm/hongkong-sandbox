@@ -1,0 +1,9 @@
+# Ying Hoi complete original-source checkpoint
+
+Produced by Codex on10October2026, HKS-203. Neon job `b0e510952901c797b20459c6d8e0444e834269b217836ed5303053c1e8d84b10` preserves the complete original tower207957 and already installed podium205663: 11,590 faces and655 components. No building geometry, pose, terrain, thresholds or procedural windows were changed. No historical Lantau map reference was used.
+
+Current identity, whole foundations, surrounding actors and runtime checks pass. Complete original and actual rendered finite-face clearance is clear; the old tower rim warnings remain preserved. Exact original interfaces establish455 independently rooted structural components. The remaining200 components require original visual-detail interpretation.
+
+The complete finite perpendicular boundary diagnostic passes165 of those200 components. This is geometry evidence only: it grants no visual-role acceptance or structural roots. All35 residual components remain in `dispositions.json.gz`, with original face IDs, boundary failures and complete nearest-facet witnesses. Components276/277 are separated from every rooted surface by more than the unchanged0.1m bound, even at their nearest original facets. Component254 retains its original winding conflict. Tiny nearest-point gaps do not prove a complete mounted perimeter.
+
+Held reason: complete original visual-detail role coverage is not yet established. Further source/component interpretation and scripted finite checks are required; this checkpoint does not require AI remodelling or a user decision. Do not omit details, move originals, widen the bound or repeat an unchanged diagnostic. The root independently ran15 synthetic/actual-source counterexample tests and verified753 transitive frozen reference versions. This checkpoint adds zero installations; other candidates continue.

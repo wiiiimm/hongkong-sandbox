@@ -1,0 +1,1 @@
+Exact original eighteen-test bytes bound by the v2 role receipt, retained at a distinct archive path. SHA256 358f3bafd686f23b97c86c0683171873163c67b2388ce83223642f98d915c2d2. The additional actual-source fixture is in the separately pinned v3 test and current-role paths. Frozen v2 references are unchanged.

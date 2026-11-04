@@ -1,0 +1,68 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-central-library-private-stage-v1-20261019/plan.json",
+  "areas": [
+    {
+      "area": "Central Library unchanged original podium",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-central-library-private-stage-v1-20261019/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-central-library-original-v1-20261019.json": null,
+    "3d-viewer/city/data/official-models/government-xl-central-library-private-stage-v1-20261019/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c570f356b1071f95638076e142f06d59e877a0c2358963c305a67fb89b7aa574"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-central-library-original-v1-20261019.json": "54d0a5a54d62d116eabb09c2fbeaf720787529ab7827a571d864c28c20da4453",
+    "3d-viewer/city/data/official-models/government-xl-central-library-private-stage-v1-20261019/catalogue.json": "1e9bcd4e6b2701d1d0cb1b2f4f05f7f513dc1833945c94195375b573e07c1d1c",
+    "3d-viewer/city/data/manifest.json": "3901accb4755b4533de24cb780833ec2d63d71880880dc765f0bc40027c9408c"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "df6bfb251278b019226c887485860632eb6f4b28",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-central-library-original-v1-20261019.json",
+      "resolution": 5,
+      "area": "Central Library original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "aca0eeec2a4c684175c85c1d42e22dc32894be9af980dde4cfc568adea078b55",
+            "etag": "\"3a0a59b-65bf6654e9021\"",
+            "provenanceReceipt": "b895ea3eae3bec48994d9d01fff5eb5189ea2bdb60597d61330b59ca62c97ceb",
+            "sheet": "11-SE-6C",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-three-adjoining-ground-v1-20261019/sheets/11-SE-6C/terrain/TERRAIN(TB)/T37500156000106E12/T37500156000106E12.gltf"
+            ],
+            "triangles": 283505
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "54d0a5a54d62d116eabb09c2fbeaf720787529ab7827a571d864c28c20da4453",
+      "bytes": 382266
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,37 @@
+--- source-scripts/city/government-import/heritage165054_authentic_tin_nomination_v1_20261014.py
++++ source-scripts/city/government-import/heritage165054_authentic_tin_nomination_v2_20261014.py
+@@ -5,7 +5,7 @@
+ from exact_distinct_evidence_refs_v1_20261014 import distinct_refs
+ from timed_owned_lease_pulse_v1_20261014 import TimedOwnedLeasePulse
+ ROOT=source.ROOT; HERE=source.HERE; BASE=source.BASE; UID=source.UID; CURRENT=source.CURRENT; SNAPSHOT=source.SNAPSHOT
+-BATCH='government-xl-heritage165054-authentic-tin-nomination-v1-20261014'; DOC=BASE/BATCH; PROPOSAL=BASE/(BATCH+'-proposal'); LOCAL=HERE/'local'/BATCH; LEASE=LOCAL/'reservation.json'
++BATCH='government-xl-heritage165054-authentic-tin-nomination-v2-20261014'; DOC=BASE/BATCH; PROPOSAL=BASE/(BATCH+'-proposal'); LOCAL=HERE/'local'/BATCH; LEASE=LOCAL/'reservation.json'
+ ACQUISITION_JOB='921a7e7a2cfc84b2c4927268a400fe9ffdb4651e0a7e523b9f274600066ad2f0'
+ ROW=BASE/'government-xl-heritage165054-starmart57455-current-finite-collision-draft-v1-20261014/exact-source-row-current-form.json'
+ CAPTURE=BASE/'government-xl-heritage165054-starmart57455-current-finite-collision-draft-v2-20261014/collision-output-v2/complete-current-star-and-museum-geometry.json.gz'
+@@ -75,9 +75,15 @@
+     for e in current['terrainPatches']:
+         p=ROOT/'3d-viewer'/e['url']; patch=read(p); c=patch['coarseCells']; assert cells[2]<=c[0] or cells[0]>=c[2] or cells[3]<=c[1] or cells[1]>=c[3],'existing-native-terrain-overlap'
+         routing.append(dict(entry=e,asset=ref(p))); refs.append(ref(p))
+-    scope,scope_refs=scope_metadata(current,region); refs=distinct_refs(refs+scope_refs)
++    scope,scope_refs=scope_metadata(current,region); refs=distinct_refs(refs+scope_refs+[ref(PROPOSAL/'preserved-V1-preclaim-resource-failure.json')])
++    for q in read(PROPOSAL/'preserved-V1-preclaim-resource-failure.json')['evidenceRefs']: refs=distinct_refs(refs+[q])
+     for q in refs: check(q)
+     return dict(row=row,capturedBounds=boxes,cells=cells,region=region,core=core,parent=parent,terrainRouting=routing,scope=scope,memberPacket=members),refs
++
++def canonical_resources(actors):
++    from run import reservations
++    assert actors==sorted(set(actors))
++    return reservations.normalise([('building:' if u.startswith('landsd/') else 'foreign-form:')+u for u in actors]+['terrain-patch:'+u for u in actors]+['immutable-source-proof:'+BATCH])
+ 
+ def load():
+     pins=read(PROPOSAL/'draft-pins.json'); assert pins['caller']==ref(Path(__file__))
+@@ -125,7 +131,7 @@
+     assert sys.argv[1:]==['--nominate-authentic-original-tin-only'] and not DOC.exists() and not LOCAL.exists()
+     pins,data,refs=load(); assert read(PROPOSAL/'actual-readonly-preparation.json')['passed']
+     from run import reservations
+-    actors=data['scope']['allActorsForNominationLease']; resources=['building:'+u for u in actors]+['terrain-patch:'+u for u in actors]+['immutable-source-proof:'+BATCH]
++    actors=data['scope']['allActorsForNominationLease']; resources=canonical_resources(actors)
+     claim=reservations.claim('heritage-authentic-nomination-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600); assert claim['ok']; lease=claim['reservation']
+     try:
+         save(LEASE,json.loads(json.dumps(lease,default=str))); subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)

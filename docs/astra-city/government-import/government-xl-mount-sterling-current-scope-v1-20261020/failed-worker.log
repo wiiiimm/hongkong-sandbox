@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_current_scope_v1_20261020.py", line 62, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_current_scope_v1_20261020.py", line 30, in main
+    oldids={r['uid']for r in rows};new=set(models)-oldids;assert new==set(installed['installedUids']) and oldids<=set(models)
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

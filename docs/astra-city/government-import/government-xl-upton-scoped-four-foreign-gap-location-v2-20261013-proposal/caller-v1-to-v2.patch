@@ -1,0 +1,26 @@
+--- source-scripts/city/government-import/upton_scoped_four_foreign_gap_location_draft_v1_20261013.py
++++ source-scripts/city/government-import/upton_scoped_four_foreign_gap_location_draft_v2_20261013.py
+@@ -5,12 +5,12 @@
+ import sys,json,time,uuid,subprocess
+ import numpy as np
+ import upton_scoped_subdivision_saved_actual_union_delta_draft_v1_20261013 as prior
+-from exact_original_projection_coverage_20261009 import point,signed_area,subtract
++from exact_original_projection_coverage_v2_20261010 import point,signed_area,subtract
+ from sparkle_current_native_renderer_winding_20261011 import drawn_native_faces
+ from upton_saved_uncovered_packed_ancestor_boundary_attribution_draft_v1_20261013 import segment_parameter,serial
+ from run import ROOT,HERE,read,save,connect,reservations
+ ref,check=prior.ref,prior.check
+-BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-scoped-four-foreign-gap-location-v1-20261013'
++BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-scoped-four-foreign-gap-location-v2-20261013'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ PACKET=BASE/'government-xl-upton-scoped-subdivision-four-foreign-coverage-regressions-v1-20261013-proposal/saved-four-foreign-full-facet-regression-rows.json.gz'
+ JOB='d5ede71c98345b8d3e767d6ac428c29480e20e61b664b8ca01ca8a65577c1e6a'
+@@ -67,6 +67,8 @@
+     pulse()
+     if not remaining:break
+    area=sum(abs(signed_area(p))for p in remaining);coverage=r['exactSavedAreaCoverage']
++   checkpoint=LOCAL/'location-progress'/(str(len(cache)).zfill(3)+'.json.gz');assert not checkpoint.exists()
++   save(checkpoint,serial(dict(uid=r['uid'],mode=r['mode'],face=r['face'],sourceFaceSHA256=r['sourceFaceSHA256'],completeRelevantGroundSHA256=saved['completeRelevantGroundSHA256'],orderedSelectedGroundFaces=ids,exactComputedUncoveredAreaM2=area,computedPositiveAreaPieces=len(remaining),exactRemainingPolygonsXZ=remaining,savedExpectedCoverageVerbatim=coverage,noAcceptanceCredit=True)));refs.append(ref(checkpoint))
+    assert str(area)==coverage['exactUncoveredAreaM2']and len(remaining)==coverage['remainingPositiveAreaPieces']and area>0
+    selected_origins=[]
+    for j in ids:

@@ -1,0 +1,11 @@
+# Original support and terrain contact continuation
+
+Codex, 7 October 2026. Nineteen completed diagnostic/physical phases have exact Neon readback and every fenced evidence hash verified. They grant zero installation credit. Tung Yip separately passed fresh cold framed staged/live acceptance and was installed in 176c1a60: 38 new XL, 82 installed / 270 remaining, 62 further installs required. The active 100-new-XL goal continues.
+
+The failed cold portrait test was waiting for a native neighbour outside its camera frustum. A diagnostic with no byte warming or neighbour visits, followed by the full fresh staged/live acceptance, framed all three original sources without changing production loading, budgets, timeouts or geometry. Warm diagnostics and earlier failed installer attempts are explicitly diagnostic only.
+
+Observatory now preserves both basic neighbours and its installed native neighbour with original rendered terrain. Source contact remains held after lower-parent attempts. Illumination Terrace tower interfaces pass 10/10 strict contacts each, but its podium has thirteen low-edge contact samples beyond the unchanged 0.5 m limit and a basic tower terrain regression. A complete runtime contact diagnostic reproduces the existing metrics; the original vertex/centre-only repair missed these edge samples. Dedicated edge follow-through uses immutable original runtime geometry and exact failing source faces, then every existing full gate. No original lower parent is available for Illumination.
+
+New original support lookups and layer diagnostics remain held where the exact source interface fails: Glorious Peak 89 samples, Bohemian House 12, Twin Regency 159, Greenfields one. Yoho Town Block 7 contact passes but the support source identity needs investigation. Proximity is not installation evidence. Current input freezes preserve all prior source matching outcomes and existing reviews. No architectural/model AI calls or historical map imagery.
+
+Validation: 25 focused lower-parent, native-patch, retained-cell and rendered-sampler tests pass. Both contact diagnostics reproduce the existing immutable acceptance metrics exactly. New Python and JavaScript helpers pass syntax checks.

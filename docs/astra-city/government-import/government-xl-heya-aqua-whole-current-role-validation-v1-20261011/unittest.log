@@ -1,0 +1,50 @@
+test_actual_complete_four_world_account (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_actual_complete_four_world_account) ... FAIL
+test_basic_touch (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_basic_touch) ... ok
+test_changed_ground (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_changed_ground) ... ok
+test_changed_join_face (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_changed_join_face) ... ok
+test_changed_literal_vertex (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_changed_literal_vertex) ... ok
+test_context_affected_face_omission (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_context_affected_face_omission) ... ok
+test_crossings_must_remain (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_crossings_must_remain) ... ok
+test_duplicate_current_form (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_duplicate_current_form) ... ok
+test_engineering_claim (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_engineering_claim) ... ok
+test_finite_false_positive (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_finite_false_positive) ... ok
+test_finite_missing_face (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_finite_missing_face) ... ok
+test_hidden_root_edge (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_hidden_root_edge) ... ok
+test_identity_not_positive (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_identity_not_positive) ... ok
+test_missing_attached_component (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_missing_attached_component) ... ok
+test_missing_join_contact (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_missing_join_contact) ... ok
+test_missing_root_grade (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_missing_root_grade) ... ok
+test_missing_runtime (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_missing_runtime) ... ok
+test_native_omission (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_native_omission) ... ok
+test_native_touch (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_native_touch) ... ok
+test_parent_cycle (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_parent_cycle) ... ok
+test_podium_reapproval (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_podium_reapproval) ... ok
+test_point_bridge (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_point_bridge) ... ok
+test_source_byte_tamper (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_source_byte_tamper) ... ok
+test_stale_current_manifest (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_stale_current_manifest) ... ok
+test_unknown_physical_failure (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_unknown_physical_failure) ... ok
+test_visual_missing_component (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_visual_missing_component) ... ok
+test_visual_root_credit (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_visual_root_credit) ... ok
+test_wrong_provider_csuid (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_wrong_provider_csuid) ... ok
+test_wrong_provider_native_source (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_wrong_provider_native_source) ... ok
+test_wrong_provider_parent (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_wrong_provider_parent) ... ok
+
+======================================================================
+FAIL: test_actual_complete_four_world_account (test_heya_aqua_complete_current_role_policy_20261011.CompleteOriginalAccount.test_actual_complete_four_world_account)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_heya_aqua_complete_current_role_policy_20261011.py", line 14, in test_actual_complete_four_world_account
+    r=compose(**self.data);self.assertTrue(r['stagingReady']);self.assertFalse(r['installationApproved'])
+      ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/heya_aqua_complete_current_role_policy_20261011.py", line 95, in compose
+    role=verify_roles(actual=actual,source=source,interfaces=interfaces,finite=finite,visual=visual,account=account)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/heya_aqua_complete_current_role_policy_20261011.py", line 61, in verify_roles
+    assert a in graph and b in graph
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+----------------------------------------------------------------------
+Ran 30 tests in 328.356s
+
+FAILED (failures=1)

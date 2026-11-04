@@ -1,0 +1,59 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-starmart57455-current-finite-collision-draft-v1-20261014/heritage-starmart-current-geometry-draft-v1.mjs
++++ docs/astra-city/government-import/government-xl-heritage165054-starmart57455-current-finite-collision-draft-v2-20261014/heritage-starmart-current-geometry-draft-v2.mjs
+@@ -41,7 +41,7 @@
+  console.log(JSON.stringify({passed:true,closures:closures.length,noProductionModuleImported:true}));
+ }else{
+  assert.equal(process.argv[2],'--capture-current-full-geometry-only');
+- const target=new URL('collision-output-v1/complete-current-star-and-museum-geometry.json.gz',packet);assert(!existsSync(target));
++ const target=new URL('collision-output-v2/complete-current-star-and-museum-geometry.json.gz',packet);assert(!existsSync(target));
+  const row=read(c.sourceRowPath),savedForms=read(c.currentFormsPath),forms=new Map(savedForms.map(r=>[r.form.uid,r.form]));
+  assert.deepEqual([...forms.keys()].sort(),['landsd/104467:0','landsd/165054:0','landsd/57455:0']);
+  for(const r of savedForms){const matches=read(r.sourceTile,r.sourceTileSHA256).buildings.filter(b=>b.uid===r.form.uid);assert.deepEqual(matches,[r.form]);}
+@@ -61,7 +61,37 @@
+   const raw=bytes(row.candidate.path,row.sourceSHA256);
+   model=await loadOfficialModel({...row.candidate.entry,assetURL:'https://diagnostic.invalid/original.glb.gz'},forms.get(row.uid),lighting,{fetcher:async()=>new Response(raw),getBuilding:uid=>{assert(forms.has(uid));return forms.get(uid);}});
+   model.group.updateMatrixWorld(true);assert.equal(model.meshes.length,1);
+-  const expectedMatrix=new THREE.Matrix4().makeTranslation(-834500,0,816500).multiply(new THREE.Matrix4().fromArray(c.originalRootMatrix));
++  // GLTFLoader.loadScene creates a Group; loadNode applies each original matrix
++  // using Object3D.applyMatrix4 (decompose), then updateMatrixWorld composes TRS.
++  // The raw matrix product is retained for comparison, never used as a new pose.
++  const expectedGroup=new THREE.Group(),expectedRoot=new THREE.Object3D(),expectedMesh=new THREE.Object3D();
++  expectedRoot.applyMatrix4(new THREE.Matrix4().fromArray(c.originalRootMatrix));
++  expectedRoot.add(expectedMesh);expectedGroup.add(expectedRoot);
++  const offset=row.candidate.entry.verticalPlacementOffsetHKPD??0;
++  expectedGroup.position.set(row.candidate.entry.rootTranslation[0],row.candidate.entry.rootTranslation[1]+offset,row.candidate.entry.rootTranslation[2]);
++  expectedGroup.updateMatrixWorld(true);
++  const expectedMatrix=expectedMesh.matrixWorld;
++  const directOriginalProduct=new THREE.Matrix4().makeTranslation(row.candidate.entry.rootTranslation[0],row.candidate.entry.rootTranslation[1]+offset,row.candidate.entry.rootTranslation[2]).multiply(new THREE.Matrix4().fromArray(c.originalRootMatrix));
++  function matrixRecord(node){return {type:node.type,name:node.name,localMatrixFloat64:Array.from(node.matrix.elements),worldMatrixFloat64:Array.from(node.matrixWorld.elements),position:Array.from(node.position.toArray()),quaternion:Array.from(node.quaternion.toArray()),scale:Array.from(node.scale.toArray()),matrixAutoUpdate:node.matrixAutoUpdate,matrixWorldAutoUpdate:node.matrixWorldAutoUpdate,childCount:node.children.length};}
++  const actualChain=[];model.group.traverse(node=>{const path=[];for(let n=node;n!==model.group;n=n.parent){assert(n.parent);path.unshift(n.parent.children.indexOf(n));}actualChain.push({childIndexPath:path,...matrixRecord(node)});});
++  const actualRoot=model.group.children[0],actualMesh=model.meshes[0];
++  const pose={uid:row.uid,sourceSHA256:row.sourceSHA256,originalNodesVerbatim:model.record.modelSource.originalNodes,
++   expectedOriginalNodesVerbatim:c.originalSourceNodes,entryRootTranslation:row.candidate.entry.rootTranslation,
++   entryVerticalPlacementOffsetPresent:Object.hasOwn(row.candidate.entry,'verticalPlacementOffsetHKPD'),entryVerticalPlacementOffsetHKPD:offset,
++   originalRootMatrixFloat64:c.originalRootMatrix,actualCompleteSceneChain:actualChain,
++   expectedLoaderSceneGroup:matrixRecord(expectedGroup),expectedLoaderOriginalRoot:matrixRecord(expectedRoot),expectedLoaderMesh:matrixRecord(expectedMesh),
++   directOriginalMatrixProductFloat64:Array.from(directOriginalProduct.elements),
++   exactActualMeshMatchesDirectOriginalProduct:actualMesh.matrixWorld.equals(directOriginalProduct),
++   exactLoaderTransformContractMatched:model.group.matrix.equals(expectedGroup.matrix)&&model.group.matrixWorld.equals(expectedGroup.matrixWorld)&&
++    !!actualRoot&&actualRoot.matrix.equals(expectedRoot.matrix)&&actualRoot.matrixWorld.equals(expectedRoot.matrixWorld)&&actualMesh.matrix.equals(expectedMesh.matrix)&&actualMesh.matrixWorld.equals(expectedMesh.matrixWorld),
++   noToleranceIntroduced:true,sourcePoseChanges:0,sourceGeometryChanges:0,physicalAccepted:false,currentAcceptance:false};
++  // Close complete actual/expected matrix evidence BEFORE pose/hierarchy asserts.
++  finalFence();const poseTarget=new URL('collision-output-v2/actual-and-expected-source-pose.json',packet);assert(!existsSync(poseTarget));
++  writeFileSync(poseTarget,JSON.stringify(pose,null,2)+'\n');
++  assert.deepEqual(model.record.modelSource.originalNodes,c.originalSourceNodes,'Original node metadata differs');
++  assert.deepEqual(c.originalSourceNodes,[{children:[1],matrix:c.originalRootMatrix,name:row.candidate.entry.modelId},{mesh:0}]);
++  assert.equal(model.group.children.length,1);assert.equal(actualRoot.children.length,1);assert.equal(actualRoot.children[0],actualMesh);assert.equal(actualMesh.children.length,0);
++  assert(pose.exactLoaderTransformContractMatched,'Current source differs from authentic loader transform contract');
+   const meshes=[],literal=[],left=[],balanced=[],indices=[];
+   for(const mesh of model.meshes){
+    preflightActualRenderMesh(mesh);assert(mesh.matrixWorld.equals(expectedMatrix),'Current source pose differs');
+@@ -82,7 +112,7 @@
+   assert.deepEqual(f32.leftAssociatedPerMultiplyAddFloat32WorldPosition,Array.from(p.array));assert.deepEqual(f32.balancedPerMultiplyAddFloat32WorldPosition,Array.from(p.array));
+   for(const[name,a]of Object.entries(basic.attributes)){assert(Array.from(a.array).every(Number.isFinite));attrs[name]={itemSize:a.itemSize,count:a.count,normalized:a.normalized,arrayType:a.array.constructor.name,values:Array.from(a.array)};}
+   finalFence();writeFileSync(target,gzipSync(JSON.stringify({uid:row.uid,sourceSHA256:row.sourceSHA256,entry:row.candidate.entry,currentSourceForm:forms.get(row.uid),
+-   completeOriginalFaceCount:15140,completeOriginalIndex:indices,completeLiteralWorldPosition:literal,completeLeftFloat32WorldPosition:left,completeBalancedFloat32WorldPosition:balanced,
++   poseAuditSHA256:hash(readFileSync(poseTarget)),completeOriginalFaceCount:15140,completeOriginalIndex:indices,completeLiteralWorldPosition:literal,completeLeftFloat32WorldPosition:left,completeBalancedFloat32WorldPosition:balanced,
+    actualSourceMeshes:meshes,wholeUnusedWorldBounds:{literal:positionBounds(literal),left:positionBounds(left),balanced:positionBounds(balanced)},
+    starMart:{uid:'landsd/57455:0',currentForm:forms.get('landsd/57455:0'),completeAttributes:attrs,completePosition:Array.from(p.array),completeIndex:ix,completeFaces:ix.length/3,completeVertices:p.count,
+     matrixWorldFloat64:identity,wholeUnusedPositionBounds:positionBounds(Array.from(p.array)),...f32},

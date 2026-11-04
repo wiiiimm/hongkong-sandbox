@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-miami-two-original-installed-20261009/plan.json",
+  "areas": [
+    {
+      "area": "Miami Beach Towers 2 and 5 unchanged complete government originals",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-miami-two-original-installed-20261009/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-202994-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-miami-two-original-installed-20261009/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "7de92c4dada1917ab6e37271d84f6134bd2517393f7156614d39530db35fbc03"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-202994-0.json": "9adf19cd1dc9cadb763dfe8b11d4ee5051a839eec712427a2a3813daf931642f",
+    "3d-viewer/city/data/official-models/government-xl-miami-two-original-installed-20261009/catalogue.json": "2417bff3bdf71edb5497965f7deda123a85bad78a6f35675e6cd3d368c46d1cd",
+    "3d-viewer/city/data/manifest.json": "e8fabf53cdfa7c5db1f04cab581f7b7631c385f03de03fbcb7e83445ddd3d971"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "88addde43033b9e56189511d717891bb35070bb3",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-202994-0.json",
+      "resolution": 5,
+      "area": "Miami Beach Towers 2 and 5 unchanged complete government originals indexed unchanged government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "846da9bed09de879f9ebc0fcfb14150da6be30dc3ca03822f6acfb127e9236f6",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "5-SE-20B",
+            "sourceETag": "\"1fa5f8f-65bf683cde672\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/5-SE-20B/terrain/TERRAIN(TB)/T14250258000106E11/T14250258000106E11.bin",
+                "sha256": "2b2a4feb701b469ef067428025aa14822bbc490000fb1aab7e1a83c0d284e6f1"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/5-SE-20B/terrain/TERRAIN(TB)/T14250258000106E11/T14250258000106E11.gltf",
+                "sha256": "49f4dfbf2240e64a8dfad790575f8a37b731d759b9a356ee61c1b9f81f7f8c9a"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "9adf19cd1dc9cadb763dfe8b11d4ee5051a839eec712427a2a3813daf931642f",
+      "bytes": 932392
+    }
+  ],
+  "estimatedBases": []
+}

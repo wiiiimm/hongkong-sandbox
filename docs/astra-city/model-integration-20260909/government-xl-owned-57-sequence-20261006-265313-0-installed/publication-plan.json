@@ -1,0 +1,81 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-owned-57-sequence-20261006-265313-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "The Spectra Tower 1 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-owned-57-sequence-20261006-265313-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-265313-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-owned-57-sequence-20261006-265313-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "a4436b8262bfe143ed8349fc72df8e059165dabfb0fa9b3c9676e96d5b698c9a"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-265313-0.json": "1eaa8183e7bb64fcb35b160bf84c9353572c769080ee39c4203c0e32acd75206",
+    "3d-viewer/city/data/official-models/government-xl-owned-57-sequence-20261006-265313-0-installed/catalogue.json": "37f8c2f5c3782764c72a91c8a044ca1460d516d2881520fdafb72206a6937858",
+    "3d-viewer/city/data/manifest.json": "de448654fecd0c4a2dfc7085c9b6a60ecb29ffaedc79eeedfef27b879f18deae"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "a6ec6d18b0497fe70683e8226aabbaa100394646",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-265311-0.json",
+      "sha256": "97e81a35263c9805ea9f377b15aad85d315dcd629dc990bb1e577688453d7eba",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-265313-0.json",
+      "resolution": 5,
+      "area": "The Spectra Tower 1 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "bd8e4de86eb8e8b521507827ecac427a036c15d25de9a93c03d9d40eb6a99528",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-NW-9B",
+            "sourceETag": "\"42d1c8c-63dd07f4c872a\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-NW-9B/terrain/TERRAIN(TB)/T20250342000106E10/T20250342000106E10.bin",
+                "sha256": "308164285986bf40dbe4eef5a61e7837c9f8805e933137ae53dbd4561413aa49"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-NW-9B/terrain/TERRAIN(TB)/T20250342000106E10/T20250342000106E10.gltf",
+                "sha256": "ae796e46b7c6d7031ea2e0e646a091c4c8eb0068645df8e190b086343bb8ab39"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "1eaa8183e7bb64fcb35b160bf84c9353572c769080ee39c4203c0e32acd75206",
+      "bytes": 963932
+    }
+  ],
+  "estimatedBases": []
+}

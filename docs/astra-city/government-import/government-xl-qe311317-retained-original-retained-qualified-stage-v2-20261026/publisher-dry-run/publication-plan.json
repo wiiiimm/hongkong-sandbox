@@ -1,0 +1,142 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-qe311317-retained-original-retained-qualified-stage-v2-20261026/plan.json",
+  "areas": [
+    {
+      "area": "Queen Elizabeth Hospital ACC Extension unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-qe311317-retained-original-retained-qualified-stage-v2-20261026/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-qe311317-retained-original-20261026.json": null,
+    "3d-viewer/city/data/official-models/government-xl-qe311317-retained-original-retained-qualified-stage-v2-20261026/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ba5763252b1bedb0c5a2ce5b9818792f7f25046097080a6e00558435939198cb"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-qe311317-retained-original-20261026.json": "9c51459d866cad2ca646476e588f4dae644243807f55d83879692ff0a5352541",
+    "3d-viewer/city/data/official-models/government-xl-qe311317-retained-original-retained-qualified-stage-v2-20261026/catalogue.json": "6ac46228fc1f6fe1dcea21afa6006f9c3fd4b004d14fa754d48732342f15095c",
+    "3d-viewer/city/data/manifest.json": "08b29c2df231c5a0d21375cb26cb4f03ee5da02ff7500a9e50cd393997a580de"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "f5328894f00bdccb1707ad94cbd041163512833d",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-266063-0.json",
+      "sha256": "bbfce18f6b7b0724b65dbc12bdbb3fe1d5d752ce1a553ede08dfeba4efb16bbb",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-qe311317-retained-original-20261026.json",
+      "resolution": 5,
+      "area": "Queen Elizabeth Hospital ACC Extension unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            1614.0472376967157,
+            -2357.73139810048,
+            1714.7373131731497,
+            -2301.092985842932
+          ],
+          "outerBounds": [
+            1610.4096539118627,
+            -2361.3611392769194,
+            1718.9472673651428,
+            -2297.4549511842292
+          ],
+          "policy": "Exact vertical parent faces use the same core/return blend with independently replayed zero-area collapses. Original highest source terrain, complete original-TIN replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "expandedRetainedEnvelope": {
+          "originalCoarseCells": [
+            516,
+            411,
+            520,
+            416
+          ],
+          "policy": "Every old grid field copied exactly at its aligned node; extension samples unchanged parent metadata. Drawn geometry is separately matched to complete existing native plus production-root faces.",
+          "retainedGridNodes": 4047
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-25A/terrain/TERRAIN(TB)/T36000186000106E14/T36000186000106E14.gltf",
+            "sha256": "52f78b3ea2513ab9dd17465649866c7981a2550f2b818b23d616ddfbfac1ae33"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 6035,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "9c51459d866cad2ca646476e588f4dae644243807f55d83879692ff0a5352541",
+      "bytes": 14548303
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

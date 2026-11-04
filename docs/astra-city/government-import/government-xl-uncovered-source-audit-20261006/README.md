@@ -1,0 +1,5 @@
+# Further explicit XL source scope
+
+Codex, 6 October 2026. Read-only audit of the original352-form XL selection, current installed manifest and recent231-source cohorts identifies77 remaining sources outside those cohorts:59 without historical reviews,14 with held reviews,4 pending reviews. Existing review decisions remain separate explicit continuations. Of59 unreviewed sources,57 have checksum-verified original cached assets; Central Pier and Central Pier8 are missing locally. No source is newly installed by this audit.
+
+`xl-uncovered-source-sequence-20261006.py` waits for current34, Hoi Wing, Spectra5 assembly and basic-neighbour follow-up, then obtains fresh source ownership/context and uses the existing positive full-cell identity and unchanged physical/runtime/publication gates. Only independently qualifying original sources enter full acceptance; source mesh geometry never changes. No new territory queue, source acquisition or model AI calls. Prepared/identity results are not installed credit. The active100-new-XL goal continues.

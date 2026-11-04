@@ -1,0 +1,26 @@
+/** Complete current BASIC neighbour ground, bounded by each actual rendered mesh. */
+import {readFileSync,writeFileSync} from 'node:fs';
+import {gunzipSync,gzipSync} from 'node:zlib';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import * as THREE from '../../../3d-viewer/vendor/three.module.js';
+import {makeTerrain} from '../../../3d-viewer/city/world.js';
+import {replacementURLs} from './terrain-replacements.mjs';
+import {snapshotModuleClosure,verifyModuleClosure} from './literal_production_module_dependency_closure_20261010.mjs';
+const root=new URL('../../../',import.meta.url), closure=snapshotModuleClosure(import.meta.url,root), hashes={...closure.inputHashes};
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const read=p=>{const b=readFileSync(new URL(p,root));hashes[p]=hash(b);return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b);};
+const doc=process.argv[2], input=read(doc+'/input.json'), cap=read(input.basicGeometry), patches=read(input.patches);
+for(const [p,h] of Object.entries(cap.inputHashes))assert.equal(hash(readFileSync(new URL(p,root))),h,p);
+Object.assign(hashes,cap.inputHashes);
+const manifest=read('3d-viewer/city/data/manifest.json'), data=read('3d-viewer/city/data/terrain.json');
+const replaced=replacementURLs(patches,manifest.terrainPatches,hashes);
+data.patches=[...manifest.terrainPatches.filter(p=>!replaced.has(p.url)).map(p=>read('3d-viewer/'+p.url)),...patches.map(p=>{const d=read(p.path);assert.equal(hashes[p.path],p.sha256);return d;})];
+const rows=cap.rows.map(r=>{const lo=[Infinity,Infinity],hi=[-Infinity,-Infinity];for(let i=0;i<r.position.length;i+=3)for(const [j,k]of [[0,0],[1,2]]){lo[j]=Math.min(lo[j],r.position[i+k]);hi[j]=Math.max(hi[j],r.position[i+k]);}return {...r,lo,hi,drawnGroundGeometry:[]};});
+const terrain=makeTerrain(data);terrain.updateMatrixWorld(true);const identity=new THREE.Matrix4();
+terrain.traverse(m=>{if(!m.isMesh)return;assert(m.matrixWorld.equals(identity));const p=m.geometry.attributes.position,idx=m.geometry.index,n=idx?.count??p.count;
+for(let i=0;i<n;i+=3){const ids=[0,1,2].map(k=>idx?idx.getX(i+k):i+k),xs=ids.map(j=>p.getX(j)),zs=ids.map(j=>p.getZ(j));for(const r of rows){if(Math.max(...xs)<r.lo[0]-1||Math.min(...xs)>r.hi[0]+1||Math.max(...zs)<r.lo[1]-1||Math.min(...zs)>r.hi[1]+1)continue;for(const j of ids)r.drawnGroundGeometry.push(p.getX(j),p.getY(j),p.getZ(j));}}});
+for(const [p,h]of Object.entries(hashes))assert.equal(hash(readFileSync(new URL(p,root))),h,p);assert(verifyModuleClosure(closure,root));
+writeFileSync(new URL(doc+'/ground.json.gz',root),gzipSync(JSON.stringify({rows,inputHashes:hashes,installationApproved:false})));
+console.log(JSON.stringify({actors:rows.length,terrainFaces:rows.map(r=>({uid:r.uid,faces:r.drawnGroundGeometry.length/9}))}));
+terrain.traverse(o=>{o.geometry?.dispose();for(const m of [].concat(o.material||[]))m.dispose();});

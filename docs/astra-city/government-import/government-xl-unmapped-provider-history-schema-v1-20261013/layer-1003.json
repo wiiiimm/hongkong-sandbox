@@ -1,0 +1,135 @@
+{
+ "currentVersion": 10.91,
+ "cimVersion": "2.9.0",
+ "id": 1003,
+ "name": "OPStructure",
+ "type": "Table",
+ "description": null,
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeNone",
+ "displayField": "OPNo",
+ "typeIdField": null,
+ "subtypeFieldName": null,
+ "subtypeField": null,
+ "defaultSubtypeCode": null,
+ "fields": [
+  {
+   "name": "OBJECTID",
+   "type": "esriFieldTypeOID",
+   "alias": "OBJECTID",
+   "domain": null
+  },
+  {
+   "name": "BuildingStructureID",
+   "type": "esriFieldTypeInteger",
+   "alias": "BuildingStructureID",
+   "domain": null
+  },
+  {
+   "name": "OPNo",
+   "type": "esriFieldTypeString",
+   "alias": "OPNo",
+   "length": 15,
+   "domain": null
+  },
+  {
+   "name": "Storeys",
+   "type": "esriFieldTypeSmallInteger",
+   "alias": "Storeys",
+   "domain": null
+  },
+  {
+   "name": "StoreysInBasement",
+   "type": "esriFieldTypeSmallInteger",
+   "alias": "StoreysInBasement",
+   "domain": null
+  },
+  {
+   "name": "TopHeight",
+   "type": "esriFieldTypeDouble",
+   "alias": "TopHeight",
+   "domain": null
+  },
+  {
+   "name": "StoreyRemarks",
+   "type": "esriFieldTypeString",
+   "alias": "StoreyRemarks",
+   "length": 200,
+   "domain": null
+  },
+  {
+   "name": "OPBlockType",
+   "type": "esriFieldTypeString",
+   "alias": "OPBlockType",
+   "length": 6,
+   "domain": null
+  },
+  {
+   "name": "OPBuildingType",
+   "type": "esriFieldTypeString",
+   "alias": "OPBuildingType",
+   "length": 500,
+   "domain": null
+  }
+ ],
+ "indexes": [
+  {
+   "name": "FDO_OBJECTID",
+   "fields": "OBJECTID",
+   "isAscending": true,
+   "isUnique": true,
+   "description": ""
+  },
+  {
+   "name": "GDB_13_OPNo",
+   "fields": "OPNo",
+   "isAscending": true,
+   "isUnique": false,
+   "description": ""
+  },
+  {
+   "name": "GDB_13_BuildingStructureID",
+   "fields": "BuildingStructureID",
+   "isAscending": true,
+   "isUnique": false,
+   "description": ""
+  }
+ ],
+ "subtypes": [],
+ "relationships": [],
+ "capabilities": "Map,Query,Data",
+ "maxRecordCount": 3000,
+ "supportsStatistics": true,
+ "supportsExceedsLimitStatistics": true,
+ "supportsAdvancedQueries": true,
+ "supportedQueryFormats": "JSON, PBF",
+ "isDataVersioned": false,
+ "useStandardizedQueries": true,
+ "advancedQueryCapabilities": {
+  "useStandardizedQueries": true,
+  "supportsStatistics": true,
+  "supportsPercentileStatistics": true,
+  "supportsHavingClause": true,
+  "supportsOrderBy": true,
+  "supportsDistinct": true,
+  "supportsCountDistinct": true,
+  "supportsPagination": true,
+  "supportsTrueCurve": false,
+  "supportsReturningQueryExtent": true,
+  "supportsQueryWithDistance": true,
+  "supportsSqlExpression": true,
+  "supportsTimeRelation": true,
+  "supportsSqlFormat": false,
+  "supportsQueryAnalytic": false
+ },
+ "dateFieldsTimeReference": null,
+ "preferredTimeReference": null,
+ "datesInUnknownTimezone": false,
+ "hasMetadata": true,
+ "isDataArchived": false,
+ "archivingInfo": {
+  "supportsQueryWithHistoricMoment": false,
+  "startArchivingMoment": -1
+ },
+ "serviceItemId": "7c81e6b576474450acbd3b1005cd4760"
+}

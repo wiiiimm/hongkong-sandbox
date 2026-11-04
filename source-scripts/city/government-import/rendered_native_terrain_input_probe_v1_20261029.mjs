@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {nativeTerrainSurface} from '../../../3d-viewer/city/native-terrain.js';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const [input,output]=process.argv.slice(2);assert(input&&output);
+const bytes=readFileSync(input),patch=JSON.parse(bytes),mesh=patch.nativeMesh;
+const original=nativeTerrainSurface(mesh),normalized={...mesh,position:Array.from(new Float32Array(mesh.position))};
+const replay=nativeTerrainSurface(normalized);
+const before=Buffer.from(original.position.buffer,original.position.byteOffset,original.position.byteLength);
+const after=Buffer.from(replay.position.buffer,replay.position.byteOffset,replay.position.byteLength);
+assert(before.equals(after));assert.deepEqual(original.index,replay.index);
+const result={sourcePatchSHA256:sha(bytes),productionModuleSHA256:sha(readFileSync('3d-viewer/city/native-terrain.js')),identicalRenderedPositionBytes:true,identicalRenderedIndices:true,renderedPositionsSHA256:sha(before),renderedIndexSHA256:sha(JSON.stringify(original.index)),positionNumbers:original.position.length,indices:original.index.length,sourceGeometryChanges:0,installationApproved:false,qualification:'The actual production nativeTerrainSurface parser returns identical Float32 position bytes and indices before and after canonical Float32 serialization of this derived terrain input. This proves represented surface equivalence, not terrain/model acceptance.'};
+writeFileSync(output,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

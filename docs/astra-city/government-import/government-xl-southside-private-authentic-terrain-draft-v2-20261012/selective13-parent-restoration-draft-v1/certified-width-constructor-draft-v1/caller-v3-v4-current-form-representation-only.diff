@@ -1,0 +1,43 @@
+--- source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v3-20261013.py
++++ source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v4-20261013.py
+@@ -5,16 +5,16 @@
+ import southside_selective13_certified_width_parent_restoration_draft_v2_20261013 as adapter
+ import native_patch_resolution as overlap
+ B=ROOT/'docs/astra-city/government-import';D=B/'government-xl-southside-private-authentic-terrain-draft-v2-20261012';P=D/'selective13-parent-restoration-draft-v1';PLAN=P/'certified-width-constructor-draft-v1'
+-BATCH='government-xl-southside-selective13-certified-width-private-terrain-v3-20261013';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';OLD='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
++BATCH='government-xl-southside-selective13-certified-width-private-terrain-v4-20261013';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';OLD='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+ BASE=B/'government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v4-20261012';MASK=P/'exact-half-distance-closed-mask-certificate-v1/certificate.json.gz';NAM=B/'government-xl-complete-native-actual-position-post-nam-delta-v1-20261013';OLD_CAPTURE=B/'government-xl-southside-315025-300867-current-actual-ground-capture-v1-20261012'
+ UIDS=['landsd/315025:0','landsd/300867:0'];EXPECTED_TESTS=26
+ sha=lambda p:digest(p.read_bytes())
+ def module(name,p):
+  s=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+-def codes():return [Path(__file__),HERE/'southside_selective13_certified_width_parent_restoration_draft_v2_20261013.py',HERE/'test_southside_selective13_certified_width_parent_restoration_draft_v2_20261013.py',HERE/'xl-southside-selective13-certified-width-runtime-draft-v1-20261013.mjs',PLAN/'METHOD-v3.md',PLAN/'input-contract-v3.json']
++def codes():return [Path(__file__),HERE/'southside_selective13_certified_width_parent_restoration_draft_v2_20261013.py',HERE/'test_southside_selective13_certified_width_parent_restoration_draft_v2_20261013.py',HERE/'xl-southside-selective13-certified-width-runtime-draft-v1-20261013.mjs',PLAN/'METHOD-v4.md',PLAN/'input-contract-v4.json']
+ def preflight(require_validation=True):
+  assert not DOC.exists()and not(LOCAL/'private-terrain.json').exists()
+- c=read(PLAN/'input-contract-v3.json');assert c['schema']=='southside-certified-width-private-constructor-input-v1'and c['currentManifestSHA256']==CURRENT
++ c=read(PLAN/'input-contract-v4.json');assert c['schema']=='southside-certified-width-private-constructor-input-v1'and c['currentManifestSHA256']==CURRENT
+  refs=codes();pins={}
+  for r in c['filePins']:
+   p=ROOT/r['path'];assert p.resolve().is_relative_to(ROOT.resolve())and sha(p)==r['sha256'],r['path'];refs.append(p);pins[r['path']]=r['sha256']
+@@ -49,7 +49,7 @@
+   assert sum(m['completePositionVertices']for m in a['actualRenderMeshes'])==a['completePositionVertices']and sum(m['completeIndexedFaces']for m in a['actualRenderMeshes'])==a['completeFaces']
+   assert a['sourceSHA256']==a['completeOriginalPOSITIONProof']['sourceSHA256']==b['source']['sha256']and sha(ROOT/b['source']['path'])==b['source']['sha256']
+   assert digest(json.dumps(a,sort_keys=True,separators=(',',':')).encode())==b['unchangedActualBoundsSHA256']
+-  assert r['currentForm']==inp['currentAllNativeSourceForms'][u]and digest(json.dumps(r['currentForm'],sort_keys=True,separators=(',',':')).encode())==b['currentViewerFormSHA256']
++  assert r['currentForm']==inp['currentAllNativeSourceForms'][u]and digest(json.dumps(inp['currentAllNativeSourceForms'][u],sort_keys=True,separators=(',',':')).encode())==b['currentViewerFormSHA256']
+   assert digest(json.dumps(entries[u],sort_keys=True,separators=(',',':')).encode())==b['currentRawEntrySHA256']
+  forms={};wanted_source_ids={r['uid']for r in proof['rows']}
+  for tile in manifest['tiles']:
+@@ -67,9 +67,9 @@
+  if require_validation:
+   path=PLAN/'immutable-focused-tests-v2/validation.json';v=read(path);assert v['tests']==EXPECTED_TESTS and v['passed']and v['exitCode']==0 and sha(PLAN/'immutable-focused-tests-v2/tests.log')==v['testLogSHA256'];legacy_codes=[HERE/'xl-southside-selective13-certified-width-private-terrain-draft-v2-20261013.py',HERE/'southside_selective13_certified_width_parent_restoration_draft_v2_20261013.py',HERE/'test_southside_selective13_certified_width_parent_restoration_draft_v2_20261013.py',HERE/'xl-southside-selective13-certified-width-runtime-draft-v1-20261013.mjs',PLAN/'METHOD-v2.md',PLAN/'input-contract-v2.json']
+   assert v['codePins']==[dict(path=str(p.relative_to(ROOT)),sha256=sha(p))for p in legacy_codes]
+-  envelope_path=PLAN/'caller-only-v3-binding-envelope.json';envelope=read(envelope_path);assert envelope['schema']=='southside-preflight-typed-partition-caller-only-v3'and envelope['unchanged26NumericFixturesReused']is True
++  envelope_path=PLAN/'caller-only-v4-binding-envelope.json';envelope=read(envelope_path);assert envelope['schema']=='southside-preflight-form-representation-caller-only-v4'and envelope['unchanged26NumericFixturesReused']is True
+   assert envelope['originalValidationSHA256']==sha(path)and envelope['originalTestLogSHA256']==sha(PLAN/'immutable-focused-tests-v2/tests.log')and envelope['currentCodePins']==[dict(path=str(p.relative_to(ROOT)),sha256=sha(p))for p in codes()]
+-  assert sha(PLAN/'caller-v2-v3-typed-partition-only.diff')==envelope['exactCallerDiffSHA256'];refs.extend([path,PLAN/'immutable-focused-tests-v2/tests.log',envelope_path,PLAN/'caller-v2-v3-typed-partition-only.diff',*legacy_codes])
++  assert sha(PLAN/'caller-v3-v4-current-form-representation-only.diff')==envelope['exactCallerDiffSHA256'];refs.extend([path,PLAN/'immutable-focused-tests-v2/tests.log',envelope_path,PLAN/'caller-v3-v4-current-form-representation-only.diff',*legacy_codes])
+  for p in refs:pins[str(p.relative_to(ROOT))]=sha(p)
+  return dict(refs=sorted(set(refs)),pins=pins,resources=resources,mask=mask,saved=saved,basepatch=basepatch,parent=parent,native=native,manifest=manifest,neighbour=neighbour,entries=entries,forms=forms,contract=c)
+ def unchanged(s):

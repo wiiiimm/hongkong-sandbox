@@ -1,0 +1,25 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.102}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/flagged_neighbour_original_lookup_v2_20261029.py", line 88, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/flagged_neighbour_original_lookup_v2_20261029.py", line 48, in main
+    sheets = sorted({r['candidate']['entry']['sourceTile'] for r in selection} | set(args.extra_sheet))
+                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'sourceTile'
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.163}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/academic309823_after_carpark_flagged_lookup_v1_20261101.py", line 14, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/academic309823_after_carpark_flagged_lookup_v1_20261101.py", line 13, in main
+    return execute_reserved(claim['reservation'],local,command)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/north_pair_nonwall_topology_v1_20261027.py", line 28, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

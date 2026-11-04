@@ -1,0 +1,101 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-lai-chi-kok-private-stage-v2-20261019/plan.json",
+  "areas": [
+    {
+      "area": "Lai Chi Kok eight-source assembly unchanged original source",
+      "models": 8,
+      "catalogue": "city/data/official-models/government-xl-lai-chi-kok-private-stage-v2-20261019/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-lai-chi-kok-original-v1-20261019.json": null,
+    "3d-viewer/city/data/official-models/government-xl-lai-chi-kok-private-stage-v2-20261019/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "504d6e2b3784cdd82bef0e305c515c4aabc930d76d3eba25d827efb8c3b07692"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-lai-chi-kok-original-v1-20261019.json": "7a7f727d6aafc7680bfa1c63a78fbc19c30936125192a5c82a0861df6d202ff1",
+    "3d-viewer/city/data/official-models/government-xl-lai-chi-kok-private-stage-v2-20261019/catalogue.json": "6edee4f643d14be65b7eacfab97a49382105a65ca1c61bc95d7eb77da7d20165",
+    "3d-viewer/city/data/manifest.json": "c570f356b1071f95638076e142f06d59e877a0c2358963c305a67fb89b7aa574"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "ad75da9b9f457b194e03344c64fd181b29c251ea",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-273000-0.json",
+      "sha256": "025e2de72f06403dcf8422dd490778c5edcd1793f7dabc66017092a396c1a6c4",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-lai-chi-kok-original-v1-20261019.json",
+      "resolution": 5,
+      "area": "Lai Chi Kok eight-source assembly original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "85e8cf60b62f6e5688f7f80de1949a23eccfc816f3b80121cde129a270ebe5ef",
+            "etag": "\"31b5424-6598a39f02567\"",
+            "sheet": "11-NW-7A",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-five-adjoining-ground-v1-20261018/sheets/11-NW-7A/terrain/TERRAIN(TB)/T31500222000106E12/T31500222000106E12.gltf"
+            ],
+            "triangles": 15850
+          },
+          {
+            "directorySHA256": "00f61bbae074e6f0268eed1d1bf67d6f73cc3269fd6a4ef0a6bc296802c9dd08",
+            "etag": "\"3477e5c-64e62c6d58cc8\"",
+            "sheet": "11-NW-7B",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-five-adjoining-ground-v1-20261018/sheets/11-NW-7B/terrain/TERRAIN(TB)/T32250222000106E11/T32250222000106E11.gltf"
+            ],
+            "triangles": 16795
+          },
+          {
+            "directorySHA256": "34de7e53028f97b1bde1b55197516f60ed9292d2095a983934c08a9619f21b40",
+            "etag": "\"273f274-6598a3a5f70b9\"",
+            "sheet": "11-NW-7C",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-five-adjoining-ground-v1-20261018/sheets/11-NW-7C/terrain/TERRAIN(TB)/T31500216000106E12/T31500216000106E12.gltf"
+            ],
+            "triangles": 9900
+          },
+          {
+            "directorySHA256": "ec2e1c6ea2c16b29b516dbe6a60c9a3b903d405354c53b6c0cc2bfbda370639f",
+            "etag": "\"321cf66-6598a3b356f1a\"",
+            "sheet": "11-NW-7D",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-five-adjoining-ground-v1-20261018/sheets/11-NW-7D/terrain/TERRAIN(TB)/T32250216000106E12/T32250216000106E12.gltf"
+            ],
+            "triangles": 3616
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 19685,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "7a7f727d6aafc7680bfa1c63a78fbc19c30936125192a5c82a0861df6d202ff1",
+      "bytes": 10153934
+    }
+  ],
+  "estimatedBases": []
+}

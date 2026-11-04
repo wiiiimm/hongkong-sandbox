@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-franki-centre-mask-20260929/plan.json",
+  "areas": [
+    {
+      "area": "Franki Centre original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-franki-centre-mask-20260929/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-111822-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-franki-centre-mask-20260929/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "fc36fefd0c2e44f494558c43a3ab9acced1bad1f9c05515e8fb860724b679dcb"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-111822-0.json": "6c009b58a63ebd30dc3a1f68dccadeb4b9bfad63e65394621a48c6b1e333a722",
+    "3d-viewer/city/data/official-models/government-xl-franki-centre-mask-20260929/catalogue.json": "2c506f3c10535cdeda59ff3dd443e87db1b3cecdc2e9996f282ce53ef78f3fd9",
+    "3d-viewer/city/data/manifest.json": "610723b35b457fe8bc3e5cada328d392c30b41a39d1da008b89e012e63bf8f31"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "b1686c0cdf0d7ee7270e69336240213139aeba56",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-111822-0.json",
+      "resolution": 5,
+      "area": "Franki Centre government terrain with retained neighbor ground",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "af0dd8e4b0d1b27451e8cf1fefec1f1066bc462991f4cc779df83ced77c7ab7d",
+            "revision": "2026-08-27T16:00:00+00:00",
+            "sheet": "11-NW-10A",
+            "sourceETag": "\"2bcd682-6598a2ed93b88\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-10A/terrain/TERRAIN(TB)/T36000222000106E12/T36000222000106E12.bin",
+                "sha256": "da100ea8fc1897cdb4e7517e52721b5acce9a837f0308a7b30331bb0a7587310"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-10A/terrain/TERRAIN(TB)/T36000222000106E12/T36000222000106E12.gltf",
+                "sha256": "ce27b3f1f573766a427922ed5a969ed87dfa10df526a7dc4c102a978a576fc61"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6c009b58a63ebd30dc3a1f68dccadeb4b9bfad63e65394621a48c6b1e333a722",
+      "bytes": 539796
+    }
+  ],
+  "estimatedBases": []
+}

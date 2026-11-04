@@ -1,0 +1,42 @@
+--- upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py
++++ upton_two_original_complete_mask_current_nam_enclosure_draft_v6_20261013.py
+@@ -18,16 +18,17 @@
+ from upton_actual_candidate_clearance_audit_v1_20261012 import measured_projection,candidate_surface,verify_drawn_multiset
+ from upton_two_original_six_mask_partition_v1_20261012 import partition as partition_regions,mask,interface_edges,same_triplet
+ BASE=ROOT/'docs/astra-city/government-import'
+-BATCH='government-xl-upton-two-original-complete-mask-current-nam-enclosure-v5-20261013'
++BATCH='government-xl-upton-two-original-complete-mask-current-nam-enclosure-v6-20261013'
+ DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ PROPOSAL=BASE/(BATCH+'-proposal');METHOD=PROPOSAL/'METHOD.md';VALIDATION=PROPOSAL/'join-helper-validation.json';PREFLIGHT=PROPOSAL/'unexecuted-schema-pin-check.json'
+ CAP=BASE/'government-xl-upton-whole-parent-current-domain-capture-v2-20261012'
+ REG=BASE/'government-xl-upton-whole-parent-original-tin-regression-v2-20261012'
+ NAT=BASE/'government-xl-complete-current-native-actual-position-matrix-bounds-v4-20261012'
+ HELPER=HERE/'upton_complete_mask_float32_enclosure_v1_20261013.py';TEST=HERE/'test_upton_complete_mask_float32_enclosure_v1_20261013.py'
+-RUNTIME=HERE/'upton_two_original_complete_mask_current_nam_enclosure_runtime_draft_v5_20261013.mjs'
++RUNTIME=HERE/'upton_two_original_complete_mask_current_nam_enclosure_runtime_draft_v6_20261013.mjs'
+ FREEZER=HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'
+ CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
++CLASSIFICATION=PROPOSAL/'complete-71-selected-literal-source-classification.json'
+ HISTORICAL='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+ NAM=BASE/'government-xl-complete-native-actual-position-post-nam-delta-v1-20261013'
+ HISTORICAL_MANIFEST=BASE/'government-xl-complete-current-native-actual-position-matrix-bounds-v4-20261012/captured-manifest.json'
+@@ -76,7 +77,7 @@
+  schema_only();pre=read(PREFLIGHT);assert pre['passed']and pre['caller']==ref(Path(__file__))and pre['method']==ref(METHOD)
+  closure=read(PROPOSAL/'literal-runtime-closure-preflight.json');assert closure['schema']=='exact-literal-static-dynamic-resource-closure-v1'and closure['computedImportsRejected']and closure['unsupportedDynamicImports']==0 and closure['entryPath']==str(RUNTIME.relative_to(ROOT));[check(dict(path=k,sha256=v))for k,v in closure['inputHashes'].items()]
+  v=read(VALIDATION);assert v['exitCode']==0 and v['passedTests']==18 and v['failedTests']==0 and v['helper']==ref(HELPER)and v['test']==ref(TEST);check(v['log'])
+- refs=[ref(Path(__file__)),ref(HELPER),ref(TEST),ref(RUNTIME),ref(METHOD),ref(PREFLIGHT),ref(VALIDATION),v['log'],ref(FREEZER),ref(PROPOSAL/'draft-pins.json'),ref(PROPOSAL/'literal-runtime-closure-preflight.json')]+[dict(path=k,sha256=v)for k,v in closure['inputHashes'].items()]
++ refs=[ref(Path(__file__)),ref(HELPER),ref(TEST),ref(RUNTIME),ref(METHOD),ref(PREFLIGHT),ref(VALIDATION),v['log'],ref(FREEZER),ref(PROPOSAL/'draft-pins.json'),ref(CLASSIFICATION),ref(PROPOSAL/'literal-runtime-closure-preflight.json')]+[dict(path=k,sha256=v)for k,v in closure['inputHashes'].items()]
+  # Actual present local import graph is pinned before loading dynamic modules.
+  folders=[HERE,HERE.parent/'shared-modelling',HERE.parent/'citywide-native',HERE.parent/'island-detail-integration',ROOT/'docs/astra-city/mui-wo-buildings/review',HERE.parent/'assembly-support-review']
+  todo=[Path(__file__),FREEZER];seen=set()
+@@ -131,7 +132,9 @@
+  maskdata=read(FEAS/'complete-six-current-protection-masks.json.gz');assert len(maskdata['rows'])==6 and len({r['currentForm']['parent']for r in maskdata['rows']})==6
+  masks=[mask(m['exactXZ'])for r in maskdata['rows']for m in r['exactMasks']]
+  feasibility=read(FEAS/'diagnostic.json.gz');assert len([r for r in feasibility['rows']if r['uid']in UIDS])==8 and all(not r['actualOrdinaryRestorationConflictWitnesses']for r in feasibility['rows']if r['uid']in UIDS)
+- core=protected_core(allbounds,DOMAIN);DOC.mkdir(parents=True);selection=read(PRIOR/'whole-current-facet-protection-nominations.json.gz');current_attribution=source_attribution(current,attribution['rows'][0]['completeAttributedSources']);native_selected,base_selected=native_whole_selection(selection,current_attribution,inp['retainedParent']['path']);assert len(native_selected)==69 and [q['currentFace']for q in base_selected]==[12,18]and not selection['wholeFacetOutsideCapturedDomainHolds'];selected={q['currentFace']:q for q in native_selected};errors=domain_errors(DOMAIN);protected=[];envelopes=[];masks=[];mask_keys={}
++ core=protected_core(allbounds,DOMAIN);DOC.mkdir(parents=True);selection=read(PRIOR/'whole-current-facet-protection-nominations.json.gz');current_attribution=source_attribution(current,attribution['rows'][0]['completeAttributedSources']);native_selected,base_selected=native_whole_selection(selection,current_attribution,inp['retainedParent']['path']);assert [q['currentFace']for q in native_selected]==list(range(8841,8909))and [q['currentFace']for q in base_selected]==[12,18,19]and not selection['wholeFacetOutsideCapturedDomainHolds'];selected={q['currentFace']:q for q in native_selected};errors=domain_errors(DOMAIN);protected=[];envelopes=[];masks=[];mask_keys={}
++ for record in read(CLASSIFICATION)['rows']:
++  i=record['selectedRow']['currentFace'];assert record['selectedRow']==next(q for q in selection['selected']if q['currentFace']==i)and record['sourceAttribution']==current_attribution[i]and record['completeDrawnTriplet']==current[i].tolist()
+  def protect(raw,origin):
+   e=envelope(raw,errors,DOMAIN);ids=[]
+   for t in e['exactEnvelopeTriangles']:

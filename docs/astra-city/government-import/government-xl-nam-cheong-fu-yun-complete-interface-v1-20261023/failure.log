@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/nam_cheong_fu_yun_complete_interface_v1_20261023.py", line 27, in <module>
+    contacts=exact_component_contacts(tri[0],range(len(tri[0])),tri[1],range(len(tri[1])),maximum_pairs=1000000)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_component_contacts_20261009.py", line 44, in exact_component_contacts
+    points = intersection_points(cached_a[fi], cached_b[fj])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_shell_intersections_20261009.py", line 63, in intersection_points
+    assert any(na) and any(nb),'Degenerate source triangle'
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: Degenerate source triangle

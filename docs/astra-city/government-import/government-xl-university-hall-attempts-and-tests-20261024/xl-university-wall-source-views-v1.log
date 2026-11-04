@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/university_hall_wall_source_views_v1_20261024.py", line 49, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/university_hall_wall_source_views_v1_20261024.py", line 42, in main
+    fig.suptitle('University Hall original walls '+str(group)+' red; unchanged source grey; actual current ground green wire\nDisplay clipping only, no source changes, no automatic physical acceptance.');fig.tight_layout();path=out/f'region-{n+1}.png';fig.savefig(path,dpi=130);plt.close(fig)
+                                                                                                                                                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/figure.py", line 3490, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/backend_bases.py", line 2157, in print_figure
+    self.figure.draw(renderer)
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/mpl_toolkits/mplot3d/axes3d.py", line 445, in draw
+    for artist in sorted(collections_and_patches,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/mpl_toolkits/mplot3d/axes3d.py", line 446, in <lambda>
+    key=lambda artist: artist.do_3d_projection(),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/mpl_toolkits/mplot3d/art3d.py", line 1167, in do_3d_projection
+    _, segments_2d, self._facecolors2d, self._edgecolors2d, idxs = \
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 5, got 0)

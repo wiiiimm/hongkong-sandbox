@@ -1,0 +1,142 @@
+{
+  "batch": "government-xl-after-qe-beverly30031-retained-regression-sequence-v1-20261026",
+  "uids": [
+    "landsd/30031:0"
+  ],
+  "resources": [
+    "building:landsd/30031:0",
+    "building:landsd/246824:0",
+    "building:landsd/265489:0",
+    "building:landsd/32067:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-beverly-32067-original-v1-20261023.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v6_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-retained-runtime-v1-20261026",
+      "args": [
+        "--patch",
+        "government-xl-after-qe-beverly30031-retained-inset-v1-20261026",
+        "--capture",
+        "government-xl-after-qe-beverly30031-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_retained_patch_scope_v3_20261026.py",
+      "batch": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026",
+      "args": [
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026",
+        "--patch",
+        "government-xl-after-qe-beverly30031-retained-inset-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_full_native_replacement_binding_v2_20261026.py",
+      "batch": "government-xl-after-qe-beverly30031-replacement-binding-v1-20261026",
+      "args": [
+        "--patch",
+        "government-xl-after-qe-beverly30031-retained-inset-v1-20261026",
+        "--runtime",
+        "government-xl-after-qe-beverly30031-retained-runtime-v1-20261026",
+        "--scope",
+        "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_current_installed_dependency_bindings_v1_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-dependency-bindings-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_retained_native_neighbours_v8_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-retained-neighbours-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-qe-beverly30031-retained-scope-v1-20261026",
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026",
+        "--patch",
+        "government-xl-after-qe-beverly30031-replacement-binding-v1-20261026",
+        "--bindings",
+        "government-xl-after-qe-beverly30031-dependency-bindings-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-qe-beverly30031-retained-foundations-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-beverly30031-retained-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-beverly30031-attributes-v1-20261026",
+        "--uid",
+        "landsd/30031:0"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v1_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-retained-low-faces-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-beverly30031-retained-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-beverly30031-attributes-v1-20261026",
+        "--uid",
+        "landsd/30031:0"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_original_overlapping_native_contacts_v3_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-native-contacts-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-qe-beverly30031-model-scope-v1-20261026",
+        "--runtime",
+        "government-xl-after-qe-beverly30031-retained-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-beverly30031-attributes-v1-20261026",
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-foreign-contacts-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-qe-beverly30031-model-scope-v1-20261026",
+        "--runtime",
+        "government-xl-after-qe-beverly30031-retained-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-beverly30031-attributes-v1-20261026",
+        "--native-contacts",
+        "government-xl-after-qe-beverly30031-native-contacts-v1-20261026",
+        "--uid",
+        "landsd/30031:0"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    },
+    {
+      "script": "current_scope_native_input_v1_20261026.py",
+      "batch": "government-xl-after-qe-beverly30031-native-input-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-qe-beverly30031-retained-scope-v1-20261026",
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-qe-beverly30031-retained-scope-v1-20261026"
+    }
+  ]
+}

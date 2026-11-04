@@ -1,0 +1,11 @@
+"""Fresh complete named overhead identity replay; no physical/install credit."""
+import importlib.util
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest
+from aqua_current_bound_overhead_identity_v3_20261010 import verify_files,DOC as INPUT
+BATCH='government-xl-aqua-marine-current-bound-overhead-promotion-v3-20261010';DOC=ROOT/'docs/astra-city/government-import'/BATCH;LOCAL=HERE/'local'/BATCH
+assert not (DOC/'result.json').exists();row=read(INPUT/'selection.json.gz')['rows'][0];context=read(INPUT/'context.json.gz')['rows'][0];(LOCAL/'assets').mkdir(parents=True,exist_ok=True);raw=(ROOT/row['candidate']['path']).read_bytes();assert digest(raw)==row['sourceSHA256'];(LOCAL/'assets'/(row['sourceSHA256']+'.glb.gz')).write_bytes(raw);proof=verify_files(row,context,LOCAL);assert proof['passed'],proof['reasons'];save(DOC/'identity.json',proof)
+(DOC/'README.md').write_text('Complete unchanged original Aqua Marine overhead identity passed a fresh current/native/provider/root/stream/raw-full-cell replay. All22 named excess faces belong the complete656face source-owned plate, strictly above the independent foreign body. Raw2D overlap retained; every other actor and physical/collision/terrain gate stays independent.40actualfixturetests pass. No installation or physical acceptance credit.\n')
+s=importlib.util.spec_from_file_location('aqua_promote_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+paths=[Path(__file__),HERE/'aqua_current_bound_overhead_identity_v3_20261010.py',HERE/'test_aqua_current_bound_overhead_identity_v3_20261010.py',HERE/'test_aqua_named_original_overhead_identity_v3_20261010.py']+[p for p in INPUT.rglob('*') if p.is_file()]
+receipt=m.freeze(BATCH,'complete-current-named-original-overhead-identity-v2',paths,{'uids':[row['uid']],'uid':row['uid'],'sourceSHA256':row['sourceSHA256'],'identityAccepted':True,'scriptFullAcceptancePassed':False,'physicalAccepted':False,'newlyInstalled':0,'sourceIdentityReviewUsedAI':True,'manifestSHA256':read(INPUT/'current-inputs.json.gz')['manifestSHA256'],'nextStep':'Complete independent source terrain/support/current foreign/runtime/browser acceptance; rebind current after any map publication.'});print(receipt['jobId'],flush=True)

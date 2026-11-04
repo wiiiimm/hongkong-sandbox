@@ -1,0 +1,80 @@
+{
+  "batch": "government-xl-disneyland-piers-after-passenger-joint-validation-sequence-v1-20261030",
+  "uids": [
+    "landsd/75642:0",
+    "landsd/75643:0"
+  ],
+  "resources": [
+    "building:landsd/75642:0",
+    "building:landsd/75643:0",
+    "source-form:way/334029318:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-patch-runtime-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-disneyland-piers-after-passenger-joint-coast-inset-v1-20261030",
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-patch-scope-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-passenger-native-bounds-v1-20261030",
+        "--patch",
+        "government-xl-disneyland-piers-after-passenger-joint-coast-inset-v1-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75642-joint-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-joint-patch-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-joint-attributes-v1-20261030",
+        "--uid",
+        "landsd/75642:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75643-joint-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-joint-patch-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-joint-attributes-v1-20261030",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_form_checks_v1.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-form-checks-v1-20261030",
+      "scopeResources": "government-xl-disneyland-piers-after-passenger-joint-patch-scope-v1-20261030",
+      "args": [
+        "--scope",
+        "government-xl-disneyland-piers-after-passenger-joint-patch-scope-v1-20261030",
+        "--inventory",
+        "government-xl-after-passenger-native-bounds-v1-20261030",
+        "--patch",
+        "government-xl-disneyland-piers-after-passenger-joint-coast-inset-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-patch-buried-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-joint-patch-runtime-v1-20261030"
+      ]
+    }
+  ]
+}

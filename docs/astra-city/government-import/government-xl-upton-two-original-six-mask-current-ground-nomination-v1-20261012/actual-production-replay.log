@@ -1,0 +1,16 @@
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/geo.js:41
+    if(native){const value=native.height(x,z);if(value!==null)return value;if(contains(x,z)&&!nativeGridFallback)throw new Error('Native terrain contains an uncovered point');}
+                                                                                                                       ^
+
+Error: Native terrain contains an uncovered point
+    at sample (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/geo.js:41:120)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/geo.js:51:169
+    at renderedPatchHeight (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/rendered-patch-height.js:4:44)
+    at Object.height (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/geo.js:51:98)
+    at patchHeight (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/geo.js:28:25)
+    at Object.height (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/geo.js:51:118)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_six_mask_runtime_draft_v1_20261012.mjs:59:109
+    at Array.map (<anonymous>)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_six_mask_runtime_draft_v1_20261012.mjs:59:28
+
+Node.js v24.18.0

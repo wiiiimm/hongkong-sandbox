@@ -1,0 +1,20 @@
+--- citywalk134332_saved_failure_source_orientation_context_draft_v1_20261013.py
++++ citywalk134332_saved_failure_source_orientation_context_draft_v2_20261013.py
+@@ -4,7 +4,7 @@
+ from fractions import Fraction as F
+ import numpy as np
+ from west_wing26195_complete_current_finite_ground_draft_v3_20261012 import exact_orientation
+-ROOT=Path(__file__).resolve().parents[3];BASE=ROOT/'docs/astra-city/government-import';P=BASE/'government-xl-citywalk134332-current-failure-source-role-recovery-proposal-v1-20261013';OUT=BASE/'government-xl-citywalk134332-saved-failure-source-orientation-context-v1-20261013';MANIFEST='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
++ROOT=Path(__file__).resolve().parents[3];BASE=ROOT/'docs/astra-city/government-import';P=BASE/'government-xl-citywalk134332-current-failure-source-role-recovery-proposal-v2-20261013';OUT=BASE/'government-xl-citywalk134332-saved-failure-source-orientation-context-v2-20261013';MANIFEST='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
+ def sha(b):return hashlib.sha256(b).hexdigest()
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=sha(p.read_bytes()))
+ def read(p):return json.loads(gzip.decompress(p.read_bytes())if p.suffix=='.gz'else p.read_bytes())
+@@ -23,7 +23,7 @@
+   position=np.asarray(r[key],dtype='<f8').reshape(-1,3);assert np.isfinite(position).all()and index.min()>=0 and index.max()<len(position);worlds[name]=position[index]
+  for name,w in worlds.items():
+   assert w.shape==(41277,3,3)and np.isfinite(w).all();bs=[b for b in d['allSourceGroundBindings']if b['sourceWorld']==name];assert len(bs)==3 and all(b['sourceWorldSHA256']==sha(w.tobytes())for b in bs)
+- ground=read(ROOT/c['ground']['path']);t=np.asarray(ground['completeRegionalGroundWorlds']['actualLiteral'],dtype='<f8');assert t.shape==(4215,3,3)and np.isfinite(t).all()and sha(t.tobytes())==c['groundWorldSHA256']
++ ground=read(ROOT/c['ground']['path']);t=np.asarray(ground['completeRegionalGroundWorlds']['actualLiteral'],dtype='<f8').reshape(-1,3,3);assert t.shape==(4215,3,3)and np.isfinite(t).all()and sha(t.tobytes())==c['groundWorldSHA256']
+  for p,h in ground['inputHashes'].items():assert ref(ROOT/p)['sha256']==h
+  return c,d,components,labels,worlds,t,ground
+ 

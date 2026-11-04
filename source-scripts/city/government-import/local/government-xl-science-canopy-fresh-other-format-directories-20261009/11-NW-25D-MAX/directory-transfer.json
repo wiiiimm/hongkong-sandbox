@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "issue": "HKS-213",
+  "startedAt": "2026-10-09T13:30:00.374763+00:00",
+  "chargedBytes": 65536,
+  "receivedBytes": 65536,
+  "requests": [
+    {
+      "url": "https://download.map.gov.hk/api/3d-zip/MAX0/11-NW-25D.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+      "method": "HEAD",
+      "range": null,
+      "reservedBytes": 0,
+      "startedAt": "2026-10-09T13:30:00.375106+00:00",
+      "status": "complete",
+      "finishedAt": "2026-10-09T13:30:00.427422+00:00",
+      "httpStatus": 200,
+      "receivedBytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "headers": {
+        "Date": "Fri, 09 Oct 2026 13:30:00 GMT",
+        "Last-Modified": "Tue, 02 Sep 2025 09:40:47 GMT",
+        "ETag": "\"31ed4cc-63dce48653f52\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "52352204",
+        "Content-Type": "application/zip"
+      }
+    },
+    {
+      "url": "https://download.map.gov.hk/api/3d-zip/MAX0/11-NW-25D.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+      "method": "GET",
+      "range": "-65536",
+      "reservedBytes": 65536,
+      "startedAt": "2026-10-09T13:30:00.428087+00:00",
+      "status": "complete",
+      "finishedAt": "2026-10-09T13:30:00.558705+00:00",
+      "httpStatus": 206,
+      "receivedBytes": 65536,
+      "sha256": "dd79d9d358aa55416cfd7650fb8375f2dea053984b7cca31ca23edc0e42074c7",
+      "headers": {
+        "Date": "Fri, 09 Oct 2026 13:30:00 GMT",
+        "Last-Modified": "Tue, 02 Sep 2025 09:40:47 GMT",
+        "ETag": "\"31ed4cc-63dce48653f52\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "65536",
+        "Content-Range": "bytes 52286668-52352203/52352204",
+        "Content-Type": "application/zip"
+      }
+    }
+  ],
+  "capBytes": 2000000
+}

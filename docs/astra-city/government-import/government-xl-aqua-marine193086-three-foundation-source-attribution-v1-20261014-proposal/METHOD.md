@@ -1,0 +1,20 @@
+# Actual three-face attribution, raw foundation and ordinary warning retained
+
+Codex prepares; ROOT computes. Completed ordinary job277bc12f33e1dc01cefae56fe00973a4e27a2a973cb0fae2e5658bdc345aa052 has loader/runtime1/1, zero exceptions/runtime concerns, BASIC regressions[]/native blocked[]. Sole ordinary warning is terrain-intersects-source-over-0.5m. Whole foundation remains strictFalse: exactly3 fully buried upward faces, summed0.002202476659993938m², y5.223238945..5.240274906m against current~6m. Whole minimum−1.22511434555m remains raw. Small area, boundary distance or adjacency do not approve anything.
+
+The old aggregate contains no face IDs. Observe unchanged `foundation_context` by forwarding its unchanged shared.samples and connected_components calls, saving their return mask/heights, and require byte-exact JSON equality to the already completed aggregate. The function/thresholds/terrain ordering/values stay unchanged; no terrain constructor, model source decode, identity or full finite replay. Scope is the saved22735 actual literal faces/584 ground facets only. Source/runtime index buffer SHA must equal original single primitive uint16 accessor bytes and full50855 position-count declaration, including unused vertices. Exact source face ordinals and complete saved original46-part face census then map the3 failures; census labels alone never certify topology/root/architecture.
+
+Export3 original face IDs, source primitive/index/accessor/node/material lineage, original and actual vertices/winding/normals/area/Y, full current-index incidence, exact current/provider footprint bindings and complete containing saved ground facet IDs/XYZ at each original four foundation sites. Preserve full ordinary below−.5 sample loci on every other partial source face, so the minimum warning is not reduced to these3 upward caps. All ground provenance remains the actual saved runtime producer and its complete input-hash closure; no nearest-parent or layer inference.
+
+Architectural role stays UNASSIGNED. A source-specific functional disposition requires the exact full authored assembly and current ground context to support it, then ROOT review; no tiny-area/boundary/normal generic waiver, new engineering/watertight gate or geometric edits. Raw strictFalse and sole ordinary warning remain false/unresolved. Next source-view diagrams/actual current camera and complete four-world ordinary finite/independent foreign collisions can use this exact selector/face packet, without identity or original-source decoding again. Only a genuinely supported narrow applicability record followed by all ordinary runtime/publication/current ledger gates can grant installation.
+
+ROOT commands after completed ordinary receipt full verification:
+
+```sh
+/tmp/astra-city-venv/bin/python docs/astra-city/government-import/government-xl-aqua-marine193086-three-foundation-source-attribution-v1-20261014-proposal/prepare-readonly.py
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/aqua_marine193086_three_foundation_source_attribution_v1_20261014.py --attribute-actual-three-source-failures-only
+```
+
+Preparation is only metadata/hash/setup fixtures. Actual observation/descriptors/geometry arrays are ROOT-owned under same complete20UID/41resource canonical scope, supervisor/timed pulse/finallyrelease, full refs and unchanged current2a4c1ee/snapshot518fca binding, exact saved Neon readback, canonical source-only freezer. No source or terrain edits, body-role acceptance, publication or review writes.
+
+Before execution, ROOT corrected the draft's runtime result-container interpretation: rawRuntimeConcerns is one accepted UID193086 row, outcome runtime-accepted-placement-unreviewed, concerns[]. V1 pre-fix caller/helper/fixture/prep/METHOD bytes are retained under preserved-before-runtime-row-schema-fix. The fixed binding preserves that entire row; it does not empty/drop results or claim placement acceptance. Seven fixtures include the actual saved row regression and changed UID/outcome/inner concerns rejection. No worker/model failure occurred.

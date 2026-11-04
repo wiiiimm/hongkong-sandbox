@@ -1,0 +1,30 @@
+--- source-scripts/city/government-import/test_polyu_face891_saved_packed_closed_coverage_v1_draft_20261014.py
++++ source-scripts/city/government-import/test_polyu_face891_saved_packed_closed_coverage_v2_draft_20261014.py
+@@ -38,11 +38,12 @@
+ 
+     def test_rational_target_not_rounded_to_binary64(self):
+         target=[(F(1,3),F(0)),(F(1),F(0)),(F(1,3),F(1))]
+-        shifted=[(F(float(F(1,3))),0),(1,0),(F(float(F(1,3))),1)]
++        # This larger triangle encloses the rational target, including its top.
++        shifted=[(F(float(F(1,3))),0),(2,0),(F(float(F(1,3))),2)]
+         result=h.closed_coverage(target,[row(0,shifted)])
+-        # Here float(1/3) rounds left, extending coverage; exact bound retained.
+         self.assertEqual(target[0][0],F(1,3));self.assertTrue(result['completeClosedXZCovered'])
+-        shifted[0]=(F(1,3)+F(1,2**100),0);shifted[2]=(F(1,3)+F(1,2**100),1)
++        # A smaller triangle shifted right by an exact sub-binary64 amount fails.
++        shifted=[(F(1,3)+F(1,2**100),0),(1,0),(F(1,3)+F(1,2**100),1)]
+         self.assertFalse(h.closed_coverage(target,[row(0,shifted)])['completeClosedXZCovered'])
+ 
+     def test_height_excluded_redundant_face_is_not_global_failure(self):
+
+--- source-scripts/city/government-import/polyu_face891_saved_packed_coverage_caller_v1_draft_20261014.py
++++ source-scripts/city/government-import/polyu_face891_saved_packed_coverage_caller_v2_draft_20261014.py
+@@ -8,7 +8,7 @@
+ 
+ ROOT=Path(__file__).resolve().parents[3]
+ BASE=ROOT/'docs/astra-city/government-import'
+-BATCH='government-xl-polyu-face891-saved-packed-closed-coverage-v1-20261014'
++BATCH='government-xl-polyu-face891-saved-packed-closed-coverage-v2-20261014'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');MAX_SECONDS=60.0
+ 
+ 

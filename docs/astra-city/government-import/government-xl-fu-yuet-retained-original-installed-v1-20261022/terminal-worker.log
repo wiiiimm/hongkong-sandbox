@@ -1,0 +1,18 @@
+{"sourceFormAdapterPassed":true,"models":1,"dependencyFirstOrder":["landsd/147589:0"]}
+{"sourceFormAdapterPassed":true,"models":1,"dependencyFirstOrder":["landsd/147589:0"]}
+{
+  "ok": false,
+  "error": "lease-lost-or-renewal-failed",
+  "exitCode": 2,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_live_install_v1.py", line 156, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_live_install_v1.py", line 153, in main
+    save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned','--previous',str(previous)],cwd=ROOT,check=True)
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-fu-yuet-retained-original-installed-v1-20261022/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_live_install_v1.py', '--owned', '--previous', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-ching-cheung-original-installed-with-native-v1-20261022/full-xl-current-count.json']' returned non-zero exit status 2.

@@ -1,0 +1,4 @@
+- for path in obj.get('inputHashes',{}):paths.add(ROOT/path)
++ if isinstance(obj,dict):
++  for path in obj.get('inputHashes',{}):paths.add(ROOT/path)
+# All DOC/LOCAL/PROPOSAL files remain explicitly collected, including arrays.

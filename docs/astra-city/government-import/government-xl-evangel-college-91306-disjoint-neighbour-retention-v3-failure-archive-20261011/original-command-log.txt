@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011.py", line 107, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011.py", line 102, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011.py", line 40, in owned
+    identity=verify_files(row,context[0],LOCAL/'current-identity',raw_identity_replay=explicit_original_raw_verify);assert identity==read(INPUT/'owned-source-identity.json')and identity['passed']and identity['reasons']==[]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_post_elements_current_bound_wing_extension_identity_v3_20261011.py", line 49, in verify_files
+    current_binding(read(RAW/'selection.json.gz')['rows'][0],read(RAW/'context.json.gz')['rows'][0],row,context,[f for f,_,_ in forms],read(RAW/'complete-current-forms.json.gz')['rows'],before,(RAW/'captured-manifest.json').read_bytes(),native,installed)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_post_elements_current_bound_wing_extension_identity_v3_20261011.py", line 24, in current_binding
+    assert row==captured_row and context==captured_context
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011.py", line 107, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011.py", line 106, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-disjoint-current-neighbour-parent-retention-v3-20261011.py', '--owned']' returned non-zero exit status 1.

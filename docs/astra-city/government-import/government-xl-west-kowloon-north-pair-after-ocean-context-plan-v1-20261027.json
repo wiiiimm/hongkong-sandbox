@@ -1,0 +1,75 @@
+{
+  "batch": "government-xl-west-kowloon-north-pair-after-ocean-context-sequence-v1-20261027",
+  "phases": [
+    {
+      "args": [
+        "--inventory",
+        "government-xl-after-ocean-four-current-inventory-v1-20261027",
+        "--capture",
+        "government-xl-after-dragon-next-five-ground-v1-20261026",
+        "--capture",
+        "government-xl-west-kowloon-north-auxiliary309340-acquire-v1-20261027",
+        "--uid",
+        "landsd/182397:0",
+        "--uid",
+        "landsd/309340:0"
+      ],
+      "batch": "government-xl-west-kowloon-north-pair-after-ocean-selection-v1-20261027",
+      "script": "merge_current_original_selections_v1_20261024.py"
+    },
+    {
+      "args": [
+        "--capture",
+        "government-xl-west-kowloon-north-pair-after-ocean-selection-v1-20261027",
+        "--uid",
+        "landsd/182397:0",
+        "--uid",
+        "landsd/309340:0"
+      ],
+      "batch": "government-xl-west-kowloon-north-pair-after-ocean-current-runtime-v1-20261027",
+      "script": "selected_original_current_capture_v3.py"
+    },
+    {
+      "args": [
+        "--capture",
+        "government-xl-west-kowloon-north-pair-after-ocean-current-runtime-v1-20261027"
+      ],
+      "batch": "government-xl-west-kowloon-north-pair-after-ocean-attributes-v1-20261027",
+      "script": "selected_original_render_attributes_v1.py"
+    },
+    {
+      "args": [
+        "--capture",
+        "government-xl-west-kowloon-north-pair-after-ocean-current-runtime-v1-20261027"
+      ],
+      "batch": "government-xl-west-kowloon-north-pair-after-ocean-identity-v1-20261027",
+      "script": "selected_original_identity_v3_20261023.py"
+    },
+    {
+      "args": [
+        "--runtime",
+        "government-xl-west-kowloon-north-pair-after-ocean-current-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-west-kowloon-north-pair-after-ocean-attributes-v1-20261027",
+        "--inventory",
+        "government-xl-after-ocean-four-current-inventory-v1-20261027"
+      ],
+      "batch": "government-xl-west-kowloon-north-pair-after-ocean-model-scope-v1-20261027",
+      "script": "selected_original_model_only_scope_v1_20261023.py"
+    }
+  ],
+  "resources": [
+    "building:landsd/182397:0",
+    "building:landsd/262850:0",
+    "building:landsd/272986:0",
+    "building:landsd/309340:0",
+    "building:landsd/79799:0",
+    "building:landsd/84025:0",
+    "building:landsd/84114:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "uids": [
+    "landsd/182397:0",
+    "landsd/309340:0"
+  ]
+}

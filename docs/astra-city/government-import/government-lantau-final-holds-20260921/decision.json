@@ -1,0 +1,50 @@
+{
+  "batch": "HKS-203 Lantau final matched-source disposition 2026-09-21",
+  "scope": "Four government-matched Lantau forms remaining after the final fourteen-form compute pass",
+  "humanState": "held",
+  "aiCallsForGeometry": 0,
+  "geometryChanged": false,
+  "productionPublished": false,
+  "rows": [
+    {
+      "uid": "landsd/112959:0",
+      "area": "Tai O",
+      "reasonCode": "source-roof-below-rendered-terrain",
+      "observation": "Exact object and CSUID match, 91.4% footprint overlap and 0.16 m centroid offset. Aligning unchanged government geometry to recorded TopHeight still leaves the highest roof 0.45 m below sampled terrain at its roof point and up to 2.50 m below rendered terrain in the surface check.",
+      "evidence": ["docs/astra-city/government-import/government-lantau-height-align-20260921/validation.json", "docs/astra-city/government-import/government-lantau-height-align-20260921/metrics.json"],
+      "nextDependency": "Reconcile official terrain height or obtain a corrected source height; do not raise the mesh arbitrarily.",
+      "needsUserDecision": false,
+      "requiresAiModelling": false
+    },
+    {
+      "uid": "landsd/168823:0",
+      "area": "Ngong Ping",
+      "reasonCode": "official-source-footprint-mismatch",
+      "observation": "The source has the exact object and CSUID but its horizontal envelope and centroid do not fit the matched building; the official loader rejects it as 'Official model does not fit its matched footprint'.",
+      "evidence": ["docs/astra-city/government-import/government-lantau-final-14-20260921/validation.json", "docs/astra-city/government-import/government-ngong-ping-peaks-473-20260918/terminal-states.json"],
+      "nextDependency": "Identify the correct government component or corrected building footprint before import.",
+      "needsUserDecision": false,
+      "requiresAiModelling": false
+    },
+    {
+      "uid": "landsd/182471:0",
+      "area": "Shek Pik",
+      "reasonCode": "source-roof-below-rendered-terrain",
+      "observation": "Kwun Yam Temple has exact object and CSUID match, 87.3% footprint overlap and 0.21 m centroid offset. Aligning unchanged government geometry to recorded TopHeight still leaves the highest roof 0.90 m below sampled terrain at its roof point and up to 6.23 m below rendered terrain in the surface check.",
+      "evidence": ["docs/astra-city/government-import/government-lantau-height-align-20260921/validation.json", "docs/astra-city/government-import/government-lantau-height-align-20260921/metrics.json"],
+      "nextDependency": "Reconcile official terrain height or obtain corrected source height; do not raise the mesh arbitrarily.",
+      "needsUserDecision": false,
+      "requiresAiModelling": false
+    },
+    {
+      "uid": "landsd/195308:0",
+      "area": "Pui O",
+      "reasonCode": "overlapping-regional-terrain-conflict",
+      "observation": "Pui O Substation source identity and runtime pass after a trial overlap correction, but the Mui Wo and Pui O rendered terrain grids conflict. The trial affects 3,803 vertices and would move some displayed ground by as much as 113.51 m, so it was not published.",
+      "evidence": ["docs/astra-city/government-import/government-lantau-pui-o-overlap-probe-20260921/terrain-proof.json", "docs/astra-city/government-import/government-lantau-pui-o-overlap-probe-20260921/validation.json"],
+      "nextDependency": "Repair the regional terrain seam with full-area regression validation before installing the unchanged government model.",
+      "needsUserDecision": false,
+      "requiresAiModelling": false
+    }
+  ]
+}

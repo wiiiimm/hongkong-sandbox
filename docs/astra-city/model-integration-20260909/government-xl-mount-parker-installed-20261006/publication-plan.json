@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-mount-parker-installed-20261006/plan.json",
+  "areas": [
+    {
+      "area": "MOUNT PARKER RESIDENCES original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-mount-parker-installed-20261006/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-79608-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-mount-parker-installed-20261006/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "6fe7c9c47e63009c12dbe8224e0d26e7e322f96d3dd037281a9e426b418a9def"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-79608-0.json": "a98f9b80c85215d7a570887f427b834afef684efa83daff80ef0362c3201c519",
+    "3d-viewer/city/data/official-models/government-xl-mount-parker-installed-20261006/catalogue.json": "a9c552e34a890d3ba960d9b3aef462e48a38bc4c22f083d184e433606b4f0954",
+    "3d-viewer/city/data/manifest.json": "23015856a2d6b223f429a6db4b347825bd2c71006e38f993d89ae2458a534440"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "622d347aa5a172ceb6973e580a6c22cc17a3eab4",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-79608-0.json",
+      "resolution": 5,
+      "area": "MOUNT PARKER RESIDENCES unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "5592dbb92c656106b84ec3c7860273037597b4a87c799ca1849a5ea1a7e76d84",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "11-SE-8C",
+            "sourceETag": "\"34e4c6c-6501c46c547e1\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-8C/terrain/TERRAIN(TB)/T40500156000106E11/T40500156000106E11.bin",
+                "sha256": "a96eea498b222204f57be1c63b60e5aa0f376f05b3e241d2695b06f22e58ce9d"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-8C/terrain/TERRAIN(TB)/T40500156000106E11/T40500156000106E11.gltf",
+                "sha256": "76b61c841919e87bb776c4f9755a2e76dff1e793ad3cf846ef538841121b22f1"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a98f9b80c85215d7a570887f427b834afef684efa83daff80ef0362c3201c519",
+      "bytes": 2305494
+    }
+  ],
+  "estimatedBases": []
+}

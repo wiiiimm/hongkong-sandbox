@@ -1,0 +1,3 @@
+# St. Andrews Christian Centre — verified original installation
+
+Produced by Codex on 6 October 2026. Original landsd/253611:0 is installed unchanged, with exact verified Neon job `8e84ba8ea5b418531cf56a356341267063e497cdc892eec5aab583cb21e6247f` and installed review snapshot `a3d30f3a07228783`. Source identity, exact terrain/contact/foundation, all basic and retained native neighbour checks and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected. Original government geometry/bytes and retained installed source 148948 terrain/mesh remain preserved. Zero AI modelling calls or source geometry edits. No historical Lantau imagery used.

@@ -1,0 +1,62 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-star-ferry-private-stage-v1-20261019/plan.json",
+  "areas": [
+    {
+      "area": "Star Ferry Pier unchanged original source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-star-ferry-private-stage-v1-20261019/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-star-ferry-original-v1-20261019.json": null,
+    "3d-viewer/city/data/official-models/government-xl-star-ferry-private-stage-v1-20261019/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "51da2e48260e0f57dba85fcd46cbf1011138ed2af2c459e791f6bd706ec56b0d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-star-ferry-original-v1-20261019.json": "d14be64a69bb93366440c23b3aa9b99bb991de563831219951b18753dfce8f9d",
+    "3d-viewer/city/data/official-models/government-xl-star-ferry-private-stage-v1-20261019/catalogue.json": "4d20e55a42efb39a277cc8935f52300cf3364fd36aea07455667eda03ba8a2a3",
+    "3d-viewer/city/data/manifest.json": "504d6e2b3784cdd82bef0e305c515c4aabc930d76d3eba25d827efb8c3b07692"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "b0aa6f7899f7e16ded0e280f1ba3d80b5600037c",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-ocean-terminal-original-v1-20261019.json",
+      "sha256": "3da9399fddec2e9ab886f387f1ab5151833373b562177769ec44e35629ea95c0",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-star-ferry-original-v1-20261019.json",
+      "resolution": 5,
+      "area": "Star Ferry Pier original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "nativeCellSize": 5,
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ.",
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "d14be64a69bb93366440c23b3aa9b99bb991de563831219951b18753dfce8f9d",
+      "bytes": 35986131
+    }
+  ],
+  "estimatedBases": []
+}

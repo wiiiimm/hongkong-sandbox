@@ -1,0 +1,5 @@
+# ROOT review of Garden Terrace primary photographs
+
+Codex,13October2026,HKS-203. ROOT viewed all four original A.LEAD photographs and the exact bound complete source rendering. The curved entrance canopy in img_9379/img_9328 is qualitatively consistent with the96-face component0 crescent plate. All33 historical far-face witnesses remain. The primary page groups Towers2and3; neither the photographs nor the proposed-renovation caption alone isolates this exact Block2/source epoch. No measured image registration, footprint ownership, current/as-built date or structural-support credit is inferred.
+
+This new evidence justifies a focused source-bound canopy-role proposal, with independent exact Block2/epoch correspondence still required before identity acceptance. Retain all source/foreign/ground/native/runtime gates. Do not rerun unchanged extent measurements merely because a photograph was acquired. Exact current/source/history references were independently rehashed by ROOT. No source model worker, database write, lease, geometry or scene change ran.

@@ -1,0 +1,28 @@
+{
+  "uid": "landsd/230686:0",
+  "sourceName": "B337351515902063C0",
+  "sourceSHA256": "8f46865b65669c9aca6a9fa6e925dc26a1687c636935a4dc88e95f87f1dcee0b",
+  "state": "held",
+  "reason": "Exact native hillside terrain improves low-rim contact from 4/26 to 21/26, but five source boundary points remain below grade (maximum 31.51 m) and one complete upward native triangle remains buried. The normal/isolated native views are inspectable; retaining-bank and buried source-face interpretation, road/terrain seams and final guarded nested patch publication remain unresolved. Retain the existing fallback; do not shift the source model.",
+  "identity": "Exact source component; no claim that it is The Merton.",
+  "evidence": [
+    {
+      "path": "docs/astra-city/residual-support-review/foundation/hillside/exact-tin.json",
+      "sha256": "6e818ef128483abe286d6b5c1dbe3496de082c804b1c44fa1c002057f69a8a0d"
+    },
+    {
+      "path": "docs/astra-city/residual-support-review/foundation/hillside/current-versus-exact.json",
+      "sha256": "9b73804d7db168528c689e50a3a1701a25033ee498947b4f494734ab0ead847b"
+    },
+    {
+      "path": "docs/astra-city/residual-support-review/foundation/hillside/framing/report.json",
+      "sha256": "830cc1005581c3f881d576f44f8d336c807a383adc257d7d862653b1e2455137"
+    }
+  ],
+  "neighbourCheck": "Eight affected footprints; no newly introduced sampled roof/base flags. Finite sampling is not a complete intersection proof.",
+  "nextActions": [
+    "Inspect the actual native triangle 160 and the five lowest boundary points against native terrain facets and visible retaining walls. Determine expected below-grade geometry versus genuine occlusion.",
+    "Review roads and terrain boundaries in the current-versus-exact browser views; camera framing is already clear.",
+    "If accepted, package the exact child in an area.terrain bundle under its parent city/data/terrain-central.json with the current verified parent SHA. Run the existing publisher dry-run and installed checks; never publish the diagnostic candidate automatically."
+  ]
+}

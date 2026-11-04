@@ -1,0 +1,110 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-plaza-hollywood-original-final-qualified-stage-v4-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Plaza Hollywood unchanged original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-plaza-hollywood-original-final-qualified-stage-v4-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-plaza-hollywood-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-plaza-hollywood-original-final-qualified-stage-v4-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "6ae4839ef5c0065ec82903af0636092f65194188730b6fb1d7e6b3b4c3d95605"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-plaza-hollywood-original-v1-20261025.json": "63320015c739af8fc2bb453805cf26d2cc732ea6b1538aab952a046f832155de",
+    "3d-viewer/city/data/official-models/government-xl-plaza-hollywood-original-final-qualified-stage-v4-20261025/catalogue.json": "7113da7734f1db2a3037e0092e2bccb53def3cf6487ee7d7f13716b76339ebda",
+    "3d-viewer/city/data/manifest.json": "fa6446d13dc5c9bd4ba56c198cdb4c55fdf76b4d3a9beb1e734b60d12d9fa565"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "98dfcfa2143fdaa52ff0d03a757294876e9dfe8f",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-plaza-hollywood-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Plaza Hollywood unchanged original government model",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            4271.417541216939,
+            -5987.106996937234,
+            4500.7076627434,
+            -5819.449178661911
+          ],
+          "outerBounds": [
+            4268.217039867754,
+            -5991.248300248936,
+            4503.908775973599,
+            -5816.226402147643
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "derivedTerrainSeamCover": {
+          "addedDomainAreaM2": 0.11374890804290771,
+          "addedTerrainTriangles": 215,
+          "afterMissingAreaM2": 3.176328274516516e-12,
+          "beforeMissingAreaM2": 0.006114840507507324,
+          "maximumSeamDistanceM": 0.002,
+          "policy": "Private additive terrain seam cover. Convex Float32 vertex-cell hulls enclose every missing triangle; nearest existing terrain edge heights used. All original terrain faces preserved. No building geometry or clearance policy edits; actual runtime and neighbours require fresh checks.",
+          "projectedExcessM2": 0.1160740852355957,
+          "sourceGeometryChanges": 0,
+          "unchangedOriginalTerrainTriangles": 3585
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NE-6B/terrain/TERRAIN(TB)/T38250222000106E12/T38250222000106E12.gltf",
+            "sha256": "ddb1a36db6063a7c6e12840387edbfd3e4692f59ac3c49182e2b397bfe35f5e6"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-next-seven-source-323185-original-terrain-v2-20261024/sheets/11-NE-7A/terrain/TERRAIN(TB)/T39000222000106E10/T39000222000106E10.gltf",
+            "sha256": "3fb9a48fcac10b07750ae4fb44a323135fa6284cdbfe8cba9d63f0571d25429c"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3249,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "63320015c739af8fc2bb453805cf26d2cc732ea6b1538aab952a046f832155de",
+      "bytes": 780499
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

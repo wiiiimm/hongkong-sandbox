@@ -1,0 +1,166 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-shangrila-reviewed-original-qualified-stage-v4-20261102/plan.json",
+  "areas": [
+    {
+      "area": "Shangri-La unchanged original tower and podium with local source-floor terrain return",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-shangrila-reviewed-original-qualified-stage-v4-20261102/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-shangrila-original-v1-20261102.json": null,
+    "3d-viewer/city/data/official-models/government-xl-shangrila-reviewed-original-qualified-stage-v4-20261102/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "59fb7abce85d424bce75c7a62a01334be30cc4c0c2c6ec1651d15537621c3849"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-shangrila-original-v1-20261102.json": "8ff35aa9a349bdb4d038f455ccbafd4db0bcd698a16318cf2be4ec631dd45a52",
+    "3d-viewer/city/data/official-models/government-xl-shangrila-reviewed-original-qualified-stage-v4-20261102/catalogue.json": "f9a58afb79e7a7c0bf339baf6c99f1f4af608ff46c653a6348edd4e220326dc6",
+    "3d-viewer/city/data/manifest.json": "29d7042cac6a54b50a1999626b9498734cbca32b8ea74ee8dba639d832e2f6c8"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d2a5bd78e9862d019afca4e313f7e6c6259dcd30",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-shangrila-original-v1-20261102.json",
+      "resolution": 5,
+      "area": "Shangri-La unchanged original tower and podium with local source-floor terrain return",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-shangrila-original-pair-private-tin-v1-20261101/candidate-terrain.json",
+            "sha256": "6e7fe66b04e5cf997160c6105b56cacefa3b8954ad4b91bc123e3f2d19867a95"
+          },
+          "policy": "Lower-only source-floor-bounded0.05m-clearance return, independently per disconnected domain. Existing1m core/3m return, area/height/25k guards retained. No source edit or acceptance.",
+          "sha256": "e7406277e84cd879c2e4ffcd9e5e19b25b52ffc740072e429ca32a0ebd79d613",
+          "sourceFaceIndices": [
+            3163,
+            3251
+          ],
+          "sourceFaceSHA256": "1d983e1dca189b3441a62148e4642835a6e23a093f7a73902a7b64134477777c",
+          "uid": "landsd/233824:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            1731.1902827821445,
+            -1115.5860834949347,
+            1828.0467148276462,
+            -1028.023073137055
+          ],
+          "outerBounds": [
+            1726.9388655035318,
+            -1119.8169902297388,
+            1832.3675233730849,
+            -1023.82959723572
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "derivedProviderProjectionSeam": {
+          "addedTerrainFaces": 0,
+          "afterMissingAreaM2": 0.0,
+          "beforeMissingAreaM2": 0.0,
+          "buildingGeometryChanges": 0,
+          "installationApproved": false,
+          "maximumSeamAreaM2": 0.25,
+          "maximumSeamDistanceM": 0.002,
+          "retainedProviderFaces": 685
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-5A/terrain/TERRAIN(TB)/T36000174000106E11/T36000174000106E11.gltf",
+            "sha256": "3b3f30a7e2b3fa27e5ce2383c371ef8c58f11938fc2f779e14600b6787f9e7b2"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8ff35aa9a349bdb4d038f455ccbafd4db0bcd698a16318cf2be4ec631dd45a52",
+      "bytes": 787728
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

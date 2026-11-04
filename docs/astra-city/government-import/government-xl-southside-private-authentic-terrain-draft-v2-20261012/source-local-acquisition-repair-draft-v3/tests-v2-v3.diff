@@ -1,0 +1,77 @@
+--- test_southside_saved_local_core_parent_adapter_v2_20261012.py
++++ test_southside_saved_local_core_parent_adapter_v3_20261012.py
+@@ -2,7 +2,8 @@
+ import copy,hashlib,math,unittest
+ from fractions import Fraction as F
+ import numpy as np
+-import southside_saved_local_core_parent_adapter_v2_20261012 as a
++import southside_saved_local_core_parent_adapter_v3_20261012 as a
++import southside_saved_local_core_parent_adapter_v2_20261012 as prior
+ 
+ def fixture(t=None):
+  t=t or [[36.,1.,36.],[39.,2.,36.],[36.,1.,39.]]
+@@ -13,7 +14,7 @@
+ 
+ class LocalCoreTests(unittest.TestCase):
+  def test_actual_four_modes_complete_baseline(self):
+-  w,c=fixture();self.assertTrue(a.bind_positions(w,c));core,collar,p=a.mask(w,c,[0,0,100,100]);self.assertEqual(p['completeSourceFaceSlots'],4);self.assertEqual(core,{(7,7)});self.assertEqual(len(collar),24)
++  w,c=fixture();self.assertTrue(a.bind_positions(w,c));core,collar,p=a.mask(w,c,[0,0,100,100]);self.assertEqual(p['completeSourceFaceSlots'],4);self.assertEqual(core,{(7,7)});self.assertEqual(len(collar),8)
+  def test_missing_mode_rejected(self):
+   w,c=fixture();del w[next(iter(w))]['completeWorldStreams'][a.MODES[3]]
+   with self.assertRaises(AssertionError):a.bind_positions(w,c)
+@@ -65,7 +66,7 @@
+    t=a.points([[35,y,35],[39,y,35],[35,y,39]]);inside,outside=a.split(t,a.rect_planes([F(35),F(35),F(40),F(40)]),1);self.assertEqual(outside,[]);rows.extend(a.old.fan(inside))
+   self.assertEqual(len(rows),2);self.assertNotEqual(rows[0],rows[1])
+  def test_collar_exact_core_one_outer_zero(self):
+-  core=[[F(35),F(35),F(40),F(40)]];self.assertEqual(a.alpha_at(F(35),F(36),core),1);self.assertEqual(a.alpha_at(F(25),F(36),core),0);self.assertEqual(a.alpha_at(F(30),F(36),core),F(1,2))
++  core=[[F(35),F(35),F(40),F(40)]];self.assertEqual(a.alpha_at(F(35),F(36),core),1);self.assertEqual(a.alpha_at(F(25),F(36),core),0);self.assertEqual(a.alpha_at(F(65,2),F(36),core),F(1,2))
+  def test_shared_collar_node_uses_same_affine_endpoint(self):
+   core=[[F(35),F(35),F(40),F(40)]];p=(F(30),a.alpha_at(F(30),F(30),core),F(30));left=[p,(F(35),F(1),F(30)),(F(30),F(1),F(35))];right=[(F(25),F(0),F(30)),p,(F(30),F(0),F(25))];self.assertEqual(a.old.plane_height(left,p),a.old.plane_height(right,p))
+  def test_budget_increase_rejected_before_any_construction(self):
+@@ -99,7 +100,7 @@
+  def test_complete_core_alpha_is_exactly_one(self):
+   t=self.tri(1,1,2,2);parts=a.envelope_partition(t,[[F(0),F(0),F(5),F(5)]],1);self.assertEqual(self.area([p for p,_,_ in parts]),self.area([t]));self.assertTrue(all(a.affine_value(a0,p)==1 for poly,a0,_ in parts for p in poly))
+  def test_side_branch_is_continuous_exact_half_alpha(self):
+-  t=self.tri(-5,1,-4,2);parts=a.envelope_partition(t,[[F(0),F(0),F(5),F(5)]],1);self.assertTrue(all(a.affine_value(a0,p)==1+p[0]/10 for poly,a0,_ in parts for p in poly))
++  t=self.tri(-5,1,-4,2);parts=a.envelope_partition(t,[[F(0),F(0),F(5),F(5)]],1);self.assertTrue(all(a.affine_value(a0,p)==1+p[0]/5 for poly,a0,_ in parts for p in poly))
+  def test_nearest_union_crossover_conserves_every_piece(self):
+   t=self.tri(5,-5,15,5);rs=[[F(0),F(0),F(5),F(5)],[F(15),F(0),F(20),F(5)]];parts=a.envelope_partition(t,rs,1);self.assertEqual(self.area([p for p,_,_ in parts]),self.area([t]));self.assertGreater(len(parts),1)
+  def test_vertical_alpha_tie_never_duplicates_real_skin(self):
+@@ -112,7 +113,7 @@
+   t=self.tri(-5,1,-4,2);r=[F(0),F(0),F(5),F(5)];self.assertEqual(a.envelope_partition(t,[r],1),a.envelope_partition(t,[r,r],1))
+  def test_true_core_and_active_boundary_endpoint_heights(self):
+   rs=[[F(0),F(0),F(5),F(5)]]
+-  for x,expected in [(F(0),F(1)),(F(-10),F(0))]:
++  for x,expected in [(F(0),F(1)),(F(-5),F(0))]:
+    p=(x,F(7),F(2));alpha=a.alpha_at(x,p[2],rs);self.assertEqual(alpha,expected);self.assertEqual(alpha*p[1]+(1-alpha)*F(3),F(7)if expected else F(3))
+  def test_actual_preserved_float32_collapse_remains_real(self):
+   raw=[['1405/2','9027665539/465489920','30555602301/6649856'],['359687/512','910965784899/46976204800','9410401/2048'],['1405/2','9044347831/466350080','30612064329/6662144']];t=[tuple(F(v)for v in p)for p in raw];self.assertTrue(any(a.normal(t)));packed=[[a.old.f32(v)for v in p]for p in t];self.assertFalse(a.old.area_real(packed))
+@@ -120,7 +121,26 @@
+   t=self.tri(-5,-5,-1,-1);rs=[[F(0),F(0),F(5),F(5)]];parts=a.envelope_partition(t,rs,1);self.assertGreater(len(parts),1);self.assertEqual(self.area([p for p,_,_ in parts]),self.area([t]))
+  def test_vertex_blend_is_declared_changed_not_quadratic_exact(self):
+   # Even one affine alpha times two different affine heights is quadratic.
+-  h=lambda x:(F(1)+x/10)*(F(10)+x)+(F(0)-x/10)*F(2)
+-  self.assertNotEqual(h(F(-5)),(h(F(-6))+h(F(-4)))/2)
++  h=lambda x:(F(1)+x/5)*(F(10)+x)+(F(0)-x/5)*F(2)
++  self.assertNotEqual(h(F(-2)),(h(F(-3))+h(F(-1)))/2)
++
++
++class OneCellAlternativeTests(unittest.TestCase):
++ def test_declared_width_is_exact_existing_one_cell(self):self.assertEqual(a.WIDTH,a.STEP);self.assertEqual(a.WIDTH,F(5));self.assertEqual(prior.WIDTH,F(10))
++ def test_four_world_closed_core_is_exactly_unchanged(self):
++  w,c=fixture();new,ncollar,np=a.mask(w,c,[0,0,100,100]);old,ocollar,op=prior.mask(w,c,[0,0,100,100]);self.assertEqual(new,old);self.assertEqual(np['completeSourceFaceModeRecords'],op['completeSourceFaceModeRecords']);self.assertLess(ncollar,ocollar)
++ def test_one_cell_growth_exact_for_large_complete_projection(self):
++  w,c=fixture([[35.,1.,35.],[55.,1.,35.],[35.,1.,55.]]);core,collar,_=a.mask(w,c,[0,0,100,100]);expected={(x+dx,z+dz)for x,z in core for dx in range(-1,2)for dz in range(-1,2)};self.assertEqual(core|collar,expected)
++ def test_zero_and_vertical_complete_closed_core_unchanged(self):
++  for t in [[[40.,1.,40.]]*3,[[40.,1.,36.],[40.,3.,36.],[40.,1.,39.]]]:
++   w,c=fixture(t);nc,_,np=a.mask(w,c,[0,0,100,100]);oc,_,op=prior.mask(w,c,[0,0,100,100]);self.assertEqual(nc,oc);self.assertEqual(np['completeSourceFaceModeRecords'],op['completeSourceFaceModeRecords'])
++ def test_true_one_cell_outer_boundary_uses_only_actual_parent(self):
++  r=[[F(35),F(35),F(40),F(40)]];self.assertEqual(a.alpha_at(F(30),F(36),r),0);self.assertEqual(prior.alpha_at(F(30),F(36),r),F(1,2));self.assertEqual(a.alpha_at(F(65,2),F(36),r),F(1,2))
++ def test_actual_exterior_source_exclusion_is_retained_in_partition(self):
++  poly=a.points([[25,1,36],[29,2,36],[25,1,39]]);inside,outside,full=a.union_partition(poly,[[F(30),F(30),F(45),F(45)]],1);self.assertFalse(full);self.assertFalse(inside);self.assertEqual(outside,[poly]);self.assertGreater(a.old.intrinsic_area(outside[0],1),0)
++ def test_next_double_beyond_new_band_is_not_height_filtered(self):
++  x=F(math.nextafter(15.,-math.inf));r=[[F(20),F(0),F(25),F(5)]];self.assertEqual(a.alpha_at(x,F(2),r),0)
++ def test_one_cell_corner_zero_vertices_do_not_prove_zero_interior(self):
++  poly=a.points([[-5,1,-5],[-1,1,-5],[-5,1,-1]]);r=[[F(0),F(0),F(5),F(5)]];self.assertTrue(all(a.alpha_at(p[0],p[2],r)==0 for p in poly));parts=a.envelope_partition(poly,r,1);self.assertTrue(any(a.affine_value(plane,v)>0 for p,plane,_ in parts for v in p))
+ 
+ if __name__=='__main__':unittest.main()

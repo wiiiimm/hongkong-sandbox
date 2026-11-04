@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "batch": "government-xl-hoi-tai-ai-evidence-review-20261007",
+  "date": "2026-10-07",
+  "issue": "HKS-199",
+  "reviewer": "GPT-6.1 Sol",
+  "reviewJobId": "59412ca86256a9606117c4161ef2913af0afd3f378632caa74dd6238714875b2",
+  "uid": "landsd/229881:0",
+  "modelId": "B350761970902063C0",
+  "buildingCSUID": "3507619709P20060311",
+  "sourceSHA256": "8af0425785742a0eb35991ec55f1cde6244b14324735cb52057beafbbf8b9e3d",
+  "scope": "Explicitly approved one bounded source/architectural evidence review for Hoi Tai only; no additional external research",
+  "approvalBasis": "Root recorded user approval: do it with tokens, clarified for Hoi Tai. Proposal approvalGranted=false is the preserved pre-approval record.",
+  "outcome": "unresolved",
+  "intentionalBelowGradeWallsEstablished": false,
+  "elevationOrComponentMismatchEstablished": false,
+  "confidence": {
+    "observedNumericPenetration": "high",
+    "correctPodiumIdentity": "high",
+    "architecturalIntent": "insufficient evidence",
+    "recoverableByExistingCode": "not established"
+  },
+  "findings": [
+    {
+      "id": "wall-contact",
+      "finding": "147 incident faces are vertical; 177 vertex and 73 low-edge failures; no failing centres. Minimum sampled clearance -1.072214603424075 m; failed vertex heights 5.927785396575925–6.143221855163583 m HKPD. Orientation does not encode foundations or finished grade."
+    },
+    {
+      "id": "guard",
+      "finding": "37746 sampled checks, 1162 low-rim checks against highest actual drawn Float32 terrain triangle at each XY; no missing drawn terrain and zero runtime sampler discrepancy in this receipt. Vertices, all face centroids and <=1m low-rim edges are sampled. Not continuous whole-solid intersection proof; vertical terrain faces are omitted from the height field."
+    },
+    {
+      "id": "identity",
+      "finding": "229881 is the podium/P-CSUID, not the separate 235557 tower/T-CSUID. Exact ObjectID/CSUID and whole-cell identity pass. Metadata base/top 5.8/18.3 m differs from retained native extent 5.852567195892334/22.776999950408936 m; no evidence that descriptive metadata supersedes native facet elevations."
+    },
+    {
+      "id": "pose",
+      "finding": "Native glTF node matrix uses Y translation 5.852567195892334 m; viewer root translation Y is zero. Retained world extent begins at that native elevation. No introduced vertical offset or transform defect identified in the inspected code/evidence."
+    },
+    {
+      "id": "lower-parent",
+      "finding": "Completed follow-through found 0 m2 unchanged lower original parent under failed face projection. This excludes that attempted constructor, not all possible authoritative recovery."
+    },
+    {
+      "id": "support",
+      "finding": "Separate exact 235557 native source SHA 77fc8730ffbb15438dde28855b8889f50433a6bba164f5909187f36761f48b21: historical 20261005 interface has 86/189 strict contacts, 103 unresolved, zero wall intersections. Later 20261007 basic fallback floor-at-18.3m diagnostic has 1500/2704 contacts and 27 samples missing vertical support. Different geometries, elevations and sampling contracts: do not combine counts or infer either is a current full assembly pass."
+    },
+    {
+      "id": "recorded-base",
+      "finding": "GIS recorded base 5.8 m HKPD is positive source-record evidence for the podium elevation, consistent with native minimum 5.852567195892334 m and failed vertices 0.1278–0.3432 m above that recorded base. It supports authentic lower-source elevations rather than an arbitrary lift. It is not a finished-ground level at every failed XY or a semantic designation of these facets as foundations. Current strictFoundationAccepted=true, zero fully buried triangles/upward triangles. No separate higher source-centre/roof failure is shown in this receipt; existing >0.5m sampled wall clearance and separate 235557 assembly evidence still block the unchanged route."
+    }
+  ],
+  "unresolvedRequirements": [
+    "Authoritative finished-ground and foundation/retaining-wall section or source-owner semantic statement tied to the exact 229881 native facets, with HKPD datum and survey/revision correspondence, to distinguish deliberate below-grade geometry from inconsistent ground/source epochs.",
+    "Authoritative 229881/235557 component boundary and deck/interface elevations tied to the exact source revisions, or corrected official meshes/terrain with provenance, resolving original native support failures and fallback-only missing support.",
+    "Any future evidenced correction must preserve original evidence, demonstrate its actual code/data cause, and pass existing full source/contact/foundation/identity/neighbour/browser/publication gates."
+  ],
+  "recovery": {
+    "supportedInstallationRecovery": null,
+    "codeDefectEstablished": false,
+    "safeReportingImprovement": "Carry source-matched ancillary support holds alongside latest single-source terrain receipt; latest reasons=[terrain-intersects-source-over-0.5m] must not suppress historical unresolved 235557 assembly evidence. Reporting improvement alone adds no acceptance credit.",
+    "notJustified": [
+      "vertical lift",
+      "geometry trimming",
+      "terrain lowering",
+      "component substitution",
+      "wall-only clearance exception",
+      "threshold waiver"
+    ]
+  },
+  "limits": [
+    "No new geometry/contact computation, browser review or installation performed.",
+    "No external architectural research or authoritative design documents in the bounded evidence set.",
+    "Local hashes verified; existing Neon receipt IDs cited, not independently reread by this delegated review. Root owns fenced Neon completion.",
+    "Historical support receipts are unresolved evidence, not proof that every current terrain/assembly alternative fails."
+  ],
+  "evidenceRefs": [
+    {
+      "neonJobId": "6e5e2138cc99ca4b3e355166ee0cc5cb22c2b009b557151008f0b2e32fd29b7b",
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/result.json",
+      "sha256": "d4818613543e21a7db7146ae0e3b4fcd4fd483d7d754d5e0f09937d18b97e393"
+    },
+    {
+      "neonJobId": "3a5633e2d7d779ae6bc4398bf3bcaf2e65a7733c14a327f0fc0a20afc0b42f39",
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-followthrough-20261007-229881-0/result.json",
+      "sha256": "79e4f8ff3a9d01e09fdaf4f52297280418cd2995cd491828886a18640bb766a1"
+    },
+    {
+      "neonJobId": "224842875e9dcb44e036404de806d865cf37e4d8ad470482b46f0f624bc8267b",
+      "path": "docs/astra-city/government-import/government-xl-current-contact-orientation-20261007/result.json",
+      "sha256": "26ec0d054d94a8349f886e6555baf30a217990b88b8e9ecf06a2ac9204a88bae"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-untried-original-parent-current-20261007-229881-0/runtime-geometry.json.gz",
+      "sha256": "82db170772b183ace203d03bb3f104c326dd8243d55e7f65665dc2ccd535ad67"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-untried-original-face-parent-sequence-20261007/229881-0-contact.json",
+      "sha256": "8f08bd1e0e5d3d70e0adb5153b91175386f353a1e5c44a696769987907422138"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/selection.json.gz",
+      "sha256": "e5e4b7fdaaae1a0c064b7461b5c3bdeef5f527f3d637fdb78a27d0726ad8f4d7"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/metrics.json",
+      "sha256": "8a4ebf2ee3465064071c042823d0926dfb80611d3b59b5b765409369ab8a397b"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/identity-proof.json",
+      "sha256": "d189555b2b811d879aa598c69a531b8ff9589efa56dc8c82e492adfa114cba5f"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/owned-source-identity.json",
+      "sha256": "7c0a4aafc9f1f05032ad2bd13f3b690277760a801b177ae26026bcf26ee381ef"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/terrain.json",
+      "sha256": "1e9d14ef883576625ba4e9876607769b08b370b13bad8bb16b014943b0b237b4"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-followthrough-20261007-229881-0/source-face-parent.json",
+      "sha256": "7c49eda5487c3b5acb4d5ea8b66d14fb2e9b004cd64c8d9d435672c951e80502"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-current-contact-orientation-20261007/229881-0.json",
+      "sha256": "471f9b3208c4ec1dd6a1cca406af24f769231936d30176dcb7e96625fe33c493"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-hoi-tai-original-support-group-20261005/result.json",
+      "sha256": "7f0781b0fef2d52e575468b626d6308e835160dd0e3cfaa24fe7f9f377cf61ca"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-hoi-tai-original-support-group-20261005/selection.json.gz",
+      "sha256": "c42e364fb80ae9afe9927f564a3a1a78e4bc6dd9806568d2a9387a1accaf38eb"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-hoi-tai-original-support-group-20261005/interfaces.json.gz",
+      "sha256": "8543e98347c2af5d63d2878752c131ea1b9ebf1c0646c67544d97f0380074664"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-pier-and-original-tin-checkpoint-20261007/government-xl-hoi-tai-basic-floor-support-20261007.json",
+      "sha256": "764c69b4096636a418963dbb312aeb7b1470eb205987a2a75b6562eecba39549"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-untried-original-parent-followthrough-20261007-229881-0/unpacked/B350761970902063C0/model.gltf",
+      "sha256": "15caa122bec67a0379364267ab10ebc3b10b8fa398b70598ac58dc3ad18118f5"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-hoi-tai-original-support-group-20261005/sheets/11-NW-19C/decoded/BUILDING/B350731972201063C0/B350731972201063C0.gltf",
+      "sha256": "df278ac1f65386cebb7c16a1272d78e1cd1db177bcc8eb0c45dcf7637f032908"
+    },
+    {
+      "path": "source-scripts/city/government-import/acceptance-metrics.mjs",
+      "sha256": "7db95e0d5b4f202fa4f3859eafad1c9d0ec6987f4037338944cdc8a4c5fe9bee"
+    },
+    {
+      "path": "source-scripts/city/government-import/xl-cached-runtime-complete-contact-diagnostic.mjs",
+      "sha256": "da9ee3218622f2e7883e2d834d249c57c0de25ca2c99fa6f5b8896d01fb06345"
+    },
+    {
+      "path": "3d-viewer/city/world.js",
+      "sha256": "ddd2ee3a9c9d2c00009f31917295f3d9484ae3f7581997ce3dbe8f74cc16c4a8"
+    },
+    {
+      "path": "3d-viewer/city/geo.js",
+      "sha256": "bef40c12d4b852bde83ccda2394a5b0007c7f259e4a5904e5f3ba09bed17ed02"
+    },
+    {
+      "path": "3d-viewer/city/native-terrain.js",
+      "sha256": "53afb002403e172226f4e4025e3148598f2d3c1dd624ecfe94d39f4729e4db7e"
+    },
+    {
+      "path": "3d-viewer/city/official-model-assets.js",
+      "sha256": "4c4c023c35f67913d5c7fb9d10c243ac87434779fd06c4a74d63e8d844f7fd80"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-untried-original-parent-current-20261007-229881-0/assets/8af0425785742a0eb35991ec55f1cde6244b14324735cb52057beafbbf8b9e3d.glb.gz",
+      "sha256": "8af0425785742a0eb35991ec55f1cde6244b14324735cb52057beafbbf8b9e3d"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-hoi-tai-original-support-group-20261005/assets/77fc8730ffbb15438dde28855b8889f50433a6bba164f5909187f36761f48b21.glb.gz",
+      "sha256": "77fc8730ffbb15438dde28855b8889f50433a6bba164f5909187f36761f48b21"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-untried-original-parent-current-20261007-229881-0/foundation.json",
+      "sha256": "4e412c7e00e0c4511ad5193e62db37cfcb43652abef951e783022a4db646cb1d"
+    }
+  ],
+  "evidenceHashesVerified": true,
+  "modelGeometryChanges": 0,
+  "sourceElevationChanges": 0,
+  "terrainChanges": 0,
+  "acceptanceThresholdChanges": 0,
+  "runtimeAssetChanges": 0,
+  "reviewStateChanges": 0,
+  "newlyInstalled": 0,
+  "installationApproved": false,
+  "publication": false,
+  "xlCheckpoint": {
+    "total": 352,
+    "installed": 91,
+    "held": 261,
+    "newInstallations": 47,
+    "furtherRequired": 53
+  }
+}

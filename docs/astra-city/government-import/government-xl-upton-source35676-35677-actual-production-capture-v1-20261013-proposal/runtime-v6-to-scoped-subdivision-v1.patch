@@ -1,0 +1,28 @@
+--- source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_runtime_draft_v6_20261013.mjs
++++ source-scripts/city/government-import/upton_source35676_35677_scoped_subdivision_runtime_draft_v1_20261013.mjs
+@@ -5,11 +5,12 @@
+ import assert from 'node:assert/strict';
+ import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+ import {writeExactJsonGzip} from './exact_incremental_json_gzip_v1_20261012.mjs';
+-const root=new URL('../../../',import.meta.url),doc=process.argv[2],hashes={};
++const root=new URL('../../../',import.meta.url),doc=process.argv[2],nomDoc=process.argv[3],hashes={};
+ const sha=b=>createHash('sha256').update(b).digest('hex');
+ function raw(p){const b=readFileSync(new URL(p,root)),h=sha(b);if(hashes[p])assert.equal(hashes[p],h,p);hashes[p]=h;return b;}
+ function read(p){const b=raw(p);return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b);}
+-const input=read(doc+'/input.json.gz'),nom=read(doc+'/geometry-nomination.json.gz');
++const input=read(doc+'/input.json.gz'),nom=read(nomDoc+'/private-source-family-subdivision-nomination.json.gz');
++assert.equal(nom.candidateRawPositionTriplets.length,11576);assert.equal(nom.completeOldNewIndexMapping.length,11575);assert.equal(nom.protectedWholeCurrentTripletsUnchanged.length,68);
+ const current='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';assert.equal(input.currentManifest.sha256,current);
+ for(const [p,h]of [['source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs','c91ebfa352d1f610c832f882ff1e156ab0c3a4e1c04a9d4d44937e0234238579'],['source-scripts/city/government-import/dependency-closure-vendor/acorn-8.8.1/acorn.mjs','a8524d1734aecc543068d3c801aba2b6ad8f68dd7d751bace79d783f8ecd9e55'],['source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs','e5cfacfaf2361a0ce4444ee02f082a1341d8aa033ce8da432ff34b56d13ee6d9']])assert.equal(sha(raw(p)),h,p);
+ const closure=snapshotModuleClosure(import.meta.url,root);
+@@ -39,8 +40,8 @@
+ }
+ for(const [k,v]of Object.entries(grids)){assert(v.length===candidate.w*candidate.h&&v.every(Number.isFinite));candidate[k]=v;}
+ const pos=[],index=[];for(const face of nom.candidateRawPositionTriplets){assert.equal(face.length,3);for(const p of face){assert.equal(p.length,3);assert(p.every(Number.isFinite));const i=pos.length/3;for(const v of p){pos.push(v);}index.push(i);}}
+-candidate.id='government-native-upton-two-original-complete-mask-enclosure-private-nomination';
+-candidate.nativeMesh={position:pos,index,source:{kind:'separately labelled scripted original-TIN/current-ring/complete-mask packing-enclosure/native-whole/base-fragment join nomination',originalTINSource:'11-SW-7A',preservedOriginalTripletsReference:doc+'/complete-nominations-before-guards.json.gz',computedFragmentsAndVerticalJoinsAreNotUntouchedGovernmentGeometry:true,noNativeReacceptance:true,noNewCoverageOrOverlapApproval:true}};
++candidate.id='government-native-upton-source35676-35677-scoped-subdivision-private-nomination';
++candidate.nativeMesh={position:pos,index,source:{kind:'separately labelled scoped original-source35676 edge subdivision on existing original-TIN/current-ring/mask join nomination',originalTINSource:'11-SW-7A',preservedOriginalTripletsReference:nomDoc+'/private-source-family-subdivision-nomination.json.gz',computedFragmentsAndVerticalJoinsAreNotUntouchedGovernmentGeometry:true,noNativeReacceptance:true,noNewCoverageOrOverlapApproval:true}};
+ // Old sourceOverlap/numerical fallback approvals apply to old geometry only.
+ assert(!candidate.nativeMesh.sourceOverlap&&!candidate.nativeMesh.source.numericalCoverageGap);
+ assert.deepEqual(candidate.meta.targetUids,old.meta.targetUids);assert.deepEqual(candidate.meta.georef,old.meta.georef);

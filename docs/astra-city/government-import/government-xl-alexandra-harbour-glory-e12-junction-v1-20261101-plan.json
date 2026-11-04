@@ -1,0 +1,86 @@
+{
+  "batch": "government-xl-alexandra-harbour-glory-e12-junction-v1-20261101-sequence",
+  "uids": [
+    "landsd/247461:0",
+    "landsd/35148:0"
+  ],
+  "resources": [
+    "building:landsd/247461:0",
+    "building:landsd/35148:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-junction-v1-20261101-support",
+      "args": [
+        "--runtime",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-runtime",
+        "--attributes",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-attributes",
+        "--supported",
+        "landsd/35148:0",
+        "--support",
+        "landsd/247461:0"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-junction-v1-20261101-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-harbour-one-current-native-bounds-v1-20261101",
+        "--runtime",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-runtime",
+        "--attributes",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-attributes"
+      ]
+    },
+    {
+      "script": "original_negative_face_component_context_v2_20261027.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-junction-v1-20261101-negative-components",
+      "args": [
+        "--runtime",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-runtime",
+        "--attributes",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-attributes",
+        "--clearance",
+        "government-xl-alexandra247461-e12-exact-ground-diagnostics-v1-20261101-low-faces",
+        "--uid",
+        "landsd/247461:0",
+        "--face",
+        "1970",
+        "--face",
+        "1971",
+        "--face",
+        "1972",
+        "--face",
+        "1973",
+        "--face",
+        "1974",
+        "--face",
+        "1975",
+        "--face",
+        "1976",
+        "--face",
+        "1977",
+        "--face",
+        "1978",
+        "--face",
+        "1979"
+      ]
+    },
+    {
+      "script": "original_low_face_group_views_v2_20261026.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-junction-v1-20261101-low-views",
+      "args": [
+        "--runtime",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v3-20261101-runtime",
+        "--low-faces",
+        "government-xl-alexandra247461-e12-exact-ground-diagnostics-v1-20261101-low-faces",
+        "--uid",
+        "landsd/247461:0"
+      ]
+    }
+  ]
+}

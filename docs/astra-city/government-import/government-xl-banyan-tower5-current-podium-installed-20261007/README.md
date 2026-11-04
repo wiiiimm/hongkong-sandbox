@@ -1,0 +1,5 @@
+# Banyan Garden Tower 5 — verified original installation
+
+Codex, 6 October 2026. Banyan Garden Tower 5 (landsd/78915:0) is installed with unchanged original government geometry. Verified Neon job `797538a7d326cc336a39689ce2735b1f76c1ff2c0e7780631d9e770eb29f7c50`, installed snapshot `b6810a6adbdeaf0e`, source hashes `{'landsd/78915:0': '0e0656fcf6707e7722f58c6ec80a959cfdff8db6469abe9369ba57a1622606ed'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+31 new XL installations from44/308: **75 installed / 277 not installed**, 69 further installations required. Public counters: 346,108 total source forms, 4,424 enhanced, 4,410 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

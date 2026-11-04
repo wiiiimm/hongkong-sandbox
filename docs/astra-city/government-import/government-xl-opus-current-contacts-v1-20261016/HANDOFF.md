@@ -1,0 +1,9 @@
+# Opus original-terrain candidate passes construction
+
+Both workers terminal, exact pinned-Neon results and all evidence hashes ROOT-verified. No installation/publication. FixedXL245installed/276remaining/521.
+
+Private terrain v2 retains all constructed source layers and existing scripted parent transition. All722 positive overlap pairs and6556 equation-vertex checks are recorded; maximum per-face affine equation disagreement2.842e-14m. Projected excess140.792969m²; maximum inter-layer height difference0.352486m. This proves both affine equations on all pair polygons, not independent GPU equivalence. The original validator runs unchanged after evidence binding. No overlap threshold was relaxed. Whole source input provenance is inherited and the complete unapproved constructor output is retained.
+
+Actual renderer capture44410checks: no missing terrain, zero sampler delta, minimum gap0.051149m, no fully buried faces among12382. Low-rim maximum5.679709m still fails. Exact replay reproduces all metrics and finds only2 failing duplicate vertex occurrences at[1492.4873046875,236.843994140625,1993.998046875], incident sourcefaces11326 and12324. Their areas are approximately0.584184 and18.95544m², so do not dismiss them as zero-area records. Originalterrainheight at this point231.16428485m. All other low samples pass.
+
+Next investigate exact support/context for this one original vertex and its complete component without deleting/moving original geometry or fabricating ground. Historical support248432 was already checked and failed; compare actual source layers before repeating. Full whole-parent actor nomination still required over[1442.5,1922.5,1582.5,2062.5] (coarse513,477,515,479), including all unusedpackedpositions/fourworlds and currentsource/form/module tuples. All-neighbour, identity/runtime/browser/publication gates remain. No optimisation.

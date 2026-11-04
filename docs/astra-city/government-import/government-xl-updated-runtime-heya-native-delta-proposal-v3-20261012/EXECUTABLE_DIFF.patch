@@ -1,0 +1,60 @@
+--- xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.py
++++ xl-complete-native-actual-position-post-heya-delta-draft-v3-20261012.py
+@@ -8,8 +8,8 @@
+ from exact_packed_world_bounds_v3_20261010 import packed_world_bounds
+ from upton_exact_actual_history_archive_bindings_draft_v1_20261011 import load_contract,exact_ref
+ from upton_three_original_complete_current_runtime_capture_draft_v4_20261012 import state,module,ref
+-B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
+-PRIOR=B/'government-xl-complete-current-native-actual-position-matrix-bounds-v3-20261011';EXPORTER=HERE/'xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.mjs'
++B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-complete-native-actual-position-post-heya-delta-draft-v3-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
++PRIOR=B/'government-xl-complete-current-native-actual-position-matrix-bounds-v3-20261011';EXPORTER=HERE/'xl-complete-native-actual-position-post-heya-delta-draft-v3-20261012.mjs'
+ CURRENT='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540';UID='landsd/184286:0';PROTECTED=[UID,'landsd/184285:0']
+ HISTORY='docs/astra-city/government-import/government-xl-upton-actual-pre-heya-source-history-root-v1-20261011/root-actual-history-contract.json';HISTORY_SHA='51b1ae85bd5cf3bf59e6e0fb1daa921a85835f2fe793d4d2ed00a9e0a5ee5a68'
+ CAP=B/'government-xl-upton-three-original-complete-current-runtime-capture-v4-20261012'
+@@ -83,13 +83,21 @@
+  for x in paths:pins[str(x.relative_to(ROOT))]=ref(x)['sha256']
+  for e in p['catalogues']:pins[e['path']]=e['sha256']
+  pins.update(p['tileHashes']);pins.update({str(x.relative_to(ROOT)):ref(x)['sha256']for x in p['sources'].values()})
+- declared=p['oldinput']['declaredDependencyUIDSourceHashes']
++ historical_declared=p['oldinput']['declaredDependencyUIDSourceHashes']
++ historical_dependency_bindings=[exact_ref(ROOT,dict(path=path,sha256=h),load_contract(ROOT,str(INTEGRATION_HISTORY.relative_to(ROOT)),INTEGRATION_HISTORY_SHA))for path,h in historical_declared.items()]
++ # This old seven-file mapping contains MODULES, not UID/source assets. Never pass it as current.
++ current_dependency_pins={path:h for path,h in p['capturePins'].items()if path.startswith('3d-viewer/')and Path(path).suffix in {'.js','.mjs','.wasm'}}
++ assert '3d-viewer/city/official-model-assets.js'in current_dependency_pins
++ current_dependency_pins.update({str(path.relative_to(ROOT)):ref(path)['sha256']for path in p['sources'].values()})
++ current_dependency_pins.update(p['tileHashes'])
++ for e in p['catalogues']:current_dependency_pins[e['path']]=e['sha256']
++ for path,h in current_dependency_pins.items():assert ref(ROOT/path)['sha256']==h
+  def fence():
+   for path,h in pins.items():assert ref(ROOT/path)['sha256']==h,path
+   assert state(PROTECTED)==before and reservations.owns(lease)
+- fence();save(DOC/'exact-prior-current-tuple-rebind.json',dict(priorJobId=p['receipt']['jobId'],historicalBindings=p['historyBindings'],historicalInputManifestBindings=p['oldManifestBindings'],currentManifest=p['manifest'],all6648RawEntriesSourcesEqual=True,all6763RequestedFormsEqual=True,historicalModuleBindingsVerifiedOnly=True,allPriorRecursiveProductionModuleInputsEqual=False,oldRuntimeApprovalTransferred=False,sourceOnly=True,physicalAccepted=False,rawUptonFiniteHolds=ref(FINITE/'result.json'),ordinaryFailingSourceFaces=335,coverageFailingSourceFaces=34,all23SourceCrossingsPreserved=True))
++ fence();save(DOC/'exact-prior-current-tuple-rebind.json',dict(priorJobId=p['receipt']['jobId'],historicalBindings=p['historyBindings'],historicalInputManifestBindings=p['oldManifestBindings'],currentManifest=p['manifest'],all6648RawEntriesSourcesEqual=True,all6763RequestedFormsEqual=True,historicalDeclaredDependencyModuleBindings=historical_dependency_bindings,historicalDeclaredDependencyModulesNotCurrent=True,historicalModuleBindingsVerifiedOnly=True,allPriorRecursiveProductionModuleInputsEqual=False,oldRuntimeApprovalTransferred=False,sourceOnly=True,physicalAccepted=False,rawUptonFiniteHolds=ref(FINITE/'result.json'),ordinaryFailingSourceFaces=335,coverageFailingSourceFaces=34,all23SourceCrossingsPreserved=True))
+  row=dict(uid=UID,source=ref(p['sources'][UID]),rawCurrentEntry=p['models'][UID],currentBuilding=p['forms'][UID],completeOriginalPOSITIONProof=p['proof'])
+- save(DOC/'input.json.gz',dict(currentBoundOnly=True,completeNativeActors=6649,currentManifest=p['manifest'],currentCatalogueRefs=p['catalogues'],currentNativeViewerTileHashes=p['tileHashes'],declaredDependencyUIDSourceHashes=declared,currentAllNativeSourceForms=p['forms'],rows=[row],evidenceRefs=[ref(DOC/'exact-prior-current-tuple-rebind.json')]))
++ save(DOC/'input.json.gz',dict(currentBoundOnly=True,completeNativeActors=6649,currentManifest=p['manifest'],currentCatalogueRefs=p['catalogues'],currentNativeViewerTileHashes=p['tileHashes'],historicalDeclaredDependencyModuleHashes=historical_declared,currentDependencyFileHashes=current_dependency_pins,currentAllNativeSourceForms=p['forms'],rows=[row],evidenceRefs=[ref(DOC/'exact-prior-current-tuple-rebind.json')]))
+  subprocess.run(['node','--expose-gc',str(EXPORTER)],cwd=ROOT,check=True);fence();delta=read(DOC/'delta.json.gz');assert delta['expectedDeltaActors']==delta['successfullyCapturedActors']==1 and delta['rows'][0]['uid']==UID and not delta['errors']and delta['startAndEndInputHashesVerified']
+  for path,h in delta['inputHashes'].items():assert ref(ROOT/path)['sha256']==h
+  historical=p['old']['rows'];fresh=delta['rows'][0];merged=historical+[fresh];assert len(merged)==len({r['uid']for r in merged})==6649 and {r['uid']for r in merged}==set(p['models'])
+--- xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.mjs
++++ xl-complete-native-actual-position-post-heya-delta-draft-v3-20261012.mjs
+@@ -8,15 +8,16 @@
+ import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+ import {actualFloat32ModelMatrixPositions,positionBounds} from './actual_float32_model_matrix_bounds_20261011.mjs';
+ import {preflightActualRenderMesh} from './current_geometry_capture_preflight_20261011.mjs';
+-const root=new URL('../../../',import.meta.url),doc='docs/astra-city/government-import/government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012',hashes={},sha=b=>createHash('sha256').update(b).digest('hex');
++const root=new URL('../../../',import.meta.url),doc='docs/astra-city/government-import/government-xl-complete-native-actual-position-post-heya-delta-draft-v3-20261012',hashes={},sha=b=>createHash('sha256').update(b).digest('hex');
+ function bytes(path,expected){const u=new URL(path,root);assert(u.pathname.startsWith(root.pathname));const b=readFileSync(u);if(expected!==undefined)assert.equal(sha(b),expected,path);hashes[path]=sha(b);return b;}
+ function read(path,expected){const b=bytes(path,expected);return JSON.parse(path.endsWith('.gz')?gunzipSync(b):b);}
+ function attrSha(a){return sha(Buffer.from(a.buffer,a.byteOffset,a.byteLength));}
+ const closure=snapshotModuleClosure(new URL('3d-viewer/city/official-model-assets.js',root),root);Object.assign(hashes,closure.inputHashes);
+-for(const p of ['source-scripts/city/government-import/xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs','source-scripts/city/government-import/current_geometry_capture_preflight_20261011.mjs'])bytes(p);
++for(const p of ['source-scripts/city/government-import/xl-complete-native-actual-position-post-heya-delta-draft-v3-20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs','source-scripts/city/government-import/current_geometry_capture_preflight_20261011.mjs'])bytes(p);
+ const input=read(doc+'/input.json.gz');assert.equal(input.currentBoundOnly,true);assert.equal(input.completeNativeActors,6649);assert.equal(input.rows.length,1);assert.deepEqual(input.rows.map(r=>r.uid),['landsd/184286:0']);
+ const manifest=read(input.currentManifest.path,input.currentManifest.sha256);assert.equal(input.currentManifest.sha256,'2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540');assert.deepEqual(input.currentCatalogueRefs.map(r=>r.originalPath),manifest.officialModelCatalogues.map(p=>'3d-viewer/'+p));
+-for(const [p,h]of Object.entries(input.currentNativeViewerTileHashes))bytes(p,h);for(const [p,h]of Object.entries(input.declaredDependencyUIDSourceHashes))bytes(p,h);for(const r of input.evidenceRefs)bytes(r.path,r.sha256);
++assert(!('declaredDependencyUIDSourceHashes'in input));for(const [p,h]of Object.entries(closure.inputHashes))assert.equal(input.currentDependencyFileHashes[p],h,'Fresh captured current module closure binding '+p);
++for(const [p,h]of Object.entries(input.currentNativeViewerTileHashes))bytes(p,h);for(const [p,h]of Object.entries(input.currentDependencyFileHashes))bytes(p,h);for(const r of input.evidenceRefs)bytes(r.path,r.sha256);
+ 
+ const entries=new Map();for(const r of input.currentCatalogueRefs){const cat=read(r.path,r.sha256);for(const e of prepareModelCatalogue(cat,new URL('https://diagnostic.invalid/'+r.originalPath))){assert(!entries.has(e.uid));entries.set(e.uid,e);}}
+ assert.equal(entries.size,6649);const lighting={night:{value:0},activity:{value:new THREE.Vector4()},retail:{value:0},elapsed:{value:0},shimmer:{value:0}},rows=[],errors=[],started=Date.now();

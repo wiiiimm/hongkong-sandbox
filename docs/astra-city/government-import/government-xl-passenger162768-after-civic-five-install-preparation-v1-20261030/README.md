@@ -1,0 +1,7 @@
+# Passenger Clearance original installation preparation
+
+Exact original source landsd/162768:0, 32,238 faces, unchanged government bytes/pose. Ten source-specific surveyed-roof guard mutation tests pass. Final source/physical review, qualified stage V3, canonical publisher dry run with all installed 3+5-member terrain and global support validators, and installer --prepare-only pass. Expected fixed XL delta: +1 from407; current detailed actors7027.
+
+The six surveyed flat-roof graphics conditionally hide only while the exact original is active. The existing generic unsurveyed-canopy contract remains unchanged. All six fallback lifecycles passed desktop/mobile; actual HTTP installed lifecycle is still required. Two auxiliary BASIC actors remain retained. Preserve all raw contact/footprint flags and source metadata. No AI geometry modelling, source edits, new support dependencies, terrain simplification, optimisation or geometry scaling.
+
+Live installer uses a private progress --snapshot-path and excludes the unrelated shared progress snapshot from rollback outputs. It retains publication leases, exact input hashes, ledger/snapshot recording, whole521 count audit, atomic rollback, global support checks, real desktop/mobile picking/collision and actual served catalogue/terrain/asset lifecycle verification. No historical civic failed-install prerequisite is copied into this new case. Installation is not yet complete at this preparation checkpoint.

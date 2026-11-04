@@ -1,0 +1,141 @@
+{
+  "source": "/Users/williamli/projects/wiiiimm/hongkong-sandbox-astra-city/references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+  "sourceSha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+  "sourceHeader": {
+    "ncols": 12751.0,
+    "nrows": 9601.0,
+    "xllcorner": 799997.5,
+    "yllcorner": 799997.5,
+    "cellsize": 5.0,
+    "NODATA_value": -9999.0
+  },
+  "inheritedGridSha256": "68ed8af6e07ab9b6dbe9d9b242e96648f7812b743172cfce700ec7700b09ea93",
+  "cause": "The archived5m DTM contains elevated bridge surfaces. hk_dtm.py averages14x14 native samples, hk_build.py uses DTM>1m as land, build_city.py retains the resulting70m grid. NoB50Klandcover polygon creates this ridge; vegetation uses landcover separately.",
+  "pipeline": [
+    "3d-viewer/scripts/hk_dtm.py",
+    "3d-viewer/scripts/hk_build.py",
+    "source-scripts/city/build_city.py"
+  ],
+  "samples": [
+    {
+      "world": [
+        -9800,
+        -6770
+      ],
+      "coarseColumn": 352,
+      "coarseRow": 353,
+      "coarseCityRaw": 50,
+      "coarseOriginalRaw": 50,
+      "native14x14Mean": 50.418365478515625,
+      "originalExpectedRoundedMean": 50,
+      "sourceRawRange": [
+        5.0,
+        64.0
+      ],
+      "nativePositiveSamples": 196
+    },
+    {
+      "world": [
+        -9500,
+        -6860
+      ],
+      "coarseColumn": 357,
+      "coarseRow": 352,
+      "coarseCityRaw": 32,
+      "coarseOriginalRaw": 32,
+      "native14x14Mean": 32.13775634765625,
+      "originalExpectedRoundedMean": 32,
+      "sourceRawRange": [
+        0.0,
+        70.0
+      ],
+      "nativePositiveSamples": 107
+    },
+    {
+      "world": [
+        -9250,
+        -6940
+      ],
+      "coarseColumn": 360,
+      "coarseRow": 350,
+      "coarseCityRaw": 28,
+      "coarseOriginalRaw": 28,
+      "native14x14Mean": 27.867347717285156,
+      "originalExpectedRoundedMean": 28,
+      "sourceRawRange": [
+        0.0,
+        73.0
+      ],
+      "nativePositiveSamples": 109
+    },
+    {
+      "world": [
+        -9000,
+        -7010
+      ],
+      "coarseColumn": 364,
+      "coarseRow": 349,
+      "coarseCityRaw": 44,
+      "coarseOriginalRaw": 44,
+      "native14x14Mean": 44.06122589111328,
+      "originalExpectedRoundedMean": 44,
+      "sourceRawRange": [
+        0.0,
+        74.0
+      ],
+      "nativePositiveSamples": 147
+    },
+    {
+      "world": [
+        -8750,
+        -7090
+      ],
+      "coarseColumn": 367,
+      "coarseRow": 348,
+      "coarseCityRaw": 36,
+      "coarseOriginalRaw": 36,
+      "native14x14Mean": 36.25510025024414,
+      "originalExpectedRoundedMean": 36,
+      "sourceRawRange": [
+        0.0,
+        75.0
+      ],
+      "nativePositiveSamples": 127
+    },
+    {
+      "world": [
+        -8500,
+        -7160
+      ],
+      "coarseColumn": 371,
+      "coarseRow": 347,
+      "coarseCityRaw": 50,
+      "coarseOriginalRaw": 50,
+      "native14x14Mean": 49.56122589111328,
+      "originalExpectedRoundedMean": 50,
+      "sourceRawRange": [
+        0.0,
+        74.0
+      ],
+      "nativePositiveSamples": 165
+    },
+    {
+      "world": [
+        -8250,
+        -7240
+      ],
+      "coarseColumn": 375,
+      "coarseRow": 346,
+      "coarseCityRaw": 56,
+      "coarseOriginalRaw": 56,
+      "native14x14Mean": 55.974491119384766,
+      "originalExpectedRoundedMean": 56,
+      "sourceRawRange": [
+        0.0,
+        75.0
+      ],
+      "nativePositiveSamples": 179
+    }
+  ],
+  "sourceChanged": false
+}

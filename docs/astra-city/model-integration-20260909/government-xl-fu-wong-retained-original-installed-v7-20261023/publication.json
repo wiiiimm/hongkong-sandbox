@@ -1,0 +1,96 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-fu-wong-retained-qualified-stage-v1-20261023/plan.json",
+  "areas": [
+    {
+      "area": "Fu Wong House unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-fu-wong-retained-qualified-stage-v1-20261023/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-fu-wong-original-v1-20261023.json": null,
+    "3d-viewer/city/data/official-models/government-xl-fu-wong-retained-qualified-stage-v1-20261023/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "5ce618d21b002cab11306d4e9b0ed95cf5e98643473d93e815ede2bc91a7889f"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-fu-wong-original-v1-20261023.json": "b98d5133458755e790f1a7d514dfcbc46e9ac91b60602ae7c0d2286c198b80fd",
+    "3d-viewer/city/data/official-models/government-xl-fu-wong-retained-qualified-stage-v1-20261023/catalogue.json": "3450b3288c197cbba54cbd7a06e7a24cedfaf196dd5b424aa36c133a0727c058",
+    "3d-viewer/city/data/manifest.json": "3a479909f4698499b4703165e84546b3c49a889152e32c93a4f54154caf76baa"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "bf5d711627e1e96c157c7b4490d1077267b55fb0",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-fu-loy-original-v1-20261022.json",
+      "sha256": "d47551ab15d3f56b900f434b9ebec7d4f91d773e9dc43bdb15385e1b7328006e",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-fu-wong-original-v1-20261023.json",
+      "resolution": 5,
+      "area": "Fu Wong House unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -560.6881115052602,
+            -4638.330964965958,
+            -462.90430153281795,
+            -4574.071211826464
+          ],
+          "outerBounds": [
+            -563.7456100835406,
+            -4642.555305188482,
+            -458.68849484406644,
+            -4569.837581680853
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-ssp-swimming-pool-terrain-continuation-v2-20261005/sheets/11-NW-13B/terrain/TERRAIN(TB)/T33750210000106E14/T33750210000106E14.gltf",
+            "sha256": "63167d76973bd586b9aeb3bb5af3faefe75b17aa2628c22591cf0bb4afd5cf2f"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4047,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "retainedNativeSources": [
+          {
+            "retainedUids": [
+              "landsd/147589:0",
+              "landsd/282088:0",
+              "landsd/51275:0",
+              "landsd/51764:0"
+            ],
+            "sha256": "d47551ab15d3f56b900f434b9ebec7d4f91d773e9dc43bdb15385e1b7328006e",
+            "url": "city/data/government-native-fu-loy-original-v1-20261022.json"
+          }
+        ],
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "b98d5133458755e790f1a7d514dfcbc46e9ac91b60602ae7c0d2286c198b80fd",
+      "bytes": 4773118
+    }
+  ],
+  "estimatedBases": []
+}

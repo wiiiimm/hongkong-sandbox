@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "kind": "official-building-model-tile",
+  "datasetId": "landsd_rcd_1742809441342_98380",
+  "datasetTitle": "Lands Department 3D Visualisation Map (Non-textured models)",
+  "datasetMetadataRevision": "2026-08-28",
+  "tile": "9-SW-23D",
+  "tileRevision": "2026-07-16T16:00:00+00:00",
+  "sourceDownload": "https://download.map.gov.hk/api/3d-zip/GLTF0/9-SW-23D.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+  "sourceArchiveSha256": null,
+  "sourceCacheSha256": "26c9f1d7bec5147221a5155019b8929ed6a47c56c02c1cc53661e670f20d2d82",
+  "sourceCacheKind": "Derived compact ZIP containing only selected original unmodified glTF/bin entries",
+  "crs": "EPSG:2326",
+  "verticalDatum": "Hong Kong Principal Datum",
+  "axes": "Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.",
+  "rootTranslation": [
+    -834500,
+    0,
+    816500
+  ],
+  "officialFootprintDatasetVersion": "Building_Outline_Public_v20260819",
+  "officialFootprintSnapshotSha256": "663a1406e8575480a5f20c3d915d0e2a99cf40b5a1e0c7d3b24e0119c903cdd7",
+  "matchPolicy": "Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.",
+  "models": [
+    {
+      "id": "B042621261001063C0",
+      "url": "BUILDING/B042621261001063C0/B042621261001063C0.gltf",
+      "worldBounds": [
+        [
+          -30267.8125,
+          4.1287994384765625,
+          3872.5
+        ],
+        [
+          -30197.0625,
+          23.259700775146484,
+          3933.5
+        ]
+      ],
+      "vertices": 3720,
+      "triangles": 1240,
+      "sourceEntry": "BUILDING/B042621261001063C0/B042621261001063C0.gltf",
+      "sourceHashes": {
+        "BUILDING/B042621261001063C0/B042621261001063C0.gltf": "9e8fd0590bf383878134ea07b564da246da11363fb7b53db1645b27ab883bbb9",
+        "BUILDING/B042621261001063C0/B042621261001063C0.bin": "19dfcf3bacc1a1d3dd769a9a179c272f2455af3d4e7d89158526099f63918471"
+      },
+      "rootTranslation": [
+        -834500,
+        0,
+        816500
+      ],
+      "geoRefNo": "0426212610",
+      "officialMatches": [
+        {
+          "buildingCSUID": "0426212610T20050430",
+          "objectId": 211900,
+          "buildingID": 1109179926,
+          "geoRefNo": "0426212610",
+          "blockType": "Tower",
+          "overlapOfSmallerFootprint": 0.9993,
+          "footprintCentroidDistanceMetres": 1.371,
+          "sourceBaseHeight": 4.1,
+          "sourceTopHeight": 18.4
+        }
+      ],
+      "officialBuildingCSUIDs": [
+        "0426212610T20050430"
+      ],
+      "replacementVerified": true
+    },
+    {
+      "id": "B044151257101062G0",
+      "url": "BUILDING/B044151257101062G0/B044151257101062G0.gltf",
+      "worldBounds": [
+        [
+          -30090.75,
+          4.110899925231934,
+          3924.3125
+        ],
+        [
+          -30081.0,
+          8.548199653625488,
+          3933.125
+        ]
+      ],
+      "vertices": 54,
+      "triangles": 18,
+      "sourceEntry": "BUILDING/B044151257101062G0/B044151257101062G0.gltf",
+      "sourceHashes": {
+        "BUILDING/B044151257101062G0/B044151257101062G0.gltf": "20d4d1f5d5e1a60a4c3e5fc5df0acaab6254f7eb77f20f72f61e1359a0a668a3",
+        "BUILDING/B044151257101062G0/B044151257101062G0.bin": "ca4ea0856125ffd47af65185c4b617d5340271608820681974d8da86883c2a74"
+      },
+      "rootTranslation": [
+        -834500,
+        0,
+        816500
+      ],
+      "geoRefNo": "0441512571",
+      "officialMatches": [
+        {
+          "buildingCSUID": "0441512571T20050430",
+          "objectId": 96188,
+          "buildingID": 1109185041,
+          "geoRefNo": "0441512571",
+          "blockType": "Tower",
+          "overlapOfSmallerFootprint": 1.0,
+          "footprintCentroidDistanceMetres": 0.2845,
+          "sourceBaseHeight": 3.2,
+          "sourceTopHeight": 8.6
+        }
+      ],
+      "officialBuildingCSUIDs": [
+        "0441512571T20050430"
+      ],
+      "replacementVerified": true
+    }
+  ],
+  "terrain": {
+    "id": "T03750120000106E11",
+    "url": "TERRAIN(TB)/T03750120000106E11/T03750120000106E11-geometry.gltf",
+    "worldBounds": [
+      [
+        -30750.0,
+        0.0627288818359375,
+        3899.9931640625
+      ],
+      [
+        -30000.0,
+        128.00962829589844,
+        4499.9970703125
+      ]
+    ],
+    "vertices": 135657,
+    "triangles": 45219,
+    "sourceEntry": "TERRAIN(TB)/T03750120000106E11/T03750120000106E11.gltf",
+    "sourceHashes": {
+      "TERRAIN(TB)/T03750120000106E11/T03750120000106E11.gltf": "55218f031cbb79585699972bc2d1d9dffc4cf1c5761f365d36e77e5e2d0a6770",
+      "TERRAIN(TB)/T03750120000106E11/T03750120000106E11.bin": "88c898f9890092239957f629567b8d1099df52c9fbdbb0be1bf0bc5b9ec61aa0"
+    },
+    "rootTranslation": [
+      -834500,
+      0,
+      816500
+    ],
+    "photoOmitted": true,
+    "omittedPhotoEntries": [
+      "TERRAIN(TB)/T03750120000106E11/T03750120000106E11_001.jpg"
+    ],
+    "originalMaterials": [
+      {
+        "name": "T03750120000106E11",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "roughnessFactor": 0.984375,
+          "metallicFactor": 0.5
+        }
+      }
+    ],
+    "derivedSha256": "6ac2af6e8396a982627d5395f6eaaf7b84ceefc553dec5fc2f2d026efe8b9d04"
+  },
+  "excludedModels": [],
+  "counts": {
+    "buildingModels": 2,
+    "buildingModelsWithVerifiedOfficialMatch": 2,
+    "matchedOfficialBuildingCSUIDs": 2,
+    "modelVertices": 3774,
+    "modelTriangles": 1258,
+    "terrainVertices": 135657,
+    "terrainTriangles": 45219,
+    "assetBytes": 5032647
+  },
+  "limits": [
+    "The source model tile and Building footprint dataset have different revision dates.",
+    "Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.",
+    "Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.",
+    "The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.",
+    "This is one source sheet, not complete territory-wide detailed architecture."
+  ]
+}

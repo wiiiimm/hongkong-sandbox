@@ -1,0 +1,1 @@
+Lookup stopped at a missing redundant sourceTile field in recovered companion catalogue entries. No source query/acceptance or installation completed. Source V2 resolves exact pinned native cache sheet using authenticated cache/result/model membership. Not model corruption.

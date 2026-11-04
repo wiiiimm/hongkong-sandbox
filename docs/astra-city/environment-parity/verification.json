@@ -1,0 +1,711 @@
+{
+  "result": "passed",
+  "testedAt": "2026-09-06T08:34:21.297Z",
+  "url": "http://127.0.0.1:4176/city.html?district=kowloon",
+  "checks": [
+    "actual Sky defaults, rate 18→100, off/on, daylight/night suppression and Stargaze",
+    "Reduced Motion hides meteors and freezes their elapsed clock",
+    "no sound on load or synthetic click; initial enable in Stargaze resumes only after a correctly labelled trusted gesture retry",
+    "actual Weather controls set manual storms/rate, original sound master volume and zero-volume silence",
+    "About pause freezes meteor/storm progression and suspends audio; closing resumes it",
+    "Reduced Motion suppresses both visual effects while preserving optional sound preference",
+    "mock HKO thunderstorm conditions cannot start simulated live lightning; manual settings restore exactly",
+    "Stargaze pauses storm/audio and preserves manual weather; return resumes unlocked audio; Mute suspends it",
+    "Sky and Weather controls remain reachable without horizontal overflow at 390 px and 320 px"
+  ],
+  "snapshots": {
+    "initial": {
+      "mode": "manual",
+      "date": "2026-09-06T07:00:00.000Z",
+      "hkt": {
+        "date": "2026-09-06",
+        "time": "15:00",
+        "hour": 15,
+        "hours": 15,
+        "minutes": 0,
+        "seconds": 0
+      },
+      "timeLapse": false,
+      "astronomy": {
+        "date": "2026-09-06T07:00:00.000Z",
+        "hkt": {
+          "date": "2026-09-06",
+          "time": "15:00",
+          "hour": 15,
+          "hours": 15,
+          "minutes": 0,
+          "seconds": 0
+        },
+        "lat": 22.296605429056918,
+        "lon": 114.16699527954279,
+        "sun": {
+          "azimuth": 1.2856180389054472,
+          "altitude": 0.8529504023236724,
+          "altitudeDeg": 48.870458187131995,
+          "bearing": 253.66048769516777,
+          "direction": {
+            "x": -0.6311976148989173,
+            "y": 0.7532243482242404,
+            "z": 0.1850477024663806
+          }
+        },
+        "moon": {
+          "azimuth": 2.081751826640318,
+          "altitude": 0.008102200705435297,
+          "distance": 364452.59636354446,
+          "altitudeDeg": 0.46422190518936085,
+          "bearing": 299.27559366014003,
+          "direction": {
+            "x": -0.8722490255707354,
+            "y": 0.008102112060012498,
+            "z": -0.48899488051621726
+          },
+          "fraction": 0.2710472989919569,
+          "phase": 0.8257000813901381,
+          "angle": 1.6890387398662592
+        },
+        "sunrise": "2026-09-05T22:08:52.050Z",
+        "sunset": "2026-09-06T10:37:56.792Z",
+        "solarNoon": "2026-09-06T04:23:24.421Z",
+        "moonrise": "2026-09-05T16:44:45.073Z",
+        "moonset": "2026-09-06T07:01:44.772Z",
+        "night": 0,
+        "golden": 0,
+        "starVisibility": 0,
+        "phase": "Daylight"
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-06T07:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-06",
+            "time": "15:00",
+            "hour": 15,
+            "hours": 15,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.296605429056918,
+          "lon": 114.16699527954279,
+          "sun": {
+            "azimuth": 1.2856180389054472,
+            "altitude": 0.8529504023236724,
+            "altitudeDeg": 48.870458187131995,
+            "bearing": 253.66048769516777,
+            "direction": {
+              "x": -0.6311976148989173,
+              "y": 0.7532243482242404,
+              "z": 0.1850477024663806
+            }
+          },
+          "moon": {
+            "azimuth": 2.081751826640318,
+            "altitude": 0.008102200705435297,
+            "distance": 364452.59636354446,
+            "altitudeDeg": 0.46422190518936085,
+            "bearing": 299.27559366014003,
+            "direction": {
+              "x": -0.8722490255707354,
+              "y": 0.008102112060012498,
+              "z": -0.48899488051621726
+            },
+            "fraction": 0.2710472989919569,
+            "phase": 0.8257000813901381,
+            "angle": 1.6890387398662592
+          },
+          "sunrise": "2026-09-05T22:08:52.050Z",
+          "sunset": "2026-09-06T10:37:56.792Z",
+          "solarNoon": "2026-09-06T04:23:24.421Z",
+          "moonrise": "2026-09-05T16:44:45.073Z",
+          "moonset": "2026-09-06T07:01:44.772Z",
+          "night": 0,
+          "golden": 0,
+          "starVisibility": 0,
+          "phase": "Daylight"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 1,
+        "stargazing": false,
+        "cloudCover": 0,
+        "limitingMagnitude": 2.8,
+        "constellations": true,
+        "selected": null
+      },
+      "weather": {
+        "mode": "manual",
+        "status": "idle",
+        "settings": {
+          "rain": 0,
+          "clouds": 0,
+          "fog": 0,
+          "wind": 0.12,
+          "waves": 0.18,
+          "snow": 0,
+          "windFrom": 90
+        },
+        "manual": {
+          "rain": 0,
+          "clouds": 0,
+          "fog": 0,
+          "wind": 0.12,
+          "waves": 0.18,
+          "snow": 0,
+          "windFrom": 90
+        },
+        "observation": null,
+        "error": null,
+        "windError": null,
+        "checkedAt": null,
+        "updatedAt": null,
+        "source": "Hong Kong Observatory / DATA.GOV.HK",
+        "approximate": true,
+        "elapsed": 2.0667
+      },
+      "effects": {
+        "fogDensity": 0.00006592944886963257,
+        "visibilityMetres": 30000,
+        "cloudCover": 0,
+        "ambientMultiplier": 1,
+        "sunMultiplier": 1,
+        "skyMultiplier": 1,
+        "wetness": 0,
+        "waveStrength": 0.18,
+        "windVector": {
+          "x": -2.16,
+          "z": 1.3226185430791415e-16
+        }
+      },
+      "meteors": {
+        "enabled": true,
+        "rate": 0.18,
+        "rateLabel": "Calm",
+        "gapSeconds": 11.104322161499868,
+        "concurrencyLimit": 2,
+        "active": 0,
+        "visibleTrails": 0,
+        "poolSize": 14,
+        "spawned": 0,
+        "disposed": false,
+        "paused": false,
+        "reducedMotion": false,
+        "starFade": 0,
+        "radius": 80360,
+        "elapsed": 2.0667,
+        "running": false
+      },
+      "storm": {
+        "manual": {
+          "lightning": false,
+          "thunderRate": 0.4
+        },
+        "mode": "manual",
+        "active": false,
+        "visualSuppressed": false,
+        "flash": 0,
+        "strikes": 0,
+        "lastStrike": null,
+        "source": "Manual storm simulation",
+        "sound": {
+          "supported": true,
+          "enabled": false,
+          "unlocked": false,
+          "audible": false,
+          "masterVolume": 0.6,
+          "status": "muted",
+          "error": null
+        }
+      }
+    },
+    "nightMeteors": {
+      "enabled": true,
+      "rate": 1,
+      "rateLabel": "Apocalypse",
+      "gapSeconds": 0.12,
+      "concurrencyLimit": 14,
+      "active": 1,
+      "visibleTrails": 0,
+      "poolSize": 14,
+      "spawned": 1,
+      "disposed": false,
+      "paused": false,
+      "reducedMotion": false,
+      "starFade": 1,
+      "radius": 80360,
+      "elapsed": 2.2832999999999997,
+      "running": true
+    },
+    "manualStorm": {
+      "manual": {
+        "lightning": true,
+        "thunderRate": 1
+      },
+      "mode": "manual",
+      "active": true,
+      "visualSuppressed": false,
+      "flash": 1,
+      "strikes": 1,
+      "lastStrike": {
+        "number": 1,
+        "elapsed": 4.016499999999992,
+        "close": true,
+        "source": "Manual storm simulation",
+        "position": {
+          "x": -493.25795453283445,
+          "y": 5,
+          "z": 231.5362609250821
+        }
+      },
+      "source": "Manual storm simulation",
+      "sound": {
+        "supported": true,
+        "enabled": true,
+        "unlocked": true,
+        "audible": true,
+        "masterVolume": 0.55,
+        "status": "playing",
+        "error": null
+      }
+    },
+    "liveWeather": {
+      "mode": "live",
+      "status": "live",
+      "settings": {
+        "rain": 0.6131471927654585,
+        "clouds": 1,
+        "fog": 0,
+        "wind": 0.3384615384615385,
+        "waves": 0.2876923076923077,
+        "snow": 0,
+        "windFrom": 90
+      },
+      "manual": {
+        "rain": 0.7,
+        "clouds": 0.9,
+        "fog": 0.1,
+        "wind": 0.65,
+        "waves": 0.7,
+        "snow": 0,
+        "windFrom": 90
+      },
+      "observation": {
+        "updatedAt": "2026-09-06T08:34:10.820Z",
+        "condition": "Thunderstorms",
+        "icon": 65,
+        "temperature": {
+          "station": "HK Observatory",
+          "value": 28,
+          "updatedAt": "2026-09-06T08:34:10.820Z",
+          "distanceMetres": 1069
+        },
+        "humidity": {
+          "station": "HK Observatory",
+          "value": 84,
+          "updatedAt": "2026-09-06T08:34:10.820Z",
+          "distanceMetres": 1069
+        },
+        "wind": {
+          "station": "HK Observatory",
+          "from": 90,
+          "speedKmh": 22,
+          "gustKmh": 34,
+          "updatedAt": "2026-09-06T16:34:00+08:00",
+          "distanceMetres": 1069
+        },
+        "rainfall": {
+          "district": "Yau Tsim Mong",
+          "millimetres": 8,
+          "startTime": "2026-09-06T08:34:10.820Z",
+          "endTime": "2026-09-06T08:34:10.820Z",
+          "basis": "Nearest station district; approximate boundary"
+        },
+        "warning": "Fixture thunderstorm condition: not an observed strike feed"
+      },
+      "error": null,
+      "windError": null,
+      "checkedAt": "2026-09-06T08:34:20.108Z",
+      "updatedAt": "2026-09-06T08:34:10.820Z",
+      "source": "Hong Kong Observatory / DATA.GOV.HK",
+      "approximate": true,
+      "elapsed": 7.549900000000041
+    },
+    "final": {
+      "mode": "manual",
+      "date": "2026-09-06T14:00:00.000Z",
+      "hkt": {
+        "date": "2026-09-06",
+        "time": "22:00",
+        "hour": 22,
+        "hours": 22,
+        "minutes": 0,
+        "seconds": 0
+      },
+      "timeLapse": false,
+      "astronomy": {
+        "date": "2026-09-06T14:00:00.000Z",
+        "hkt": {
+          "date": "2026-09-06",
+          "time": "22:00",
+          "hour": 22,
+          "hours": 22,
+          "minutes": 0,
+          "seconds": 0
+        },
+        "lat": 22.296605429056918,
+        "lon": 114.16699527954279,
+        "sun": {
+          "azimuth": 2.189484711879493,
+          "altitude": -0.7830495412860998,
+          "altitudeDeg": -44.86543386534863,
+          "bearing": 305.448233299112,
+          "direction": {
+            "x": -0.5773886668196881,
+            "y": -0.705444105883201,
+            "z": -0.4110607508663828
+          }
+        },
+        "moon": {
+          "azimuth": -2.6964959961985246,
+          "altitude": -0.6329030141077289,
+          "distance": 364753.54363100324,
+          "altitudeDeg": -36.26267154948167,
+          "bearing": 25.502159943900068,
+          "direction": {
+            "x": 0.3471544780753006,
+            "y": -0.5914879873992825,
+            "z": -0.7277538932321913
+          },
+          "fraction": 0.2408188763005893,
+          "phase": 0.8367290507600218,
+          "angle": 1.7245307815499846
+        },
+        "sunrise": "2026-09-05T22:08:52.050Z",
+        "sunset": "2026-09-06T10:37:56.792Z",
+        "solarNoon": "2026-09-06T04:23:24.421Z",
+        "moonrise": "2026-09-05T16:44:45.073Z",
+        "moonset": "2026-09-06T07:01:44.772Z",
+        "night": 1,
+        "golden": 0,
+        "starVisibility": 1,
+        "phase": "Night"
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-06T14:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-06",
+            "time": "22:00",
+            "hour": 22,
+            "hours": 22,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.296605429056918,
+          "lon": 114.16699527954279,
+          "sun": {
+            "azimuth": 2.189484711879493,
+            "altitude": -0.7830495412860998,
+            "altitudeDeg": -44.86543386534863,
+            "bearing": 305.448233299112,
+            "direction": {
+              "x": -0.5773886668196881,
+              "y": -0.705444105883201,
+              "z": -0.4110607508663828
+            }
+          },
+          "moon": {
+            "azimuth": -2.6964959961985246,
+            "altitude": -0.6329030141077289,
+            "distance": 364753.54363100324,
+            "altitudeDeg": -36.26267154948167,
+            "bearing": 25.502159943900068,
+            "direction": {
+              "x": 0.3471544780753006,
+              "y": -0.5914879873992825,
+              "z": -0.7277538932321913
+            },
+            "fraction": 0.2408188763005893,
+            "phase": 0.8367290507600218,
+            "angle": 1.7245307815499846
+          },
+          "sunrise": "2026-09-05T22:08:52.050Z",
+          "sunset": "2026-09-06T10:37:56.792Z",
+          "solarNoon": "2026-09-06T04:23:24.421Z",
+          "moonrise": "2026-09-05T16:44:45.073Z",
+          "moonset": "2026-09-06T07:01:44.772Z",
+          "night": 1,
+          "golden": 0,
+          "starVisibility": 1,
+          "phase": "Night"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0.0018437500000000329,
+        "coordinateUpdates": 4,
+        "stargazing": false,
+        "cloudCover": 0.9,
+        "limitingMagnitude": 2.8,
+        "constellations": true,
+        "selected": null
+      },
+      "weather": {
+        "mode": "manual",
+        "status": "idle",
+        "settings": {
+          "rain": 0.7,
+          "clouds": 0.9,
+          "fog": 0.1,
+          "wind": 0.65,
+          "waves": 0.7,
+          "snow": 0,
+          "windFrom": 90
+        },
+        "manual": {
+          "rain": 0.7,
+          "clouds": 0.9,
+          "fog": 0.1,
+          "wind": 0.65,
+          "waves": 0.7,
+          "snow": 0,
+          "windFrom": 90
+        },
+        "observation": {
+          "updatedAt": "2026-09-06T08:34:10.820Z",
+          "condition": "Thunderstorms",
+          "icon": 65,
+          "temperature": {
+            "station": "HK Observatory",
+            "value": 28,
+            "updatedAt": "2026-09-06T08:34:10.820Z",
+            "distanceMetres": 1069
+          },
+          "humidity": {
+            "station": "HK Observatory",
+            "value": 84,
+            "updatedAt": "2026-09-06T08:34:10.820Z",
+            "distanceMetres": 1069
+          },
+          "wind": {
+            "station": "HK Observatory",
+            "from": 90,
+            "speedKmh": 22,
+            "gustKmh": 34,
+            "updatedAt": "2026-09-06T16:34:00+08:00",
+            "distanceMetres": 1069
+          },
+          "rainfall": {
+            "district": "Yau Tsim Mong",
+            "millimetres": 8,
+            "startTime": "2026-09-06T08:34:10.820Z",
+            "endTime": "2026-09-06T08:34:10.820Z",
+            "basis": "Nearest station district; approximate boundary"
+          },
+          "warning": "Fixture thunderstorm condition: not an observed strike feed"
+        },
+        "error": null,
+        "windError": null,
+        "checkedAt": "2026-09-06T08:34:20.108Z",
+        "updatedAt": "2026-09-06T08:34:10.820Z",
+        "source": "Hong Kong Observatory / DATA.GOV.HK",
+        "approximate": true,
+        "elapsed": 8.733200000000034
+      },
+      "effects": {
+        "fogDensity": 0.00012755979228431578,
+        "visibilityMetres": 15505.540034750975,
+        "cloudCover": 0.9,
+        "ambientMultiplier": 0.728,
+        "sunMultiplier": 0.2799999999999999,
+        "skyMultiplier": 0.802,
+        "wetness": 0.7,
+        "waveStrength": 0.7,
+        "windVector": {
+          "x": -11.700000000000001,
+          "z": 7.164183775012016e-16
+        }
+      },
+      "meteors": {
+        "enabled": true,
+        "rate": 1,
+        "rateLabel": "Apocalypse",
+        "gapSeconds": 0.12,
+        "concurrencyLimit": 14,
+        "active": 0,
+        "visibleTrails": 0,
+        "poolSize": 14,
+        "spawned": 8,
+        "disposed": false,
+        "paused": false,
+        "reducedMotion": false,
+        "starFade": 0.0018437500000000329,
+        "radius": 80360,
+        "elapsed": 8.733200000000034,
+        "running": false
+      },
+      "storm": {
+        "manual": {
+          "lightning": true,
+          "thunderRate": 1
+        },
+        "mode": "manual",
+        "active": true,
+        "visualSuppressed": false,
+        "flash": 0,
+        "strikes": 1,
+        "lastStrike": {
+          "number": 1,
+          "elapsed": 4.016499999999992,
+          "close": true,
+          "source": "Manual storm simulation",
+          "position": {
+            "x": -493.25795453283445,
+            "y": 5,
+            "z": 231.5362609250821
+          }
+        },
+        "source": "Manual storm simulation",
+        "sound": {
+          "supported": true,
+          "enabled": false,
+          "unlocked": true,
+          "audible": false,
+          "masterVolume": 0.55,
+          "status": "muted",
+          "error": null
+        }
+      }
+    }
+  },
+  "layouts": [
+    {
+      "name": "weather-390",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "panelWidth": 273,
+      "panelScrollWidth": 273,
+      "controls": [
+        {
+          "selector": "#weather-sound",
+          "x": 34,
+          "right": 158.484375,
+          "width": 124.484375
+        },
+        {
+          "selector": "#weather-volume",
+          "x": 34,
+          "right": 265,
+          "width": 231
+        },
+        {
+          "selector": "#storm-rate",
+          "x": 34,
+          "right": 265,
+          "width": 231
+        }
+      ]
+    },
+    {
+      "name": "sky-390",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "panelWidth": 273,
+      "panelScrollWidth": 273,
+      "controls": [
+        {
+          "selector": "#sky-meteors",
+          "x": 34,
+          "right": 47,
+          "width": 13
+        },
+        {
+          "selector": "#sky-meteor-rate",
+          "x": 34,
+          "right": 265,
+          "width": 231
+        }
+      ]
+    },
+    {
+      "name": "weather-320",
+      "viewport": [
+        320,
+        844
+      ],
+      "documentWidth": 320,
+      "panelWidth": 273,
+      "panelScrollWidth": 273,
+      "controls": [
+        {
+          "selector": "#weather-sound",
+          "x": 34,
+          "right": 158.484375,
+          "width": 124.484375
+        },
+        {
+          "selector": "#weather-volume",
+          "x": 34,
+          "right": 265,
+          "width": 231
+        },
+        {
+          "selector": "#storm-rate",
+          "x": 34,
+          "right": 265,
+          "width": 231
+        }
+      ]
+    },
+    {
+      "name": "sky-320",
+      "viewport": [
+        320,
+        844
+      ],
+      "documentWidth": 320,
+      "panelWidth": 273,
+      "panelScrollWidth": 273,
+      "controls": [
+        {
+          "selector": "#sky-meteors",
+          "x": 34,
+          "right": 47,
+          "width": 13
+        },
+        {
+          "selector": "#sky-meteor-rate",
+          "x": 34,
+          "right": 265,
+          "width": 231
+        }
+      ]
+    }
+  ],
+  "mockRequests": [
+    {
+      "feed": "rhrread",
+      "url": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=rhrread",
+      "observed": "2026-09-06T08:34:10.820Z"
+    },
+    {
+      "feed": "wind",
+      "url": "https://api.data.gov.hk/v1/historical-archive/get-file?url=https%3A%2F%2Fdata.weather.gov.hk%2FweatherAPI%2Fhko_data%2Fregional-weather%2Flatest_10min_wind.csv&time=20260906-1619",
+      "stamp": "202609061634"
+    }
+  ],
+  "errors": [],
+  "browser": "152.0.7977.76",
+  "notes": [
+    "Uses actual city UI and public state diagnostics, not direct effect-controller mutation.",
+    "HKO reports are intercepted deterministic fixtures; source timestamp is generated at test start to satisfy existing freshness checks.",
+    "Original synthesis, signal output, fork geometry and logarithmic-depth pixel comparisons are covered by weather-effects tests rather than repeated here."
+  ]
+}

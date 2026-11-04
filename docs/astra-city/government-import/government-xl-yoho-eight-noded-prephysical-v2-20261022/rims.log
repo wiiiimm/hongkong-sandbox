@@ -1,0 +1,9 @@
+{'mode': 'original', 'sourceWorldSHA256': 'eb7ac3175b1a89c220c460e6d661fba1a9feb8b4d639abe8b9148d18ed73a9ae', 'completeSourceFaces': 14792, 'completeRuntimeSamples': 53583, 'lowRimSamples': 97, 'minimumSampleGapM': -0.02865707655905858, 'minimumRimGapM': -3.814697265625e-06, 'maximumRimGapM': 0.008703029847957566, 'maximumYDisplacementM': 3.552713678800501e-15, 'continuousClearanceLowerBoundM': -0.0287803569538756, 'passed': True}
+{'mode': 'literal', 'sourceWorldSHA256': '90b2f2cd9a9838269e349e76648ff03b6795265c171b61a256e0874e46b5b8c9', 'completeSourceFaces': 14792, 'completeRuntimeSamples': 53583, 'lowRimSamples': 97, 'minimumSampleGapM': -0.02865707655905858, 'minimumRimGapM': -3.814697268289535e-06, 'maximumRimGapM': 0.00870302984795579, 'maximumYDisplacementM': 0.0, 'continuousClearanceLowerBoundM': -0.0287803569538756, 'passed': True}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_four_world_exact_rims_v2.py", line 157, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_four_world_exact_rims_v2.py", line 122, in main
+    assert np.array_equal(tri[:, :, [0, 2]], lt[:, :, [0, 2]])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

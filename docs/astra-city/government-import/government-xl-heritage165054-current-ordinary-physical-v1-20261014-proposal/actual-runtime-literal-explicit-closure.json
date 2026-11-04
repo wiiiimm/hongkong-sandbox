@@ -1,0 +1,3240 @@
+{
+  "inputHashes": {
+    "source-scripts/city/government-import/acceptance-metrics.mjs": "7db95e0d5b4f202fa4f3859eafad1c9d0ec6987f4037338944cdc8a4c5fe9bee",
+    "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+    "3d-viewer/city/official-model-assets.js": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+    "3d-viewer/city/sha256.js": "ad095180c895ab401e8abe366afb003b342a8a02bc13c52db5cb2e179f7d69ad",
+    "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+    "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+    "3d-viewer/vendor/GLTFLoader.js": "73691b8c33b0634498c6ee9e5d3dd8ea5c3c82127f057dcfe0ef8b16ff494e09",
+    "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+    "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+    "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+    "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+    "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+    "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+    "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+    "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+    "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+    "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+    "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+    "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+    "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+    "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+    "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+    "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+    "3d-viewer/city/official-model-footprint-scopes.js": "6752a6cf32e3634ccb3cc479638e7afd8613e725d1229d6855dc91974cc7bef1",
+    "3d-viewer/city/official-model-direct-osm-group-footprint.js": "dea3aeb614376b1df69139692ff00480d27c9ecd8ad4626d3247d7a0e9142894",
+    "3d-viewer/city/official-model-direct-osm-group-data.js": "451caa36f41158ca06ac17da4e693a4777f3a43e309372d373d31db2513f933b",
+    "3d-viewer/city/official-model-retained-group-footprint.js": "d6b9740ef0bb281de03c2057b0a27c379e1d1f606bef1cdbf5430aa4e82c951a",
+    "3d-viewer/city/official-model-retained-group-data.js": "31d6f584add0a6adc7a4c0302b1d4881e1fa3ac04cffcb870b0ffe8926f24ddf",
+    "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js": "c6d2821166bf9fde3318fcbda036ece7014ebe7064c1a958144fee7a7c9d20c0",
+    "3d-viewer/city/model-codecs.js": "dd776f42ac73cefe63ac46625e96bf9ed336f3913e4442ec3ca98c04bdaacffc",
+    "3d-viewer/vendor/DRACOLoader.js": "e4348b2c255e7d851df790cafb93bcdd7ac0d2a1a6916038b43580b1e6d6c3fb",
+    "3d-viewer/vendor/draco_decoder.js": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f",
+    "3d-viewer/vendor/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+    "3d-viewer/vendor/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+    "3d-viewer/vendor/meshopt_decoder.module.js": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd",
+    "3d-viewer/city/official-models.js": "0b0bafc536bf5e4fd808edc92736c514f5d07dc56409505569273d06604cc09d",
+    "3d-viewer/city/model-spatial-index.js": "3c29de0337f16bcc7709839e8289bd4e1115a3b675b2d7f6de0614a884e3a77d",
+    "3d-viewer/city/tile-cache.js": "d9f475120ea72a59e02e2f39e44fc124ba0c8bfffcf5f29722d5a30b867b631f",
+    "3d-viewer/city/model-support.js": "8d53f7c8b51de8ca32bb5af929338bcdf4d43daba7d24078b1c311e33cb10378",
+    "3d-viewer/city/model-variants.js": "47cde1db2e060f2943ba00530b0c9f800b3bad5946212cb07adc92a43d36bc5b",
+    "source-scripts/city/government-import/check-neighbours.mjs": "522b287dbe2067a02d0566138b6eb39e20dc4a61768f020f5fa133803478cf9c",
+    "source-scripts/city/government-import/check-native-neighbours.mjs": "f191584e4e322111d41c4028793344e1609f3142f3c9d1b3ecf403ff3ec0a24f",
+    "source-scripts/city/assembly-support-review/triangles.mjs": "b3fdedcf1230b05dac0ba21dd6fe51ae14e2165fb0c59ad0403b0307f1a83545",
+    "source-scripts/city/government-import/native-neighbour-policy.mjs": "c9e1f4f6f58c53fba4e8839276130076dc4dec380d54abb34e38416ed37941d5",
+    "3d-viewer/city/app.js": "8be628b94d126dc6b933e0fe88b354257de7cc405e8863b5536340f8183d44c8",
+    "3d-viewer/city/canvas-viewport.js": "d0d3bddfe66bdfd3fbe1bb9f61ac65c21f84b0898d6765472562cdbb520f1aab",
+    "3d-viewer/city/building-progress.js": "5c988ebb7aab4340227946a31fc940604532221aeb3286cade04c5d44f9a80e3",
+    "3d-viewer/vendor/OrbitControls.js": "6b2f7df940a94e9aefe48466d8722c882e1430072c1dd680e978e0d70527ff00",
+    "3d-viewer/city/navigation.js": "4e7ffcb6ad0f0a2472dedf52f9ca29f069328eb96c50dc13de66006be5a7b0f2",
+    "3d-viewer/city/aircraft.js": "034e8776c100ab0c4a0fe33a0aa5b334e46955a517c2234690a5b3ec04cd7d49",
+    "3d-viewer/city/aircraft-picker.js": "fac229642946a51a781adf7b807da9aefdbf1fbfe0fa1c50ed20e43fb363802b",
+    "3d-viewer/city/streaming.js": "d9d9b28a5e3f439d125d748dae6bf7e0a919fa0d865af349cfcb7f43e9704114",
+    "3d-viewer/city/infrastructure-replacements.js": "e550cf2cf0b771496c670891b808fe6f6d85c537dd729e00317aeee0ce748d8b",
+    "3d-viewer/city/mesh-inspection.js": "8d613dd89d6d6c5111e1d33c069ebd30bf4dc3a2e8efa898cf80dd03ef65e6c3",
+    "3d-viewer/city/inspection-region.js": "4eea48e66c58442ba09d989cd071928f71eaf5ceefc9e503f416df90b127ca1c",
+    "3d-viewer/city/regional.js": "a74221fe0240452310ddfbe520ed3bb2da90c81902f53d935a2a3676e449c40d",
+    "3d-viewer/city/regional-data.js": "a78d1ec2a318cb093b8b0066d1e5135d5340aa969846c99697ca48ce795d8058",
+    "3d-viewer/city/bridges.js": "90b8514306732b057fbd02ff5ec7265bffc2b9d72fa6f05d86818a3dc22621a5",
+    "3d-viewer/city/bridge-data.js": "0221d837cb71ffed1de16b1e60d7f9615dc06e152355fc2dd77b47d733b6805e",
+    "3d-viewer/city/infrastructure-data.js": "2f943b22d1be7bb97b9f87602c588876d57e3d0aac4f4e1ab348d08a8a56d762",
+    "3d-viewer/city/bridge-cables.js": "55bae07d2c29f781e850591897b3513b8f4c7f5fdf3c3ea8372ea7b37d88f24a",
+    "3d-viewer/city/model-reveal.js": "a32674e7d060571241a9f479bda117281295901240611be83db4341448b65ffa",
+    "3d-viewer/city/model-preloader.js": "cbdd99fdea6dfcd4fa576712d6428a7d0e1509dbdc1f6f0ec25734444aaa0405",
+    "3d-viewer/city/review-sections.js": "ba8a58b5251852a2a974cbd4926ce4c15b730660466b71058a419793c964d6f3",
+    "3d-viewer/city/review-sections-data.js": "856bbf3d906e4198f361d1574e32c3cdccf0bbd9a6e2101ccad3227666fcc052",
+    "3d-viewer/city/places.js": "2557b7f893bb38ee7425fa6c1404738047e33002ec22bb4276101b076051d3dc",
+    "3d-viewer/city/regional-places.js": "dfb1450d25b8b63f5a15af30177a1b326a78ca4a3707a9e81bdd8134c1958bf4",
+    "3d-viewer/city/environment.js": "cce6a6093258befffb25b8f048c8f8dbba3644f0b4bc0c5a067dc200989b7b38",
+    "3d-viewer/sky-colour.js": "9c49421fb1ea659ac5a6cc2c161e287e4e2a9789880e7ffb16f4022b0def39fa",
+    "3d-viewer/city/atmosphere.js": "753547b3d1b9cb5e85e9e79f638ce0b4ca49f3ea957c9e2b73c653c2a321dfa5",
+    "3d-viewer/city/clock-dial.js": "6f692c305363350fa67f686c1405c7148b29531bd861b12e0c5cd8e1896a22af",
+    "3d-viewer/city/sky.js": "bab17095b0a8a85c4f3a5a421e6290060b469fce2d8e17a0fa11b4b731162863",
+    "3d-viewer/vendor/astro.js": "41c97ea77c22e4de00611c729bb5f07f984bd8f0cddeeb6bcd870250f31a75a3",
+    "3d-viewer/city/sky-time.js": "62375484807110bc356f120c1e86929e1521cb48dd1d45148872c89f09f7e512",
+    "3d-viewer/city/weather.js": "f16c1a9528e1209475e1b1a250508ded2377d745cc2a20e2f8b79d9a7dab7e4b",
+    "3d-viewer/city/weather-data.js": "8a9f045577cfc6da17fc91936f1cd4d4325cbc43c0a00ad4bfc8d9639530fccd",
+    "3d-viewer/city/air-visibility-data.js": "1d4fd885730186fc5fc6f3144661564dae40f1469c26bea77342a71a9e62abe5",
+    "3d-viewer/city/meteors.js": "4f54192db46ea9b37466cbed71339382e12141c9a53695371f9af7b6ee12aa87",
+    "3d-viewer/meteor-trails.js": "0cd6841a9e3f3b5e10f71e3db40b32e367928dd589b004e000318a0f23182878",
+    "3d-viewer/city/weather-effects.js": "f41e8c9a40ac05bbc2e1cb3cc63565b445055dc719cf7ffd3fd252d152569563",
+    "3d-viewer/city/weather-audio.js": "5f261b74746910a2ca84d131444cd7fa71589b28f83615ac1ae59ac1f6942cce",
+    "3d-viewer/audio.js": "4e20e363c77ea1aaf05af1774279dba651fe7cb88b8ea1eb2d38c8bb25b86bf6",
+    "3d-viewer/city/tide-data.js": "58d5740a8b1cc0d3f60f3b5b83b204114deefbbbbe092cab1423e758c1b1d8e5",
+    "3d-viewer/tide-series.js": "94ed5bbb65f55aa5c8753096f1980cca08248357054a4933c83faac907c2d500",
+    "3d-viewer/city/tide-graph.js": "a6060f8492682e8a93a4bc656ec84c371302c48a37b2020a1e6df367c3f55eb8",
+    "3d-viewer/city/time-cycle.js": "2228d31b9b57bfdd276e56cc7a3493591a5075d5430c7450ab504ddd157b88bd",
+    "3d-viewer/city/stargaze-controls.js": "63dfde7982c1abe31b639c3662ce29964362d28afa984b2f9c7afa6439ac7e21",
+    "3d-viewer/city/control-sheet.js": "1076a6cd13958bbf49932c38462a54d8f73352943e2350ca01760e28d9cae2ae",
+    "3d-viewer/city/observer.js": "c273acc79c8606503340b93fb29f5f47bf9ebb7a14aec88c7922805c76eb1be1",
+    "3d-viewer/city/observer-grid.js": "8e3fb715208a9fb099df0310d4d3922bdb8dbb75d081a20a97a51605fe1c72d7",
+    "source-scripts/city/building-batch/validate_candidates.mjs": "1781691d7ae62de36e64816b49e6e58c418f77f3aca11b1bc45f0760dc55e0e4"
+  },
+  "entries": [
+    "source-scripts/city/government-import/acceptance-metrics.mjs",
+    "source-scripts/city/government-import/check-neighbours.mjs",
+    "source-scripts/city/government-import/check-native-neighbours.mjs",
+    "3d-viewer/city/app.js"
+  ],
+  "closures": [
+    {
+      "schema": "exact-literal-static-dynamic-resource-closure-v1",
+      "entryPath": "source-scripts/city/government-import/acceptance-metrics.mjs",
+      "inputHashes": {
+        "source-scripts/city/government-import/acceptance-metrics.mjs": "7db95e0d5b4f202fa4f3859eafad1c9d0ec6987f4037338944cdc8a4c5fe9bee",
+        "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+        "3d-viewer/city/official-model-assets.js": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+        "3d-viewer/city/sha256.js": "ad095180c895ab401e8abe366afb003b342a8a02bc13c52db5cb2e179f7d69ad",
+        "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+        "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+        "3d-viewer/vendor/GLTFLoader.js": "73691b8c33b0634498c6ee9e5d3dd8ea5c3c82127f057dcfe0ef8b16ff494e09",
+        "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+        "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+        "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+        "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+        "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+        "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+        "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+        "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+        "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+        "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+        "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+        "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+        "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+        "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+        "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+        "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+        "3d-viewer/city/official-model-footprint-scopes.js": "6752a6cf32e3634ccb3cc479638e7afd8613e725d1229d6855dc91974cc7bef1",
+        "3d-viewer/city/official-model-direct-osm-group-footprint.js": "dea3aeb614376b1df69139692ff00480d27c9ecd8ad4626d3247d7a0e9142894",
+        "3d-viewer/city/official-model-direct-osm-group-data.js": "451caa36f41158ca06ac17da4e693a4777f3a43e309372d373d31db2513f933b",
+        "3d-viewer/city/official-model-retained-group-footprint.js": "d6b9740ef0bb281de03c2057b0a27c379e1d1f606bef1cdbf5430aa4e82c951a",
+        "3d-viewer/city/official-model-retained-group-data.js": "31d6f584add0a6adc7a4c0302b1d4881e1fa3ac04cffcb870b0ffe8926f24ddf",
+        "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js": "c6d2821166bf9fde3318fcbda036ece7014ebe7064c1a958144fee7a7c9d20c0",
+        "3d-viewer/city/model-codecs.js": "dd776f42ac73cefe63ac46625e96bf9ed336f3913e4442ec3ca98c04bdaacffc",
+        "3d-viewer/vendor/DRACOLoader.js": "e4348b2c255e7d851df790cafb93bcdd7ac0d2a1a6916038b43580b1e6d6c3fb",
+        "3d-viewer/vendor/draco_decoder.js": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f",
+        "3d-viewer/vendor/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+        "3d-viewer/vendor/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "3d-viewer/vendor/meshopt_decoder.module.js": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd",
+        "3d-viewer/city/official-models.js": "0b0bafc536bf5e4fd808edc92736c514f5d07dc56409505569273d06604cc09d",
+        "3d-viewer/city/model-spatial-index.js": "3c29de0337f16bcc7709839e8289bd4e1115a3b675b2d7f6de0614a884e3a77d",
+        "3d-viewer/city/tile-cache.js": "d9f475120ea72a59e02e2f39e44fc124ba0c8bfffcf5f29722d5a30b867b631f",
+        "3d-viewer/city/model-support.js": "8d53f7c8b51de8ca32bb5af929338bcdf4d43daba7d24078b1c311e33cb10378",
+        "3d-viewer/city/model-variants.js": "47cde1db2e060f2943ba00530b0c9f800b3bad5946212cb07adc92a43d36bc5b"
+      },
+      "modules": [
+        "source-scripts/city/government-import/acceptance-metrics.mjs",
+        "3d-viewer/vendor/three.module.js",
+        "3d-viewer/city/official-model-assets.js",
+        "3d-viewer/city/sha256.js",
+        "3d-viewer/city/model-byte-cache.js",
+        "3d-viewer/city/streaming-metrics.js",
+        "3d-viewer/vendor/GLTFLoader.js",
+        "3d-viewer/vendor/BufferGeometryUtils.js",
+        "3d-viewer/city/world.js",
+        "3d-viewer/city/building-bake-client.js",
+        "3d-viewer/city/geo.js",
+        "3d-viewer/city/terrain-patch-index.js",
+        "3d-viewer/city/rendered-patch-height.js",
+        "3d-viewer/city/native-terrain.js",
+        "3d-viewer/city/exact-finite-triangle-projection.js",
+        "3d-viewer/city/building-geometry.js",
+        "3d-viewer/city/tai-o-estimates.js",
+        "3d-viewer/city/model-collision.js",
+        "3d-viewer/city/lighting.js",
+        "3d-viewer/city/tidal-water.js",
+        "3d-viewer/water-surface.js",
+        "3d-viewer/shoreline-surface.js",
+        "3d-viewer/city/road-surface.js",
+        "3d-viewer/city/official-model-footprint-scopes.js",
+        "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+        "3d-viewer/city/official-model-direct-osm-group-data.js",
+        "3d-viewer/city/official-model-retained-group-footprint.js",
+        "3d-viewer/city/official-model-retained-group-data.js",
+        "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js",
+        "3d-viewer/city/model-codecs.js",
+        "3d-viewer/vendor/DRACOLoader.js",
+        "3d-viewer/vendor/meshopt_decoder.module.js",
+        "3d-viewer/city/official-models.js",
+        "3d-viewer/city/model-spatial-index.js",
+        "3d-viewer/city/tile-cache.js",
+        "3d-viewer/city/model-support.js",
+        "3d-viewer/city/model-variants.js"
+      ],
+      "resources": [
+        "3d-viewer/vendor/draco_decoder.js",
+        "3d-viewer/vendor/draco_decoder.wasm",
+        "3d-viewer/vendor/draco_wasm_wrapper.js"
+      ],
+      "importEdges": [
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:zlib",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:util",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:crypto",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/official-model-assets.js",
+          "to": "3d-viewer/city/official-model-assets.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sha256.js",
+          "to": "3d-viewer/city/sha256.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/model-byte-cache.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/GLTFLoader.js",
+          "to": "3d-viewer/vendor/GLTFLoader.js"
+        },
+        {
+          "from": "3d-viewer/vendor/GLTFLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/vendor/GLTFLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./world.js",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-bake-client.js",
+          "to": "3d-viewer/city/building-bake-client.js"
+        },
+        {
+          "from": "3d-viewer/city/building-bake-client.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./terrain-patch-index.js",
+          "to": "3d-viewer/city/terrain-patch-index.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./rendered-patch-height.js",
+          "to": "3d-viewer/city/rendered-patch-height.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/native-terrain.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact-finite-triangle-projection.js",
+          "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tai-o-estimates.js",
+          "to": "3d-viewer/city/tai-o-estimates.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-collision.js",
+          "to": "3d-viewer/city/model-collision.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/lighting.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tidal-water.js",
+          "to": "3d-viewer/city/tidal-water.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../water-surface.js",
+          "to": "3d-viewer/water-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../shoreline-surface.js",
+          "to": "3d-viewer/shoreline-surface.js"
+        },
+        {
+          "from": "3d-viewer/shoreline-surface.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./road-surface.js",
+          "to": "3d-viewer/city/road-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-footprint-scopes.js",
+          "to": "3d-viewer/city/official-model-footprint-scopes.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-direct-osm-group-footprint.js",
+          "to": "3d-viewer/city/official-model-direct-osm-group-footprint.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-direct-osm-group-data.js",
+          "to": "3d-viewer/city/official-model-direct-osm-group-data.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-retained-group-footprint.js",
+          "to": "3d-viewer/city/official-model-retained-group-footprint.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-retained-group-footprint.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-retained-group-data.js",
+          "to": "3d-viewer/city/official-model-retained-group-data.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-footprint-scopes-ocean-walk.js",
+          "to": "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-codecs.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-codecs.js"
+        },
+        {
+          "from": "3d-viewer/city/model-codecs.js",
+          "kind": "literal-dynamic",
+          "specifier": "../vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/DRACOLoader.js"
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/model-codecs.js",
+          "kind": "literal-dynamic",
+          "specifier": "../vendor/meshopt_decoder.module.js",
+          "to": "3d-viewer/vendor/meshopt_decoder.module.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/official-models.js",
+          "to": "3d-viewer/city/official-models.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-spatial-index.js",
+          "to": "3d-viewer/city/model-spatial-index.js"
+        },
+        {
+          "from": "3d-viewer/city/model-spatial-index.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tile-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/tile-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-assets.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/official-model-assets.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-support.js",
+          "to": "3d-viewer/city/model-support.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-variants.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-variants.js"
+        },
+        {
+          "from": "3d-viewer/city/model-variants.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sha256.js",
+          "to": "3d-viewer/city/sha256.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/world.js",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/acceptance-metrics.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/native-terrain.js",
+          "to": "3d-viewer/city/native-terrain.js"
+        }
+      ],
+      "resourceEdges": [
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_decoder.js",
+          "responseType": "text",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_decoder.wasm",
+          "responseType": "arraybuffer",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_wasm_wrapper.js",
+          "responseType": "text",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        }
+      ],
+      "unsupportedDynamicImports": 0,
+      "completeAuditedLiteralImportClosure": true,
+      "computedImportsRejected": true,
+      "opaqueResourcesAreNotParsedModules": true
+    },
+    {
+      "schema": "exact-literal-static-dynamic-resource-closure-v1",
+      "entryPath": "source-scripts/city/government-import/check-neighbours.mjs",
+      "inputHashes": {
+        "source-scripts/city/government-import/check-neighbours.mjs": "522b287dbe2067a02d0566138b6eb39e20dc4a61768f020f5fa133803478cf9c",
+        "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+        "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+        "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+        "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+        "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+        "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+        "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+        "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+        "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+        "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+        "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+        "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07"
+      },
+      "modules": [
+        "source-scripts/city/government-import/check-neighbours.mjs",
+        "3d-viewer/city/geo.js",
+        "3d-viewer/city/terrain-patch-index.js",
+        "3d-viewer/city/rendered-patch-height.js",
+        "3d-viewer/city/native-terrain.js",
+        "3d-viewer/city/exact-finite-triangle-projection.js",
+        "3d-viewer/city/building-geometry.js",
+        "3d-viewer/vendor/three.module.js",
+        "3d-viewer/vendor/BufferGeometryUtils.js",
+        "3d-viewer/city/tai-o-estimates.js",
+        "3d-viewer/city/model-byte-cache.js",
+        "3d-viewer/city/streaming-metrics.js",
+        "3d-viewer/city/model-collision.js"
+      ],
+      "resources": [],
+      "importEdges": [
+        {
+          "from": "source-scripts/city/government-import/check-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:zlib",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:crypto",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./terrain-patch-index.js",
+          "to": "3d-viewer/city/terrain-patch-index.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./rendered-patch-height.js",
+          "to": "3d-viewer/city/rendered-patch-height.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/native-terrain.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact-finite-triangle-projection.js",
+          "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tai-o-estimates.js",
+          "to": "3d-viewer/city/tai-o-estimates.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/model-byte-cache.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-collision.js",
+          "to": "3d-viewer/city/model-collision.js"
+        }
+      ],
+      "resourceEdges": [],
+      "unsupportedDynamicImports": 0,
+      "completeAuditedLiteralImportClosure": true,
+      "computedImportsRejected": true,
+      "opaqueResourcesAreNotParsedModules": true
+    },
+    {
+      "schema": "exact-literal-static-dynamic-resource-closure-v1",
+      "entryPath": "source-scripts/city/government-import/check-native-neighbours.mjs",
+      "inputHashes": {
+        "source-scripts/city/government-import/check-native-neighbours.mjs": "f191584e4e322111d41c4028793344e1609f3142f3c9d1b3ecf403ff3ec0a24f",
+        "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+        "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+        "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+        "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+        "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+        "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+        "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+        "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+        "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+        "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+        "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+        "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+        "3d-viewer/city/official-model-assets.js": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+        "3d-viewer/city/sha256.js": "ad095180c895ab401e8abe366afb003b342a8a02bc13c52db5cb2e179f7d69ad",
+        "3d-viewer/vendor/GLTFLoader.js": "73691b8c33b0634498c6ee9e5d3dd8ea5c3c82127f057dcfe0ef8b16ff494e09",
+        "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+        "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+        "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+        "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+        "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+        "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+        "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+        "3d-viewer/city/official-model-footprint-scopes.js": "6752a6cf32e3634ccb3cc479638e7afd8613e725d1229d6855dc91974cc7bef1",
+        "3d-viewer/city/official-model-direct-osm-group-footprint.js": "dea3aeb614376b1df69139692ff00480d27c9ecd8ad4626d3247d7a0e9142894",
+        "3d-viewer/city/official-model-direct-osm-group-data.js": "451caa36f41158ca06ac17da4e693a4777f3a43e309372d373d31db2513f933b",
+        "3d-viewer/city/official-model-retained-group-footprint.js": "d6b9740ef0bb281de03c2057b0a27c379e1d1f606bef1cdbf5430aa4e82c951a",
+        "3d-viewer/city/official-model-retained-group-data.js": "31d6f584add0a6adc7a4c0302b1d4881e1fa3ac04cffcb870b0ffe8926f24ddf",
+        "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js": "c6d2821166bf9fde3318fcbda036ece7014ebe7064c1a958144fee7a7c9d20c0",
+        "3d-viewer/city/model-codecs.js": "dd776f42ac73cefe63ac46625e96bf9ed336f3913e4442ec3ca98c04bdaacffc",
+        "3d-viewer/vendor/DRACOLoader.js": "e4348b2c255e7d851df790cafb93bcdd7ac0d2a1a6916038b43580b1e6d6c3fb",
+        "3d-viewer/vendor/draco_decoder.js": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f",
+        "3d-viewer/vendor/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+        "3d-viewer/vendor/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "3d-viewer/vendor/meshopt_decoder.module.js": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd",
+        "source-scripts/city/assembly-support-review/triangles.mjs": "b3fdedcf1230b05dac0ba21dd6fe51ae14e2165fb0c59ad0403b0307f1a83545",
+        "source-scripts/city/government-import/native-neighbour-policy.mjs": "c9e1f4f6f58c53fba4e8839276130076dc4dec380d54abb34e38416ed37941d5"
+      },
+      "modules": [
+        "source-scripts/city/government-import/check-native-neighbours.mjs",
+        "3d-viewer/vendor/three.module.js",
+        "3d-viewer/city/geo.js",
+        "3d-viewer/city/terrain-patch-index.js",
+        "3d-viewer/city/rendered-patch-height.js",
+        "3d-viewer/city/native-terrain.js",
+        "3d-viewer/city/exact-finite-triangle-projection.js",
+        "3d-viewer/city/building-geometry.js",
+        "3d-viewer/vendor/BufferGeometryUtils.js",
+        "3d-viewer/city/tai-o-estimates.js",
+        "3d-viewer/city/model-byte-cache.js",
+        "3d-viewer/city/streaming-metrics.js",
+        "3d-viewer/city/model-collision.js",
+        "3d-viewer/city/official-model-assets.js",
+        "3d-viewer/city/sha256.js",
+        "3d-viewer/vendor/GLTFLoader.js",
+        "3d-viewer/city/world.js",
+        "3d-viewer/city/building-bake-client.js",
+        "3d-viewer/city/lighting.js",
+        "3d-viewer/city/tidal-water.js",
+        "3d-viewer/water-surface.js",
+        "3d-viewer/shoreline-surface.js",
+        "3d-viewer/city/road-surface.js",
+        "3d-viewer/city/official-model-footprint-scopes.js",
+        "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+        "3d-viewer/city/official-model-direct-osm-group-data.js",
+        "3d-viewer/city/official-model-retained-group-footprint.js",
+        "3d-viewer/city/official-model-retained-group-data.js",
+        "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js",
+        "3d-viewer/city/model-codecs.js",
+        "3d-viewer/vendor/DRACOLoader.js",
+        "3d-viewer/vendor/meshopt_decoder.module.js",
+        "source-scripts/city/assembly-support-review/triangles.mjs",
+        "source-scripts/city/government-import/native-neighbour-policy.mjs"
+      ],
+      "resources": [
+        "3d-viewer/vendor/draco_decoder.js",
+        "3d-viewer/vendor/draco_decoder.wasm",
+        "3d-viewer/vendor/draco_wasm_wrapper.js"
+      ],
+      "importEdges": [
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:crypto",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:path",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:url",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:zlib",
+          "builtin": true
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./terrain-patch-index.js",
+          "to": "3d-viewer/city/terrain-patch-index.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./rendered-patch-height.js",
+          "to": "3d-viewer/city/rendered-patch-height.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/native-terrain.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact-finite-triangle-projection.js",
+          "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tai-o-estimates.js",
+          "to": "3d-viewer/city/tai-o-estimates.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/model-byte-cache.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-collision.js",
+          "to": "3d-viewer/city/model-collision.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/official-model-assets.js",
+          "to": "3d-viewer/city/official-model-assets.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sha256.js",
+          "to": "3d-viewer/city/sha256.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/GLTFLoader.js",
+          "to": "3d-viewer/vendor/GLTFLoader.js"
+        },
+        {
+          "from": "3d-viewer/vendor/GLTFLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/vendor/GLTFLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./world.js",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-bake-client.js",
+          "to": "3d-viewer/city/building-bake-client.js"
+        },
+        {
+          "from": "3d-viewer/city/building-bake-client.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/lighting.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tidal-water.js",
+          "to": "3d-viewer/city/tidal-water.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../water-surface.js",
+          "to": "3d-viewer/water-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../shoreline-surface.js",
+          "to": "3d-viewer/shoreline-surface.js"
+        },
+        {
+          "from": "3d-viewer/shoreline-surface.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./road-surface.js",
+          "to": "3d-viewer/city/road-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-footprint-scopes.js",
+          "to": "3d-viewer/city/official-model-footprint-scopes.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-direct-osm-group-footprint.js",
+          "to": "3d-viewer/city/official-model-direct-osm-group-footprint.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-direct-osm-group-data.js",
+          "to": "3d-viewer/city/official-model-direct-osm-group-data.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-retained-group-footprint.js",
+          "to": "3d-viewer/city/official-model-retained-group-footprint.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-retained-group-footprint.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-retained-group-data.js",
+          "to": "3d-viewer/city/official-model-retained-group-data.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-footprint-scopes-ocean-walk.js",
+          "to": "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-codecs.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-codecs.js"
+        },
+        {
+          "from": "3d-viewer/city/model-codecs.js",
+          "kind": "literal-dynamic",
+          "specifier": "../vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/DRACOLoader.js"
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/model-codecs.js",
+          "kind": "literal-dynamic",
+          "specifier": "../vendor/meshopt_decoder.module.js",
+          "to": "3d-viewer/vendor/meshopt_decoder.module.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../assembly-support-review/triangles.mjs",
+          "to": "source-scripts/city/assembly-support-review/triangles.mjs"
+        },
+        {
+          "from": "source-scripts/city/assembly-support-review/triangles.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/check-native-neighbours.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-neighbour-policy.mjs",
+          "to": "source-scripts/city/government-import/native-neighbour-policy.mjs"
+        }
+      ],
+      "resourceEdges": [
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_decoder.js",
+          "responseType": "text",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_decoder.wasm",
+          "responseType": "arraybuffer",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_wasm_wrapper.js",
+          "responseType": "text",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        }
+      ],
+      "unsupportedDynamicImports": 0,
+      "completeAuditedLiteralImportClosure": true,
+      "computedImportsRejected": true,
+      "opaqueResourcesAreNotParsedModules": true
+    },
+    {
+      "schema": "exact-literal-static-dynamic-resource-closure-v1",
+      "entryPath": "3d-viewer/city/app.js",
+      "inputHashes": {
+        "3d-viewer/city/app.js": "8be628b94d126dc6b933e0fe88b354257de7cc405e8863b5536340f8183d44c8",
+        "3d-viewer/city/canvas-viewport.js": "d0d3bddfe66bdfd3fbe1bb9f61ac65c21f84b0898d6765472562cdbb520f1aab",
+        "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+        "3d-viewer/city/building-progress.js": "5c988ebb7aab4340227946a31fc940604532221aeb3286cade04c5d44f9a80e3",
+        "3d-viewer/city/sha256.js": "ad095180c895ab401e8abe366afb003b342a8a02bc13c52db5cb2e179f7d69ad",
+        "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+        "3d-viewer/vendor/OrbitControls.js": "6b2f7df940a94e9aefe48466d8722c882e1430072c1dd680e978e0d70527ff00",
+        "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+        "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+        "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+        "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+        "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+        "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+        "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+        "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+        "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+        "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+        "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+        "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+        "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+        "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+        "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+        "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+        "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+        "3d-viewer/city/navigation.js": "4e7ffcb6ad0f0a2472dedf52f9ca29f069328eb96c50dc13de66006be5a7b0f2",
+        "3d-viewer/vendor/GLTFLoader.js": "73691b8c33b0634498c6ee9e5d3dd8ea5c3c82127f057dcfe0ef8b16ff494e09",
+        "3d-viewer/city/aircraft.js": "034e8776c100ab0c4a0fe33a0aa5b334e46955a517c2234690a5b3ec04cd7d49",
+        "3d-viewer/city/aircraft-picker.js": "fac229642946a51a781adf7b807da9aefdbf1fbfe0fa1c50ed20e43fb363802b",
+        "3d-viewer/city/streaming.js": "d9d9b28a5e3f439d125d748dae6bf7e0a919fa0d865af349cfcb7f43e9704114",
+        "3d-viewer/city/tile-cache.js": "d9f475120ea72a59e02e2f39e44fc124ba0c8bfffcf5f29722d5a30b867b631f",
+        "3d-viewer/city/infrastructure-replacements.js": "e550cf2cf0b771496c670891b808fe6f6d85c537dd729e00317aeee0ce748d8b",
+        "3d-viewer/city/model-support.js": "8d53f7c8b51de8ca32bb5af929338bcdf4d43daba7d24078b1c311e33cb10378",
+        "3d-viewer/city/mesh-inspection.js": "8d613dd89d6d6c5111e1d33c069ebd30bf4dc3a2e8efa898cf80dd03ef65e6c3",
+        "3d-viewer/city/inspection-region.js": "4eea48e66c58442ba09d989cd071928f71eaf5ceefc9e503f416df90b127ca1c",
+        "3d-viewer/city/regional.js": "a74221fe0240452310ddfbe520ed3bb2da90c81902f53d935a2a3676e449c40d",
+        "3d-viewer/city/regional-data.js": "a78d1ec2a318cb093b8b0066d1e5135d5340aa969846c99697ca48ce795d8058",
+        "3d-viewer/city/bridges.js": "90b8514306732b057fbd02ff5ec7265bffc2b9d72fa6f05d86818a3dc22621a5",
+        "3d-viewer/city/bridge-data.js": "0221d837cb71ffed1de16b1e60d7f9615dc06e152355fc2dd77b47d733b6805e",
+        "3d-viewer/city/infrastructure-data.js": "2f943b22d1be7bb97b9f87602c588876d57e3d0aac4f4e1ab348d08a8a56d762",
+        "3d-viewer/city/bridge-cables.js": "55bae07d2c29f781e850591897b3513b8f4c7f5fdf3c3ea8372ea7b37d88f24a",
+        "3d-viewer/city/model-reveal.js": "a32674e7d060571241a9f479bda117281295901240611be83db4341448b65ffa",
+        "3d-viewer/city/official-models.js": "0b0bafc536bf5e4fd808edc92736c514f5d07dc56409505569273d06604cc09d",
+        "3d-viewer/city/model-spatial-index.js": "3c29de0337f16bcc7709839e8289bd4e1115a3b675b2d7f6de0614a884e3a77d",
+        "3d-viewer/city/official-model-assets.js": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+        "3d-viewer/city/official-model-footprint-scopes.js": "6752a6cf32e3634ccb3cc479638e7afd8613e725d1229d6855dc91974cc7bef1",
+        "3d-viewer/city/official-model-direct-osm-group-footprint.js": "dea3aeb614376b1df69139692ff00480d27c9ecd8ad4626d3247d7a0e9142894",
+        "3d-viewer/city/official-model-direct-osm-group-data.js": "451caa36f41158ca06ac17da4e693a4777f3a43e309372d373d31db2513f933b",
+        "3d-viewer/city/official-model-retained-group-footprint.js": "d6b9740ef0bb281de03c2057b0a27c379e1d1f606bef1cdbf5430aa4e82c951a",
+        "3d-viewer/city/official-model-retained-group-data.js": "31d6f584add0a6adc7a4c0302b1d4881e1fa3ac04cffcb870b0ffe8926f24ddf",
+        "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js": "c6d2821166bf9fde3318fcbda036ece7014ebe7064c1a958144fee7a7c9d20c0",
+        "3d-viewer/city/model-codecs.js": "dd776f42ac73cefe63ac46625e96bf9ed336f3913e4442ec3ca98c04bdaacffc",
+        "3d-viewer/vendor/DRACOLoader.js": "e4348b2c255e7d851df790cafb93bcdd7ac0d2a1a6916038b43580b1e6d6c3fb",
+        "3d-viewer/vendor/draco_decoder.js": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f",
+        "3d-viewer/vendor/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+        "3d-viewer/vendor/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "3d-viewer/vendor/meshopt_decoder.module.js": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd",
+        "3d-viewer/city/model-variants.js": "47cde1db2e060f2943ba00530b0c9f800b3bad5946212cb07adc92a43d36bc5b",
+        "3d-viewer/city/model-preloader.js": "cbdd99fdea6dfcd4fa576712d6428a7d0e1509dbdc1f6f0ec25734444aaa0405",
+        "3d-viewer/city/review-sections.js": "ba8a58b5251852a2a974cbd4926ce4c15b730660466b71058a419793c964d6f3",
+        "3d-viewer/city/review-sections-data.js": "856bbf3d906e4198f361d1574e32c3cdccf0bbd9a6e2101ccad3227666fcc052",
+        "3d-viewer/city/places.js": "2557b7f893bb38ee7425fa6c1404738047e33002ec22bb4276101b076051d3dc",
+        "3d-viewer/city/regional-places.js": "dfb1450d25b8b63f5a15af30177a1b326a78ca4a3707a9e81bdd8134c1958bf4",
+        "3d-viewer/city/environment.js": "cce6a6093258befffb25b8f048c8f8dbba3644f0b4bc0c5a067dc200989b7b38",
+        "3d-viewer/sky-colour.js": "9c49421fb1ea659ac5a6cc2c161e287e4e2a9789880e7ffb16f4022b0def39fa",
+        "3d-viewer/city/atmosphere.js": "753547b3d1b9cb5e85e9e79f638ce0b4ca49f3ea957c9e2b73c653c2a321dfa5",
+        "3d-viewer/city/clock-dial.js": "6f692c305363350fa67f686c1405c7148b29531bd861b12e0c5cd8e1896a22af",
+        "3d-viewer/city/sky.js": "bab17095b0a8a85c4f3a5a421e6290060b469fce2d8e17a0fa11b4b731162863",
+        "3d-viewer/vendor/astro.js": "41c97ea77c22e4de00611c729bb5f07f984bd8f0cddeeb6bcd870250f31a75a3",
+        "3d-viewer/city/sky-time.js": "62375484807110bc356f120c1e86929e1521cb48dd1d45148872c89f09f7e512",
+        "3d-viewer/city/weather.js": "f16c1a9528e1209475e1b1a250508ded2377d745cc2a20e2f8b79d9a7dab7e4b",
+        "3d-viewer/city/weather-data.js": "8a9f045577cfc6da17fc91936f1cd4d4325cbc43c0a00ad4bfc8d9639530fccd",
+        "3d-viewer/city/air-visibility-data.js": "1d4fd885730186fc5fc6f3144661564dae40f1469c26bea77342a71a9e62abe5",
+        "3d-viewer/city/meteors.js": "4f54192db46ea9b37466cbed71339382e12141c9a53695371f9af7b6ee12aa87",
+        "3d-viewer/meteor-trails.js": "0cd6841a9e3f3b5e10f71e3db40b32e367928dd589b004e000318a0f23182878",
+        "3d-viewer/city/weather-effects.js": "f41e8c9a40ac05bbc2e1cb3cc63565b445055dc719cf7ffd3fd252d152569563",
+        "3d-viewer/city/weather-audio.js": "5f261b74746910a2ca84d131444cd7fa71589b28f83615ac1ae59ac1f6942cce",
+        "3d-viewer/audio.js": "4e20e363c77ea1aaf05af1774279dba651fe7cb88b8ea1eb2d38c8bb25b86bf6",
+        "3d-viewer/city/tide-data.js": "58d5740a8b1cc0d3f60f3b5b83b204114deefbbbbe092cab1423e758c1b1d8e5",
+        "3d-viewer/tide-series.js": "94ed5bbb65f55aa5c8753096f1980cca08248357054a4933c83faac907c2d500",
+        "3d-viewer/city/tide-graph.js": "a6060f8492682e8a93a4bc656ec84c371302c48a37b2020a1e6df367c3f55eb8",
+        "3d-viewer/city/time-cycle.js": "2228d31b9b57bfdd276e56cc7a3493591a5075d5430c7450ab504ddd157b88bd",
+        "3d-viewer/city/stargaze-controls.js": "63dfde7982c1abe31b639c3662ce29964362d28afa984b2f9c7afa6439ac7e21",
+        "3d-viewer/city/control-sheet.js": "1076a6cd13958bbf49932c38462a54d8f73352943e2350ca01760e28d9cae2ae",
+        "3d-viewer/city/observer.js": "c273acc79c8606503340b93fb29f5f47bf9ebb7a14aec88c7922805c76eb1be1",
+        "3d-viewer/city/observer-grid.js": "8e3fb715208a9fb099df0310d4d3922bdb8dbb75d081a20a97a51605fe1c72d7"
+      },
+      "modules": [
+        "3d-viewer/city/app.js",
+        "3d-viewer/city/canvas-viewport.js",
+        "3d-viewer/city/streaming-metrics.js",
+        "3d-viewer/city/building-progress.js",
+        "3d-viewer/city/sha256.js",
+        "3d-viewer/vendor/three.module.js",
+        "3d-viewer/vendor/OrbitControls.js",
+        "3d-viewer/city/geo.js",
+        "3d-viewer/city/terrain-patch-index.js",
+        "3d-viewer/city/rendered-patch-height.js",
+        "3d-viewer/city/native-terrain.js",
+        "3d-viewer/city/exact-finite-triangle-projection.js",
+        "3d-viewer/city/building-geometry.js",
+        "3d-viewer/vendor/BufferGeometryUtils.js",
+        "3d-viewer/city/tai-o-estimates.js",
+        "3d-viewer/city/model-byte-cache.js",
+        "3d-viewer/city/model-collision.js",
+        "3d-viewer/city/world.js",
+        "3d-viewer/city/building-bake-client.js",
+        "3d-viewer/city/lighting.js",
+        "3d-viewer/city/tidal-water.js",
+        "3d-viewer/water-surface.js",
+        "3d-viewer/shoreline-surface.js",
+        "3d-viewer/city/road-surface.js",
+        "3d-viewer/city/navigation.js",
+        "3d-viewer/vendor/GLTFLoader.js",
+        "3d-viewer/city/aircraft.js",
+        "3d-viewer/city/aircraft-picker.js",
+        "3d-viewer/city/streaming.js",
+        "3d-viewer/city/tile-cache.js",
+        "3d-viewer/city/infrastructure-replacements.js",
+        "3d-viewer/city/model-support.js",
+        "3d-viewer/city/mesh-inspection.js",
+        "3d-viewer/city/inspection-region.js",
+        "3d-viewer/city/regional.js",
+        "3d-viewer/city/regional-data.js",
+        "3d-viewer/city/bridges.js",
+        "3d-viewer/city/bridge-data.js",
+        "3d-viewer/city/infrastructure-data.js",
+        "3d-viewer/city/bridge-cables.js",
+        "3d-viewer/city/model-reveal.js",
+        "3d-viewer/city/official-models.js",
+        "3d-viewer/city/model-spatial-index.js",
+        "3d-viewer/city/official-model-assets.js",
+        "3d-viewer/city/official-model-footprint-scopes.js",
+        "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+        "3d-viewer/city/official-model-direct-osm-group-data.js",
+        "3d-viewer/city/official-model-retained-group-footprint.js",
+        "3d-viewer/city/official-model-retained-group-data.js",
+        "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js",
+        "3d-viewer/city/model-codecs.js",
+        "3d-viewer/vendor/DRACOLoader.js",
+        "3d-viewer/vendor/meshopt_decoder.module.js",
+        "3d-viewer/city/model-variants.js",
+        "3d-viewer/city/model-preloader.js",
+        "3d-viewer/city/review-sections.js",
+        "3d-viewer/city/review-sections-data.js",
+        "3d-viewer/city/places.js",
+        "3d-viewer/city/regional-places.js",
+        "3d-viewer/city/environment.js",
+        "3d-viewer/sky-colour.js",
+        "3d-viewer/city/atmosphere.js",
+        "3d-viewer/city/clock-dial.js",
+        "3d-viewer/city/sky.js",
+        "3d-viewer/vendor/astro.js",
+        "3d-viewer/city/sky-time.js",
+        "3d-viewer/city/weather.js",
+        "3d-viewer/city/weather-data.js",
+        "3d-viewer/city/air-visibility-data.js",
+        "3d-viewer/city/meteors.js",
+        "3d-viewer/meteor-trails.js",
+        "3d-viewer/city/weather-effects.js",
+        "3d-viewer/city/weather-audio.js",
+        "3d-viewer/audio.js",
+        "3d-viewer/city/tide-data.js",
+        "3d-viewer/tide-series.js",
+        "3d-viewer/city/tide-graph.js",
+        "3d-viewer/city/time-cycle.js",
+        "3d-viewer/city/stargaze-controls.js",
+        "3d-viewer/city/control-sheet.js",
+        "3d-viewer/city/observer.js",
+        "3d-viewer/city/observer-grid.js"
+      ],
+      "resources": [
+        "3d-viewer/vendor/draco_decoder.js",
+        "3d-viewer/vendor/draco_decoder.wasm",
+        "3d-viewer/vendor/draco_wasm_wrapper.js"
+      ],
+      "importEdges": [
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./canvas-viewport.js",
+          "to": "3d-viewer/city/canvas-viewport.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-progress.js?v=20261006-progress-http1",
+          "to": "3d-viewer/city/building-progress.js"
+        },
+        {
+          "from": "3d-viewer/city/building-progress.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sha256.js",
+          "to": "3d-viewer/city/sha256.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/OrbitControls.js",
+          "to": "3d-viewer/vendor/OrbitControls.js"
+        },
+        {
+          "from": "3d-viewer/vendor/OrbitControls.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js?v=20261010-finite1",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./terrain-patch-index.js",
+          "to": "3d-viewer/city/terrain-patch-index.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./rendered-patch-height.js",
+          "to": "3d-viewer/city/rendered-patch-height.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/native-terrain.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact-finite-triangle-projection.js",
+          "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tai-o-estimates.js",
+          "to": "3d-viewer/city/tai-o-estimates.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/model-byte-cache.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-collision.js",
+          "to": "3d-viewer/city/model-collision.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./world.js?v=20261010-finite1",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-bake-client.js",
+          "to": "3d-viewer/city/building-bake-client.js"
+        },
+        {
+          "from": "3d-viewer/city/building-bake-client.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/lighting.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tidal-water.js",
+          "to": "3d-viewer/city/tidal-water.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../water-surface.js",
+          "to": "3d-viewer/water-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../shoreline-surface.js",
+          "to": "3d-viewer/shoreline-surface.js"
+        },
+        {
+          "from": "3d-viewer/shoreline-surface.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./road-surface.js",
+          "to": "3d-viewer/city/road-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./navigation.js",
+          "to": "3d-viewer/city/navigation.js"
+        },
+        {
+          "from": "3d-viewer/city/navigation.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/navigation.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/GLTFLoader.js",
+          "to": "3d-viewer/vendor/GLTFLoader.js"
+        },
+        {
+          "from": "3d-viewer/vendor/GLTFLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/vendor/GLTFLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/navigation.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./aircraft.js",
+          "to": "3d-viewer/city/aircraft.js"
+        },
+        {
+          "from": "3d-viewer/city/aircraft.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/aircraft.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/GLTFLoader.js",
+          "to": "3d-viewer/vendor/GLTFLoader.js"
+        },
+        {
+          "from": "3d-viewer/city/aircraft.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./aircraft.js",
+          "to": "3d-viewer/city/aircraft.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./aircraft-picker.js",
+          "to": "3d-viewer/city/aircraft-picker.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming.js?v=20260913-load2",
+          "to": "3d-viewer/city/streaming.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./world.js?v=20260913-load2",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tile-cache.js?v=20260913-load2",
+          "to": "3d-viewer/city/tile-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./infrastructure-replacements.js",
+          "to": "3d-viewer/city/infrastructure-replacements.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/streaming.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-support.js",
+          "to": "3d-viewer/city/model-support.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./mesh-inspection.js",
+          "to": "3d-viewer/city/mesh-inspection.js"
+        },
+        {
+          "from": "3d-viewer/city/mesh-inspection.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/mesh-inspection.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./inspection-region.js",
+          "to": "3d-viewer/city/inspection-region.js"
+        },
+        {
+          "from": "3d-viewer/city/inspection-region.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./regional.js",
+          "to": "3d-viewer/city/regional.js"
+        },
+        {
+          "from": "3d-viewer/city/regional.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/regional.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./regional-data.js",
+          "to": "3d-viewer/city/regional-data.js"
+        },
+        {
+          "from": "3d-viewer/city/regional.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tile-cache.js",
+          "to": "3d-viewer/city/tile-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./bridges.js",
+          "to": "3d-viewer/city/bridges.js"
+        },
+        {
+          "from": "3d-viewer/city/bridges.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/bridges.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./bridge-data.js",
+          "to": "3d-viewer/city/bridge-data.js"
+        },
+        {
+          "from": "3d-viewer/city/bridges.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./infrastructure-data.js",
+          "to": "3d-viewer/city/infrastructure-data.js"
+        },
+        {
+          "from": "3d-viewer/city/infrastructure-data.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-collision.js",
+          "to": "3d-viewer/city/model-collision.js"
+        },
+        {
+          "from": "3d-viewer/city/infrastructure-data.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./infrastructure-replacements.js",
+          "to": "3d-viewer/city/infrastructure-replacements.js"
+        },
+        {
+          "from": "3d-viewer/city/bridges.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./infrastructure-replacements.js",
+          "to": "3d-viewer/city/infrastructure-replacements.js"
+        },
+        {
+          "from": "3d-viewer/city/bridges.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tile-cache.js",
+          "to": "3d-viewer/city/tile-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./bridge-cables.js",
+          "to": "3d-viewer/city/bridge-cables.js"
+        },
+        {
+          "from": "3d-viewer/city/bridge-cables.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/bridge-cables.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tile-cache.js",
+          "to": "3d-viewer/city/tile-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-reveal.js?v=20260913-reveal1",
+          "to": "3d-viewer/city/model-reveal.js"
+        },
+        {
+          "from": "3d-viewer/city/model-reveal.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-models.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/official-models.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-spatial-index.js",
+          "to": "3d-viewer/city/model-spatial-index.js"
+        },
+        {
+          "from": "3d-viewer/city/model-spatial-index.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tile-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/tile-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-assets.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/official-model-assets.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sha256.js",
+          "to": "3d-viewer/city/sha256.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/GLTFLoader.js",
+          "to": "3d-viewer/vendor/GLTFLoader.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./world.js",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-footprint-scopes.js",
+          "to": "3d-viewer/city/official-model-footprint-scopes.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-direct-osm-group-footprint.js",
+          "to": "3d-viewer/city/official-model-direct-osm-group-footprint.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-direct-osm-group-data.js",
+          "to": "3d-viewer/city/official-model-direct-osm-group-data.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-retained-group-footprint.js",
+          "to": "3d-viewer/city/official-model-retained-group-footprint.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-retained-group-footprint.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-retained-group-data.js",
+          "to": "3d-viewer/city/official-model-retained-group-data.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-footprint-scopes.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./official-model-footprint-scopes-ocean-walk.js",
+          "to": "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js"
+        },
+        {
+          "from": "3d-viewer/city/official-model-assets.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-codecs.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-codecs.js"
+        },
+        {
+          "from": "3d-viewer/city/model-codecs.js",
+          "kind": "literal-dynamic",
+          "specifier": "../vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/DRACOLoader.js"
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/model-codecs.js",
+          "kind": "literal-dynamic",
+          "specifier": "../vendor/meshopt_decoder.module.js",
+          "to": "3d-viewer/vendor/meshopt_decoder.module.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-support.js",
+          "to": "3d-viewer/city/model-support.js"
+        },
+        {
+          "from": "3d-viewer/city/official-models.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-variants.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-variants.js"
+        },
+        {
+          "from": "3d-viewer/city/model-variants.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sha256.js",
+          "to": "3d-viewer/city/sha256.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-preloader.js?v=20260913-preload1",
+          "to": "3d-viewer/city/model-preloader.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-variants.js?v=20261011-model-quality1",
+          "to": "3d-viewer/city/model-variants.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./review-sections.js",
+          "to": "3d-viewer/city/review-sections.js"
+        },
+        {
+          "from": "3d-viewer/city/review-sections.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/review-sections.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./review-sections-data.js",
+          "to": "3d-viewer/city/review-sections-data.js"
+        },
+        {
+          "from": "3d-viewer/city/review-sections-data.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./regional-data.js",
+          "to": "3d-viewer/city/regional-data.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./places.js",
+          "to": "3d-viewer/city/places.js"
+        },
+        {
+          "from": "3d-viewer/city/places.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./regional-places.js",
+          "to": "3d-viewer/city/regional-places.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./environment.js",
+          "to": "3d-viewer/city/environment.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../sky-colour.js",
+          "to": "3d-viewer/sky-colour.js"
+        },
+        {
+          "from": "3d-viewer/sky-colour.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./atmosphere.js",
+          "to": "3d-viewer/city/atmosphere.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./clock-dial.js",
+          "to": "3d-viewer/city/clock-dial.js"
+        },
+        {
+          "from": "3d-viewer/city/clock-dial.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sky.js",
+          "to": "3d-viewer/city/sky.js"
+        },
+        {
+          "from": "3d-viewer/city/sky.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/sky.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/astro.js",
+          "to": "3d-viewer/vendor/astro.js"
+        },
+        {
+          "from": "3d-viewer/city/sky.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sky-time.js",
+          "to": "3d-viewer/city/sky-time.js"
+        },
+        {
+          "from": "3d-viewer/city/sky-time.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/astro.js",
+          "to": "3d-viewer/vendor/astro.js"
+        },
+        {
+          "from": "3d-viewer/city/sky.js",
+          "kind": "ExportNamedDeclaration",
+          "specifier": "./sky-time.js",
+          "to": "3d-viewer/city/sky-time.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./sky-time.js",
+          "to": "3d-viewer/city/sky-time.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./weather.js",
+          "to": "3d-viewer/city/weather.js"
+        },
+        {
+          "from": "3d-viewer/city/weather.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/weather.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/weather.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./weather-data.js",
+          "to": "3d-viewer/city/weather-data.js"
+        },
+        {
+          "from": "3d-viewer/city/weather-data.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./air-visibility-data.js",
+          "to": "3d-viewer/city/air-visibility-data.js"
+        },
+        {
+          "from": "3d-viewer/city/air-visibility-data.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./meteors.js",
+          "to": "3d-viewer/city/meteors.js"
+        },
+        {
+          "from": "3d-viewer/city/meteors.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../meteor-trails.js",
+          "to": "3d-viewer/meteor-trails.js"
+        },
+        {
+          "from": "3d-viewer/meteor-trails.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/meteors.js",
+          "kind": "ExportNamedDeclaration",
+          "specifier": "../meteor-trails.js",
+          "to": "3d-viewer/meteor-trails.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./weather-effects.js",
+          "to": "3d-viewer/city/weather-effects.js"
+        },
+        {
+          "from": "3d-viewer/city/weather-effects.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/weather-effects.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./weather-audio.js",
+          "to": "3d-viewer/city/weather-audio.js"
+        },
+        {
+          "from": "3d-viewer/city/weather-audio.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../audio.js",
+          "to": "3d-viewer/audio.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tide-data.js",
+          "to": "3d-viewer/city/tide-data.js"
+        },
+        {
+          "from": "3d-viewer/city/tide-data.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../tide-series.js",
+          "to": "3d-viewer/tide-series.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tide-graph.js",
+          "to": "3d-viewer/city/tide-graph.js"
+        },
+        {
+          "from": "3d-viewer/city/environment.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./time-cycle.js",
+          "to": "3d-viewer/city/time-cycle.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./stargaze-controls.js",
+          "to": "3d-viewer/city/stargaze-controls.js"
+        },
+        {
+          "from": "3d-viewer/city/stargaze-controls.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./control-sheet.js",
+          "to": "3d-viewer/city/control-sheet.js"
+        },
+        {
+          "from": "3d-viewer/city/app.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./observer.js",
+          "to": "3d-viewer/city/observer.js"
+        },
+        {
+          "from": "3d-viewer/city/observer.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./observer-grid.js",
+          "to": "3d-viewer/city/observer-grid.js"
+        }
+      ],
+      "resourceEdges": [
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_decoder.js",
+          "responseType": "text",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_decoder.wasm",
+          "responseType": "arraybuffer",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        },
+        {
+          "from": "3d-viewer/vendor/DRACOLoader.js",
+          "to": "3d-viewer/vendor/draco_wasm_wrapper.js",
+          "responseType": "text",
+          "decoderDirectory": "3d-viewer/vendor/",
+          "opaqueRuntimeResource": true
+        }
+      ],
+      "unsupportedDynamicImports": 0,
+      "completeAuditedLiteralImportClosure": true,
+      "computedImportsRejected": true,
+      "opaqueResourcesAreNotParsedModules": true
+    }
+  ],
+  "explicitUnchangedValidatorClosure": {
+    "producer": {
+      "path": "source-scripts/city/building-batch/validate_candidates.mjs",
+      "sha256": "1781691d7ae62de36e64816b49e6e58c418f77f3aca11b1bc45f0760dc55e0e4"
+    },
+    "auditedRootDeclaration": "const root=realpathSync(resolve(option('--root',fileURLToPath(new URL('../../../',import.meta.url)))));",
+    "auditedLiteralDynamicImportCall": "const imports=await Promise.all(['3d-viewer/vendor/three.module.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/geo.js','3d-viewer/city/world.js'].map(p=>import(pathToFileURL(resolve(root,p)))));",
+    "literalDynamicRoots": [
+      "3d-viewer/vendor/three.module.js",
+      "3d-viewer/city/official-model-assets.js",
+      "3d-viewer/city/geo.js",
+      "3d-viewer/city/world.js"
+    ],
+    "remainingLiteralDependencies": {
+      "imports": [
+        {
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict"
+        },
+        {
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs"
+        },
+        {
+          "kind": "ImportDeclaration",
+          "specifier": "node:path"
+        },
+        {
+          "kind": "ImportDeclaration",
+          "specifier": "node:url"
+        },
+        {
+          "kind": "ImportDeclaration",
+          "specifier": "node:sqlite"
+        },
+        {
+          "kind": "ImportDeclaration",
+          "specifier": "node:crypto"
+        }
+      ],
+      "libraries": [],
+      "decoderDirectories": []
+    },
+    "onlyExistingDeterministicComputedImportBound": true,
+    "everyOtherComputedImportRejected": true,
+    "productionSourceUnchanged": true,
+    "inputHashes": {
+      "source-scripts/city/building-batch/validate_candidates.mjs": "1781691d7ae62de36e64816b49e6e58c418f77f3aca11b1bc45f0760dc55e0e4",
+      "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+      "3d-viewer/city/official-model-assets.js": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+      "3d-viewer/city/sha256.js": "ad095180c895ab401e8abe366afb003b342a8a02bc13c52db5cb2e179f7d69ad",
+      "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+      "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+      "3d-viewer/vendor/GLTFLoader.js": "73691b8c33b0634498c6ee9e5d3dd8ea5c3c82127f057dcfe0ef8b16ff494e09",
+      "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+      "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+      "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+      "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+      "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+      "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+      "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+      "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+      "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+      "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+      "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+      "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+      "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+      "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+      "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+      "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+      "3d-viewer/city/official-model-footprint-scopes.js": "6752a6cf32e3634ccb3cc479638e7afd8613e725d1229d6855dc91974cc7bef1",
+      "3d-viewer/city/official-model-direct-osm-group-footprint.js": "dea3aeb614376b1df69139692ff00480d27c9ecd8ad4626d3247d7a0e9142894",
+      "3d-viewer/city/official-model-direct-osm-group-data.js": "451caa36f41158ca06ac17da4e693a4777f3a43e309372d373d31db2513f933b",
+      "3d-viewer/city/official-model-retained-group-footprint.js": "d6b9740ef0bb281de03c2057b0a27c379e1d1f606bef1cdbf5430aa4e82c951a",
+      "3d-viewer/city/official-model-retained-group-data.js": "31d6f584add0a6adc7a4c0302b1d4881e1fa3ac04cffcb870b0ffe8926f24ddf",
+      "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js": "c6d2821166bf9fde3318fcbda036ece7014ebe7064c1a958144fee7a7c9d20c0",
+      "3d-viewer/city/model-codecs.js": "dd776f42ac73cefe63ac46625e96bf9ed336f3913e4442ec3ca98c04bdaacffc",
+      "3d-viewer/vendor/DRACOLoader.js": "e4348b2c255e7d851df790cafb93bcdd7ac0d2a1a6916038b43580b1e6d6c3fb",
+      "3d-viewer/vendor/draco_decoder.js": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f",
+      "3d-viewer/vendor/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+      "3d-viewer/vendor/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+      "3d-viewer/vendor/meshopt_decoder.module.js": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd"
+    },
+    "closures": [
+      {
+        "schema": "exact-literal-static-dynamic-resource-closure-v1",
+        "entryPath": "3d-viewer/vendor/three.module.js",
+        "inputHashes": {
+          "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495"
+        },
+        "modules": [
+          "3d-viewer/vendor/three.module.js"
+        ],
+        "resources": [],
+        "importEdges": [],
+        "resourceEdges": [],
+        "unsupportedDynamicImports": 0,
+        "completeAuditedLiteralImportClosure": true,
+        "computedImportsRejected": true,
+        "opaqueResourcesAreNotParsedModules": true
+      },
+      {
+        "schema": "exact-literal-static-dynamic-resource-closure-v1",
+        "entryPath": "3d-viewer/city/official-model-assets.js",
+        "inputHashes": {
+          "3d-viewer/city/official-model-assets.js": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+          "3d-viewer/city/sha256.js": "ad095180c895ab401e8abe366afb003b342a8a02bc13c52db5cb2e179f7d69ad",
+          "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+          "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+          "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+          "3d-viewer/vendor/GLTFLoader.js": "73691b8c33b0634498c6ee9e5d3dd8ea5c3c82127f057dcfe0ef8b16ff494e09",
+          "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+          "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+          "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+          "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+          "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+          "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+          "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+          "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+          "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+          "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+          "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+          "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+          "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+          "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+          "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+          "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+          "3d-viewer/city/official-model-footprint-scopes.js": "6752a6cf32e3634ccb3cc479638e7afd8613e725d1229d6855dc91974cc7bef1",
+          "3d-viewer/city/official-model-direct-osm-group-footprint.js": "dea3aeb614376b1df69139692ff00480d27c9ecd8ad4626d3247d7a0e9142894",
+          "3d-viewer/city/official-model-direct-osm-group-data.js": "451caa36f41158ca06ac17da4e693a4777f3a43e309372d373d31db2513f933b",
+          "3d-viewer/city/official-model-retained-group-footprint.js": "d6b9740ef0bb281de03c2057b0a27c379e1d1f606bef1cdbf5430aa4e82c951a",
+          "3d-viewer/city/official-model-retained-group-data.js": "31d6f584add0a6adc7a4c0302b1d4881e1fa3ac04cffcb870b0ffe8926f24ddf",
+          "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js": "c6d2821166bf9fde3318fcbda036ece7014ebe7064c1a958144fee7a7c9d20c0",
+          "3d-viewer/city/model-codecs.js": "dd776f42ac73cefe63ac46625e96bf9ed336f3913e4442ec3ca98c04bdaacffc",
+          "3d-viewer/vendor/DRACOLoader.js": "e4348b2c255e7d851df790cafb93bcdd7ac0d2a1a6916038b43580b1e6d6c3fb",
+          "3d-viewer/vendor/draco_decoder.js": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f",
+          "3d-viewer/vendor/draco_decoder.wasm": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+          "3d-viewer/vendor/draco_wasm_wrapper.js": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+          "3d-viewer/vendor/meshopt_decoder.module.js": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd"
+        },
+        "modules": [
+          "3d-viewer/city/official-model-assets.js",
+          "3d-viewer/city/sha256.js",
+          "3d-viewer/city/model-byte-cache.js",
+          "3d-viewer/city/streaming-metrics.js",
+          "3d-viewer/vendor/three.module.js",
+          "3d-viewer/vendor/GLTFLoader.js",
+          "3d-viewer/vendor/BufferGeometryUtils.js",
+          "3d-viewer/city/world.js",
+          "3d-viewer/city/building-bake-client.js",
+          "3d-viewer/city/geo.js",
+          "3d-viewer/city/terrain-patch-index.js",
+          "3d-viewer/city/rendered-patch-height.js",
+          "3d-viewer/city/native-terrain.js",
+          "3d-viewer/city/exact-finite-triangle-projection.js",
+          "3d-viewer/city/building-geometry.js",
+          "3d-viewer/city/tai-o-estimates.js",
+          "3d-viewer/city/model-collision.js",
+          "3d-viewer/city/lighting.js",
+          "3d-viewer/city/tidal-water.js",
+          "3d-viewer/water-surface.js",
+          "3d-viewer/shoreline-surface.js",
+          "3d-viewer/city/road-surface.js",
+          "3d-viewer/city/official-model-footprint-scopes.js",
+          "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+          "3d-viewer/city/official-model-direct-osm-group-data.js",
+          "3d-viewer/city/official-model-retained-group-footprint.js",
+          "3d-viewer/city/official-model-retained-group-data.js",
+          "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js",
+          "3d-viewer/city/model-codecs.js",
+          "3d-viewer/vendor/DRACOLoader.js",
+          "3d-viewer/vendor/meshopt_decoder.module.js"
+        ],
+        "resources": [
+          "3d-viewer/vendor/draco_decoder.js",
+          "3d-viewer/vendor/draco_decoder.wasm",
+          "3d-viewer/vendor/draco_wasm_wrapper.js"
+        ],
+        "importEdges": [
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./sha256.js",
+            "to": "3d-viewer/city/sha256.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-byte-cache.js?v=20261011-model-quality1",
+            "to": "3d-viewer/city/model-byte-cache.js"
+          },
+          {
+            "from": "3d-viewer/city/model-byte-cache.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/GLTFLoader.js",
+            "to": "3d-viewer/vendor/GLTFLoader.js"
+          },
+          {
+            "from": "3d-viewer/vendor/GLTFLoader.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/vendor/GLTFLoader.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./BufferGeometryUtils.js",
+            "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+          },
+          {
+            "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./world.js",
+            "to": "3d-viewer/city/world.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-bake-client.js",
+            "to": "3d-viewer/city/building-bake-client.js"
+          },
+          {
+            "from": "3d-viewer/city/building-bake-client.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/BufferGeometryUtils.js",
+            "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./geo.js",
+            "to": "3d-viewer/city/geo.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./terrain-patch-index.js",
+            "to": "3d-viewer/city/terrain-patch-index.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./rendered-patch-height.js",
+            "to": "3d-viewer/city/rendered-patch-height.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./native-terrain.js?v=20261010-finite1",
+            "to": "3d-viewer/city/native-terrain.js"
+          },
+          {
+            "from": "3d-viewer/city/native-terrain.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./exact-finite-triangle-projection.js",
+            "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-geometry.js",
+            "to": "3d-viewer/city/building-geometry.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/BufferGeometryUtils.js",
+            "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./tai-o-estimates.js",
+            "to": "3d-viewer/city/tai-o-estimates.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-byte-cache.js",
+            "to": "3d-viewer/city/model-byte-cache.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-collision.js",
+            "to": "3d-viewer/city/model-collision.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./lighting.js",
+            "to": "3d-viewer/city/lighting.js"
+          },
+          {
+            "from": "3d-viewer/city/lighting.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./geo.js",
+            "to": "3d-viewer/city/geo.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-geometry.js",
+            "to": "3d-viewer/city/building-geometry.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./tidal-water.js",
+            "to": "3d-viewer/city/tidal-water.js"
+          },
+          {
+            "from": "3d-viewer/city/tidal-water.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/tidal-water.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../water-surface.js",
+            "to": "3d-viewer/water-surface.js"
+          },
+          {
+            "from": "3d-viewer/city/tidal-water.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../shoreline-surface.js",
+            "to": "3d-viewer/shoreline-surface.js"
+          },
+          {
+            "from": "3d-viewer/shoreline-surface.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./native-terrain.js?v=20261010-finite1",
+            "to": "3d-viewer/city/native-terrain.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./road-surface.js",
+            "to": "3d-viewer/city/road-surface.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./lighting.js",
+            "to": "3d-viewer/city/lighting.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-geometry.js",
+            "to": "3d-viewer/city/building-geometry.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./official-model-footprint-scopes.js",
+            "to": "3d-viewer/city/official-model-footprint-scopes.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-footprint-scopes.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./official-model-direct-osm-group-footprint.js",
+            "to": "3d-viewer/city/official-model-direct-osm-group-footprint.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-direct-osm-group-footprint.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./official-model-direct-osm-group-data.js",
+            "to": "3d-viewer/city/official-model-direct-osm-group-data.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-footprint-scopes.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./official-model-retained-group-footprint.js",
+            "to": "3d-viewer/city/official-model-retained-group-footprint.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-retained-group-footprint.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./official-model-retained-group-data.js",
+            "to": "3d-viewer/city/official-model-retained-group-data.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-footprint-scopes.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./official-model-footprint-scopes-ocean-walk.js",
+            "to": "3d-viewer/city/official-model-footprint-scopes-ocean-walk.js"
+          },
+          {
+            "from": "3d-viewer/city/official-model-assets.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-codecs.js?v=20261011-model-quality1",
+            "to": "3d-viewer/city/model-codecs.js"
+          },
+          {
+            "from": "3d-viewer/city/model-codecs.js",
+            "kind": "literal-dynamic",
+            "specifier": "../vendor/DRACOLoader.js",
+            "to": "3d-viewer/vendor/DRACOLoader.js"
+          },
+          {
+            "from": "3d-viewer/vendor/DRACOLoader.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/model-codecs.js",
+            "kind": "literal-dynamic",
+            "specifier": "../vendor/meshopt_decoder.module.js",
+            "to": "3d-viewer/vendor/meshopt_decoder.module.js"
+          }
+        ],
+        "resourceEdges": [
+          {
+            "from": "3d-viewer/vendor/DRACOLoader.js",
+            "to": "3d-viewer/vendor/draco_decoder.js",
+            "responseType": "text",
+            "decoderDirectory": "3d-viewer/vendor/",
+            "opaqueRuntimeResource": true
+          },
+          {
+            "from": "3d-viewer/vendor/DRACOLoader.js",
+            "to": "3d-viewer/vendor/draco_decoder.wasm",
+            "responseType": "arraybuffer",
+            "decoderDirectory": "3d-viewer/vendor/",
+            "opaqueRuntimeResource": true
+          },
+          {
+            "from": "3d-viewer/vendor/DRACOLoader.js",
+            "to": "3d-viewer/vendor/draco_wasm_wrapper.js",
+            "responseType": "text",
+            "decoderDirectory": "3d-viewer/vendor/",
+            "opaqueRuntimeResource": true
+          }
+        ],
+        "unsupportedDynamicImports": 0,
+        "completeAuditedLiteralImportClosure": true,
+        "computedImportsRejected": true,
+        "opaqueResourcesAreNotParsedModules": true
+      },
+      {
+        "schema": "exact-literal-static-dynamic-resource-closure-v1",
+        "entryPath": "3d-viewer/city/geo.js",
+        "inputHashes": {
+          "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+          "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+          "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+          "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+          "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+          "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+          "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+          "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+          "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+          "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+          "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+          "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07"
+        },
+        "modules": [
+          "3d-viewer/city/geo.js",
+          "3d-viewer/city/terrain-patch-index.js",
+          "3d-viewer/city/rendered-patch-height.js",
+          "3d-viewer/city/native-terrain.js",
+          "3d-viewer/city/exact-finite-triangle-projection.js",
+          "3d-viewer/city/building-geometry.js",
+          "3d-viewer/vendor/three.module.js",
+          "3d-viewer/vendor/BufferGeometryUtils.js",
+          "3d-viewer/city/tai-o-estimates.js",
+          "3d-viewer/city/model-byte-cache.js",
+          "3d-viewer/city/streaming-metrics.js",
+          "3d-viewer/city/model-collision.js"
+        ],
+        "resources": [],
+        "importEdges": [
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./terrain-patch-index.js",
+            "to": "3d-viewer/city/terrain-patch-index.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./rendered-patch-height.js",
+            "to": "3d-viewer/city/rendered-patch-height.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./native-terrain.js?v=20261010-finite1",
+            "to": "3d-viewer/city/native-terrain.js"
+          },
+          {
+            "from": "3d-viewer/city/native-terrain.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./exact-finite-triangle-projection.js",
+            "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-geometry.js",
+            "to": "3d-viewer/city/building-geometry.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/BufferGeometryUtils.js",
+            "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+          },
+          {
+            "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./tai-o-estimates.js",
+            "to": "3d-viewer/city/tai-o-estimates.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-byte-cache.js",
+            "to": "3d-viewer/city/model-byte-cache.js"
+          },
+          {
+            "from": "3d-viewer/city/model-byte-cache.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-collision.js",
+            "to": "3d-viewer/city/model-collision.js"
+          }
+        ],
+        "resourceEdges": [],
+        "unsupportedDynamicImports": 0,
+        "completeAuditedLiteralImportClosure": true,
+        "computedImportsRejected": true,
+        "opaqueResourcesAreNotParsedModules": true
+      },
+      {
+        "schema": "exact-literal-static-dynamic-resource-closure-v1",
+        "entryPath": "3d-viewer/city/world.js",
+        "inputHashes": {
+          "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+          "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+          "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+          "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+          "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+          "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+          "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+          "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+          "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+          "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+          "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+          "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+          "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+          "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+          "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+          "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+          "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+          "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+          "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7"
+        },
+        "modules": [
+          "3d-viewer/city/world.js",
+          "3d-viewer/city/streaming-metrics.js",
+          "3d-viewer/city/building-bake-client.js",
+          "3d-viewer/vendor/three.module.js",
+          "3d-viewer/vendor/BufferGeometryUtils.js",
+          "3d-viewer/city/geo.js",
+          "3d-viewer/city/terrain-patch-index.js",
+          "3d-viewer/city/rendered-patch-height.js",
+          "3d-viewer/city/native-terrain.js",
+          "3d-viewer/city/exact-finite-triangle-projection.js",
+          "3d-viewer/city/building-geometry.js",
+          "3d-viewer/city/tai-o-estimates.js",
+          "3d-viewer/city/model-byte-cache.js",
+          "3d-viewer/city/model-collision.js",
+          "3d-viewer/city/lighting.js",
+          "3d-viewer/city/tidal-water.js",
+          "3d-viewer/water-surface.js",
+          "3d-viewer/shoreline-surface.js",
+          "3d-viewer/city/road-surface.js"
+        ],
+        "resources": [],
+        "importEdges": [
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-bake-client.js",
+            "to": "3d-viewer/city/building-bake-client.js"
+          },
+          {
+            "from": "3d-viewer/city/building-bake-client.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/BufferGeometryUtils.js",
+            "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+          },
+          {
+            "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./geo.js",
+            "to": "3d-viewer/city/geo.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./terrain-patch-index.js",
+            "to": "3d-viewer/city/terrain-patch-index.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./rendered-patch-height.js",
+            "to": "3d-viewer/city/rendered-patch-height.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./native-terrain.js?v=20261010-finite1",
+            "to": "3d-viewer/city/native-terrain.js"
+          },
+          {
+            "from": "3d-viewer/city/native-terrain.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./exact-finite-triangle-projection.js",
+            "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-geometry.js",
+            "to": "3d-viewer/city/building-geometry.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/BufferGeometryUtils.js",
+            "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./tai-o-estimates.js",
+            "to": "3d-viewer/city/tai-o-estimates.js"
+          },
+          {
+            "from": "3d-viewer/city/building-geometry.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-byte-cache.js",
+            "to": "3d-viewer/city/model-byte-cache.js"
+          },
+          {
+            "from": "3d-viewer/city/model-byte-cache.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./streaming-metrics.js",
+            "to": "3d-viewer/city/streaming-metrics.js"
+          },
+          {
+            "from": "3d-viewer/city/geo.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./model-collision.js",
+            "to": "3d-viewer/city/model-collision.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./lighting.js",
+            "to": "3d-viewer/city/lighting.js"
+          },
+          {
+            "from": "3d-viewer/city/lighting.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./geo.js",
+            "to": "3d-viewer/city/geo.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./building-geometry.js",
+            "to": "3d-viewer/city/building-geometry.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./tidal-water.js",
+            "to": "3d-viewer/city/tidal-water.js"
+          },
+          {
+            "from": "3d-viewer/city/tidal-water.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/tidal-water.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../water-surface.js",
+            "to": "3d-viewer/water-surface.js"
+          },
+          {
+            "from": "3d-viewer/city/tidal-water.js",
+            "kind": "ImportDeclaration",
+            "specifier": "../shoreline-surface.js",
+            "to": "3d-viewer/shoreline-surface.js"
+          },
+          {
+            "from": "3d-viewer/shoreline-surface.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./vendor/three.module.js",
+            "to": "3d-viewer/vendor/three.module.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./native-terrain.js?v=20261010-finite1",
+            "to": "3d-viewer/city/native-terrain.js"
+          },
+          {
+            "from": "3d-viewer/city/world.js",
+            "kind": "ImportDeclaration",
+            "specifier": "./road-surface.js",
+            "to": "3d-viewer/city/road-surface.js"
+          }
+        ],
+        "resourceEdges": [],
+        "unsupportedDynamicImports": 0,
+        "completeAuditedLiteralImportClosure": true,
+        "computedImportsRejected": true,
+        "opaqueResourcesAreNotParsedModules": true
+      }
+    ],
+    "defaultRootCLIUsed": true,
+    "allFourRuntimeTargetsAndTransitiveBytesBound": true
+  },
+  "everyOtherComputedImportRejected": true,
+  "readOnlyCodeHashingOnly": true
+}

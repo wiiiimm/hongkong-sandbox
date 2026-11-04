@@ -1,0 +1,1 @@
+Unscoped historical selection is not usable for full pier extents in the current loader. Current-ground diagnostic correctly records runtime-error and attributes rejects it. No physical/identity/installation approval. V3 uses the existing two exact-source reviewed footprintScope selections and fresh current capture; no guard or source geometry change.

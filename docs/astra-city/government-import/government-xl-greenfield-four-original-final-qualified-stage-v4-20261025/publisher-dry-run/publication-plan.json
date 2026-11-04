@@ -1,0 +1,110 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-greenfield-four-original-final-qualified-stage-v4-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Greenfield Shopping Arcade and three unchanged original government components",
+      "models": 4,
+      "catalogue": "city/data/official-models/government-xl-greenfield-four-original-final-qualified-stage-v4-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-greenfield-four-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-greenfield-four-original-final-qualified-stage-v4-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "cb8b2bd45e3665c9249ec2036db8ab7ab9d9043ef16af4a98f2005273bdcdd9b"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-greenfield-four-original-v1-20261025.json": "6f77897be4dad23288dbd4623cc753ad158832a4e38144f171d7c8f17eeeeb22",
+    "3d-viewer/city/data/official-models/government-xl-greenfield-four-original-final-qualified-stage-v4-20261025/catalogue.json": "68bd9146cebe9054caf16e5207d5dc34ceddba636bedd7ad80664a20e4ca4ac0",
+    "3d-viewer/city/data/manifest.json": "6ae4839ef5c0065ec82903af0636092f65194188730b6fb1d7e6b3b4c3d95605"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "e34fe35946468719d40e9127d7fb1d7f2b0ca152",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-greenfield-four-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Greenfield Shopping Arcade and three unchanged original government components",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -5190.828337296218,
+            -7287.8075784132125,
+            -5182.462269348121,
+            -7260.2760710322445
+          ],
+          "outerBounds": [
+            -5194.161136399187,
+            -7291.393312965714,
+            -5179.161577392483,
+            -7250.416784128979
+          ],
+          "policy": "Original highest source terrain, grade inset within the all-four-world unresolved rim region+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "derivedTerrainSeamCover": {
+          "addedDomainAreaM2": 0.028057575225830078,
+          "addedTerrainTriangles": 90,
+          "afterMissingAreaM2": 6.823494335499076e-12,
+          "beforeMissingAreaM2": 0.0016350746154785156,
+          "maximumSeamDistanceM": 0.002,
+          "policy": "Private additive terrain seam cover. Convex Float32 vertex-cell hulls enclose every missing triangle; nearest existing terrain edge heights used. All original terrain faces preserved. No building geometry or clearance policy edits; actual runtime and neighbours require fresh checks.",
+          "projectedExcessM2": 0.027523875242877693,
+          "sourceGeometryChanges": 0,
+          "unchangedOriginalTerrainTriangles": 701
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/10-NE-5A/decoded/TERRAIN(TB)/T28500234000106E12/T28500234000106E12.gltf",
+            "sha256": "d7a8cc12ed973fc7ecb01a4d17fb14c7f1c73bda19a82e61082b5d83b35d4630"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-remaining-adjacent-terrain-batch-v1-20261022-258419-0/sheets/10-NE-5B/terrain/TERRAIN(TB)/T29250234000106E10/T29250234000106E10.gltf",
+            "sha256": "9ac79bd5fcc44246053c46c7a5743476402bc646bce44914efa2691ccdfdc7fb"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 225,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6f77897be4dad23288dbd4623cc753ad158832a4e38144f171d7c8f17eeeeb22",
+      "bytes": 147390
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

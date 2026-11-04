@@ -1,0 +1,81 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-beverly8-exact-footprint-installed-20261007/plan.json",
+  "areas": [
+    {
+      "area": "Beverly Garden Block 8 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-beverly8-exact-footprint-installed-20261007/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-29943-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-beverly8-exact-footprint-installed-20261007/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "30f545fe70da3e32931d1aded883d502234fd9eec219c9bcfb393b4f812a214d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-29943-0.json": "6e25c327cb1d33ecc5bb8f9f946108321fc3ddb0aa1b5adcba4ccd7a69b54e09",
+    "3d-viewer/city/data/official-models/government-xl-beverly8-exact-footprint-installed-20261007/catalogue.json": "8387fc1bc3440e851065bad737228745ac3093e319ff5c9964bd884a1cb9b5f1",
+    "3d-viewer/city/data/manifest.json": "0be301b328a501d1cee1b3ebd9949eccf4b4de5ef1de980d324f16936aa2b7da"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "0e950effad15bf0451e2a372a8905f388f155b49",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-242281-0.json",
+      "sha256": "84eb861ca1405520893c7d83da6a5f8cf10cd62b1063b8dd41ded5020d3e9576",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-29943-0.json",
+      "resolution": 5,
+      "area": "Beverly Garden Block 8 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "5a48f5294c7a428c572b3fd1673c94cdd29fc196e852666d81ebea1ff71e5f60",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "12-NW-21A",
+            "sourceETag": "\"24d2ec9-63dce87e3dc07\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/12-NW-21A/terrain/TERRAIN(TB)/T45000186000106E10/T45000186000106E10.bin",
+                "sha256": "7843caaa08ae10fa9756e67a4247f25983cdaa4e99f5b3fce93d82d15466e3d9"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/12-NW-21A/terrain/TERRAIN(TB)/T45000186000106E10/T45000186000106E10.gltf",
+                "sha256": "77bb5d7b290233e655539121a6d3150c7b771924b3f88be53a4f96104da3ed81"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6e25c327cb1d33ecc5bb8f9f946108321fc3ddb0aa1b5adcba4ccd7a69b54e09",
+      "bytes": 711509
+    }
+  ],
+  "estimatedBases": []
+}

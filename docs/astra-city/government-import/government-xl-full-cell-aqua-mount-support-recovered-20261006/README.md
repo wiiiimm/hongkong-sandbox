@@ -1,0 +1,3 @@
+# Aqua Marine and Mount Verdant exact original support
+
+Codex, 6 October 2026. Verified Neon job `6fde2f58da1357dcb1e57084b244f826bc00343659a8eb2f8c11aa3237958c2c`. Three primary towers and two exact lower components are recovered; only13,651 additional original bytes fetched for75782, other originals reused. Aqua Marine Block2 has340/340 strict interface contacts; Block5 retains8 unresolved samples, Mount Verdant retains66. Actual support identity and full terrain/foundation/neighbour/runtime/publication are still required; passing samples do not install a model. No source edits, raised embedding limit or AI geometry/architectural calls. No historical Lantau imagery used.

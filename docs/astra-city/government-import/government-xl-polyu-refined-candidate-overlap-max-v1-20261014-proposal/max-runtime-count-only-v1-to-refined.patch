@@ -1,0 +1,20 @@
+--- source-scripts/city/government-import/polyu_saved64_actual_max_full_ray_runtime_v1_draft_20261014.mjs
++++ source-scripts/city/government-import/polyu_refined_candidate_actual_max_runtime_v1_draft_20261014.mjs
+@@ -20,7 +20,7 @@
+ for(const pin of input.runtimeInputRefs)assert.equal(sha(raw(pin.path)),pin.sha256,pin.path);
+ const candidate=read(input.candidate.path);assert.equal(hashes[input.candidate.path],input.candidate.sha256);assert(!candidate.nativeMesh.sourceOverlap);
+ const saved=read(input.sites.path);assert.equal(hashes[input.sites.path],input.sites.sha256);assert.equal(saved.rows.length,64);assert.equal(saved.samples,64);
+-const surface=nativeTerrainSurface(candidate.nativeMesh);assert.equal(candidate.nativeMesh.index.length/3,148459);assert.equal(surface.position.length/3,587502);
++const surface=nativeTerrainSurface(candidate.nativeMesh);assert.equal(candidate.nativeMesh.index.length/3,input.completeMeshBinding.completeIndexedFaces);assert.equal(surface.position.length/3,input.completeMeshBinding.completePositionVertices);
+ const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(surface.position,3));geometry.setIndex(candidate.nativeMesh.index);
+ const mesh=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({side:THREE.DoubleSide}));mesh.updateMatrixWorld(true);
+ assert.deepEqual(mesh.matrixWorld.elements,[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+@@ -44,7 +44,7 @@
+ for(const pin of input.runtimeInputRefs)assert.equal(sha(readFileSync(new URL(pin.path,root))),pin.sha256,pin.path);
+ await writeExactJsonGzip(new URL(doc+'/actual-saved64-full-candidate-native-max-ray-findings.json.gz',root),{
+  rows,samples:64,maxError:Math.max(...rows.filter(r=>r.error!==null).map(r=>r.error),0),failedRows:rows.filter(r=>!r.passed),
+- completeCandidateFacets:148459,completeUnusedPositionVertices:587502,productionIndexedTriangleCount:surface.triangles,
++ completeCandidateFacets:input.completeMeshBinding.completeIndexedFaces,completeUnusedPositionVertices:input.completeMeshBinding.completePositionVertices,productionIndexedTriangleCount:surface.triangles,
+  allDrawnCandidateIndicesUsedForIndependentRay:true,productionMAXEligibilityAnd20mBinsUnmodified:true,
+  completeRecursiveProductionModuleClosure:closure,inputHashes:hashes,startEndAllInputsVerified:true,
+  samplesNotWholeSurfaceCoverageOrContinuousMAXProof:true,candidateOnly:true,currentAcceptance:false,noGeometryChanges:true,noApprovalWrittenByRuntime:true});

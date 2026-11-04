@@ -1,0 +1,30 @@
+{"groundFaces":4215,"traversedFaces":8373480,"sourceFaces":41277,"sourceBodies":193,"noModelLoad":true,"noContactReplay":true}
+{'mode': 'providerOriginal', 'complete': 41270, 'faces': 41277, 'buried': 35, 'minimumGapM': -1.822304643858641}
+{'mode': 'actualLiteral', 'complete': 41270, 'faces': 41277, 'buried': 35, 'minimumGapM': -1.8223046438586321}
+{'mode': 'explicitLeftF32', 'complete': 41271, 'faces': 41277, 'buried': 35, 'minimumGapM': -1.8222925275581892}
+{'mode': 'explicitBalancedF32', 'complete': 41271, 'faces': 41277, 'buried': 35, 'minimumGapM': -1.8222925275581892}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/citywalk_current_foundation_v2_20261015.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/citywalk_current_foundation_v2_20261015.py", line 34, in main
+    module('citywalk_current_foundation_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH,'fresh-current-original-foundation-v1',paths,dict(uids=['landsd/134332:0'],fullAcceptance=False,sourceOnly=True,nextStep='Use current foundation results to choose source functional review or terrain repair; contact junction remains independent.'))
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 15, in freeze
+    paths+=[p for p in doc.rglob('*') if p.is_file()]+[Path(__file__)];refs=[ref(p) for p in sorted(set(paths))];claim=reservations.claim('popcorn-source-checkpoint-'+str(uuid.uuid4()),['source-context:'+batch],batch=batch,ttl=1800);assert claim['ok'],claim;lease=claim['reservation']
+                                                                                                                                                                                                                                                ~~~~~^^^^^^
+AssertionError: {'ok': False, 'error': 'reserved', 'conflicts': [{'resource': 'source-context:government-xl-citywalk-current-foundation-v2-20261015', 'token': UUID('2d372a53-4f63-42ef-8046-5fb28223addb'), 'generation': 439514, 'owner': 'citywalk-foundation-4d35a574-e7de-4b72-99c8-355460196b8b', 'batch': 'government-xl-citywalk-current-foundation-v2-20261015', 'heartbeat_at': datetime.datetime(2026, 10, 15, 3, 43, 13, 923324, tzinfo=zoneinfo.ZoneInfo(key='GMT')), 'lease_until': datetime.datetime(2026, 10, 15, 4, 43, 13, 923324, tzinfo=zoneinfo.ZoneInfo(key='GMT')), 'released_at': None, 'active': True}]}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/citywalk_current_foundation_v2_20261015.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/citywalk_current_foundation_v2_20261015.py", line 17, in main
+    try:subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'lease.json'),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-citywalk-current-foundation-v2-20261015/lease.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/citywalk_current_foundation_v2_20261015.py', '--owned']' returned non-zero exit status 1.

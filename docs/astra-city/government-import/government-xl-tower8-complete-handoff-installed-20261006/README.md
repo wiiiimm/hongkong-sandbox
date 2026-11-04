@@ -1,0 +1,5 @@
+# B336831113101063C0 — verified original installation
+
+Codex, 6 October 2026. B336831113101063C0 (landsd/296652:0) is installed with unchanged original government geometry. Verified Neon job `65da83a86b1333536f8e5addb7730f8d3f7c9b64ac2d0919d31aa1babd1ae2ee`, installed snapshot `c2bdd09b2ab93f6d`, source SHA `96e66149b6553d8d3bdd4577870a061f0bb129b18e09c3f11716c03e22c815fb`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+22 new XL installations from44/308: **66 installed / 286 not installed**, 78 further installations required. Public counters: 346,108 total source forms, 4,414 enhanced, 4,400 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

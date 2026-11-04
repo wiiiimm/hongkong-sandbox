@@ -1,0 +1,84 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/whampoa-special/publication-plan.json",
+  "areas": [
+    {
+      "area": "The Whampoa special landmark ship",
+      "models": 2,
+      "catalogue": "city/data/official-models/whampoa-special/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-whampoa-ship.json": null,
+    "3d-viewer/city/data/official-models/whampoa-special/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "02e5c4f513efd0164c3b5f5a9e1256c0e9dcdebaf5790b7ac3b8193e1b50ad97"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-whampoa-ship.json": "b0d9759de72ad92a5d91c5bd308e76909a898e79bd8a94682ee6eb4c428abba4",
+    "3d-viewer/city/data/official-models/whampoa-special/catalogue.json": "3bdcff5a5001788fcd0d79d3478f2e78b588e171f8b2aadc6c5c5d3d9d2d60fd",
+    "3d-viewer/city/data/manifest.json": "5432c3a8c8717e8ea0d4d1114d593b3a0d08c86d3526415b6d093ab4b3376185"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "01aacf1fd8d553d2380a93b6cd07ad4760c08944",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-whampoa-ship.json",
+      "resolution": 1,
+      "area": "The Whampoa surveyed native terrain",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-NE-21C",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NE-21C/manifest.json",
+            "manifestSha256": "0a5ca43b6da940900afb255a7b659000a371953821a021e2e445bbc062c23924",
+            "worldBounds": [
+              [
+                3000.000732421875,
+                1.1515874862670898,
+                -2100.0018310546875
+              ],
+              [
+                3750.000732421875,
+                8.261239051818848,
+                -1500.0003662109375
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NE-21C/TERRAIN(TB)/T37500180000106E10/T37500180000106E10-geometry.gltf",
+                "sha256": "d2c0cd27d9c54609d8a38e6340de400bac7fb522f7abaf30242b6d373951cf48",
+                "bytes": 1648
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NE-21C/TERRAIN(TB)/T37500180000106E10/T37500180000106E10.bin",
+                "sha256": "fe343e3b319cabbf7f001b4a67f8157fb726550e71ded9765a2a0a92b26824fb",
+                "bytes": 1040910
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "b0d9759de72ad92a5d91c5bd308e76909a898e79bd8a94682ee6eb4c428abba4",
+      "bytes": 578915
+    }
+  ],
+  "estimatedBases": []
+}

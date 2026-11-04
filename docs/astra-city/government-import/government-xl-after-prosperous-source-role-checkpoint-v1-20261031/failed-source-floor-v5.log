@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_upward_floor_terrain_return_v4_20261031.py", line 67, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_upward_floor_terrain_return_v4_20261031.py", line 64, in main
+    result=dict(uids=receipts[PATCH]['uids'],sourceSHA256ByUid=receipts[PATCH]['sourceSHA256ByUid'],status='private-terrain-validator-passed',candidate=dict(path=str(path.relative_to(ROOT)),sha256=digest(path.read_bytes())),terrainTriangles=len(after),changedTerrainFaces=len(proof['changedTerrainFaceIndices']),sourceGeometryChanges=0,sourcePoseChanges=0,terrainChanges=True,installationApproved=False,publication=False,qualification=proof['policy'])
+                                                               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'sourceSHA256ByUid'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}

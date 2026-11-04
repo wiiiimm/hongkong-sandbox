@@ -1,0 +1,238 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-hkust-academic-three-original-retained-qualified-stage-v2-20261102/plan.json",
+  "areas": [
+    {
+      "area": "HKUST Academic Building, podium and library extension original assembly",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-hkust-academic-three-original-retained-qualified-stage-v2-20261102/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-hkust-academic-three-original-v1-20261102.json": null,
+    "3d-viewer/city/data/official-models/government-xl-hkust-academic-three-original-retained-qualified-stage-v2-20261102/catalogue.json": null,
+    "3d-viewer/city/data/tiles/5_-3.json": "b73321e2558f85044c10ec792ed4ac26388cac28e587c69fef13fded069cd947",
+    "3d-viewer/city/data/manifest.json": "7af1d8fd67ca844100836dcbed12eb7dc34d784c9cf1ace88b63044412868fc1"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-hkust-academic-three-original-v1-20261102.json": "7e181ce98a574e1926dc7d80b02180aef7e6b340239bbccc45f36149958bae13",
+    "3d-viewer/city/data/official-models/government-xl-hkust-academic-three-original-retained-qualified-stage-v2-20261102/catalogue.json": "ba024ee72d4026bca1d1282d5c587d954396f0d738dd25fd4c659367e398e59d",
+    "3d-viewer/city/data/tiles/5_-3.json": "5239df2e559d42ae8cee3dad0f5d6f43a3329818569dad4984f169079d93fb93",
+    "3d-viewer/city/data/manifest.json": "660bef9a4213ca502a865afca9ef5032603afcc14d4fe4b32fe5539fce4af2cb"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "61e69cf192915de015c49550a19253e01cca28a9",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-hkust-carpark-original-v1-20261101.json",
+      "sha256": "c77dc11810a546afe58b403cef43c62e83c882208ff73087bee74054227766e1",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-hkust-academic-three-original-v1-20261102.json",
+      "resolution": 5,
+      "area": "HKUST Academic Building, podium and library extension original assembly",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-academic309823-after-harbour-full-tin-rebind-v2-20261102/candidate-terrain.json",
+            "sha256": "57b08971f1dbeacad5db5c17503f65561715ef4a7466f5a81e22023b19beafc1"
+          },
+          "policy": "Lower-only source-floor-bounded0.05m-clearance return, independently per disconnected domain. Existing1m core/3m return, area/height/25k guards retained. No source edit or acceptance.",
+          "sha256": "7270510e89f268a8c114ba787cdf9a1d4255d55acdc0d05bb4dfd81922f0e65a",
+          "sourceFaceIndices": [
+            8292,
+            8293,
+            8294,
+            8295,
+            8296,
+            8566,
+            8567
+          ],
+          "sourceFaceSHA256": "db3a69a92f12cd4d59af462b5b059754c766979adcf4f33dcb18376e232c9e1c",
+          "uid": "landsd/309823:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            10606.3046875,
+            -5699.415122467445,
+            10805.191825459087,
+            -5286.546454602448
+          ],
+          "outerBounds": [
+            10603.3046875,
+            -5702.4183023697815,
+            10808.19308308635,
+            -5283.54519340979
+          ],
+          "policy": "Original highest source terrain, full replacement (higher or lower) within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hkust-adjoining-native-terrain-v1-20261015/12-NW-6C/terrain/TERRAIN(TB)/T45000216000106E10/T45000216000106E10.gltf",
+            "sha256": "8b247342aac28d03649897a0e43032b3f91b20c31703a73580b7e7a40ee5326e"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 6441,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "7e181ce98a574e1926dc7d80b02180aef7e6b340239bbccc45f36149958bae13",
+      "bytes": 3667743
+    }
+  ],
+  "illustrativeFoundations": [
+    {
+      "uid": "landsd/29105:0",
+      "foundationBase": 124.489990234375,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/29105-qualified-foundation.json",
+        "sha256": "8bb9d7c428b23d230da0bd0a0c004f950e03f70f2991e47634e2878bd43d1d95"
+      }
+    },
+    {
+      "uid": "landsd/29139:0",
+      "foundationBase": 124.489990234375,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/29139-qualified-foundation.json",
+        "sha256": "d9dbed66a24fab158eeb43b3d6f224e51c92d821588da8e0dcf0aefeabbb8c69"
+      }
+    },
+    {
+      "uid": "landsd/29271:0",
+      "foundationBase": 132.1160225615751,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/29271-qualified-foundation.json",
+        "sha256": "6a85a609b730dda4ceb65fb735e5181dfa05c3418603c4ce3d5ab6d463418e2e"
+      }
+    },
+    {
+      "uid": "landsd/309840:0",
+      "foundationBase": 125.01835146107338,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/309840-qualified-foundation.json",
+        "sha256": "973c7d2b78bc3781c1963e5d34c1d9fcbd67a03c010873cc5eabe3c7f1d30f68"
+      }
+    },
+    {
+      "uid": "landsd/31251:0",
+      "foundationBase": 131.60000610351562,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/31251-qualified-foundation.json",
+        "sha256": "4ec2c0630b7046b67061f307d399072a03deab5ba500c4197b71c8bde10cbbd1"
+      }
+    },
+    {
+      "uid": "landsd/31639:0",
+      "foundationBase": 136.70909118652344,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/31639-qualified-foundation.json",
+        "sha256": "898beff5ad91946bb4a3da82be77fae153c1b0ec0d6ce050e3da6a5d413b1e2f"
+      }
+    },
+    {
+      "uid": "landsd/33442:0",
+      "foundationBase": 131.60000610351562,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-academic309823-after-harbour-qualified-current-review-v2-20261102/33442-qualified-foundation.json",
+        "sha256": "f050f1ec9979f75d40ca3face91ebf7f89c9d6ba56415d698f3f5f7cd2d742bc"
+      }
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "unsurveyedBasicFoundations": [
+    "landsd/31181:0",
+    "landsd/309838:0",
+    "landsd/339024:0"
+  ],
+  "retainedUnsurveyedBasicFoundationChecks": [
+    "landsd/31181:0",
+    "landsd/309838:0",
+    "landsd/339024:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

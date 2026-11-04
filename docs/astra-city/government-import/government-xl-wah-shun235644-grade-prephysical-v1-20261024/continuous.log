@@ -1,0 +1,24 @@
+{'uid': 'landsd/237751:0', 'facesChecked': 0, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 1000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 2000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 3000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 4000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 5000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 6000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 7000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 8000, 'total': 10122}
+{'uid': 'landsd/237751:0', 'facesChecked': 9000, 'total': 10122}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_continuous_ground_context_v1.py", line 25, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_continuous_ground_context_v1.py", line 19, in main
+    c=face_ground_context(t,ground,polygons,tree)if length[i]>0 else degenerate_ground_context(t,ground,polygons,tree);contexts.append(dict(c,sourceFace=i,normalYRatio=float(ratio[i])if length[i]>0 else None))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_face_ground_crossing_v2_20261009.py", line 17, in face_ground_context
+    result=previous_context(face,ground,polygons,tree)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_face_ground_crossing_20261009.py", line 44, in face_ground_context
+    assert vertical == (projection.geom_type != 'Polygon'), 'Projection rank mismatch'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Projection rank mismatch

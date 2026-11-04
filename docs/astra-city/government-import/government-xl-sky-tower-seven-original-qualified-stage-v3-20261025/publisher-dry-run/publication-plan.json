@@ -1,0 +1,91 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-sky-tower-seven-original-qualified-stage-v3-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Sky Tower original podium and six original towers",
+      "models": 7,
+      "catalogue": "city/data/official-models/government-xl-sky-tower-seven-original-qualified-stage-v3-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-sky-tower-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-sky-tower-seven-original-qualified-stage-v3-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "aaadde8e73eb06fae95151cab175c38c0d946362100179ebc49e55a5d15b8081"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-sky-tower-original-v1-20261025.json": "4635117f8d729bacae5f9927ce2074b2df7c30423356ae96061267e47f347a58",
+    "3d-viewer/city/data/official-models/government-xl-sky-tower-seven-original-qualified-stage-v3-20261025/catalogue.json": "3fdfaf01d319139e5188f1bd6a57d22603b582cd6f52862a079270a446ce3856",
+    "3d-viewer/city/data/manifest.json": "e0d064f2415f91733c2478b83a577bda067de2d757724829ae6ce70fb706d0df"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "cf668bfec3b48a14e7d773ca5b6d7b2a8673ab43",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-sky-tower-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Sky Tower original podium and six original towers",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            3078.84375,
+            -4047.517578125,
+            3256.7831191607684,
+            -3932.916547910907
+          ],
+          "outerBounds": [
+            3075.6611074677276,
+            -4050.8251871228313,
+            3259.788726643073,
+            -3926.3881404105273
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-11C/decoded/TERRAIN(TB)/T37500204000106E12/T37500204000106E12.gltf",
+            "sha256": "b22635be96d52f73ea6b808aaa093904a43b4db7b5ceb08b4034261c5891e5d2"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "4635117f8d729bacae5f9927ce2074b2df7c30423356ae96061267e47f347a58",
+      "bytes": 935979
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}

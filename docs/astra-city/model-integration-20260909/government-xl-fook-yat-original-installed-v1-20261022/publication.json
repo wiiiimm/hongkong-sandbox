@@ -1,0 +1,77 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-fook-yat-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Fook Yat House unchanged government original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-fook-yat-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-fook-yat-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-fook-yat-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "9572057ecec59fd182f4a9b1cc24297a034f9aa45ff223ab6e479ad2ac21b262"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-fook-yat-original-v1-20261022.json": "f07ded60765553a2afb3de49599112200979d329edd0ea7bef59f7e3e8d2db70",
+    "3d-viewer/city/data/official-models/government-xl-fook-yat-qualified-stage-v1-20261022/catalogue.json": "cd76a79740e3be2ee393c297c83dc0a9a96d21c4a4c49c14a6586c911292f813",
+    "3d-viewer/city/data/manifest.json": "23e9dfcaee0f9e4172b08b684825a8d7d064759f6bfcb69f1db7d3e4fa33bb3d"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "cbfca0f47246625f14dd191a935a8bef1dd6e32b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-fook-yat-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Fook Yat House unchanged government original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -665.6999079229847,
+            -5397.507227796752,
+            -587.4464321933858,
+            -5331.436175235123
+          ],
+          "outerBounds": [
+            -669.911936379438,
+            -5401.75352056201,
+            -583.2366092495934,
+            -5328.215404065492
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-georef-numerical-recovery-sequence-20261008-184286-0/sheets/11-NW-8D/terrain/TERRAIN(TB)/T33750216000106E14/T33750216000106E14.gltf",
+            "sha256": "b7fe00ff98d9581b505129c529f39f27d707dbfb3449e12939bdc913c3bbde78"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "f07ded60765553a2afb3de49599112200979d329edd0ea7bef59f7e3e8d2db70",
+      "bytes": 599366
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,20 @@
+.F............
+======================================================================
+FAIL: test_complete_actual23809_998_866_132_fourstream_partition (test_elements998_complete_original_role_composition_v1_20261011.ActualCompleteRoleCompositionTests.test_complete_actual23809_998_866_132_fourstream_partition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_elements998_complete_original_role_composition_v1_20261011.py", line 21, in test_complete_actual23809_998_866_132_fourstream_partition
+    r=self.check();self.assertEqual(r['completeOriginalFaces'],23809);self.assertEqual(r['completeNonzeroOriginalBodies'],998);self.assertEqual(r['completeStructuralPathBodies'],866);self.assertEqual(r['completeNonstructuralVisualBodies'],132);self.assertEqual(len(r['all47OriginalZeroFacetsPreservedUncredited']),47);self.assertTrue(r['noWholeNativeReacceptance']);self.assertFalse(r['currentAcceptance'])
+      ^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_elements998_complete_original_role_composition_v1_20261011.py", line 17, in check
+    args=self.args.copy();args.update(change or{});return k.verify(**args,expected_binding=k.binding(**args)if rebind else self.binding)
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/elements998_complete_original_role_composition_v1_20261011.py", line 61, in verify
+    assert native['diagnosticStrictGradeCapPath']is True and native['actualPositiveDimensionalContact']is True and native['actualExactContact']['dimension']>0 and native['ownedFace']in bodies[seed]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+----------------------------------------------------------------------
+Ran 14 tests in 534.624s
+
+FAILED (failures=1)

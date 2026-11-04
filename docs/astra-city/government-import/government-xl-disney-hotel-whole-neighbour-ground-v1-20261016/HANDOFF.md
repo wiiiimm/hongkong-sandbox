@@ -1,0 +1,7 @@
+# Hotel continuation: source support and whole-neighbour terrain
+
+All three workers are terminal and no leases remain owned by them. Strict hotel-as-support probes fail: podium169147 has79 samples/0 strict contacts/3 wall contacts/76 unresolved;169148 has87/3/1/83. All-layer diagnostic explains52 highest-roof failures via lower contact layers, but107 have no layer in the contact interval and4 no vertical support. These remain diagnostic counts; no acceptance changes. The existing podium sources were already terrain-distant before this candidate (minimum2.49/2.75m); proposed terrain increases this to4.33/4.47m without newly buried faces. Do not describe all of this as new corruption or silently waive the support requirement.
+
+A new private constructor preserves existing ground beneath all five ordinary neighbours, including1025.968m² overlapping the hotel projection. It failed the existing source-hole guard after Float32 clipping, before metrics/publication. See failure-summary.json for measured holes. This is a terrain-construction failure, not proof the hotel is uninstallable. Next: exact mask-boundary/Float32 seam repair, preserving actual old-ground facets inside the explicit restoration masks; then full hotel foundation, unchanged native/BASIC neighbour and identity checks. Keep the prior source-disjoint candidate and failures for comparison.
+
+Fixed XL remains245 installed/276 remaining of521. Zero new installations, original geometry edits or optimisation. Evidence is saved in pinned Neon and ROOT-verified.

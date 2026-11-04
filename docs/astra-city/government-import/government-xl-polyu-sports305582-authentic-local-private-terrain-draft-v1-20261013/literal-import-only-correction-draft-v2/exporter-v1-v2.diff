@@ -1,0 +1,13 @@
+--- source-scripts/city/government-import/xl-polyu-sports305582-current25-basic-protection-geometry-draft-v1-20261013.mjs
++++ source-scripts/city/government-import/xl-polyu-sports305582-current25-basic-protection-geometry-draft-v2-20261013.mjs
+@@ -23,8 +23,8 @@
+  assert.equal(new Set(c.modules).size,c.modules.length);assert.equal(new Set(c.resources).size,c.resources.length);assert(c.resources.every(p=>!c.modules.includes(p)));
+  const expected=c.modules.includes('3d-viewer/vendor/DRACOLoader.js')?['3d-viewer/vendor/draco_decoder.js','3d-viewer/vendor/draco_decoder.wasm','3d-viewer/vendor/draco_wasm_wrapper.js']:[];assert.deepEqual([...c.resources].sort(),expected.sort());Object.assign(hashes,c.inputHashes);
+ }
+-bytes('source-scripts/city/government-import/xl-polyu-sports305582-current25-basic-protection-geometry-draft-v1-20261013.mjs');
+-const {createBuildingGeometry}=await import(new URL('3d-viewer/city/building-geometry.js',root).href),THREE=await import(new URL('3d-viewer/vendor/three.module.js',root).href);
++bytes('source-scripts/city/government-import/xl-polyu-sports305582-current25-basic-protection-geometry-draft-v2-20261013.mjs');
++const {createBuildingGeometry}=await import('../../../3d-viewer/city/building-geometry.js'),THREE=await import('../../../3d-viewer/vendor/three.module.js');
+ const identity=new THREE.Matrix4(),rows=[];assert.equal(new Uint8Array(new Uint32Array([1]).buffer)[0],1,'Recorded byte arithmetic requires actual little-endian host');
+ for(const form of input.forms){
+  if(natives.has(form.uid)){assert.equal(form.uid,'landsd/305793:0');assert.equal(input.installedPodiumDependency.entry.publicationApproved,false);assert.equal(input.currentNativeBoundsRecord.uid,form.uid);rows.push({uid:form.uid,currentForm:form,classification:'installed-native-scalar-bounds-whole-terrain-regression-pending',completeCurrentNativeBoundsVerbatim:input.currentNativeBoundsRecord,installedEntryVerbatim:input.installedPodiumDependency.entry,wholeNativeBeforeAfterTerrainRegressionProved:false});continue;}

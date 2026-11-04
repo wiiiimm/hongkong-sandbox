@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-primrose-joint-private-stage-v1-20261015/plan.json",
+  "areas": [
+    {
+      "area": "Primrose Hill unchanged original assembly",
+      "models": 4,
+      "catalogue": "city/data/official-models/government-xl-primrose-joint-private-stage-v1-20261015/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-primrose-original-v1-20261015.json": null,
+    "3d-viewer/city/data/official-models/government-xl-primrose-joint-private-stage-v1-20261015/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "b1e82235df0f896d4c894142ebca2016bb743207d76b8a26907b590b04693748"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-primrose-original-v1-20261015.json": "8a9ecc30d6dc3d99813e58cdbf14726fe6f7114399371eabb5c7d6d6512e0e5e",
+    "3d-viewer/city/data/official-models/government-xl-primrose-joint-private-stage-v1-20261015/catalogue.json": "0f13e3aa6efeeffba40ba60476de7b9b408f4741c6ccd95f07ec988a0b2b6af5",
+    "3d-viewer/city/data/manifest.json": "e843450c51e4907f23c74e014739b7341ab6cbbf8e5d223174f1cdbdc86d44f1"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "4199b9ad2bd3243ffa863e26a5fe9c1622ec8607",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-primrose-original-v1-20261015.json",
+      "resolution": 5,
+      "area": "Primrose original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "2dd9e8ad0ce5a94bb3bde5ffb0da3c1882cd638f131fa47ef928660166243a80",
+            "revision": "2026-08-27T16:00:00+00:00",
+            "sheet": "7-SW-16B",
+            "sourceETag": "\"2f6cf05-6598a289e9bef\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-74568-0/sheets/7-SW-16B/terrain/TERRAIN(TB)/T30750258000106E12/T30750258000106E12.bin",
+                "sha256": "8a7c5cdf035881b4c441dce3c5e5de27f038eeb728995f7f4f8259ecc92f306b"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-74568-0/sheets/7-SW-16B/terrain/TERRAIN(TB)/T30750258000106E12/T30750258000106E12.gltf",
+                "sha256": "56e751852acb7e0afcace5d7906bf2390e32ace2022afc7a1c77f3e44fe50264"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8a9ecc30d6dc3d99813e58cdbf14726fe6f7114399371eabb5c7d6d6512e0e5e",
+      "bytes": 400655
+    }
+  ],
+  "estimatedBases": []
+}

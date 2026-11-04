@@ -1,0 +1,71 @@
+--- southside_saved_local_core_parent_adapter_v2_20261012.py
++++ southside_saved_local_core_parent_adapter_v3_20261012.py
+@@ -1,6 +1,6 @@
+ """DRAFT Southside-only saved-source local core; no source decode/acceptance.
+-Exact 5m closed projection cells and a declared 10m analytic-distance collar.
+-UNEXECUTED v2: union containment avoids internal mask cuts; original facets
++Exact 5m closed projection cells and a declared 5m one-cell analytic-distance collar.
++UNEXECUTED v3: union containment avoids internal mask cuts; original facets
+ remain separate. Collar interpolation changes and all physical gates remain. Original
+ source layers are retained; original parent planes fill the exterior.
+ """
+@@ -9,7 +9,7 @@
+ import numpy as np
+ import southside_exact_private_terrain_adapter_v1_20261012 as old
+ MODES=('providerOriginal','actualLiteral','explicitLeftAssociatedF32ModelMatrix','explicitBalancedF32ModelMatrix')
+-STEP=F(5);WIDTH=F(10)
++STEP=F(5);WIDTH=F(5)
+ def points(t):return [tuple(F(v)for v in p)for p in t]
+ def normal(t):
+  a,b,c=t;u=[b[k]-a[k]for k in range(3)];v=[c[k]-a[k]for k in range(3)]
+@@ -89,15 +89,15 @@
+     assert found,'complete-original-face-has-no-closed-core-cell'
+     n=normal(polygon);records.append(dict(uid=uid,arithmetic=mode,sourceFace=face_id,sourceSHA256=item['sourceSHA256'],worldSHA256=stream['completeWorldTriangleSHA256'],wholeFacetSHA256=hashlib.sha256(np.asarray(t,dtype='<f8').tobytes()).hexdigest(),completeClosedIntersectingCoreCells=found,zero3DArea=not any(n),zeroXZArea=n[1]==0,qualification='Exact complete closed projection nomination, including vertical/zero cases; no root or grade credit'))
+  assert core
+- active={(c+dx,r+dz)for c,r in core for dx in range(-2,3)for dz in range(-2,3)}
+- assert all(0<=c<cols and 0<=r<rows for c,r in active),'ten-metre-collar-outside-existing-domain'
++ active={(c+dx,r+dz)for c,r in core for dx in range(-1,2)for dz in range(-1,2)}
++ assert all(0<=c<cols and 0<=r<rows for c,r in active),'five-metre-collar-outside-existing-domain'
+  collar=active-core
+  boundary=[]
+  for c,r in sorted(core):
+   x0,z0,x1,z1=cell_rect((c,r),domain)
+   for neighbor,edge in [((c,r-1),[(x0,z0),(x1,z0)]),((c+1,r),[(x1,z0),(x1,z1)]),((c,r+1),[(x1,z1),(x0,z1)]),((c-1,r),[(x0,z1),(x0,z0)])]:
+    if neighbor not in core:boundary.append(dict(cell=[c,r],missingNeighbor=list(neighbor),exactOrientedXZEdge=[[str(v)for v in p]for p in edge]))
+- return core,collar,dict(completeSourceFaceModeRecords=records,completeSourceFaceSlots=len(records),coreCells=sorted(core),collarCells=sorted(collar),completeCoreBoundaryEdgesIncludingEveryInteriorHole=boundary,allClosedProjectionsCovered=True,allPOSITIONVerticesIncludingUnusedBound=True,actualUnusedPositionVertices={u:captures[u]['completeOriginalPOSITIONProof']['originalUnreferencedPositionVertices']for u in captures},stepM=5,collarM=10,GEOSNotUsedForOmission=True,sourceGeometryChanges=0,physicalAccepted=False)
++ return core,collar,dict(completeSourceFaceModeRecords=records,completeSourceFaceSlots=len(records),coreCells=sorted(core),collarCells=sorted(collar),completeCoreBoundaryEdgesIncludingEveryInteriorHole=boundary,allClosedProjectionsCovered=True,allPOSITIONVerticesIncludingUnusedBound=True,actualUnusedPositionVertices={u:captures[u]['completeOriginalPOSITIONProof']['originalUnreferencedPositionVertices']for u in captures},stepM=5,collarM=5,GEOSNotUsedForOmission=True,sourceGeometryChanges=0,physicalAccepted=False)
+ def alpha_at(x,z,core_rectangles):
+  distance=min(max(F(0),r[0]-x,x-r[2],r[1]-z,z-r[3])for r in core_rectangles)
+  return max(F(0),F(1)-distance/WIDTH)
+@@ -167,7 +167,7 @@
+  cells=old_patch['coarseCells'];g=old_patch['meta']['georef'];domain=[F(g['bE'])-old.ORIGIN[0],old.ORIGIN[1]-F(g['bN']),F(g['bE'])-old.ORIGIN[0]+(old_patch['w']-1)*STEP,old.ORIGIN[1]-F(g['bN'])+(old_patch['h']-1)*STEP]
+  core,collar,mask_proof=mask(worlds,captures,domain);core_rects=rectangles(core,domain);active_rects=rectangles(core|collar,domain)
+  parent_regions=[(i,t,bb(t))for i,t in enumerate(old.parent_faces(parent,cells))]
+- output=[];lineage=[];partition=[];whole_core_outputs=[];collapsed=[];parent_packing=[];source_packing=[];zero_touch=[]
++ output=[];lineage=[];partition=[];whole_core_outputs=[];parent_partition=[];collapsed=[];parent_packing=[];source_packing=[];zero_touch=[]
+  for q in saved_account['completeSelectedOriginalFacetAccounts']:
+   if q['sourceKind']not in ['exact-zero-area','domain-boundary-touch-only']:continue
+   polygon=points(q.get('originalTriangle',q.get('exactClippedSourcePoints',[])));assert polygon
+@@ -224,7 +224,7 @@
+    assert not sum((old.intrinsic_area(p,axis)for p in pending),F(0)),'collar-outside-actual-parent-domain'
+    assert parent_covered==old.intrinsic_area(collar_poly,axis)
+   excluded=sum((old.intrinsic_area(p,axis)for p in remaining),F(0));assert covered+excluded==required
+-  partition.append(dict(savedFragmentOutput=q['outputFacet'],globalOriginalFacetId=q['globalOriginalFacetId'],exactWholeIntrinsicArea=str(required),exactLocalIncludedIntrinsicArea=str(covered),exactOutsideLocalSourceIntrinsicArea=str(excluded),outsideLocalSourceReason='Original parent exterior retained; original source remains in immutable inventory/lineage',wholeFragmentPartitionComplete=True))
++  partition.append(dict(savedFragmentOutput=q['outputFacet'],globalOriginalFacetId=q['globalOriginalFacetId'],exactWholeIntrinsicArea=str(required),exactLocalIncludedIntrinsicArea=str(covered),exactOutsideLocalSourceIntrinsicArea=str(excluded),outsideLocalSourceReason='Actual parent retained outside explicitly changed5m active union; every excluded original fragment remains in immutable inventory/lineage',completeExactOutsideLocalSourceFragments=[[[str(v)for v in vertex]for vertex in part]for part in remaining],wholeFragmentPartitionComplete=True))
+  for parent_id,t in enumerate(old.parent_faces(parent,cells)):
+   remaining=[list(t)];required=old.intrinsic_area(list(t),1);removed=F(0)
+   for r in active_rects:
+@@ -233,9 +233,10 @@
+     if not old.closed_xz_touch(bb(p),r):next_remaining.append(p);continue
+     inside,outside=split(p,rect_planes(r),1);removed+=old.intrinsic_area(inside,1);next_remaining.extend(outside)
+    remaining=next_remaining
+-  assert required==removed+sum((old.intrinsic_area(p,1)for p in remaining),F(0))
++  retained=sum((old.intrinsic_area(p,1)for p in remaining),F(0));assert required==removed+retained
++  parent_partition.append(dict(parentFacet=parent_id,exactWholeOriginalParentTriangle=[[str(v)for v in vertex]for vertex in t],exactWholeProjectedArea=str(required),exactRemovedByActiveUnionArea=str(removed),exactRetainedExteriorArea=str(retained),completeExactRetainedParentFragments=[[[str(v)for v in vertex]for vertex in part]for part in remaining],wholeParentTrianglePartitionComplete=True))
+   for p in remaining:emit(p,'retained-parent-exterior',parent_id=parent_id,parent_plane=t)
+  step,w,h,nodes,raw,display,vegetation=old.refined_parent_grid(parent,cells,[float(v)for v in domain])
+- patch=dict(id='government-native-southside-pair-source-local-private-v2',w=w,h=h,cell=float(step),elev=raw,renderedElev=display,vegetation=vegetation,coarseCells=cells,meta=dict(georef=dict(aE=float(step),aN=-float(step),bE=float(domain[0])+old.ORIGIN[0],bN=old.ORIGIN[1]-float(domain[1]),W=w,H=h),targetUids=['landsd/315025:0','landsd/300867:0']),nativeMesh=dict(position=[v for t in output for p in t for v in p],index=list(range(3*len(output))),source=dict(verticalDatum='HKPD',verticalScale=1,policy='Saved original layers in exact closed projection-cell core; explicitly changed10m analytic-distance vertex-interpolated collar; original parent-plane exterior; all physical qualification pending.')))
+- account=dict(completeInputFacets=774477,completeInputSHA256=saved_account['completeInputSHA256'],savedFullSourceInventoryRequired=True,allOriginalZeroAndVerticalIdsRetainedVerbatim=dict(exactZeroOriginalFacetIds=saved_account['exactZeroOriginalFacetIds'],allVerticalRealOriginalFacetIds=saved_account['allVerticalRealOriginalFacetIds']),completeSelectedZeroAndTouchLocalMaskAccount=zero_touch,mask=mask_proof,coreRectangles=[[str(v)for v in r]for r in core_rects],activeRectangles=[[str(v)for v in r]for r in active_rects],completeSavedFragmentPartition=partition,wholeCoreOriginalFragmentsEmittedWithoutInternalMaskCuts=whole_core_outputs,completeOutputFacetLineage=lineage,realOutputFacetsCollapsedByFloat32=collapsed,parentExteriorPackingResiduals=parent_packing,sourceCorePackingChanges=source_packing,wholeAlteredDomainAllPackedAndUnusedGridBounds=old.bbox([*output,*[[[float(v)for v in p]]*3 for p in nodes]]),triangleBudget=25000,triangleBudgetPass=len(output)<=25000,outputFacets=len(output),sourceLayersNeverHeightFiltered=True,noGEOSSourceOmission=True,noSourceDecode=True,noSimplification=True,noOriginalFacetsMerged=True,internalCoreCutsAvoidedOnlyByExactUnionContainment=True,collarInterpolationChangedFromV1=True,packedSurfaceEqualityToV1Claim=False,alphaPolicy='max over core rectangles of min(1, four outward-distance affine terms), clamped below at zero',completeFiniteSeamCoverageAndSamplerQualificationPending=True,sourceGeometryChanges=0,currentAcceptance=False,physicalAccepted=False,installationApproved=False)
++ patch=dict(id='government-native-southside-pair-source-local-private-v3',w=w,h=h,cell=float(step),elev=raw,renderedElev=display,vegetation=vegetation,coarseCells=cells,meta=dict(georef=dict(aE=float(step),aN=-float(step),bE=float(domain[0])+old.ORIGIN[0],bN=old.ORIGIN[1]-float(domain[1]),W=w,H=h),targetUids=['landsd/315025:0','landsd/300867:0']),nativeMesh=dict(position=[v for t in output for p in t for v in p],index=list(range(3*len(output))),source=dict(verticalDatum='HKPD',verticalScale=1,policy='Saved original layers in exact closed projection-cell core; explicitly changed5m one-cell analytic-distance vertex-interpolated collar; original parent-plane exterior; all physical qualification pending.')))
++ account=dict(completeInputFacets=774477,completeInputSHA256=saved_account['completeInputSHA256'],savedFullSourceInventoryRequired=True,allOriginalZeroAndVerticalIdsRetainedVerbatim=dict(exactZeroOriginalFacetIds=saved_account['exactZeroOriginalFacetIds'],allVerticalRealOriginalFacetIds=saved_account['allVerticalRealOriginalFacetIds']),completeSelectedZeroAndTouchLocalMaskAccount=zero_touch,mask=mask_proof,coreRectangles=[[str(v)for v in r]for r in core_rects],activeRectangles=[[str(v)for v in r]for r in active_rects],completeSavedFragmentPartition=partition,wholeCoreOriginalFragmentsEmittedWithoutInternalMaskCuts=whole_core_outputs,completeParentExteriorPartition=parent_partition,completeOutputFacetLineage=lineage,realOutputFacetsCollapsedByFloat32=collapsed,parentExteriorPackingResiduals=parent_packing,sourceCorePackingChanges=source_packing,wholeAlteredDomainAllPackedAndUnusedGridBounds=old.bbox([*output,*[[[float(v)for v in p]]*3 for p in nodes]]),triangleBudget=25000,triangleBudgetPass=len(output)<=25000,outputFacets=len(output),sourceLayersNeverHeightFiltered=True,noGEOSSourceOmission=True,noSourceDecode=True,noSimplification=True,noOriginalFacetsMerged=True,internalCoreCutsAvoidedOnlyByExactUnionContainment=True,collarInterpolationChangedFromV1=True,collarWidthChangedFromV2M=[10,5],packedSurfaceEqualityToV2Claim=False,packedSurfaceEqualityToV1Claim=False,alphaPolicy='max over core rectangles of min(1, four outward-distance affine terms), clamped below at zero',completeFiniteSeamCoverageAndSamplerQualificationPending=True,sourceGeometryChanges=0,currentAcceptance=False,physicalAccepted=False,installationApproved=False)
+  return patch,account

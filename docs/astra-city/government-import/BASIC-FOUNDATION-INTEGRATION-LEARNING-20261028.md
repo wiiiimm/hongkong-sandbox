@@ -1,0 +1,9 @@
+# BASIC foundation integration
+
+Keep ground, collision, visible appearance and full original-model installation separate. The existing illustrative post mechanism can extend BASIC canopy posts without moving their footprints, tops or roof. The solid podium mechanism must preserve its entire body and indices, continue the same footprint below the surveyed base, and bind the exact current local native terrain geometry. These mechanisms never apply to government meshes.
+
+The two current canopy extensions have 6,300 actual production collision probes and 438 complete foreign-surface cases with zero extension-prism contacts. All three private BASIC changes have bounded visual reviews. This does not approve reverse closed-solid containment, structural engineering, source boundary ownership, roof placement, model support availability or publication. Keep raw roof context, hidden areas and source residency in the evidence.
+
+Strict source-form hashes can differ even where Python dict equality passes: the current tile stores terrainAudit.resolutions:[70.0], while the earlier prepared form stored [70]. The strict publisher correctly rejected that preparation. Fresh footing fragment V2 binds the exact live tile form and separately proves JavaScript value equality and exact production geometry attribute equality before and after the footing. Never weaken the hash gate or silently replace evidence. New metadata or geometry differences require fresh review of their actual effect.
+
+The real BASIC-only footing stager now accepts the fresh V2 fragment entirely in memory and still rejects the old unapproved draft. Public viewer files were not written. The conditional exact east-terrain owner, unsuppressed BASIC-only state and future native-replacement checks remain mandatory. Read the end of the current XL handoff for receipts and the pending original-model acceptance work.

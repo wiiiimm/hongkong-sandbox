@@ -1,0 +1,68 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-opus-qualified-stage-v1-20261017/plan.json",
+  "areas": [
+    {
+      "area": "Opus Hong Kong original assembly",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-opus-qualified-stage-v1-20261017/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-xl-opus-qualified-stage-v1-20261017-terrain.json": null,
+    "3d-viewer/city/data/official-models/government-xl-opus-qualified-stage-v1-20261017/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c89710f42402016eba3c2d44d91bb428d5241afffe6285e788344ae3cdf03fbe"
+  },
+  "after": {
+    "3d-viewer/city/data/government-xl-opus-qualified-stage-v1-20261017-terrain.json": "7ecbab0f0ba7709c49cf08b8a8a21845b443abac733d65e738bfe73983fb89a1",
+    "3d-viewer/city/data/official-models/government-xl-opus-qualified-stage-v1-20261017/catalogue.json": "fb5a350ba59f52a23c2371a2684dc9490ab6fe150d7bfade339248964e9fd351",
+    "3d-viewer/city/data/manifest.json": "de5a04e896ddb7755bb24ffa8175044302e39e8d0976d3dd4b29178f242df2e9"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "496d1f7a97220b85af4400e13ed725aa42191737",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-xl-opus-qualified-stage-v1-20261017-terrain.json",
+      "resolution": 5,
+      "area": "Opus original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-opus-two-sheet-terrain-v1-20261016/terrain/TERRAIN(TB)/T36000144000106E11/T36000144000106E11.gltf",
+            "provenance": "docs/astra-city/government-import/government-xl-opus-two-sheet-terrain-v1-20261016/summary.json",
+            "sha256": "382773e66be09533354d2517c83d6949314bd11855ad1b8b5e42c877747f42fe"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-opus-original-terrain-v1-20261016/terrain/TERRAIN(TB)/T35250144000106E11/T35250144000106E11.gltf",
+            "provenance": "docs/astra-city/government-import/government-xl-opus-two-sheet-terrain-v1-20261016/summary.json",
+            "sha256": "4c27c8253af90faeea7d5c526e4027eee583123896c111ab6ab480a31492ebb4"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "7ecbab0f0ba7709c49cf08b8a8a21845b443abac733d65e738bfe73983fb89a1",
+      "bytes": 2427625
+    }
+  ],
+  "estimatedBases": []
+}

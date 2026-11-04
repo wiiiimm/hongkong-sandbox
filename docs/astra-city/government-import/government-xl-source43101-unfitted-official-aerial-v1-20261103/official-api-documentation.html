@@ -1,0 +1,827 @@
+
+
+
+
+
+
+<!-- Include Header --> 
+
+
+
+
+
+
+
+
+
+	
+
+
+<!DOCTYPE html>
+<html class="dj_webkit dj_chrome dj_contentbox" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+
+<title id="idPageTitle">Imagery Map API</title>
+
+<meta name="keywords" content="Common Spatial Data Infrastructure,CSDI,SDO,Spatial Data Office,Spatial Data,Annual Spatial Data Plans,空間數據共享平台,空間數據辦事處,香港空間數據,空間數據,年度空間數據計劃,空间数据共享平台,空间数据办事处,香港空间数据,空间数据,年度空间数据计划,Geospatial data,地理空间数据,地理空間數據,Open data,开放数据,開放數據,Government data,政府数据,政府數據,Information sharing,信息共享,信息共享,Smart city,智慧城市,智慧城市,Map-based digital infrastructure,基于地图的数字基础设施,基於地圖的數字基礎設施">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/csdi-webpage/resources/icons/fontawesome-free-6.2.1-web/css/all.min.css">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://static.csdi.gov.hk/csdi-webpage/resources/icons/favicon.ico">
+<link rel="stylesheet" href="https://static.csdi.gov.hk/csdi-webpage/resources/css/bootstrap.css">
+<link rel="stylesheet" href="https://static.csdi.gov.hk/csdi-webpage/resources/2024-revamp/css/style.css">
+
+<!-- Date Picker -->
+<link rel="stylesheet" type="text/css" href="/csdi-webpage/resources/plugins/datepicker/css/bootstrap-datepicker.min.css" >
+
+<!-- DataTables -->
+<link rel="stylesheet" href="https://static.csdi.gov.hk/csdi-webpage/resources/plugins/DataTables/datatables.min.css" >
+
+<!-- jQuery -->
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/HKCSDI_files/jquery-4.0.0.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/HKCSDI_files/bootstrap-5.3.3.min.js"></script>
+
+<!-- Date Picker -->
+<script type="text/javascript" src="/csdi-webpage/resources/plugins/datepicker/js/bootstrap-datepicker.min.js" ></script>
+<script type="text/javascript" src="/csdi-webpage/resources/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.min.js" ></script>
+<script type="text/javascript" src="/csdi-webpage/resources/plugins/datepicker/locales/bootstrap-datepicker.zh-TW.min.js" ></script>
+
+<!-- DataTables -->
+<script type="text/javascript" src="https://static.csdi.gov.hk/csdi-webpage/resources/plugins/DataTables/datatables.min.js"></script>
+
+<!-- SheetJs -->
+<script type="text/javascript" src="https://static.csdi.gov.hk/csdi-webpage/resources/plugins/SheetJS/xlsx.full.min.js"></script>
+
+
+<!-- Apple -->
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
+
+<!-- Support multilingual-->
+<script src="https://static.csdi.gov.hk/3.38/dojo/dojo.js"
+		data-dojo-config="'packages':[{'name': 'csdi-webpage', 'location':'/csdi-webpage'}], locale: 'en', extraLocale: ['en', 'zh-hk', 'zh-cn']">
+</script>
+
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    
+    
+	  
+	  
+	    _paq.push(['setSiteId', '3']);
+        
+	  
+     
+    
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+
+</head>
+
+<body class="">
+<div id="custom-banner" class="custom-banner"></div>
+<div class="g-app" data-dojo-attach-point="contentNode" id="csdiapp" widgetid="app">
+  <a class="visually-hidden-focusable skip-to-content" href="#app">
+  		
+  			
+  			
+  				Skip to main content
+  			
+  		
+	</a>
+  
+<!-- Notification -->
+<div id="site-notification"></div>
+  
+<!-- Header Nav Start -->
+<header class="site-header" id="csdi-nav-header"></header>
+
+<main class="site-main" id="app" tabindex="-1">
+ <div class="d-none" id="idUserLang">en</div>
+ <!--  div style="border-top:2px solid #09825D;"></div -->
+
+<!-- Header Nav End -->  
+
+ <script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/_header.js"></script>
+ 
+ <script>
+	function changeLang(curLang) {
+	  var curURL = location.href.toLowerCase();
+	  var jsessionid = "/csdi-webpage/";
+	  var sInx = jsessionid.indexOf(';jsessionid=');
+		 
+      $.ajax({
+                url: "/csdi-webpage/ToLang",
+                type: "GET",
+                data: { lang: curLang, meta: ''},
+                success: function (sessionID) {
+             	   window.localStorage.setItem('csdi-lang',curLang);
+             	   window.localStorage.setItem('csdi-maplang',curLang);
+             	   if (location.protocol == 'http:' && sInx>=0 && curURL.indexOf(';jsessionid=')<0) {
+             		   var newURL = location.href + jsessionid.substr(sInx);
+             		   window.location.replace(newURL);
+             	   }
+             	   else                  	     
+              	      location.reload(false);
+                  }
+              });
+		 
+	}
+	
+	function loadHeader() {
+	   var navName = $('#idNavName').html();
+	   if (navName == null) navName='Null';
+	   
+	   // Load CSDI Header
+	   $.ajax({
+	            url: "/csdi-webpage/info/getHeader",
+	            type: "GET",
+	            data: { site: 'csdi', nav: navName},
+	            async: false,
+	            success: function (result) {
+	                  $('#csdi-nav-header').html(result);   	   
+	        }
+	   });
+	   
+		// Load CSDI Notification
+		$.ajax({
+			url: "/csdi-webpage/getNotification",
+			type: "GET",
+			async: false,
+			success: function (result) {
+				$('#site-notification').html(result);   	   
+			}
+		});
+	}
+</script>
+ 
+ 
+<!-- End TextSize Modal by Lang-->
+
+ 
+
+<!-- Body Start-->
+<div class="page-map-apis-doc container" id="csdi-info-content">
+	<br>
+	<div class="tab-content container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="calcite-web">
+					<div class="card-base">
+						<div class="card-content">
+							<h4 id="api_page_title" class="contentTitle">Imagery Map API</h4>
+							<div class="contentSmallTitle" style="background-color: #d9534f; color: white; padding: 10px; border-radius: 5px; font-weight: bold;">
+								The existing API service domain "https://mapapi.geodata.gov.hk" will be deprecated on 15 March 2027. Please update to the new service domain "https://mapapi.hkmapservice.gov.hk" as soon as possible.
+							</div>
+							<div class="contentSmallTitle">
+          						Description
+							</div>
+							<div class="contentSmallText">
+								Imagery Map API, one of the LandsD Map APIs, is a XYZ Map Tile Service which enables application developers to retrieve imagery map tiles. The service is available from zoom level 7-20 for "HK80" spatial reference system and 0-20 for "WGS84" spatial reference system.
+							</div>
+							<div class="contentSmallTitle">
+          						Important Notice on Map API
+							</div>
+							<div class="contentSmallText">
+								In order to maintain the quality of the Map API service, your application shall not invoke the API with large amount of requests within a short period.
+								<br><br>
+								The use of the Map APIs (including base map details) provided on this website is subject to the <a href='/csdi-webpage/doc/TNC' style='text-decoration: underline; cursor: pointer;'>Terms and Conditions as well as the IP Rights Notice</a> of LandsD Map API. You are required to include Lands Department logo on the map face and Copyright Notice to attribute Lands Department’s data in your map applications.
+								<br><br>
+								Copyright Notice:
+								<ul class="browser-default hkgeohub_query_parameters_description_ul">
+									<li>Map from Lands Department</li>
+									<li>Aerial Photograph from Lands Department</li>
+									<li>Guangdong-Hong Kong-Macao Greater Bay Area Satellite Image 2024 (Satellite Images from Landsat)</li>									
+									<li>Pan-Pearl River Delta Satellite Image 2016 (Satellite Images from Landsat)</li>
+									<li>Globe Satellite Image 2001 (Satellite Images from MODIS)</li>
+								</ul>
+								<br>
+								Disclaimer Notice:
+								<br>
+								The map information including Digital Map, Digital Aerial Photo, Digital Orthophoto and Satellite Image provided on this web site is protected by copyright owned by the Government of the Hong Kong Special Administrative Region (the “Government”). No express or implied warranty is given to the accuracy or completeness of such map information or its appropriateness for use in any particular circumstances. The Government is not responsible for any loss or damage whatsoever arising from any cause in connection with such map information or with this web site.
+								<br><br>
+								The Guangdong-Hong Kong-Macao Greater Bay Area Satellite Image (“the Satellite Image”) is prepared by the Survey and Mapping Office of the Lands Department of the Government. It contains modified Landsat 8 / Landsat 9 satellite images captured in 2024, which covered the entire Guangdong-Hong Kong-Macao Greater Bay Area for reference of the public. Users should make their own assessment of the Satellite Image and are advised to verify the information therein before use.
+								<br><br>
+								Application of the Satellite Image is restricted by National Aeronautics and Space Administration (NASA) and U.S. Geological Survey (USGS). Users shall refer to the “Data Use and Citation Guidance” at <a href="https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance#toc-licensing-and-copyright" style='text-decoration: underline; cursor: pointer;'>https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance#toc-licensing-and-copyright</a> and “Acknowledging or Crediting USGS” at <a href="https://www.usgs.gov/information-policies-and-instructions/acknowledging-or-crediting-usgs" style='text-decoration: underline; cursor: pointer;'>https://www.usgs.gov/information-policies-and-instructions/acknowledging-or-crediting-usgs</a> respectively.
+								<br><br>
+								Note:
+								<br>
+								API service will no longer supports user systems and client systems that are not compliant with the Transport Layer Security (TLS) 1.2 protocol after 1 December 2023.
+								<br><br>
+								<input type="checkbox" name="checkbox-termsAndCondition" id="checkbox-termsAndCondition" style='cursor: pointer;'>
+								<label for="checkbox-termsAndCondition" style='cursor: pointer;'>I have read and agreed to the above Terms of Use</label>
+							</div>
+							
+							<div id="apiInfo" style="display:none;">
+								<div class="contentSmallTitle">
+	          						API URL
+								</div>
+								<div class="contentSmallText">
+									URL Format:
+									<div class="api-copyBox">
+										<pre><code>https://mapapi.hkmapservice.gov.hk/gs/api/[version]/xyz/imagery/[sr]/[z]/[x]/[y].png</code></pre>
+									</div>
+									Example URL:
+									<div id="api_full_list" class="api-copyBox">
+										<a id="example_url" href="https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/HK80/11/287/385.png" target="_blank">
+											<pre><code>https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/HK80/11/287/385.png</code></pre>
+										</a>
+									</div>
+								</div>
+								<div class="contentSmallTitle">
+	          						Query Parameters
+								</div>
+								<div class="contentSmallText">
+									<ul class="browser-default hkgeohub_query_parameters_description_ul">
+										<li id="text_parameter_v">
+											[version] specifies the version number of this API, which is currently "v1.0.0".  Notes:  The version number may be updated in the future. Old version will be removed at any time without notice. Please check this page to get the list of supported version and update your application(s) accordingly.
+										</li>
+										<li id="text_parameter_id">
+											[sr] specifies the spatial reference system:
+											<ul>
+												<li id="hkgs-value-wgs84" >Use value "WGS84" to specify the "WGS84" spatial reference system</li>
+												<li id="hkgs-value-hk80" >Use value "HK80" to specify the "HK80" spatial reference system</li>
+											</ul>
+										</li>
+										<li id="text_parameter_lang">
+											[z] specifies the zoom level (7-20 for HK80 or 0-20 for WGS84) of the map tile under the XYZ Tile Scheme
+										</li>
+										<li id="text_parameter_hk80_extent">
+											[x] specifies the x position of the map tile under the XYZ Tile Scheme
+										</li>
+										<li id="text_parameter_wgs84_extent">
+											[y] specifies the y position of the map tile under the XYZ Tile Scheme
+										</li>
+									</ul>
+								</div>
+								<div class="contentSmallTitle">
+	          						Response
+								</div>
+								<div class="contentSmallText">
+									Map tiles will be returned in PNG format.
+								</div>
+								<div class="contentSmallTitle">
+	          						Status Codes
+								</div>
+								<div class="contentSmallText">
+									This API uses the standard HTTP status code to indicate the status of the API request.
+									<br/><br/>
+									<div class="table-responsive">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Status Code</th>
+													<th>Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>200</td>
+													<td>OK</td>
+												</tr>
+												<tr>
+													<td>204</td>
+													<td>No Content</td>
+												</tr>
+												<tr>
+													<td>500</td>
+													<td>Internal Server Error</td>
+												</tr>						
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="contentSmallTitle">
+	          						Build a Query URL
+								</div>
+								<div class="contentSmallText">
+									<div class="table-responsive">
+										<table class="table table-striped table-hover table-bordered">
+											<thead>
+												<tr>
+													<th>Description</th>
+													<th>Parameter</th>
+													<th>Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Spatial Reference System</td>
+													<td>[sr]</td>
+													<td>
+														<select id="input-sr">
+															<option id="option_wgs84" value="WGS84" selected>"WGS84" spatial reference system</option>
+															<option id="option_hk80" value="HK80">"HK80" spatial reference system</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td>Zoom Level</td>
+													<td>[z]</td>
+													<td>
+														<select id="input-z">	
+															<option id="option_0" value="0">0</option>
+															<option id="option_1" value="1">1</option>
+															<option id="option_2" value="2">2</option>
+															<option id="option_3" value="3">3</option>
+															<option id="option_4" value="4">4</option>
+															<option id="option_5" value="5">5</option>
+															<option id="option_6" value="6">6</option>
+															<option id="option_7" value="7">7</option>
+															<option id="option_8" value="8">8</option>
+															<option id="option_9" value="9">9</option>														
+															<option id="option_10" value="10">10</option>
+															<option id="option_11" value="11">11</option>
+															<option id="option_12" value="12">12</option>
+															<option id="option_13" value="13">13</option>
+															<option id="option_14" value="14">14</option>
+															<option id="option_15" value="15">15</option>
+															<option id="option_16" value="16">16</option>
+															<option id="option_17" value="17" selected>17</option>
+															<option id="option_18" value="18">18</option>
+															<option id="option_19" value="19">19</option>
+															<option id="option_20" value="20">20</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td><label for="input-x">Map Tile X Position</label></td>
+													<td>[x]</td>
+													<td>
+														<input type="text" id="input-x" value="107104">
+													</td>
+												</tr>
+												<tr>
+													<td><label for="input-y">Map Tile Y Position</label></td>
+													<td>[y]</td>
+													<td>
+														<input type="text" id="input-y" value="57177">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<script>
+											function updateInputXYValue(zValue, srValue){
+												switch(zValue){
+													case '0':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="0";
+															document.getElementById("input-y").value="0";
+														}
+													break; 
+													case '1':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="0";
+															document.getElementById("input-y").value="1";
+														}
+													break;
+													case '2':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="0";
+															document.getElementById("input-y").value="3";
+														}
+													break;
+													case '3':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="0";
+															document.getElementById("input-y").value="2";
+														}
+													break;
+													case '4':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="14";
+															document.getElementById("input-y").value="9";
+														}
+													break;
+													case '5':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="27";
+															document.getElementById("input-y").value="19";
+														}
+													break;
+													case '6':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="53";
+															document.getElementById("input-y").value="29";
+														}
+													break;
+													case '7':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="114";
+															document.getElementById("input-y").value="72";
+														}else{
+															document.getElementById("input-x").value="18";
+															document.getElementById("input-y").value="24";
+														}
+													break;
+													case '8':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="209";
+															document.getElementById("input-y").value="111";
+														}else{
+															document.getElementById("input-x").value="36";
+															document.getElementById("input-y").value="47";
+														}
+													break;
+													case '9':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="418";
+															document.getElementById("input-y").value="223";
+														}else{
+															document.getElementById("input-x").value="71";
+															document.getElementById("input-y").value="96";
+														}
+													break;
+													case '10':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="836";
+															document.getElementById("input-y").value="446";
+														}else{
+															document.getElementById("input-x").value="143";
+															document.getElementById("input-y").value="192";
+														}
+													break; 
+													case '11':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="1673";
+															document.getElementById("input-y").value="892";
+														}else{
+															document.getElementById("input-x").value="286";
+															document.getElementById("input-y").value="384";
+														}
+													break;
+													case '12':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="3347";
+															document.getElementById("input-y").value="1788";
+														}else{
+															document.getElementById("input-x").value="574";
+															document.getElementById("input-y").value="770";
+														}
+													break;
+													case '13':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="6695";
+															document.getElementById("input-y").value="3574";
+														}else{
+															document.getElementById("input-x").value="1149";
+															document.getElementById("input-y").value="1540";
+														}
+													break;
+													case '14':
+														if(srValue== "WGS84"){
+															document.getElementById("input-x").value="13388";
+															document.getElementById("input-y").value="7150";
+														}else{
+															document.getElementById("input-x").value="2298";
+															document.getElementById("input-y").value="3080";
+														}
+													break;
+													case '15':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="26778";
+															document.getElementById("input-y").value="14303";
+														}else{
+															document.getElementById("input-x").value="4597";
+															document.getElementById("input-y").value="6165";
+														}
+													break;
+													case '16':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="53558";
+															document.getElementById("input-y").value="28603";
+														}else{
+															document.getElementById("input-x").value="9197";
+															document.getElementById("input-y").value="12326";
+														}
+													break;
+													case '17':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="107104";
+															document.getElementById("input-y").value="57177";
+														}else{
+															document.getElementById("input-x").value="18389";
+															document.getElementById("input-y").value="24621";
+														}
+													break;
+													case '18':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="214220";
+															document.getElementById("input-y").value="114422";
+														}else{
+															document.getElementById("input-x").value="36785";
+															document.getElementById("input-y").value="49279";
+														}
+													break;
+													case '19':
+														if(srValue == "WGS84"){	
+															document.getElementById("input-x").value="428443";
+															document.getElementById("input-y").value="228844";
+														}else{
+															document.getElementById("input-x").value="73567";
+															document.getElementById("input-y").value="98563";
+														}
+													break;
+													case '20':
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="856941";
+															document.getElementById("input-y").value="457654";
+														}else{
+															document.getElementById("input-x").value="147205";
+															document.getElementById("input-y").value="197178";
+														}
+													break;
+													default:
+														if(srValue == "WGS84"){
+															document.getElementById("input-x").value="107104";
+															document.getElementById("input-y").value="57177";
+														}else{
+															document.getElementById("input-x").value="18389";
+															document.getElementById("input-y").value="24621";
+														}
+													break;
+												}
+											}
+											document.getElementById("input-x").addEventListener('change', () => {
+												changeUrl("query_url_url","https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/[sr]/[z]/[x]/[y].png",["input-sr","input-z","input-x","input-y"]);
+											});
+											document.getElementById("input-y").addEventListener('change', () => {
+												changeUrl("query_url_url","https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/[sr]/[z]/[x]/[y].png",["input-sr","input-z","input-x","input-y"]);
+											});
+											document.getElementById("input-z").addEventListener('change', () => {											
+												var zValue = document.getElementById("input-z").value;
+												var srValue = document.getElementById("input-sr").value;
+												updateInputXYValue(zValue, srValue);
+												changeUrl("query_url_url","https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/[sr]/[z]/[x]/[y].png",["input-sr","input-z","input-x","input-y"]);
+											});
+											document.getElementById("input-sr").addEventListener('change', () => {
+												var zValue = document.getElementById("input-z").value;
+												var srValue = document.getElementById("input-sr").value;
+												if(document.getElementById("input-sr").value == "HK80"){
+													if(document.getElementById("input-z").value < 7){
+														document.getElementById("option_7").selected = true;
+													}
+													for(var i = 0; i < 7; i++){
+														document.getElementById("option_"+i).style.display = "none";
+													}
+												}else{
+													for(var i = 0; i < 7; i++){
+														document.getElementById("option_"+i).style.display = "block";
+													}
+												}
+												updateInputXYValue(zValue, srValue);
+												
+												var sampleCode = (srValue =="WGS84")?"osm84olimagery-en.html":"osm80olimagery-en.html";
+												document.getElementById('hkgs-api-sample-iframe').src = 'https://api.hkmapservice.gov.hk/mapapi/sandbox/index-en.html?inline-theme-white%20expand%20preview%20show-link%20no-title#!demos/' + sampleCode;
+
+												changeUrl("query_url_url","https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/[sr]/[z]/[x]/[y].png",["input-sr","input-z","input-x","input-y"]);
+											});
+											window.onload = (event) =>{
+												changeUrl("query_url_url","https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/[sr]/[z]/[x]/[y].png",["input-sr","input-z","input-x","input-y"]);
+											}
+										</script>
+									</div>
+									Query URL
+									<div id="query_url" class="api-copyBox">
+										<a id="query_url_url" style="width:calc(100% - 20px)" href="https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/WGS84/17/107104/57177.png" target="_blank">
+											<pre><code>https://mapapi.hkmapservice.gov.hk/gs/api/v1.0.0/xyz/imagery/WGS84/17/107104/57177.png</code></pre>
+										</a>
+									</div>
+								</div>
+								<div class="contentSmallTitle">
+	          						Sample Source Code and Preview
+								</div>
+								<div class="contentSmallText">
+									<iframe id="hkgs-api-sample-iframe" class="hkgs-show-contents" src="https://api.hkmapservice.gov.hk/mapapi/sandbox/index-en.html?inline-theme-white%20expand%20preview%20show-link%20no-title#!demos/osm84olimagery-en.html" style=""></iframe>
+								</div>
+							</div>
+							<div class="contentSmallTitle">
+          						Contact Information 
+							</div>
+							<div class="contentSmallText">
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th colspan="2">Contact</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Organisation</td>
+												<td>Lands Department</td>
+											</tr>
+											<tr>
+												<td>Position</td>
+												<td>Map API Support Team</td>
+											</tr>
+											<tr>
+												<td>Email Address</td>
+												<td>mapapi@landsd.gov.hk</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+
+    
+    
+    
+        <!-- Link copied notification -->
+		<div id="linkCopiedAlert" class="alert alert-warning">
+			Text Copied
+		</div>
+	
+		<!-- Link copy failed notification -->
+		<div id="linkCopyFailedAlert" class="alert alert-danger">
+			Text Copy Failed, URL to you to copy: 
+			<span id="linkCopyFailedAlertContent"></span>
+	
+			<button id="linkCopyFailedAlertClose" type="button" class="close"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+    
+
+</div>
+
+
+
+
+    
+    
+    
+        <a class="back-to-top" href="#" title="Back to Top">
+		    <span aria-hidden="true" class="icon sprite-icons sprite-icons--caret-up">
+		        <svg>
+		            <use xlink:href="/csdi-webpage/resources/2024-revamp/images/sprite-icons.svg#caret-up"></use>
+		        </svg>
+		    </span><!-- .sprite-icons--caret-up -->
+		</a><!-- .back-to-top -->
+    
+
+<div class="site-overlay" id="overlay"></div>
+<!-- Body End-->
+
+
+
+<!-- Include Footer -->  
+ 
+
+
+<!-- off #app div -->
+</main>
+
+<footer class="site-footer">
+	<div class="container">
+		<div class="row align-items-end">
+
+			<div class="col-12 col-md-7 col-lg-8">
+				<nav aria-label="Footer Links" class="site-footer__nav">
+					<ul>
+
+						<li>
+							<a href="/csdi-webpage/ContactUs" id="ftContactUs">Contact Us</a>
+						</li>
+
+						<li>
+							<a href="/csdi-webpage/info/SiteMap" id="ftSiteMap">Site Map</a>
+						</li>
+
+						<li>
+							<a href="/csdi-webpage/Provider" id="ftProvider">Data Providers</a>
+						</li>
+
+						<li>
+							
+								
+								
+									<a href="/csdi-webpage/doc/TNC" id="ftTNC">Terms and Conditions</a>			         
+								
+				            
+			            </li>
+
+						<li>
+							<a href="/csdi-webpage/info/FAQ" id="ftFAQ">FAQ</a>
+						</li>
+
+					</ul>
+				</nav><!-- .site-footer__nav -->
+			</div><!-- .col -->
+
+			<div class="col-12 col-md-5 col-lg-4">
+				<div class="site-footer__info">
+
+					<div class="site-footer__copyright" id="ftCopyright">
+						Copyright © 2024 All rights reserved
+					</div><!-- .site-footer__copyright -->
+
+					<a class="site-footer__wcag" href="https://www.w3.org/WAI/WCAG2AA-Conformance" target="_blank"
+						title="Explanation of WCAG 2 Level AA conformance">
+						<img alt="Level AA conformance, W3C WAI Web Content Accessibility Guidelines 2.0"
+							src="https://static.csdi.gov.hk/csdi-webpage/resources/2024-revamp/images/wcag2AA-v.svg">
+					</a><!-- .site-footer__wcag -->
+
+					<span class="ftVersion" id="ftVersion" onload="getVersion('OPEN','VERSION')"></span>
+
+				</div><!-- .site-footer__info -->
+			</div><!-- .col -->
+
+		</div><!-- .row -->
+	</div><!-- .container -->
+</footer><!-- .site-footer -->
+
+</div><!-- #csdiapp -->
+
+<!-- Footer Start-->
+
+<!-- Success modal start -->
+<div class="modal fade" id="successAlert" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title fs-5" id="successAlertTitle">Success</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div id="successAlertContent" class="modal-body">
+				Success
+			</div>
+			<div class="modal-footer">
+				<button id="successAlertClose" type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Success modal end -->
+
+<!-- Error modal start -->
+<div class="modal fade" id="errorAlert" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title fs-5" id="errorAlertTitle">Error occur</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div id="errorAlertContent" class="modal-body">
+				Error message listed below:
+			</div>
+			<div class="modal-footer">
+				<button id="errorAlertClose" type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Error modal end -->
+
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/HKCSDI_files/custom.js"></script>
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/common.js"></script>
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/2024-revamp/js/script.js"></script>
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/_footer.js"></script>
+
+
+
+   <script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/apidoc.js"></script>
+   
+
+
+
+</body>
+</html>
+
+ 
+ 

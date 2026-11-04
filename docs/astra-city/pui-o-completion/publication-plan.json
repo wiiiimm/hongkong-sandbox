@@ -1,0 +1,30 @@
+{
+  "staged": true,
+  "area": "Pui O",
+  "selectedForms": 919,
+  "matchedModels": 681,
+  "sourceUpdates": {
+    "estimatedBasesOnlyWhenBothSourceElevationsAbsent": 140,
+    "sourceRecordedFieldsUnchanged": true,
+    "foundationMode": "preserve"
+  },
+  "terrainSource": "source-scripts/city/pui-o-completion/terrain-pui-o.json",
+  "terrainDestination": "3d-viewer/city/data/terrain-pui-o.json",
+  "catalogueSource": "source-scripts/city/pui-o-completion/compact/catalogue.json",
+  "catalogueURL": "city/data/official-models/pui-o/catalogue.json",
+  "catalogueManifestKey": "officialModelCatalogues",
+  "existingCatalogues": [
+    "city/data/official-models/central/catalogue.json",
+    "city/data/official-models/central-west-wing/catalogue.json",
+    "city/data/official-models/island-corridor/catalogue.json"
+  ],
+  "existingPatchURLs": [
+    "city/data/terrain-mui-wo.json",
+    "city/data/terrain-tai-o.json",
+    "city/data/terrain-tsing-ma-ting-kau.json",
+    "city/data/terrain-central.json"
+  ],
+  "retainedHydroSha256": "ce7c46f54096cf3d29c523fd07dff01eb4fc578435e4d7210fcd5c84721d7fd3",
+  "policy": "Reuse publish_models with an empty embedded geometry map: update labelled absent-elevation estimates/terrain audit only, then append compact catalogue. All current forms, other models, patches, hydro and existing manifest entries are preserved.",
+  "applyCommand": "/tmp/astra-city-venv/bin/python source-scripts/city/pui-o-completion/publish.py --apply"
+}

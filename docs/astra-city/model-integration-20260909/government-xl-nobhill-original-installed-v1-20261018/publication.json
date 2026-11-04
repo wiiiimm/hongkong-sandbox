@@ -1,0 +1,90 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-nobhill-qualified-stage-v1-20261018/plan.json",
+  "areas": [
+    {
+      "area": "Nob Hill four unchanged originals",
+      "models": 4,
+      "catalogue": "city/data/official-models/government-xl-nobhill-qualified-stage-v1-20261018/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-nobhill-original-v1-20261018.json": null,
+    "3d-viewer/city/data/official-models/government-xl-nobhill-qualified-stage-v1-20261018/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ebc87cbb6b0dc93a33bb7b1db07f876f26b098f9b054e41ba2abd709fd8e1597"
+  },
+  "after": {
+    "3d-viewer/city/data/government-nobhill-original-v1-20261018.json": "65ffa9565f8e524138d632b1eafbd8e8edda602cc87937c1cabb62c6f3868d65",
+    "3d-viewer/city/data/official-models/government-xl-nobhill-qualified-stage-v1-20261018/catalogue.json": "6dd8f146e56171da325884f1ce0e561d1a9cd2d030518d1ae6d149e143efc7f3",
+    "3d-viewer/city/data/manifest.json": "dcc4ba9cbd70ae81737d8542bcac94421c76aeb5c2217239f57b7c75877a02a2"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "60f4e60c5556a06e1e0de2fab4aa8c9f15db0eac",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-nobhill-original-v1-20261018.json",
+      "resolution": 5,
+      "area": "Nob Hill original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "85e8cf60b62f6e5688f7f80de1949a23eccfc816f3b80121cde129a270ebe5ef",
+            "revision": "2026-08-27T16:00:00+00:00",
+            "sheet": "11-NW-7A",
+            "sourceETag": "\"31b5424-6598a39f02567\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-7A/terrain/TERRAIN(TB)/T31500222000106E12/T31500222000106E12.bin",
+                "sha256": "fb247b75e088e9e70c2aaa5267337fbe1129ceecc3e9bdcb76b22fd26bb244a6"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-7A/terrain/TERRAIN(TB)/T31500222000106E12/T31500222000106E12.gltf",
+                "sha256": "fe4c71c72373fdb48c7da5bb6c43d5fd7f94015a7f99f0ac5120aad6b59e246a"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "00f61bbae074e6f0268eed1d1bf67d6f73cc3269fd6a4ef0a6bc296802c9dd08",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "sheet": "11-NW-7B",
+            "sourceETag": "\"3477e5c-64e62c6d58cc8\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-nobhill-laichikok-adjoining-terrain-v1-20261017/11-NW-7B/terrain/TERRAIN(TB)/T32250222000106E11/T32250222000106E11.bin",
+                "sha256": "41d449cad3ee6252f4e85856f1b9d0803f80edd80d6468545f4fc7a888c2d04e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-nobhill-laichikok-adjoining-terrain-v1-20261017/11-NW-7B/terrain/TERRAIN(TB)/T32250222000106E11/T32250222000106E11.gltf",
+                "sha256": "e16dc7131a4986cd996da74360bf84b4e46a76994cfb034d1f815ec24d8c4170"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "65ffa9565f8e524138d632b1eafbd8e8edda602cc87937c1cabb62c6f3868d65",
+      "bytes": 194046
+    }
+  ],
+  "estimatedBases": []
+}

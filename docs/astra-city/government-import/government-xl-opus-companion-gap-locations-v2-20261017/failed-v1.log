@@ -1,0 +1,13 @@
+3 1.5477799960151592e-05 False
+20 4.168466131408014e-06 False
+21 4.36234290961206e-06 False
+32 8.006800646421689e-06 False
+53 5.453385652548609e-07 False
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/opus_companion_gap_locations_v1_20261017.py", line 27, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/opus_companion_gap_locations_v1_20261017.py", line 23, in main
+    area=sum(abs(signed_area(p)) for p in remaining);assert area==Fraction(row['proof']['completeOriginalProjectionCoverage']['exactUncoveredAreaM2'])
+                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'exactUncoveredAreaM2'

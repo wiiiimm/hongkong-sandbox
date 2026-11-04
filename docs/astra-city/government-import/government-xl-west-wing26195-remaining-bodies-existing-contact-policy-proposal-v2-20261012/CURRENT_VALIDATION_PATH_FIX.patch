@@ -1,0 +1,11 @@
+--- source-scripts/city/government-import/west_wing26195_current_remaining_bodies_existing_contact_policy_draft_v2_20261012.py-before-path-only
++++ source-scripts/city/government-import/west_wing26195_current_remaining_bodies_existing_contact_policy_draft_v2_20261012.py
+@@ -8,7 +8,7 @@
+ BASE=P.R.BASE;BATCH='government-xl-west-wing26195-current-remaining-bodies-existing-contact-policy-v2-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=BASE/'government-xl-west-wing26195-remaining-bodies-existing-contact-policy-proposal-v2-20261012';FREEZER=HERE/'west_wing26195_freeze_current_remaining_bodies_existing_contact_policy_draft_v2_20261012.py';TEST=HERE/'test_west_wing26195_remaining_bodies_conditional_typed_graph_draft_v2_20261012.py';POLICY=HERE/'original_ordinary_ground_root_graph_20261009.py';ref=P.ref
+ 
+ def validation():
+- v=read(PROPOSAL/'test-validation.json');assert v['exactTests']==11 and v['exitCode']==0 and v['noDBQueries']and v['noReservations'];assert v['codeRefs']==[ref(p)for p in [Path(H.__file__),TEST,Path(__file__),FREEZER]];assert ref(ROOT/v['testLog']['path'])==v['testLog'];s=(ROOT/v['testLog']['path']).read_text();assert 'Ran 11 tests'in s and s.rstrip().endswith('OK');return [ref(PROPOSAL/'test-validation.json')]+v['codeRefs']+[v['testLog'],ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'POLICY_DIFF.patch'),ref(POLICY)]
++ v=read(PROPOSAL/'current-binding-validation-v2.json');assert v['exactTests']==11 and v['exitCode']==0 and v['noDBQueries']and v['noReservations'];assert v['codeRefs']==[ref(p)for p in [Path(H.__file__),TEST,Path(__file__),FREEZER]];assert ref(ROOT/v['testLog']['path'])==v['testLog'];s=(ROOT/v['testLog']['path']).read_text();assert 'Ran 11 tests'in s and s.rstrip().endswith('OK');return [ref(PROPOSAL/'current-binding-validation-v2.json')]+v['codeRefs']+[v['testLog'],ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'POLICY_DIFF.patch'),ref(POLICY)]
+ 
+ def inputs(expected_body0_sha):
+  scope,prior,certificate=P.inputs();path=L.DOC/'result.json';assert ref(path)['sha256']==expected_body0_sha;r=read(path);assert r['sourceOnly']and not r['physicalAccepted']and not r['installationApproved']

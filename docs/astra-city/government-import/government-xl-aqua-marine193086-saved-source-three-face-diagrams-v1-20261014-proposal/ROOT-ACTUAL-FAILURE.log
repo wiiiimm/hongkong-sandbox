@@ -1,0 +1,44 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 68, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 63, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 60, in owned
+    DOC.mkdir();render(packet,pulse);refs=distinct_refs(refs+[ref(p)for p in DOC.rglob('*')if p.is_file()]);fence();module(attribution.prior.FREEZER,'aqua_three_diagram_freezer').freeze(BATCH,'saved-source-diagrams-private-scientific-context-no-acceptance',[check(q)for q in refs],dict(uids=[attribution.prior.UID],sourceOnly=True,physicalAccepted=False,newlyInstalled=0))
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 41, in render
+    surface(mesh[take],'#b9bec2');surface(ground[gt],'#c7b78c',ga,'#988766',.12)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 40, in surface
+    if len(t):ax.add_collection3d(Poly3DCollection(plot_xyz(t),facecolors=color,edgecolors=edge,linewidths=width,shade=alpha==1.,lightsource=LightSource(315,40),alpha=alpha))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/mpl_toolkits/mplot3d/art3d.py", line 1296, in __init__
+    kwargs['edgecolors'] = _shade_colors(
+                           ^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/mpl_toolkits/mplot3d/art3d.py", line 1752, in _shade_colors
+    colors = norm(shade)[:, np.newaxis] * color
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/numpy/ma/core.py", line 4350, in __mul__
+    return multiply(self, other)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/numpy/ma/core.py", line 1072, in __call__
+    result = self.f(da, db, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (22735,1) (0,4) 
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 68, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py", line 65, in main
+    try:save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-aqua-marine193086-saved-source-three-face-diagrams-v1-20261014/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua_marine193086_saved_source_context_diagrams_v1_20261014.py', '--owned']' returned non-zero exit status 1.

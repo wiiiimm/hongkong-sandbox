@@ -1,0 +1,1 @@
+Read-only exploratory views of existing The Center facade components. No model/source/material modifications or new acceptance decisions were made. Preserve the existing native model and OSM facade-layer identity distinction; further judgement is parked with the modelling session.

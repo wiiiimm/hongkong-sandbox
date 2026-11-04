@@ -1,0 +1,38 @@
+{
+  "batch": "government-xl-kowloon-city-civic-peninsula-podium-diagnostics-v1-20261029",
+  "uids": [
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/230911:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-kowloon-city-civic-peninsula-podium-current-ground-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-kowloon-city-civic-two-obligations-cached-v1-20261029",
+        "--uid",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-kowloon-city-civic-peninsula-podium-attributes-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-kowloon-city-civic-peninsula-podium-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-kowloon-city-civic-peninsula-podium-identity-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-kowloon-city-civic-peninsula-podium-current-ground-v1-20261029"
+      ]
+    }
+  ]
+}

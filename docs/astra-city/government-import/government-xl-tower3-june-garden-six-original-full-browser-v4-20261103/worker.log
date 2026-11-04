@@ -1,0 +1,35 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.503}
+Production catalogue parser: six unchanged originals accepted
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.624}
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.562}
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.521}
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.484}
+Full browser viewport completed 1280
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.511}
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.665}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/june_garden_six_original_full_browser_v3_20261103.py", line 183, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/june_garden_six_original_full_browser_v3_20261103.py", line 154, in main
+    subprocess.run(['node',str(tool),'staged',str(phase.relative_to(ROOT))],
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ronsdale_three_live_browser_v16_20261027.mjs', 'staged', 'source-scripts/city/government-import/local/government-xl-tower3-june-garden-six-original-full-browser-v4-20261103/config-390.json']' returned non-zero exit status 1.
+{"reservationAction": "release", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.491}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/june_garden_six_original_full_browser_v3_20261103.py", line 183, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/june_garden_six_original_full_browser_v3_20261103.py", line 37, in main
+    return execute_reserved(c['reservation'],lp,[sys.executable,__file__,*sys.argv[1:],'--owned'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v2_20261103.py", line 32, in execute_reserved
+    assert result.returncode==0,'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

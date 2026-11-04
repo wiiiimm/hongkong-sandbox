@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "id": "pui-o-beach-edge-walk",
+  "title": "Pui O beach edge",
+  "sectionId": "10.7",
+  "stage": "source-grounded continuous-navigation verification pending",
+  "centreline": [
+    [
+      -18849.591659286758,
+      5229.251075937063
+    ],
+    [
+      -18840.731691925088,
+      5233.50390005915
+    ],
+    [
+      -18817.21504029585,
+      5247.443159077782
+    ],
+    [
+      -18807.914037512848,
+      5253.412927363883
+    ],
+    [
+      -18792.525635656668,
+      5263.277483133599
+    ],
+    [
+      -18713.945411772933,
+      5305.648067505332
+    ],
+    [
+      -18656.50322611921,
+      5328.3795676492155
+    ],
+    [
+      -18620.6951024367,
+      5347.9377581718145
+    ],
+    [
+      -18583.090962018352,
+      5373.732545555453
+    ],
+    [
+      -18551.285021189018,
+      5395.223205057555
+    ],
+    [
+      -18507.036747282604,
+      5425.145766834845
+    ],
+    [
+      -18465.159160925192,
+      5454.910100077046
+    ],
+    [
+      -18407.728945961106,
+      5495.57960215176
+    ],
+    [
+      -18380.649906955892,
+      5521.614973183954
+    ]
+  ],
+  "nodeIds": [
+    2685070696,
+    419630070,
+    419630071,
+    564614067,
+    419630072,
+    564612545,
+    6577853312,
+    6577853313,
+    564612547,
+    6577853319,
+    6577853322,
+    564612548,
+    6577853321,
+    564612549
+  ],
+  "lengthMetres": 555.0663143833431,
+  "segments": [
+    {
+      "fromIndex": 0,
+      "toIndex": 13,
+      "sourceWayId": 107501760,
+      "sourceUrl": "https://www.openstreetmap.org/way/107501760",
+      "tags": {
+        "highway": "footway"
+      },
+      "kind": "path"
+    }
+  ],
+  "stops": [
+    {
+      "id": "beach-west-edge",
+      "index": 0,
+      "sourceNodeId": 2685070696
+    },
+    {
+      "id": "beach-east-edge",
+      "index": 13,
+      "sourceNodeId": 564612549
+    }
+  ],
+  "publicAccessReviewed": true,
+  "continuousWalkVerified": false,
+  "sourceOffsets": [],
+  "sources": [
+    {
+      "file": "source-scripts/city/snapshots/outlying-west.json.gz",
+      "sha256": "f648dd46291480f2f9efd113f0d52e40b5b49793ca68846ea78c013028dcd5ff",
+      "snapshot": "2026-09-06T05:51:35Z",
+      "attribution": "OpenStreetMap contributors",
+      "licence": "ODbL-1.0"
+    },
+    {
+      "url": "https://www.islands.gov.hk/en/explores-lantau-south-pui-o-beach.php",
+      "publisher": "Islands District Office",
+      "reviewed": "2026-09-07",
+      "supports": "Public beach and its visitor facilities; current source page revised 15 May 2026. Exact line comes from retained OSM, not a traced photograph."
+    }
+  ],
+  "limits": [
+    "Exact retained public footway only; no invented connectors or private wetland access.",
+    "The inland connection from the existing Pui O village arrival uses unclassified/residential roads and needs separate shared-road review.",
+    "No survey-level access or tide clearance claim; actual staged-terrain navigation is checked separately."
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "cases": [
+    {
+      "case": "baseline",
+      "failure": null,
+      "errors": [],
+      "tileHTTP": [
+        {
+          "status": 200,
+          "sha256": "4707eb03803e99700dadccb86c2062ce4333f81acee4b0448f8c116efbd90810",
+          "url": "http://127.0.0.1:4177/city/data/tiles/0_-1.json"
+        }
+      ],
+      "state": {
+        "uid": "landsd/211702:0",
+        "selectedId": null,
+        "loadingTravel": false,
+        "travelling": false,
+        "movementReady": true,
+        "basicLoaded": true,
+        "detailActive": true,
+        "sourceErrors": [],
+        "modelErrors": [],
+        "sourceRunning": []
+      },
+      "installationApproved": false
+    },
+    {
+      "case": "terrain-only",
+      "failure": null,
+      "errors": [],
+      "tileHTTP": [
+        {
+          "status": 200,
+          "sha256": "4707eb03803e99700dadccb86c2062ce4333f81acee4b0448f8c116efbd90810",
+          "url": "http://127.0.0.1:4177/city/data/tiles/0_-1.json"
+        }
+      ],
+      "state": {
+        "uid": "landsd/211702:0",
+        "selectedId": null,
+        "loadingTravel": false,
+        "travelling": false,
+        "movementReady": false,
+        "basicLoaded": false,
+        "detailActive": false,
+        "sourceErrors": [
+          {
+            "key": "0_-1",
+            "name": "Error",
+            "message": "Native terrain contains an uncovered point",
+            "stack": "Error: Native terrain contains an uncovered point\n    at sample (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:41:120)\n    at http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:169\n    at renderedPatchHeight (http://127.0.0.1:4177/city/rendered-patch-height.js:4:44)\n    at Object.height (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:98)\n    at patchHeight (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:28:25)\n    at Object.height (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:118)\n    at patchHeight (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:28:25)\n    at Object.height (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:118)\n    at http://127.0.0.1:4177/city/road-surface.js:13:57\n    at Array.map (<anonymous>)",
+            "cause": null
+          }
+        ],
+        "modelErrors": [],
+        "sourceRunning": [
+          "0_0",
+          "-1_-1"
+        ]
+      },
+      "installationApproved": false
+    },
+    {
+      "case": "terrain-and-sources",
+      "failure": null,
+      "errors": [],
+      "tileHTTP": [
+        {
+          "status": 200,
+          "sha256": "4707eb03803e99700dadccb86c2062ce4333f81acee4b0448f8c116efbd90810",
+          "url": "http://127.0.0.1:4177/city/data/tiles/0_-1.json"
+        }
+      ],
+      "state": {
+        "uid": "landsd/211702:0",
+        "selectedId": null,
+        "loadingTravel": false,
+        "travelling": false,
+        "movementReady": false,
+        "basicLoaded": false,
+        "detailActive": false,
+        "sourceErrors": [
+          {
+            "key": "0_-1",
+            "name": "Error",
+            "message": "Native terrain contains an uncovered point",
+            "stack": "Error: Native terrain contains an uncovered point\n    at sample (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:41:120)\n    at http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:169\n    at renderedPatchHeight (http://127.0.0.1:4177/city/rendered-patch-height.js:4:44)\n    at Object.height (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:98)\n    at patchHeight (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:28:25)\n    at Object.height (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:118)\n    at patchHeight (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:28:25)\n    at Object.height (http://127.0.0.1:4177/city/geo.js?v=20261010-finite1:51:118)\n    at http://127.0.0.1:4177/city/road-surface.js:13:57\n    at Array.map (<anonymous>)",
+            "cause": null
+          }
+        ],
+        "modelErrors": [],
+        "sourceRunning": [
+          "0_0",
+          "-1_-1"
+        ]
+      },
+      "installationApproved": false
+    }
+  ],
+  "inputHashes": {
+    "source-scripts/city/government-import/local/government-xl-one-peking-after-twin-cycle-private-browser-v3-20261101/browser-config-1280.json": "29e3a602157ec69a781889d11948589039a4a6207a695b46b8f93f23ae11271f",
+    "3d-viewer/city/data/manifest.json": "0091cb1b564ceffb73a05142748ec1687a91b1bf2075a069e2f2816b8e943b87",
+    "source-scripts/city/government-import/local/government-xl-one-peking-after-twin-cycle-private-browser-v3-20261101/catalogue.json": "833439afade730bdf2d544c9134274e6904878de6bf98043c6c7d75799b511e9",
+    "3d-viewer/city/data/tiles/0_-1.json": "4707eb03803e99700dadccb86c2062ce4333f81acee4b0448f8c116efbd90810",
+    "source-scripts/city/government-import/one_peking_browser_tile_failure_v1_20261101.mjs": "32071d8ba4f23c38a2c3f2bc455484fa30f8cc092e1a5ea7b9ec261559070ddf",
+    "3d-viewer/city/app.js": "e3a206a5a0b66f3dc59a68059d6ecff0ea5f2414b550775ed82a70dc8bd34176",
+    "3d-viewer/city/streaming.js": "591847a111834630b6a328b59a4a42b2c0a4c0d5bf6170361d28d15f7bb813a1",
+    "3d-viewer/city/tile-cache.js": "d9f475120ea72a59e02e2f39e44fc124ba0c8bfffcf5f29722d5a30b867b631f",
+    "docs/astra-city/government-import/government-xl-one-peking-after-twin-cycle-preparation-v2-20261101/unapproved-successor-terrain.json": "7a486724a9eeedc19cab6c4036c590c20151401f53da4ce7633a09d748db9cef"
+  },
+  "publication": false,
+  "modelGeometryChanges": 0,
+  "installationApproved": false
+}

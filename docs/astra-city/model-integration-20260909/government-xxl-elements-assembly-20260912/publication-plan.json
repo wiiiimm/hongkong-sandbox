@@ -1,0 +1,137 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xxl-elements-assembly-20260912/plan.json",
+  "areas": [
+    {
+      "area": "Elements estate original government source assembly",
+      "models": 38,
+      "catalogue": "city/data/official-models/government-xxl-elements-assembly-20260912/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-elements-native.json": null,
+    "3d-viewer/city/data/official-models/government-xxl-elements-assembly-20260912/catalogue.json": null,
+    "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json": "32e2114acb96e5bbc2598a973c37815c9c1bfaade7cf2a2dfaedd991f2422132",
+    "3d-viewer/city/data/manifest.json": "033ac6a8d0c81103a168c5d403cdc0b3187bb7b4c77403f826f65ff76648e4c9"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-elements-native.json": "96239912595be7cbf9af4a629de1d994d255428b60310dfcf6b6533fb0e4bc6b",
+    "3d-viewer/city/data/official-models/government-xxl-elements-assembly-20260912/catalogue.json": "62032d41fc02e4a103b9f258ae24a6ac7b97d2037a38a322a3af27128a816a10",
+    "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json": "54214372512c738bc7da3caf1ae95605dd4773dc34ba2111dbd5812e292b7ce3",
+    "3d-viewer/city/data/manifest.json": "c3067224902186d81fe7a49a3429ee653739bae101fed8d8eb77309b0e00ddc5"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "4a3bb19594b49d7acd54366c02d2ceaafcea744c",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-elements-native.json",
+      "resolution": 1,
+      "area": "Elements original native terrain",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-NW-24C",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/manifest.json",
+            "manifestSha256": "297974937fba5a24f30866e9b53acaa9842df9d3ec8357935df92510cd76e0c1",
+            "worldBounds": [
+              [
+                0.0,
+                -14.173528671264648,
+                -2100.0
+              ],
+              [
+                750.0,
+                12.377494812011719,
+                -1500.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/TERRAIN(TB)/T34500180000106E11/T34500180000106E11-geometry.gltf",
+                "sha256": "69ee3f47e057ee1bd0f689c585a529036096cbb4dc060fe0e0f206a852f6b400",
+                "bytes": 1414
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/TERRAIN(TB)/T34500180000106E11/T34500180000106E11.bin",
+                "sha256": "0a89380e17ecd14dc2d5edce3ea9ef0247b1233b7d823a17299d27050dfaa20f",
+                "bytes": 15830640
+              }
+            ],
+            "sourceFilesVerified": true
+          },
+          {
+            "sheet": "11-NW-24A",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NW-24A/manifest.json",
+            "manifestSha256": "db90c32fb69db095b31c630fbb1a5d21970dff66ab69759e869bf9d40244ed83",
+            "worldBounds": [
+              [
+                0.0,
+                -2.7592926025390625,
+                -2700.0
+              ],
+              [
+                750.0,
+                12.0088529586792,
+                -2100.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NW-24A/TERRAIN(TB)/T34500186000106E13/T34500186000106E13-geometry.gltf",
+                "sha256": "0d0d65a67f5da902cd04e6f51c36be500ae2396eaa681b29c69c7822081aa70f",
+                "bytes": 1412
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NW-24A/TERRAIN(TB)/T34500186000106E13/T34500186000106E13.bin",
+                "sha256": "798d9d80f095bc4932874b9f3b967d5de2b023dbad507ddbdffbc0450dc831b6",
+                "bytes": 15563772
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "96239912595be7cbf9af4a629de1d994d255428b60310dfcf6b6533fb0e4bc6b",
+      "bytes": 4661751
+    }
+  ],
+  "dependencyUpdates": [
+    {
+      "uid": "landsd/204153:0",
+      "assetUnchanged": "57666dc12e50e064772f94f23c20cd8adc802d9feac9aac41d69d43cffd883fb",
+      "before": [
+        {
+          "uid": "landsd/273061:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3469118345P20050809",
+          "distance": 0.3798484802246094
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/273061:0",
+          "state": "candidate"
+        }
+      ]
+    }
+  ],
+  "estimatedBases": []
+}

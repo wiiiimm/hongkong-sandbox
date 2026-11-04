@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_upward_floor_terrain_return_v3_20261030.py", line 67, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_upward_floor_terrain_return_v3_20261030.py", line 35, in main
+    after,proof=inset_faces(terrain,source);assert len(after)<=25000 and after[:,:,1].min()>=1.2
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_original_upward_floor_domains_v1_20261029.py", line 23, in inset
+    before=out;out,proof=single_inset(before,ramps[indices],core_margin,return_width)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_original_upward_floor_return_v1_20261029.py", line 32, in inset
+    below=lower_region(polygon,floor-coeff)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ronsdale_local_inset_v2_20261022.py", line 19, in lower_region
+    return shapely.union_all([convex_lower_region(p,difference)for p in polygons])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/china_merchants_finite_inset_v4_20261021.py", line 24, in lower_region
+    assert abs(repaired.area-result.area)<=1e-12
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}

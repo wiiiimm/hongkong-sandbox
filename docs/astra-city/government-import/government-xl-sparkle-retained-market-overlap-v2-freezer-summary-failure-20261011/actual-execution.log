@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2.py", line 99, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2.py", line 96, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2.py", line 94, in owned
+    spec=importlib.util.spec_from_file_location('sparkle_market_overlap_freeze',HERE/helpers[-1]);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.freeze(BATCH,'complete-sparkle-retained-market-four-world-closed-projection-and-3d-contact-diagnostic-v2',[ROOT/p['path']for p in refs]+[DOC/'diagnostic.json.gz',DOC/'partial-overlap-diagnostic.json.gz'],dict(currentManifest=start,completeOriginalFacets=60546,completeLabelledWorldPairs=16,currentAcceptance=False,nativeReacceptance=False,sourceGeometryChanges=0,terrainChanges=0,newlyInstalled=0))
+                                                                                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 17, in freeze
+    payload={'uids':result['uids'],'evidenceRefs':refs};jid=jobs.enqueue(batch,stage,payload);job=jobs.claim(batch,lease['owner'],[stage],lease_seconds=1800);assert job and job['id']==jid
+                    ~~~~~~^^^^^^^^
+KeyError: 'uids'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2.py", line 99, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2.py", line 98, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-retained-market-complete-projection-contact-diagnostic-v2.py', '--owned']' returned non-zero exit status 1.

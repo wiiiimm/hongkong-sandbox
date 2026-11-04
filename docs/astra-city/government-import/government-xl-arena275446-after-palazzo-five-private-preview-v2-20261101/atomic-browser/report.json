@@ -1,0 +1,135 @@
+{
+  "diagnosticOnly": true,
+  "physicalAcceptance": false,
+  "installationApproved": false,
+  "publication": false,
+  "cases": [
+    {
+      "name": "1280-success",
+      "width": 1280,
+      "failedUid": null,
+      "failureKeptAllBasics": false,
+      "capture": {
+        "fullyFramed": true,
+        "withinUnchangedInitialLoadRanges": true,
+        "cameraDistance": 1222.7717848011107,
+        "ranges": [
+          {
+            "uid": "landsd/275446:0",
+            "distance": 979.8096779410698,
+            "limit": 2500
+          },
+          {
+            "uid": "landsd/318704:0",
+            "distance": 1213.3861002717263,
+            "limit": 2500
+          },
+          {
+            "uid": "landsd/318722:0",
+            "distance": 1324.196730334907,
+            "limit": 2500
+          },
+          {
+            "uid": "landsd/318697:0",
+            "distance": 1206.2207238340313,
+            "limit": 2500
+          },
+          {
+            "uid": "landsd/318701:0",
+            "distance": 1203.9824131760097,
+            "limit": 2500
+          }
+        ],
+        "viewDirection": [
+          -1,
+          1.6,
+          1
+        ]
+      },
+      "sources": [
+        {
+          "uid": "landsd/275446:0",
+          "sha256": "8277969df373528689a5bf630bbd60c9b71d547e5951fc3a6eb3aa444c0b6880",
+          "triangles": 28751,
+          "active": true
+        },
+        {
+          "uid": "landsd/318697:0",
+          "sha256": "1666001d2ad115e4c0e54745ab9c264ea0303e88eee4e41fe6670fe88f323088",
+          "triangles": 2423,
+          "active": true
+        },
+        {
+          "uid": "landsd/318701:0",
+          "sha256": "f46f829360ab7cc03d6b9adfdf841f5202a1f6350d0f480a5bd16764a0784201",
+          "triangles": 1390,
+          "active": true
+        },
+        {
+          "uid": "landsd/318704:0",
+          "sha256": "510493f1bb9dbac6e95b1afe98181b0b98c38f6df4d5cd14a01381cde3e2bed7",
+          "triangles": 4425,
+          "active": true
+        },
+        {
+          "uid": "landsd/318722:0",
+          "sha256": "412c27daf774a3d14cf7dd23e316a06f01fae4f009ddd7a3b7877c33bd359f75",
+          "triangles": 918,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/275446:0",
+          "landsd/318697:0",
+          "landsd/318701:0",
+          "landsd/318704:0",
+          "landsd/318722:0"
+        ],
+        "frames": 430,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 256,
+            "active": [
+              "landsd/275446:0",
+              "landsd/318697:0",
+              "landsd/318701:0",
+              "landsd/318704:0",
+              "landsd/318722:0"
+            ]
+          },
+          {
+            "frame": 286,
+            "active": []
+          },
+          {
+            "frame": 335,
+            "active": [
+              "landsd/275446:0",
+              "landsd/318697:0",
+              "landsd/318701:0",
+              "landsd/318704:0",
+              "landsd/318722:0"
+            ]
+          },
+          {
+            "frame": 429,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    }
+  ],
+  "pageErrors": [],
+  "performanceAcceptance": false,
+  "error": "page.evaluate: Error: Atomic capture outside unchanged initial-load range: landsd/318704:0\n    at eval (eval at evaluate (:291:30), <anonymous>:10:307)\n    at Array.map (<anonymous>)\n    at eval (eval at evaluate (:291:30), <anonymous>:10:25)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/model_atomic_lifecycle_browser_v3_20261101.mjs:36:15"
+}

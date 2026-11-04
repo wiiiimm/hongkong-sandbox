@@ -1,0 +1,36 @@
+"""Two exact source visual interpretations; no full-role/root/physical acceptance."""
+import hashlib,json
+from fractions import Fraction as Q
+UID='landsd/26195:0';SOURCE='50da67a3a009c3c832d2bfdbd08640c89d958ef8cf077d1c172e7059900f8af9';MANIFEST='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540';FACES={108:list(range(45369,45377)),113:[46081,46082]}
+def sha(v):return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+def input_binding(mount,visual,census,graph):return dict(mountSHA256=sha(mount),sourceVisualSHA256=sha(visual),completeOriginalCensusSHA256=sha(census),completeCurrentGraphSHA256=sha(graph))
+def contributors(edge):
+ inventory=edge['completeHostInventory'];hosts=inventory['completeFiniteBandCandidateHostIDs'];out=set()
+ for order in edge['allThreeExactCoordinateOrderProofs']:
+  p=order['finiteEdgeProof']
+  if not p:continue
+  for field,interval,flag in [('allFiniteOriginalFacetIntervals','exactProjectedFootCoverageInterval','entireIntervalWithinFixedBand'),('exactFiniteOriginalEdgeIntervals','exactCoverageInterval','entireIntervalWithinFixedBand'),('allExactClippedUncoveredBranchRecords','exactClippedInterval','entireClosedClippedIntervalWithinFixedBand')]:
+   for row in p[field]:
+    a,b=map(Q,row[interval])
+    if row[flag]and a<b:out.add(hosts[row['originalSurfaceFace']])
+ return sorted(out)
+def verify(mount,visual,census,graph,source,*,expected_binding):
+ assert input_binding(mount,visual,census,graph)==expected_binding,'Complete frozen source/context binding differs'
+ assert source==dict(uid=UID,sourceSHA256=SOURCE),'Wrong exact provider source identity';assert visual['source']['sha256']==SOURCE and visual['completeOriginalFaces']==46918 and visual['completeOriginalBodies']==118 and len(visual['outputs'])==7
+ assert visual['sourceOnly']and not any(visual[k]for k in ['geometryChanges','pixelWarp','architectureRoleAccepted','physicalAccepted','installationApproved']);assert mount['sourceOnly']and mount['completeFaces']==46918 and mount['completeOriginalBodies']==118 and mount['completeGroundFaces']==3240
+ assert not any(mount[k]for k in ['physicalAccepted','bodySupportAccepted','gradeRootAccepted','installationApproved','sourceGeometryChanges','terrainGeometryChanges']);assert mount['all42OrdinaryFailuresAnd443StrictUncertifiedRetained']and mount['literalBody113PointOnlyNegativePreserved']and mount['unchangedOpeningV3TwoCycleRejectionPreserved']and mount['allPrior17Plus24PlusSeed153PathsPreserved']
+ assert mount['currentManifest']['sha256']==MANIFEST and graph['allFourStreamBindings']==mount['allFourStreamBindings'];bindings=mount['allFourStreamBindings'];assert set(bindings)=={'original','literal','explicitLeftF32','explicitBalancedF32'}and all(b['completeFaces']==46918 for b in bindings.values());assert visual['fullOriginalWorldSHA256']==bindings['original']['wholeWorldSHA256']
+ bodies=census['sharedEdgeConnectedComponents'];partition=[i for ids in bodies for i in ids];assert len(bodies)==118 and not census['exactNonrenderingOriginalFaces']and sorted(partition)==list(range(46918))and len(set(partition))==46918;assert {b:bodies[b]for b in FACES}==FACES
+ roles={};host_obligations={}
+ for mode,binding in bindings.items():
+  x=mount['distinctBodyAssociationContexts'][binding['proofTupleSHA256']];assert x['wholeWorldSHA256']==binding['wholeWorldSHA256']and x['all118BodyObligationsRemainUnqualified']and x['body0GroundRoleRemainsConditional'];a=x['bodies']['108'];b=x['bodies']['113']
+  for item,body in [(a,108),(b,113)]:
+   assert not any(item[k]for k in ['visualRoleAccepted','structuralRootCredit','structuralBridgeCredit','physicalAccepted','installationApproved']);top=item['completeSourceTopology'];assert not top['nonzeroBodyCensus']['exactNonrenderingOriginalFaces']and top['nonzeroBodyCensus']['sharedEdgeConnectedComponents']==[FACES[body]];host=item['completeStrictHostInventory'];assert host['completeMainBodySourceFaces']==bodies[0]and not host['strictHostGroundedIndependently']and not host['wholeBody0RootAccepted']
+  assert a['openingV3RejectionPreserved']and a['higherCompleteBoundaryRetainedUnfilled']and a['allFourMinimumRimEdgesAssociatedContext'];assert sorted(map(len,a['completeSourceTopology']['completeDirectedBoundaryCycles']))==[4,4]
+  prior=a['priorFourMinimumEdgeFiniteBandProofsReusedVerbatim'];assert prior['completeBodyFaces']==FACES[108]and prior['unchangedOpeningV3Rejection']['rejected']and not prior['completeLowerOpeningAssociated'];assert len(prior['allFourMinimumEdgeProofs'])==4 and all(p['proof']['verifiedCompleteOriginalEdgeContactBand']for p in prior['allFourMinimumEdgeProofs']);assert prior['completeHostFaces']==[45185,46408,46409]
+  assert b['allFreeOriginalEdgesRetained']and b['mountingEdgeDesignationNotAutomatic']and b['wholeBandAssociatedBoundaryEdgeIndices']==[0];assert len(b['allFourBoundaryEdgeDiagnostics'])==4 and len(b['completeSourceTopology']['completeDirectedBoundaryEdges'])==4
+  edges=b['allFourBoundaryEdgeDiagnostics'];edge=edges[0]['interface'];assert edges[0]['sourceFace']==46081 and edge['wholePositiveLengthFiniteBandContext']and edge['exactWholeEdgeCertifiedIntervalUnion']==[['0','1']];assert contributors(edge)==[46080],'Exact complete mounted-side witness differs';assert not any(e['interface']['wholePositiveLengthFiniteBandContext']for e in edges[1:]);raw=b['priorWholeHostBandAndLiteralPointFailuresReusedVerbatim'];assert raw['literalPointOnlyContactNegativeNotRewritten']and not raw['completeTwoFaceFixedBandAssociationContextOnly']and not raw['wholeBodySupportCredit']
+  roles[mode]=dict(body108=dict(kind='original-upright-open-ended-visual-surface',completeFaces=FACES[108],completeMountingRimProof=prior,freeHigherBoundaryRetained=True,openingV3Rejected=True),body113=dict(kind='original-horizontal-projecting-visual-surface',completeFaces=FACES[113],completeMountedSide=edge,allOtherFreeOrPartialBoundaryInterfaces=edges[1:],oldWholeBandAndLiteralPointNegatives=raw),engineeringFunctionUnknown=True,structuralRootCredit=False,structuralBridgeCredit=False,physicalAccepted=False,installationApproved=False)
+  host_obligations[mode]=dict(body0=0,actualMountingHostFaces=[45185,46080,46408,46409],strictFacetClearanceProvedButBody0GroundQualificationMissing=True,independentGroundedHostCertificateRequired=True)
+ remaining=sorted(set(range(118))-set(FACES));assert len(remaining)==116
+ return dict(contract='west-wing-two-source-bound-open-projecting-visual-surface-context-v1',uid=UID,sourceSHA256=SOURCE,sourceRevisionAndObservedSurfaceInterpretationBound=True,completeSourceFaces=46918,completeOriginalBodies=118,allFourWorldSourceBindings=bindings,sourceVisualOnlyBodies=[108,113],fourWorldSourceVisualRoleContexts=roles,independentlyGroundedHostObligations=host_obligations,remaining116BodyRolesUnqualified=remaining,allProperInteriorCrossingsRemainUnqualified=True,all118BodyObligationsRetained=True,all42OrdinaryAnd443StrictUncertifiedRetained=True,fullRoleReconciliationAccepted=False,bodySupportAccepted=False,gradeRootAccepted=False,physicalAccepted=False,installationApproved=False,legacyAcceptanceBackfillAllowed=False,sourceGeometryChanges=0,binding=expected_binding)

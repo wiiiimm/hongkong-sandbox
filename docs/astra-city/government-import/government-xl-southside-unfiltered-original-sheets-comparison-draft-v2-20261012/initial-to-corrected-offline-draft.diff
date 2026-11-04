@@ -1,0 +1,34 @@
+--- preserved-initial-unexecuted-draft
++++ source-scripts/city/government-import/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py
+@@ -10,7 +10,7 @@
+ CONTEXT=BASE/'government-xl-southside-315025-300867-upward-current-failures-context-v2-20261012'
+ ORIGINAL_DRAFT=BASE/'government-xl-southside-unfiltered-original-sheets-comparison-draft-v1-20261012'
+ DRAFT=BASE/'government-xl-southside-unfiltered-original-sheets-comparison-draft-v2-20261012'
+-PRIOR_BATCH='government-xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012'
++PRIOR_BATCH='government-xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012'
+ PRIOR_LOCAL=HERE/'local'/PRIOR_BATCH
+ ROOT_VALIDATION=BASE/'government-xl-original-installation-followup-20261011/root-southside-coverage-reuse-tests-20261012.json'
+ BATCH='government-xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+@@ -60,7 +60,7 @@
+  audit_pin=descriptor['preservedRetirementAudit'];audit_path=ROOT/audit_pin['path'];assert digest(audit_path.read_bytes())==audit_pin['sha256'];audit=read(audit_path);refs.append(audit_path)
+  assert audit['priorBatch']==PRIOR_BATCH and audit['priorLeaseReleased'] is True and audit['noOwnedOrSupervisorProcessRemaining'] is True and audit['currentManifestSHA256']==MANIFEST and audit['currentAcceptance'] is False
+  log_pin=descriptor['preservedV1RunLog'];log_path=ROOT/log_pin['path'];assert digest(log_path.read_bytes())==log_pin['sha256'];refs.append(log_path)
+- prior_lease=read(PRIOR_LOCAL/'reservation.json');assert prior_lease['lease_id']==audit['priorLeaseId'];refs.append(PRIOR_LOCAL/'reservation.json')
++ prior_lease_path=PRIOR_LOCAL/'reservation.json';prior_lease=read(prior_lease_path);assert digest(prior_lease_path.read_bytes())==audit['priorLeaseFileSHA256']and prior_lease['batch']==PRIOR_BATCH;refs.append(prior_lease_path)
+  checkpoints={}
+  for pin in descriptor['completedWholeModeCheckpoints']:
+   uid,mode=pin['uid'],pin['arithmetic'];assert uid in UIDS and mode in MODES and (uid,mode)not in checkpoints
+@@ -135,7 +135,12 @@
+   for mode in MODES:
+    world=np.asarray(data[uid]['completeWorldStreams'][mode]['completeWorldTriangles'],dtype='<f8');old=oldrows[uid,mode];records=[]
+    if (uid,mode)in resume:
+-    reused=verified_complete_mode(resume[uid,mode],uid,mode,world,gsha,old);rows.append(reused);save(LOCAL/('reused-complete-'+uid.split('/')[1].replace(':','-')+'-'+mode+'.json.gz'),reused);print(json.dumps(dict(uid=uid,mode=mode,reusedCompleteOriginalFacets=len(world),noFiniteRecomputation=True)),flush=True);continue
++    reused=verified_complete_mode(resume[uid,mode],uid,mode,world,gsha,old);rows.append(reused)
++    for q in reused['completeOriginalFaceComparisons']:
++     key=(q['completeOriginalFacetSHA256'],gsha);proof=q['unfilteredAuthenticatedOriginalGroundComparison']
++     if key in cache:assert cache[key]==proof
++     else:cache[key]=proof
++    save(LOCAL/('reused-complete-'+uid.split('/')[1].replace(':','-')+'-'+mode+'.json.gz'),reused);print(json.dumps(dict(uid=uid,mode=mode,reusedCompleteOriginalFacets=len(world),noFiniteRecomputation=True)),flush=True);continue
+    for i,face in enumerate(world):
+     fsha=digest(face.tobytes());assert old['allCompleteOriginalFiniteRecords'][i]['sourceFace']==i and old['allCompleteOriginalFiniteRecords'][i]['completeOriginalFacetSHA256']==fsha;key=(fsha,gsha)
+     if key not in cache:

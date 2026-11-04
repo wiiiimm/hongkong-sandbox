@@ -1,0 +1,33 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-starmart57455-current-finite-collision-draft-v1-20261014/heritage-starmart-current-finite-draft-v1.py
++++ docs/astra-city/government-import/government-xl-heritage165054-starmart57455-current-finite-collision-draft-v2-20261014/heritage-starmart-current-finite-draft-v2.py
+@@ -3,7 +3,7 @@
+ from pathlib import Path
+ PACKET=Path(__file__).resolve().parent;ROOT=PACKET.parents[3]
+ HERE=ROOT/'source-scripts/city/government-import';CONTRACT=PACKET/'input-contract.json'
+-OUTPUT=PACKET/'collision-output-v1'
++OUTPUT=PACKET/'collision-output-v2'
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):
+  raw=p.read_bytes();return json.loads(gzip.decompress(raw) if p.suffix=='.gz' else raw)
+@@ -49,9 +49,11 @@
+  from xl_source_stream_binding_20261009 import source_stream_binding
+  OUTPUT.mkdir();beat(True)
+  try:
+-  result=subprocess.run(['node',str(PACKET/'heritage-starmart-current-geometry-draft-v1.mjs'),'--capture-current-full-geometry-only'],cwd=ROOT,capture_output=True,text=True)
++  result=subprocess.run(['node',str(PACKET/'heritage-starmart-current-geometry-draft-v2.mjs'),'--capture-current-full-geometry-only'],cwd=ROOT,capture_output=True,text=True)
+   save(OUTPUT/'actual-capture-log.json',{'exitCode':result.returncode,'stdout':result.stdout,'stderr':result.stderr});assert result.returncode==0,'Actual capture failed; preserved log'
+   actual=read(OUTPUT/'complete-current-star-and-museum-geometry.json.gz');assert actual['startAndEndInputsVerified']
++  pose=read(OUTPUT/'actual-and-expected-source-pose.json');assert actual['poseAuditSHA256']==sha(OUTPUT/'actual-and-expected-source-pose.json')
++  assert pose['exactLoaderTransformContractMatched'] and pose['noToleranceIntroduced'] and pose['sourcePoseChanges']==0
+   original=np.asarray(array['completeOrderedOriginalTriangles'],dtype='<f8');assert original.shape==(15140,3,3) and hashlib.sha256(original.tobytes()).hexdigest()==c['providerOriginalWorldSHA256']
+   ix=np.asarray(actual['completeOriginalIndex'],dtype=np.int64).reshape(-1,3)
+   assert len(ix)==15140 and len(actual['actualSourceMeshes'])==1
+@@ -80,7 +82,7 @@
+    rows.append(row);save(OUTPUT/(mode+'-full-finite-contacts.json.gz'),row)
+   beat(True);fence(c,ch);prior_neon_fence();assert reservations.owns(lease)
+   for path,h in actual['inputHashes'].items():assert sha(ROOT/path)==h,path
+-  out={'uids':['landsd/165054:0'],'independentForeignUID':'landsd/57455:0','sourceSHA256':c['sourceSHA256'],'completeOriginalSourceFaces':15140,'fullBASICFaces':basic['completeFaces'],'fourViews':rows,'priorProjectedTwoWitnessesRetained':[12346,12347],'priorProjectedForeignOverlapM2':0.10717968519970641,'allTouchAndZeroPrimitivesRetained':True,'noChosenFaceShortcut':True,'noOwnershipException':True,'actualCaptureSHA256':sha(OUTPUT/'complete-current-star-and-museum-geometry.json.gz'),'allInputHashes':c['filePins'],'currentAcceptance':False,'physicalAccepted':False,'installationApproved':False,'sourceGeometryChanges':0,'terrainGeometryChanges':0}
++  out={'uids':['landsd/165054:0'],'independentForeignUID':'landsd/57455:0','sourceSHA256':c['sourceSHA256'],'completeOriginalSourceFaces':15140,'fullBASICFaces':basic['completeFaces'],'fourViews':rows,'priorProjectedTwoWitnessesRetained':[12346,12347],'priorProjectedForeignOverlapM2':0.10717968519970641,'allTouchAndZeroPrimitivesRetained':True,'noChosenFaceShortcut':True,'noOwnershipException':True,'actualCaptureSHA256':sha(OUTPUT/'complete-current-star-and-museum-geometry.json.gz'),'actualPoseAuditSHA256':sha(OUTPUT/'actual-and-expected-source-pose.json'),'allInputHashes':c['filePins'],'currentAcceptance':False,'physicalAccepted':False,'installationApproved':False,'sourceGeometryChanges':0,'terrainGeometryChanges':0}
+   save(OUTPUT/'diagnostic.json.gz',out);save(OUTPUT/'result.json',{'uids':['landsd/165054:0'],'complete':True,'diagnosticSHA256':sha(OUTPUT/'diagnostic.json.gz'),'sourceFaces':15140,'BASICFaces':basic['completeFaces'],'contactCounts':[len(r['fullFiniteSurfaceContacts']['contacts'])for r in rows],'physicalAccepted':False,'currentAcceptance':False,'newlyInstalled':0})
+   print(json.dumps(read(OUTPUT/'result.json')),flush=True)
+  except BaseException as error:

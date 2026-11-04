@@ -1,0 +1,5 @@
+# Kowloon Chest Clinic — verified original installation
+
+Codex, 6 October 2026. Kowloon Chest Clinic (landsd/101535:0) is installed with unchanged original government geometry. Verified Neon job `c17cec0d7f06a3aa9e9ceb485016bd748380d538c16d05dc9ed1f048dea2e580`, installed snapshot `5e6c57334d119c89`, source SHA `06c8c1fbad5fb04a2939db6ef278dac867fa6e2265bf9f6471f68e390f9b6003`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+19 new XL installations from44/308: **63 installed / 289 not installed**, 81 further installations required. Public counters: 346,108 total source forms, 4,411 enhanced, 4,397 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

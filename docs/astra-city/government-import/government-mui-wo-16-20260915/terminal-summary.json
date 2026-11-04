@@ -1,0 +1,104 @@
+{
+  "aiCalls": 0,
+  "batch": "government-mui-wo-held-13-20260915",
+  "evidence": "docs/astra-city/government-import/government-mui-wo-16-20260915/installed-acceptance.json",
+  "geometryChanges": 0,
+  "heldReasonCounts": {
+    "below-grade-source-surfaces-exceed-bounded-foundation-policy": 2,
+    "native-source-support-not-found": 1
+  },
+  "heldRows": [
+    {
+      "nextDependency": "local-compute/source-placement-or-terrain",
+      "reasons": [
+        "native-source-support-not-found"
+      ],
+      "requiresAI": false,
+      "uid": "landsd/172460:0"
+    },
+    {
+      "nextDependency": "local-compute/source-placement-or-terrain",
+      "reasons": [
+        "below-grade-source-surfaces-exceed-bounded-foundation-policy"
+      ],
+      "requiresAI": false,
+      "uid": "landsd/201705:0"
+    },
+    {
+      "nextDependency": "local-compute/source-placement-or-terrain",
+      "reasons": [
+        "below-grade-source-surfaces-exceed-bounded-foundation-policy"
+      ],
+      "requiresAI": false,
+      "uid": "landsd/208036:0"
+    }
+  ],
+  "humanCounts": {
+    "held-ai": 0,
+    "held-human": 0,
+    "held-unknown": 3,
+    "in-process": 0,
+    "installed": 13,
+    "to-do": 0
+  },
+  "installedUids": [
+    "landsd/121912:0",
+    "landsd/179822:0",
+    "landsd/206975:0",
+    "landsd/207849:0",
+    "landsd/207855:0",
+    "landsd/207859:0",
+    "landsd/207860:0",
+    "landsd/208958:0",
+    "landsd/254783:0",
+    "landsd/262466:0",
+    "landsd/299366:0",
+    "landsd/299369:0",
+    "landsd/299383:0"
+  ],
+  "jobId": "b46fafe433781e7a64ca83995bbd116b2d9e20d1e8685ebfbc92c2e78786bee6",
+  "modelsProcessed": 16,
+  "neonVerified": true,
+  "newlyInstalled": 13,
+  "progress": {
+    "breakdown": {
+      "enhanced": 497,
+      "enhancementRequired": 0,
+      "goodToGo": 0,
+      "unassessed": 345611
+    },
+    "countingNote": "Distinct deployed source-form IDs, not whole buildings. Government availability requires an exact current UID/CSUID match to a prepared source. Upgrade progress counts enhanced/good-to-go forms within that subset. Source availability is not placement approval or proof an upgrade is needed.",
+    "government": {
+      "available": 212669,
+      "enhanced": 483,
+      "enhancedOutside": 14,
+      "goodToGo": 0,
+      "goodToGoOutside": 0,
+      "noMatchedSource": 133439,
+      "percent": 0.22711349561995403,
+      "ready": 483,
+      "remaining": 212186
+    },
+    "governmentSourceRun": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+    "governmentSourceUpdatedAt": "2026-09-10 16:48:36.884198+00",
+    "inputDigest": "90c0cccdbe8ebf09c2ee495a44f1d2975fcb7ff4bdd9da5e09c108a7d994358d",
+    "manifestDigest": "e5d8f6bbdc0517b2a24ffb82befdc08a5e15672aa9e3e32a9b9cf7813963723c",
+    "percent": 0.14359679637569778,
+    "readyForms": 497,
+    "readyPercent": 0.14359679637569778,
+    "reviewPolicy": "Good-to-go and enhancement-required decisions must match current geometry, terrain, renderer and screening policy. Changed or missing decisions remain unassessed. Existing verified source-hash reviews supply enhanced status unless a current screening requests rework.",
+    "reviewSnapshot": "665c494347e868ec",
+    "reviewedEnhancedForms": 497,
+    "screeningPolicy": "good-enough-v1",
+    "source": "Hong Kong Lands Department and retained OpenStreetMap forms",
+    "status": "available",
+    "totalForms": 346108,
+    "uniquePhysicalBuildings": null,
+    "unit": "source-building-form",
+    "unreviewedOrBasicForms": 345611,
+    "updatedAt": "2026-09-15T10:26:21.963120+00:00",
+    "version": 3,
+    "wholeBuildingCompletion": null
+  },
+  "snapshotId": "665c494347e868ec"
+}

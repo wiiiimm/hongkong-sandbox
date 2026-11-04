@@ -1,0 +1,5 @@
+# The Waterfront Tower II — verified original installation
+
+Codex, 6 October 2026. The Waterfront Tower II (landsd/204141:0) is installed with unchanged original government geometry. Verified Neon job `223c17a69b49ed6083972c9adbec56740ed9ae3174e049ffb27d0344862e174e`, installed snapshot `47f8acfa20725387`, source hashes `{'landsd/204141:0': '7d0c231df47c7676f96bc9204273776d127b3aaa8f9ec1f7149b9f5c3c4656a8'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+34 new XL installations from44/308: **78 installed / 274 not installed**, 66 further installations required. Public counters: 346,108 total source forms, 4,427 enhanced, 4,413 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

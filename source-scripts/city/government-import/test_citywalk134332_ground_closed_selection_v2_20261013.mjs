@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {completeRegion,closedFaceSelected,numericBufferLiteralEquality} from './citywalk134332_ground_closed_selection_helper_v2_20261013.mjs';
+let passed=0;function test(fn){fn();passed++;}const r=[0,0,1,1],face=(x,z)=>[x,0,z,x,4,z,x,9,z];
+test(()=>assert(closedFaceSelected([0,1,2],[face(0,0)],r)));
+test(()=>assert(closedFaceSelected([0,1,2],[face(1,1)],r)));
+test(()=>assert(!closedFaceSelected([0,1,2],[face(1.0000000000000002,1)],r)));
+test(()=>assert(!closedFaceSelected([0,1,2],[face(1,1.0000000000000002)],r)));
+test(()=>assert(closedFaceSelected([0,1,2],[[0,0,0,1,5,0,1,9,0]],r)));
+test(()=>assert(closedFaceSelected([0,1,2],[face(2,2),face(1,1)],r)));
+test(()=>assert.deepEqual(completeRegion([[0,0,0],[1,1,1]],[[0,0,0,1,1,1,8,99,-3]]),[-1,-4,9,2]));
+test(()=>assert.deepEqual(completeRegion([[0,0,0],[1,1,1]],[[2,0,2],[3,0,3]]),[-1,-1,4,4]));
+test(()=>assert.throws(()=>closedFaceSelected([0,1,2],[face(NaN,0)],r)));
+test(()=>assert.throws(()=>completeRegion([[0,0,0],[1,1,1]],[[Infinity,0,0]])));
+test(()=>assert.throws(()=>numericBufferLiteralEquality([1],[1.0000000000000002])));
+test(()=>assert.deepEqual(numericBufferLiteralEquality([-0],[0]),{numericCoordinateEquality:true,bitwiseFloat64EncodingEquality:false,signedZeroDifferences:[{coordinate:0,originalNegativeZero:true,literalNegativeZero:false}]}));
+test(()=>assert(numericBufferLiteralEquality([1,0,-0],[1,0,-0]).bitwiseFloat64EncodingEquality));
+console.log(JSON.stringify({testsPassed:passed,expectedTests:13}));

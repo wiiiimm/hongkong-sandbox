@@ -1,0 +1,29 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.051}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/hkdi88343_low_component_views_v1_20261101.py", line 103, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/hkdi88343_low_component_views_v1_20261101.py", line 60, in main
+    graph = take(GRAPH, 'diagnostic.json.gz')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/hkdi88343_low_component_views_v1_20261101.py", line 44, in take
+    assert digest(f.read_bytes()) == pins[batch][str(f.relative_to(ROOT))]
+                                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'docs/astra-city/government-import/xl-terrain-recovery-20261010-hkdi-complete-original-support-v1/diagnostic.json.gz'
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.134}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/hkdi88343_low_component_views_v1_20261101.py", line 103, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/hkdi88343_low_component_views_v1_20261101.py", line 35, in main
+    return execute_reserved(c['reservation'], local / 'reservation.json', [sys.executable, __file__, '--owned'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/north_pair_nonwall_topology_v1_20261027.py", line 28, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

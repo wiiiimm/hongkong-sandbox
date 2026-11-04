@@ -1,0 +1,90 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-cainiao-pair-20260927/plan.json",
+  "areas": [
+    {
+      "area": "Cainiao Smart Gateway original government podium and tower",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-cainiao-pair-20260927/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-293822-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-cainiao-pair-20260927/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "1fab425faf39abca4a2ea7854eeb13081a2c373aa78f7a84d1322ccabf998bf5"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-293822-0.json": "e9e6c895a33b0211d9179c89c94a3f493ec62b8a7d55db8a4b59b9a3377b1aa5",
+    "3d-viewer/city/data/official-models/government-xl-cainiao-pair-20260927/catalogue.json": "11ec528b0afbbd4072cc8f52bee611c1c4d932caaa75db95488484b6d5d19d9a",
+    "3d-viewer/city/data/manifest.json": "8da0a893d8a0e5017f086e5e1c8414372581fb38f7a03237c77b23312069765b"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "6124c7745147366ab634f8abc7a109a97c8f8b26",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-293822-0.json",
+      "resolution": 5,
+      "area": "Cainiao Smart Gateway two-sheet original government terrain with retained parent under disjoint forms",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "f4f83580314b2999cd30237f7634dfa229cf91297271822c0cbdf8abfb2c74dd",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "9-SE-3C",
+            "sourceETag": "\"28c8774-64e62c5f74f71\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/9-SE-3C/terrain/TERRAIN(TB)/T10500168000106E11/T10500168000106E11.bin",
+                "sha256": "c6c924a5173cabf28fcf6cf8d4c265afc168818059496e7751639baa891da9e0"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/9-SE-3C/terrain/TERRAIN(TB)/T10500168000106E11/T10500168000106E11.gltf",
+                "sha256": "13a4a19f20b6fce4b8795422d9f93fc546f7fe74e6107347173da36259e5da34"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "501b6ddb52aba0c710e3d01f7ab739c19a9983c468c335a561d984f30ac56b5b",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "9-SE-2D",
+            "sourceETag": "\"1f24551-64e62b47e88ac\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/9-SE-2D/terrain/TERRAIN(TB)/T09750168000106E11/T09750168000106E11.bin",
+                "sha256": "0b1bc82c453f10976cd03fc19a407251ee87e95ea4998a05083ef9c4dcfa6f3a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/9-SE-2D/terrain/TERRAIN(TB)/T09750168000106E11/T09750168000106E11.gltf",
+                "sha256": "234a8195ff244f4e555df2f72e4429e1ad50a29c75b9a5e58db50b3cfb5b7c7f"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4830,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 15
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e9e6c895a33b0211d9179c89c94a3f493ec62b8a7d55db8a4b59b9a3377b1aa5",
+      "bytes": 1577272
+    }
+  ],
+  "estimatedBases": []
+}

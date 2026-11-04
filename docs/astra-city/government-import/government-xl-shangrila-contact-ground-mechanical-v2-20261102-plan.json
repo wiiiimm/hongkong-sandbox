@@ -1,0 +1,80 @@
+{
+  "batch": "government-xl-shangrila-contact-ground-mechanical-v2-20261102-sequence",
+  "uids": [
+    "landsd/233824:0",
+    "landsd/240962:0"
+  ],
+  "resources": [
+    "building:landsd/147446:0",
+    "building:landsd/162915:0",
+    "building:landsd/231485:0",
+    "building:landsd/231642:0",
+    "building:landsd/231849:0",
+    "building:landsd/233824:0",
+    "building:landsd/240961:0",
+    "building:landsd/240962:0",
+    "building:landsd/243261:0",
+    "building:landsd/264747:0",
+    "building:landsd/267872:0",
+    "building:landsd/62628:0"
+  ],
+  "phases": [
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-shangrila-contact-ground-mechanical-v2-20261102-support",
+      "args": [
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes",
+        "--supported",
+        "landsd/240962:0",
+        "--support",
+        "landsd/233824:0"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-shangrila-contact-ground-mechanical-v2-20261102-foreign",
+      "args": [
+        "--scope",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-model-scope",
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-shangrila-contact-ground-mechanical-v2-20261102-roles",
+      "args": [
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes",
+        "--contacts",
+        "government-xl-shangrila-original-pair-final-mechanical-v1-20261101-pair"
+      ]
+    },
+    {
+      "script": "original_pair_rim_endpoint_choices_v1_20261029.py",
+      "batch": "government-xl-shangrila-contact-ground-mechanical-v2-20261102-endpoints",
+      "args": [
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes",
+        "--contacts",
+        "government-xl-shangrila-original-pair-final-mechanical-v1-20261101-pair",
+        "--strict-support",
+        "government-xl-shangrila-contact-ground-mechanical-v2-20261102-support",
+        "--uid",
+        "landsd/240962:0",
+        "--prior-attachment",
+        "government-xl-shangrila-original-joint-attachment-v1-20261102"
+      ]
+    }
+  ],
+  "qualification": "Recheck current ground support and foreign scope. Reuse complete original pair/self contacts only after existing producers bind all current source-world arrays and exact warning replay; no source changes or acceptance transfer."
+}

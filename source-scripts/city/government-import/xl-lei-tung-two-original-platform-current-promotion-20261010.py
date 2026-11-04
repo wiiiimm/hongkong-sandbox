@@ -1,0 +1,22 @@
+"""Replay mandatory paired original identity; no standalone or physical credit."""
+import json,uuid
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest,reservations
+from lei_tung_lower_platform_current_bound_identity_20261010 import verify_files,DOC as INPUT,UID,PLATFORM,module
+BATCH='government-xl-lei-tung-two-original-platform-current-promotion-20261010';DOC=ROOT/'docs/astra-city/government-import'/BATCH;LOCAL=HERE/'local'/BATCH
+
+def main():
+ assert not DOC.exists();claim=reservations.claim('lei-tung-paired-platform-identity-'+str(uuid.uuid4()),['building:'+u for u in [UID,PLATFORM]],batch=BATCH,ttl=3600);assert claim['ok'],claim
+ try:
+  rows=read(INPUT/'selection.json.gz')['rows'];contexts=read(INPUT/'context.json.gz')['rows'];(LOCAL/'assets').mkdir(parents=True,exist_ok=True);proofs=[]
+  for r in rows:
+   raw=(ROOT/r['candidate']['path']).read_bytes();assert digest(raw)==r['sourceSHA256'];(LOCAL/'assets'/(r['sourceSHA256']+'.glb.gz')).write_bytes(raw)
+  for r in rows:
+   proof=verify_files(r,next(c for c in contexts if c['uid']==r['uid']),LOCAL);save(DOC/('identity-'+r['uid'].split('/')[1].replace(':','-')+'.json'),proof);proofs.append(proof);assert proof['passed'],proof['reasons'];assert proof['mandatoryOriginalRuntimeUIDs']==[UID,PLATFORM] and proof['standaloneOriginalImportAccepted'] is False
+  assert reservations.owns(claim['reservation']);msha=read(INPUT/'current-inputs.json.gz')['manifestSHA256'];assert digest((ROOT/'3d-viewer/city/data/manifest.json').read_bytes())==msha
+  save(DOC/'identity.json',{'rows':proofs,'mandatoryOriginalRuntimeUIDs':[UID,PLATFORM],'standaloneOriginalImportAccepted':False,'physicalAccepted':False,'installationApproved':False})
+  (DOC/'README.md').write_text('Complete mandatory-two-original Lei Tung commercial254604 (874faces/19parts) and lower platform126434 (432faces/3parts) identity replay passed. Upper standalone94.791% coverage failure remains verbatim; this positive assembly interpretation is valid only when BOTH untouched government originals are present at runtime. Original upward lower-platform surfaces57.802/62.328HKPD lie within primary55..62.4 span, primaryplatformtop equals upperbase62.4, and124 exact original positive interfaces retain every component. Every missing upper region is exactly supplied by original lower-platform part2, with independent rational oriented-boundary partition and finite-facet/closed-edge coverage. Complete paired current/provider targets satisfy unchanged95%/10m/1m² gates; platform ordinary full-cell identity independently passes. Every current foreign actor remains including Tung Sing53800. Both native-run memberships, unique source versions and complete scene/root/BIN/world streams verified.37 kernel/partition plus26 current-binding actual/adverse tests pass. No legal ownership, structural support, collision, terrain, foreign actor removal, physical or installation approval. Full independent paired-original physics and runtime must enforce both originals; no generic standalone acceptance.\n')
+  refs=[Path(__file__)]+[HERE/f for f in ['lei_tung_lower_platform_current_bound_identity_20261010.py','test_lei_tung_lower_platform_current_bound_identity_20261010.py','lei_tung_named_original_lower_platform_identity_20261010.py','test_lei_tung_named_original_lower_platform_identity_20261010.py','exact_original_polygon_triangle_partition_20261010.py','test_exact_original_polygon_triangle_partition_20261010.py']]+[p for p in INPUT.rglob('*') if p.is_file()]+[p for p in LOCAL.rglob('*') if p.is_file()]
+  r=module('lei_tung_complete_paired_promotion_fence','xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH,'complete-current-mandatory-two-original-lower-platform-identity-v1',refs,{'uids':[UID,PLATFORM],'identityAccepted':True,'mandatoryOriginalRuntimeUIDs':[UID,PLATFORM],'standaloneOriginalImportAccepted':False,'scriptFullAcceptancePassed':False,'physicalAccepted':False,'newlyInstalled':0,'manifestSHA256':msha,'nextStep':'Complete both-original terrain/full-foundation/component-role/all-current-foreign/native/runtime/browser gates with mandatory original assembly enforcement; retain Tung Sing53800 as separately checked actor.'});print(json.dumps({'jobId':r['jobId'],'pairedIdentityPassed':True,'standalone':False,'physicalAccepted':False}),flush=True)
+ finally:assert reservations.release(claim['reservation'])['ok']
+if __name__=='__main__':main()

@@ -1,0 +1,15 @@
+--- root-reviewed-before-exact-zero-correction.py.txt
++++ xl-terrain-recovery-20261012-sparkle-body22-boundary-wall-evidence-v1.py
+@@ -55,9 +55,11 @@
+  return sorted(found.values(),key=lambda x:x['path'])
+ 
+ def edge_census(tri,bodyids):
++ from exact_original_shell_intersections_20261009 import rational_face, cross, sub
+  all_edges=defaultdict(set);low_edges=defaultdict(set);zero=[]
+  for i,t in enumerate(tri):
+-  if not np.any(np.cross(t[1]-t[0],t[2]-t[0])):zero.append(i)
++  rational = rational_face(t)
++  if not any(cross(sub(rational[1],rational[0]),sub(rational[2],rational[0]))):zero.append(i)
+   for a,b in zip(t,np.roll(t,-1,axis=0)):
+    key=tuple(sorted((tuple(a),tuple(b))))
+    if key[0]==key[1]:continue

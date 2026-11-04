@@ -1,0 +1,9 @@
+Oi Sin private terrain candidate — 17 October 2026
+
+Original podium 91128 passes ordinary identity, private terrain ground contact, CPU loader and strict complete foundation. Candidate extent: coarse cells [590,459,593,461], world bounds [6832.5,662.5,7042.5,802.5], no overlap with existing terrain patches. Initial 18-form neighbour check flagged four actors. A private revision preserves the separate Oi Yuk House 256824 terrain under its footprint plus a 1 m collar, disjoint from the whole original podium projection. Recheck clears Oi Yuk, retaining exactly three original failures: Oi Sin tower 256280 and Oi Tung Car Park parts 254867 and 256457. All share parent way/111529738 and are recorded as raised parts (base 27.3 m). No exemption or suppression has been applied.
+
+Revised podium full foundation still passes: min surface/low gap -0.060202 m, max low gap 0.291334 m, sampler delta 0, missing terrain 0. All 6,672 current installed originals are independently nominated against the complete changed coarse-cell domain using full original and three rendered bounds; none touch. 6,661 exact prior records revalidated, 11 freshly captured, including changed catalogue metadata for 232579. The rejected V1 stale-entry audit is preserved and superseded by V2.
+
+Next: obtain/review exact original source relationships for car-park parts 254867 (CSUID 4135915774T20050430) and 256457 (4136715791T20050430), then resolve their and tower 256280 current support/identity under the complete original podium. Tower seam has complete 92-edge distance proofs but canonical 69-sample contact remains unresolved. Do not waive it using proximity alone. After full assembly acceptance, complete staged/live browser, fallback and publication checks. No live terrain or model was changed.
+
+Four terminal, independently verified Neon checkpoints. XL remains 250 installed / 271 remaining of 521; no new installations, no AI geometry modelling.

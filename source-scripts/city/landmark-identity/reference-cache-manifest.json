@@ -1,0 +1,21 @@
+{
+  "issue": "HKS-212",
+  "checkedOn": "2026-09-08",
+  "references": [
+    {
+      "source": "https://www.rvd.gov.hk/doc/tc/nt_201504.pdf",
+      "file": "source-scripts/city/landmark-identity/reference-cache/rvd-nt-201504.pdf",
+      "bytes": 2575112,
+      "sha256": "06c72e6d4fcae789ba667dc94830793ec880207e3133c5f9764959abaa915d9c",
+      "use": "Historical April 2015 name/address correspondence only; not current geometry."
+    },
+    {
+      "source": "https://www.rvd.gov.hk/doc/en/urban_201504.pdf",
+      "file": "source-scripts/city/landmark-identity/reference-cache/rvd-urban-201504.pdf",
+      "bytes": 3437347,
+      "sha256": "40bd555345e1725f775fc13df03b8ed9bf1cb9d8b5b12599e989ff7aa17fed6a",
+      "use": "Historical April 2015 name/address correspondence only; not current geometry."
+    }
+  ],
+  "method": "Bounded HTTP download; pdftotext -layout; cached references ignored, untouched upstream."
+}

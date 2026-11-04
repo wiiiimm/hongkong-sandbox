@@ -1,0 +1,7 @@
+# Tuen Mun review preflight corrections — 26 October 2026
+
+V1 physical review stopped before writing any review/receipt because it assumed `leftF32`/`balancedF32` filenames for Atrium. V2 used an incorrect handoff alias (`left`/`balanced`) and also stopped before writing approval. Actual immutable files are `explicitLeftF32.json.gz` and `explicitBalancedF32.json.gz`. V3 corrects only those aliases relative to V2. The local-only V3 structural preflight passed with writes disabled; full Neon authentication is still required for its completed receipt.
+
+V2/V3 additionally retain the complete current companion-foundation table and exact Block A peer-envelope diagnostics. Actual earth clearance and overhead peer-building envelopes are distinct. Four upward original facets, IDs 4389/4390/6466/6467, total under4.85m² at50.669m, over46m above earth. All53 peer-envelope-classified facets are clear of earth in every coordinate representation. ROOT opened the corrected full-source two-angle diagram from the V2 facet diagnostic. No architectural function, structural certification or terrain burial is inferred from orientation alone. Complete raw compound failures remain preserved; independent finite source-attachment, actual earth, identity, mixed-fallback and browser evidence remain required.
+
+No model edits, installation credit, publication or external AI calls arose from these failed preflights. University Hall approval was already fulfilled in c339a3745; do not reinstall it.

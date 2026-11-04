@@ -1,0 +1,7 @@
+# Manhattan Mid-Town — exact retained projection and complete physical result
+
+Codex, 9 October 2026. HKS-203.
+
+The first native-parent guard used bounding rectangles and falsely treated an empty corner as source overlap. A fresh version exports every face of both pinned current runtime originals, verifies complete mesh/source hashes/world bounds, and measures the full original face projection including vertical faces. Mei Foo Plaza has 19.548 m² rectangle overlap but zero actual mesh overlap, separated by at least 14.0977 metres. The original terrain is preserved beneath every retained face. All six retained native models pass with zero new buried points; all 166 neighbouring forms are checked. The new original podium fails source clearance and whole-source foundation; seven basic neighbours regress. Pending review is preserved unchanged. No installation credit, model edits, tolerance changes or modelling AI calls. Eight projection tests cover false bounding-box positives, actual full-face overlap, identity/geometry corruption and vertical faces. Revisit only with changed source/support/terrain evidence or a demonstrated correction addressing the recorded failures.
+
+Verified Neon job `b6cc98ddfbf5e040719ed22c3eba7abf5e72ea0993ae7d7aab3a32afaa779fd6`. `neon-sync.json` records fresh database readback. Complete reasons, metrics, foundations, neighbours and immutable input hashes are in this directory. Historical Lantau map imagery was not used.

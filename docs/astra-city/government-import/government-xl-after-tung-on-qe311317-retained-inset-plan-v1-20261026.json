@@ -1,0 +1,28 @@
+{
+  "batch": "government-xl-after-tung-on-qe311317-retained-inset-sequence-v1-20261026",
+  "uids": [
+    "landsd/311317:0"
+  ],
+  "resources": [
+    "building:landsd/311317:0",
+    "building:landsd/266063:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-266063-0.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_retained_original_local_inset_v6_20261026.py",
+      "batch": "government-xl-after-tung-on-qe311317-retained-original-inset-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-tung-on-qe311317-ground-v1-20261026",
+        "--terrain-check",
+        "government-xl-all-200-original-terrain-batch-v2-20261022",
+        "--uid",
+        "landsd/311317:0",
+        "--cover-native",
+        "city/data/government-native-266063-0.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+Museum missing southern authentic terrain acquisition. Prepared by `/root/xl_upton_repair_sol`; ROOT executor.
+
+Completed nomination `0a64e0d3e9689a7a498144e4e6630d0669eec23723a67d6c94b6697f32c397e6` is ROOT-verified/released. Its one-sheet constructor produced no candidate (`native-terrain-near-water-clamp`), and the original TIN point audit retains 29,877/59,406 coverage and minimum low-rim gap −0.601627093 m. No physical/installation acceptance and no permanent rejection are inferred. Preserve the exact raw packet and all original building geometry/current 392 native terrain patches unchanged.
+
+Saved 7-SW-15D original terrain node/accessor metadata places its main complete projected envelope at northing 826400–827000. The Museum reaches northing about 826360.5, across the southern sheet boundary. The retained official sheet index identifies neighbouring **7-SW-20B** spanning E836750–837500/N825800–826400. This is a source availability route, not proof of complete terrain union coverage or functional support. It supplies the missing authentic neighbouring source; no buffer/extrapolation fills the gap.
+
+Use unchanged `citywide-native/download.py:acquire(models=[],include_terrain=True)` against the saved complete 20B directory SHA `6c8d8c9246583ff8214a5b79d2bbed69c51052a4b6b4de7fb6468ba788a731bd`, revision1759075200000, ETag`"2b0ef45-63dd1478cde04"`, archive45150021bytes. The exact two members under `TERRAIN(TB)/T36750258000106E10` total3,463,662 compressed payload bytes; actual header/range transfer is separately recorded. Existing If-Match/206/exact-range/ETag/CRC/length/SHA checks are unchanged. No directory refresh/full archive/model downloads are requested. Any source revision mismatch fails closed and preserves partial logs/assets.
+
+Bind the current manifest `12971667…82c`/snapshot`be5f7671a989392d`, entire ROOT-verified851ref failed nominee closure, exact ordinary/identity/current source context, official index and both complete source member metadata. Retain all45 actors as exact read-only source context and retain every original input SHA fence. Acquire only three applicable source-only resources: `building:landsd/165054:0`, `immutable-source-sheet:7-SW-20B`, and this batch’s `immutable-source-proof:`. This follows existing original acquisition/source-context callers. No actor geometry, current terrain, neighbouring assets or placement is written or numerically computed. Future terrain/physical calculation still requires the complete45actor/91resource geographic scope. Preflight unchanged `reservations.normalise`. Canonical supervisor/timed fences/finally release and source-only freezer apply only in ROOT's actual command. Extract both original members unchanged after exact compact-ZIP checks. No source geometry decoder/math/constructor, water-clamp bypass, below-grade waiver or viewer publication occurs.
+
+Next, combine both complete saved original terrain streams for bounded exact low-rim/missing-coverage/clamp attribution before another private constructor. All current raw negatives and independent Star's footprint rejection remain. A source acquisition alone grants no physical or installation credit.
+
+ROOT-only commands:
+
+```sh
+/tmp/astra-city-venv/bin/python docs/astra-city/government-import/government-xl-heritage165054-south20b-terrain-acquisition-v2-20261014-proposal/prepare-readonly.py
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/heritage165054_south20b_terrain_acquisition_v1_20261014.py --acquire-authentic-terrain-only
+```
+
+Preparation has three actual saved directory/45-scope fixtures plus six unchanged prior downloader/member fixtures. It hashes code/current inputs and parses directory metadata only, with no network/model geometry/DB/leases/worker. Exclusive new outputs are never overwritten. No production execution by the preparing agent.
+
+V1 actual session30953 exited1 because its overly broad acquisition lease was denied; it owned no lease and started no download/geometry. Preserve its exact prepared91-resource input and ROOT terminal/conflict observations as setup context. V2 changes only output namespace/applicable acquisition resources and failure-context binding. The source revision/ETag/CRC/length guards, all existing45actor/859input source fences, downloader/extraction and unresolved clamp/belowgrade/coverage remain unchanged. No takeover, active worker interruption or publication. Two bounded fixtures prove exact3 applicable keys and retention of all45 context actors.

@@ -1,0 +1,10 @@
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:75
+ if(!building||building.uid!==entry.uid||building.objectId!==entry.objectId||building.buildingCSUID!==entry.buildingCSUID||(building.baseHeightHKPD??null)!==entry.recordedBaseHeight||(building.topHeightHKPD??null)!==entry.recordedTopHeight)throw new Error('Model does not match the loaded official building source');
+                                                                                                                                                                                                                                                      ^
+
+Error: Model does not match the loaded official building source
+    at loadOfficialModel (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:75:247)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/opus_actual_render_attributes_v1_20261017.mjs:22:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.18.0

@@ -1,0 +1,80 @@
+{
+  "batch": "government-xl-after-qe-beverly30031-current-sequence-v1-20261026",
+  "uids": [
+    "landsd/30031:0"
+  ],
+  "resources": [
+    "building:landsd/30031:0",
+    "building:landsd/246824:0",
+    "building:landsd/265489:0",
+    "building:landsd/32067:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-beverly-32067-original-v1-20261023.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-after-qe-beverly30031-selection-v1-20261026",
+      "args": [
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026",
+        "--capture",
+        "government-xl-after-dragon-next-five-ground-v1-20261026",
+        "--uid",
+        "landsd/30031:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-after-qe-beverly30031-ground-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-beverly30031-selection-v1-20261026",
+        "--uid",
+        "landsd/30031:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-after-qe-beverly30031-attributes-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-beverly30031-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-after-qe-beverly30031-identity-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-beverly30031-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-after-qe-beverly30031-model-scope-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-beverly30031-ground-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-beverly30031-attributes-v1-20261026",
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_retained_original_local_inset_v7_20261026.py",
+      "batch": "government-xl-after-qe-beverly30031-retained-inset-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-beverly30031-ground-v1-20261026",
+        "--terrain-check",
+        "government-xl-after-dragon-next-five-beverly-wide-terrain-v1-20261026",
+        "--uid",
+        "landsd/30031:0",
+        "--cover-native",
+        "city/data/government-native-beverly-32067-original-v1-20261023.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+--- preserved/upton_inherited_overlap_boundary_draft_v1_20261012.py
++++ upton_inherited_overlap_boundary_draft_v1_20261012.py
+@@ -24,6 +24,7 @@
+  return p
+ def module(p,name):
+  s=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
++def exactkey(face):return tuple(sorted(tuple(str(F(x))for x in p)for p in face))
+ def code_paths():
+  roots=[HERE,HERE.parent/'shared-modelling',HERE.parent/'citywide-native',HERE.parent/'island-detail-integration',ROOT/'docs/astra-city/mui-wo-buildings/review',HERE.parent/'assembly-support-review'];seen=set();todo=[Path(__file__),HELPER,TEST,FREEZER]
+  while todo:
+@@ -43,19 +44,23 @@
+  for q in pins['inputRefs']:check(q)
+  nom=read(NOM/'complete-nominations-before-guards.json.gz');a=read(AUD/'measured-projection-and-parent-edge.json.gz');r=read(CAP/'whole-domain-actual-parent-attribution.json.gz')['rows'];b=read(AUD/'complete-core-boundary-fixed-band-findings.json.gz')
+  pairs=[q for q in a['allProjectedIntersectingPairs']if q['projectedDimension']=='area'];assert len(pairs)==1260 and all(q['leftProvenance']['kind']==q['rightProvenance']['kind']=='capturedCurrentRing'for q in pairs)
+- assert len(nom['candidateFaceProvenance'])==10742 and len(nom['allCurrentTriplets'])==9214 and len(nom['completeCoreBoundaryNominations'])==b['completeSegments']==556
++ assert nom['allCurrentTriplets']=={k:ref(CAP/'whole-domain-actual-parent-attribution.json.gz')[k]for k in ['path','sha256']};check(nom['allCurrentTriplets'])
++ assert len(nom['candidateFaceProvenance'])==10742 and len(nom['completeCoreBoundaryNominations'])==b['completeSegments']==556
+  assert sum(not q['actualCandidateGroundProof']['verifiedCompleteOriginalEdgeContactBand']for q in b['rows'])==433
+  assert len(r)==1 and r[0]['completeAttributionMultisetMatchedActual']and len(r[0]['completeActualDrawnTriplets'])==9214
+  assert sum(len(s['allSelectedMeshFaceIDs'])for s in r[0]['completeAttributedSources'])==9214
+  assert [s['sourcePath']for s in r[0]['completeAttributedSources']]==['3d-viewer/city/data/terrain.json','3d-viewer/city/data/government-native-79882-0.json']
+  sampler=(ROOT/'3d-viewer/city/native-terrain.js').read_text();assert 'result=Math.max(result,u*position[t.a+1]+v*position[t.b+1]+w*position[t.c+1])'in sampler and 'if(Math.abs(determinant)<1e-10)continue;'in sampler and 'withinFiniteTriangleProjection'in sampler
++ join_keys={(q['currentSurfaceFace'],tuple(q['sourceCandidateFaces']),exactkey(q['exactOriginalPlanePoints']))for q in nom['candidateFaceProvenance']if q['kind']=='computedVerticalRuledJoin'};generated=0
+  for q in nom['completeCoreBoundaryNominations']:
+   assert len(q['packedSourceEdge'])==2 and q['sourceCandidateFaces']
+   for j in q['completeUpperEnvelopeNomination']['joinNominations']:
+    assert j['currentFace']in range(9214)and len(j['exactParameterInterval'])==2
+    for key in ['exactOriginalNewEndpoints','exactOriginalOldEndpoints']:assert len(j['ruled'][key])==2 and all(len(p)==3 for p in j['ruled'][key])
++   for face in j['ruled']['allPositiveGeneratedJoinFaces']:
++    assert (j['currentFace'],tuple(q['sourceCandidateFaces']),exactkey(face))in join_keys,'Missing exact saved ruled-triangle correspondence';generated+=1
+  assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==CURRENT
+- return dict(passed=True,caller=ref(Path(__file__)),inputRefs=pins['inputRefs'],completeAreaPairs=1260,completeBoundaryRows=556,noNumericKernelExecuted=True,noDBOrLease=True)
++ return dict(passed=True,caller=ref(Path(__file__)),inputRefs=pins['inputRefs'],completeAreaPairs=1260,completeBoundaryRows=556,completeSavedGeneratedJoinCorrespondences=generated,noNumericKernelExecuted=True,noDBOrLease=True)
+ def owned():
+  lease=read(LEASE);assert reservations.owns(lease)and not DOC.exists();last=time.monotonic()
+  def pulse(force=False):
+@@ -71,11 +76,16 @@
+   for q in receipt['evidenceRefs']+[ref(folder/'result.json')]:check(q);refs.append(q);pulse()
+  pins=read(PROPOSAL/'draft-pins.json')
+  for q in pins['inputRefs']:check(q);refs.append(q)
++ for key in ['priorFailedSchema','representationCorrection']:
++  check(pins[key]);refs.append(pins[key])
++ for p in sorted((PROPOSAL/'preserved-before-saved-reference-binding').iterdir()):
++  if p.is_file():refs.append(ref(p))
+  def fence():
+   for q in refs:check(q);pulse()
+   assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==CURRENT;pulse(True)
+  fence();schema_only();nom=read(NOM/'complete-nominations-before-guards.json.gz');patch=read(NOM/'private-native-terrain-candidate.json.gz');replay=read(NOM/'actual-production-replay.json.gz');capture=read(CAP/'whole-domain-actual-parent-attribution.json.gz')['rows'][0];measurement=read(AUD/'measured-projection-and-parent-edge.json.gz');bands=read(AUD/'complete-core-boundary-fixed-band-findings.json.gz')
+- old=np.asarray(capture['completeActualDrawnTriplets'],dtype='<f8').reshape(9214,3,3);assert sha(old)==sha(np.asarray(nom['allCurrentTriplets']).reshape(9214,3,3))==sha(np.asarray(replay['before']['closedDomainDrawnTriplets']).reshape(9214,3,3))
++ assert nom['allCurrentTriplets']==ref(CAP/'whole-domain-actual-parent-attribution.json.gz');check(nom['allCurrentTriplets'])
++ old=np.asarray(capture['completeActualDrawnTriplets'],dtype='<f8').reshape(9214,3,3);assert sha(old)==sha(np.asarray(replay['before']['closedDomainDrawnTriplets']).reshape(9214,3,3))
+  actual=candidate_surface(patch,nom['candidateFaceProvenance']);drawn=np.asarray(replay['after']['closedDomainDrawnTriplets']).reshape(10770,3,3);multiset=verify_drawn_multiset(actual,drawn)
+  lineage=source_attribution(old,capture['completeAttributedSources']);provenance=nom['candidateFaceProvenance'];raw=np.asarray(nom['candidateRawPositionTriplets'],dtype='<f8').reshape(10742,3,3)
+  for i,p in enumerate(provenance):assert p['candidateFace']==i and p['rawNominationFaceSHA256']==sha(raw[i])
+@@ -100,7 +110,6 @@
+  save(DOC/'complete-ring-overlap-inheritance.json.gz',dict(rows=overlaps,completePairs=1260,allSavedPointLineRowsRemainUncredited=True,rawValidatorFailure=ref(AUD/'real-validator-outcome.json'),unchangedMaxSampler=next(q for q in refs if q['path']=='3d-viewer/city/native-terrain.js'),continuousIdealAffineNotBitwiseJSEvaluation=True,noApprovalWritten=True))
+  # Join triangles are nominated by exact plane points plus exact source/current
+  # IDs. Match all stored generated faces; do not substitute a neighbouring face.
+- def exactkey(face):return tuple(sorted(tuple(str(F(x))for x in p)for p in face))
+  joinmap={}
+  for i,p in enumerate(provenance):
+   if p['kind']=='computedVerticalRuledJoin':joinmap.setdefault((p['currentSurfaceFace'],tuple(p['sourceCandidateFaces']),exactkey(p['exactOriginalPlanePoints'])),[]).append(i)

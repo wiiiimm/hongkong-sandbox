@@ -1,0 +1,60 @@
+--- source-scripts/city/government-import/southside_domain_first_exact_core_union_construction_draft_v1_20261013.py
++++ source-scripts/city/government-import/southside_domain_first_exact_core_union_construction_draft_v2_20261013.py
+@@ -27,6 +27,36 @@
+  if len(hull)==1:return p==hull[0]
+  if len(hull)==2:return on_segment(hull[0],hull[1],p)
+  return all(cross(a,b,p)>=0 for a,b in zip(hull,hull[1:]+hull[:1]))
++def closed_segment_union_coverage(a,b,hulls):
++ """Exact closed interval union; endpoints alone never certify a segment."""
++ if a==b:return dict(covered=any(contains_closed(a,h)for h in hulls),completePoint=a,completeIntervals=[])
++ intervals=[]
++ for owner,h in enumerate(hulls):
++  if not h:continue
++  if len(h)==1:
++   if on_segment(a,b,h[0]):t=parameter(a,b,h[0]);intervals.append((t,t,owner))
++   continue
++  if len(h)==2:
++   knots=intersection_knots(a,b,h[0],h[1])
++   if knots:
++    ts=sorted(parameter(a,b,p)for p in knots);intervals.append((ts[0],ts[-1],owner))
++   continue
++  lo,hi=F(0),F(1)
++  for u,v in zip(h,h[1:]+h[:1]):
++   start,end=cross(u,v,a),cross(u,v,b);delta=end-start
++   if not delta:
++    if start<0:lo,hi=F(1),F(0);break
++   elif delta>0:lo=max(lo,-start/delta)
++   else:hi=min(hi,-start/delta)
++  if lo<=hi:intervals.append((lo,hi,owner))
++ intervals.sort();end=F(0);covered=bool(intervals)and intervals[0][0]==0
++ if covered:
++  for lo,hi,_ in intervals:
++   if lo>end:covered=False;break
++   end=max(end,hi)
++  covered=covered and end==1
++ return dict(covered=covered,completeOriginalSegment=[a,b],completeIntervals=[dict(lo=lo,hi=hi,originalCorePrimitive=owner)for lo,hi,owner in intervals],lastCoveredParameter=end)
++
+ def directional_inside(p,direction,hull):
+  """Exact symbolic one-sided membership; no finite epsilon or sampled mask fit."""
+  assert len(hull)>=3 and signed_area(hull)>0
+@@ -88,7 +118,10 @@
+      triangles.extend([[(q[0],F(0),q[1])for q in [h[0],h[i],h[i+1]]]for i in range(1,len(h)-1))
+    projected=[(v[0],v[2])for v in p]
+    if signed_area(_hull(projected)):assert rational_closed_coverage(projected,triangles)['covered'],'new-core-piece-not-whole-union-covered'
+-   else:assert all(any(contains_closed(q,h)for h in union['completeCoreHulls'])for q in projected),'lower-dimensional-core-piece-not-closed-covered'
++   else:
++    h=_hull(projected);assert h
++    coverage=closed_segment_union_coverage(h[0],h[-1],union['completeCoreHulls'])
++    assert coverage['covered'],'lower-dimensional-core-piece-not-closed-covered'
+   out.append((p,inside))
+  return out
+ 
+@@ -177,7 +210,7 @@
+     pa,pb=packed_vertex(a)[0],packed_vertex(b)[0];key=tuple(sorted([tuple(pa),tuple(pb)]));seams[key].append(dict(record=ri,kind=r['kind'],alpha=va,parentFacet=r['parentFacet'],priorCandidateFacet=r['priorCandidateFacet']))
+  for d in descriptors:
+   index=len(output);output.append(d['triangle']);collapsed.append(index);output_lineage.append(dict(outputFacet=index,kind='unchanged-prior-packed-collapse-descriptor',priorCandidateFacet=d['priorCandidateFacet'],fullPriorLineage=d['fullPriorLineage'],noSurfaceCoverageOrRootCredit=True))
+- patch=copy.deepcopy(base_patch);patch['id']='government-native-southside-selective13-domain-first-private-draft-v1';inherited_approval_metadata=dict(sourceOverlap=patch['nativeMesh'].pop('sourceOverlap',None),numericalProjectionOverlap=patch['nativeMesh']['source'].pop('numericalProjectionOverlap',None),numericalCoverageGap=patch['nativeMesh']['source'].pop('numericalCoverageGap',None));patch['nativeMesh']['position']=[v for t in output for p in t for v in p];patch['nativeMesh']['index']=list(range(3*len(output)))
++ patch=copy.deepcopy(base_patch);patch['id']='government-native-southside-selective13-domain-first-private-draft-v2';inherited_approval_metadata=dict(sourceOverlap=patch['nativeMesh'].pop('sourceOverlap',None),numericalProjectionOverlap=patch['nativeMesh']['source'].pop('numericalProjectionOverlap',None),numericalCoverageGap=patch['nativeMesh']['source'].pop('numericalCoverageGap',None));patch['nativeMesh']['position']=[v for t in output for p in t for v in p];patch['nativeMesh']['index']=list(range(3*len(output)))
+  patch['nativeMesh']['source']['policy']='Saved v4 authentic layers outside exact thirteen-form restoration; actual parent in closed core; new exact certified-width transition. No source-building geometry or pose changes.'
+  g=patch['meta']['georef'];grid=[(F(g['bE'])+c*F(g['aE'])-old.ORIGIN[0],old.rendered_height(patch,r*patch['w']+c),old.ORIGIN[1]-F(g['bN'])-r*F(g['aN']))for r in range(patch['h'])for c in range(patch['w'])]
+  grid_packing=[dict(position=i,actualFloat32BytesLE=packed_vertex(p)[2],exactAxisDisplacementsM=packed_vertex(p)[1])for i,p in enumerate(grid)]

@@ -1,0 +1,670 @@
+{
+  "stagedOnly": true,
+  "bytes": 82165,
+  "refinementSha256": "99f28c9999321ceeadd56390eb95b305823caccfcadfc3195635284f01e3beab",
+  "parentSha256": "e19dfb6b9d2d90c5ab305a697827148da596b6ed1a444cb5cc8c3cb9ee95a166",
+  "baseHydroSha256": "867a0e6504fc1e37224da3f7bfa5a84a64064fb98eff35d50c0299035b1cb894",
+  "patches": [
+    {
+      "id": "tai-o-source-refinement-1",
+      "targetUids": [
+        "landsd/14899:0"
+      ],
+      "bounds": [
+        -30747.5,
+        3272.5,
+        -30697.5,
+        3322.5
+      ],
+      "parentCells": [
+        198,
+        32,
+        208,
+        42
+      ],
+      "w": 51,
+      "h": 51,
+      "vertices": 2601,
+      "sourceCoveredNodes": 2601,
+      "maskedSourceMissingOrExistingWater": 0,
+      "mappedWaterIntersectionArea": 0.0,
+      "source": [
+        {
+          "manifest": "source-scripts/city/tai-o-models/staged/9-SW-23B/manifest.json",
+          "tile": "9-SW-23B",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "sourceHashes": {
+            "TERRAIN(TB)/T03750126000106E11/T03750126000106E11.gltf": "fec764f80bcf22dd1bdf64b46330ea76a0a857317198345948223ef63c328d1b",
+            "TERRAIN(TB)/T03750126000106E11/T03750126000106E11.bin": "586a147e27b2fafe55a2c00f750a9b09e0d7c6148debfbc87217fe98bce0ed63"
+          }
+        },
+        {
+          "manifest": "source-scripts/city/tai-o-detail-completion/staged/9-SW-18D/manifest.json",
+          "tile": "9-SW-18D",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "sourceHashes": {
+            "TERRAIN(TB)/T03750132000106E11/T03750132000106E11.gltf": "48ff73e5d9e9e45630bf379b7226f00f4c56e6ab489aab22ffbf64de1e9c780e",
+            "TERRAIN(TB)/T03750132000106E11/T03750132000106E11.bin": "b65fea56ac77029bdbba25e68ddc73d7fa6dbaa09e372eb56c35a7adbcb77f24"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tai-o-source-refinement-2",
+      "targetUids": [
+        "landsd/211618:0"
+      ],
+      "bounds": [
+        -31577.5,
+        3717.5,
+        -31502.5,
+        3772.5
+      ],
+      "parentCells": [
+        32,
+        121,
+        47,
+        132
+      ],
+      "w": 76,
+      "h": 56,
+      "vertices": 4256,
+      "sourceCoveredNodes": 4256,
+      "maskedSourceMissingOrExistingWater": 0,
+      "mappedWaterIntersectionArea": 0.0,
+      "source": [
+        {
+          "manifest": "source-scripts/city/tai-o-detail-completion/staged/9-SW-22B/manifest.json",
+          "tile": "9-SW-22B",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "sourceHashes": {
+            "TERRAIN(TB)/T02250126000106E11/T02250126000106E11.gltf": "04ba3828e5efef35e889cc5b07289c5a43b5258ba1dbe71cd39a4687b4fa5141",
+            "TERRAIN(TB)/T02250126000106E11/T02250126000106E11.bin": "4a81638366bb56620f91c657875ecea2769e465694dc1548d42e26f7f4cf14e2"
+          }
+        }
+      ]
+    }
+  ],
+  "boundaryChecks": 928,
+  "maximumBoundaryErrorMetres": 1.1723955140041653e-13,
+  "sourceTileHashes": [
+    {
+      "path": "3d-viewer/city/data/tiles/-16_1.json",
+      "sha256": "2886eb17c51f07e651e89828bd1efeab1f606c9ba9ab49a1613a4ed24d8717db"
+    }
+  ],
+  "screenedForms": 14,
+  "dependentEstimatedBaseUpdates": 3,
+  "regressions": [],
+  "rows": [
+    {
+      "uid": "landsd/14546:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 19.075,
+      "modelOrFallbackBase": 15.575,
+      "sourceBase": null,
+      "sourceTop": null,
+      "before": {
+        "min": 15.575,
+        "max": 16.324,
+        "centre": 16.125,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 11.31,
+        "max": 11.761
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": true
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "estimatedBaseAfter": 11.31
+    },
+    {
+      "uid": "landsd/14899:0",
+      "candidateNewModel": true,
+      "modelId": "B037781320301062G0",
+      "highestRoof": 15.900500297546387,
+      "modelOrFallbackBase": 11.835399627685547,
+      "sourceBase": 11.5,
+      "sourceTop": 15.7,
+      "before": {
+        "min": 16.0,
+        "max": 16.719,
+        "centre": 16.207,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 11.466,
+        "max": 11.925
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/58930:0",
+      "candidateNewModel": true,
+      "modelId": "B038411320501063C0",
+      "highestRoof": 12.482099056243896,
+      "modelOrFallbackBase": 3.042600154876709,
+      "sourceBase": 3.5,
+      "sourceTop": 12,
+      "before": {
+        "min": 5.0,
+        "max": 5.991,
+        "centre": 5.123,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 5.0,
+        "max": 5.991
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/67478:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 26.4,
+      "modelOrFallbackBase": 16.9,
+      "sourceBase": 16.9,
+      "sourceTop": 26.4,
+      "before": {
+        "min": 21.574,
+        "max": 31.947,
+        "centre": 27.043,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 17.483,
+        "max": 29.441
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false,
+        "sampled": true,
+        "resolutions": [
+          70.0
+        ]
+      }
+    },
+    {
+      "uid": "landsd/94903:0",
+      "candidateNewModel": true,
+      "modelId": "B038561322601063C0",
+      "highestRoof": 9.187699794769287,
+      "modelOrFallbackBase": 1.109799861907959,
+      "sourceBase": 2.8,
+      "sourceTop": 8.1,
+      "before": {
+        "min": 4.103,
+        "max": 4.776,
+        "centre": 4.522,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 4.103,
+        "max": 4.776
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/96188:0",
+      "candidateNewModel": true,
+      "modelId": "B044151257101062G0",
+      "highestRoof": 8.548199653625488,
+      "modelOrFallbackBase": 4.110899925231934,
+      "sourceBase": 3.2,
+      "sourceTop": 8.6,
+      "before": {
+        "min": 5.0,
+        "max": 6.114,
+        "centre": 5.206,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 5.0,
+        "max": 6.114
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/162085:0",
+      "candidateNewModel": true,
+      "modelId": "B038441321701063C0",
+      "highestRoof": 7.290499925613403,
+      "modelOrFallbackBase": 2.831199884414673,
+      "sourceBase": 3.4,
+      "sourceTop": 6.1,
+      "before": {
+        "min": 4.845,
+        "max": 5.56,
+        "centre": 5.179,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 4.845,
+        "max": 5.56
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/170271:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 23.1,
+      "modelOrFallbackBase": 20.3,
+      "sourceBase": 20.3,
+      "sourceTop": 23.1,
+      "before": {
+        "min": 32.907,
+        "max": 34.581,
+        "centre": 33.744,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 20.215,
+        "max": 20.674
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false,
+        "sampled": true,
+        "resolutions": [
+          70.0
+        ]
+      }
+    },
+    {
+      "uid": "landsd/170357:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 23.0,
+      "modelOrFallbackBase": 20.3,
+      "sourceBase": 20.3,
+      "sourceTop": 23,
+      "before": {
+        "min": 31.308,
+        "max": 34.116,
+        "centre": 32.734,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 20.422,
+        "max": 20.984
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false,
+        "sampled": true,
+        "resolutions": [
+          70.0
+        ]
+      }
+    },
+    {
+      "uid": "landsd/183353:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 18.66,
+      "modelOrFallbackBase": 15.16,
+      "sourceBase": null,
+      "sourceTop": null,
+      "before": {
+        "min": 15.16,
+        "max": 16.045,
+        "centre": 15.75,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 11.713,
+        "max": 11.95
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": true
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "estimatedBaseAfter": 11.713
+    },
+    {
+      "uid": "landsd/211618:0",
+      "candidateNewModel": true,
+      "modelId": "B029631275201063C0",
+      "highestRoof": 26.0447998046875,
+      "modelOrFallbackBase": 17.15959930419922,
+      "sourceBase": 13.8,
+      "sourceTop": 24.3,
+      "before": {
+        "min": 23.189,
+        "max": 36.187,
+        "centre": 28.988,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 17.353,
+        "max": 20.91
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/211900:0",
+      "candidateNewModel": true,
+      "modelId": "B042621261001063C0",
+      "highestRoof": 23.259700775146484,
+      "modelOrFallbackBase": 4.1287994384765625,
+      "sourceBase": 4.1,
+      "sourceTop": 18.4,
+      "before": {
+        "min": 3.766,
+        "max": 5.636,
+        "centre": 5.0,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 3.766,
+        "max": 5.636
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/239278:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 8.6,
+      "modelOrFallbackBase": 4.1,
+      "sourceBase": 4.1,
+      "sourceTop": 8.6,
+      "before": {
+        "min": 11.894,
+        "max": 17.124,
+        "centre": 15.016,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 11.894,
+        "max": 17.0
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": true,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false,
+        "sampled": true,
+        "resolutions": [
+          70.0
+        ]
+      }
+    },
+    {
+      "uid": "landsd/309121:0",
+      "candidateNewModel": false,
+      "modelId": null,
+      "highestRoof": 18.46,
+      "modelOrFallbackBase": 14.96,
+      "sourceBase": null,
+      "sourceTop": null,
+      "before": {
+        "min": 14.96,
+        "max": 15.557,
+        "centre": 15.213,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "after": {
+        "min": 10.968,
+        "max": 11.817
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterTerrainOnlyFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": true
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "previousTerrainAudit": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "estimatedBaseAfter": 10.968
+    }
+  ],
+  "limits": [
+    "Staged nested grids; actual nested renderer and browser acceptance remains with root.",
+    "Source building elevations untouched. Highest-roof extrema diagnostics are not per-roof-face architecture acceptance."
+  ]
+}

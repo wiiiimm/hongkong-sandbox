@@ -1,0 +1,60 @@
+{
+  "batch": "government-xl-harbour-glory-eleven-original-contacts-v1-20261102-sequence",
+  "uids": [
+    "landsd/108870:0",
+    "landsd/232659:0",
+    "landsd/247461:0",
+    "landsd/258158:0",
+    "landsd/260014:0",
+    "landsd/271909:0",
+    "landsd/273684:0",
+    "landsd/28391:0",
+    "landsd/35148:0",
+    "landsd/67682:0",
+    "landsd/92999:0"
+  ],
+  "resources": [
+    "building:landsd/102335:0",
+    "building:landsd/108870:0",
+    "building:landsd/232659:0",
+    "building:landsd/244772:0",
+    "building:landsd/247461:0",
+    "building:landsd/258158:0",
+    "building:landsd/260014:0",
+    "building:landsd/261967:0",
+    "building:landsd/270799:0",
+    "building:landsd/271909:0",
+    "building:landsd/273684:0",
+    "building:landsd/28391:0",
+    "building:landsd/286679:0",
+    "building:landsd/286709:0",
+    "building:landsd/35148:0",
+    "building:landsd/67682:0",
+    "building:landsd/92999:0"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-harbour-glory-eleven-original-contacts-v1-20261102-foreign",
+      "args": [
+        "--scope",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-model-scope",
+        "--runtime",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-attributes"
+      ]
+    },
+    {
+      "script": "original_assembly_four_world_pair_context_v2_20261024.py",
+      "batch": "government-xl-harbour-glory-eleven-original-contacts-v1-20261102-pairs",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-attributes"
+      ]
+    }
+  ],
+  "qualification": "Complete11original finite contacts, all55unordered pairs in4coordinate streams, strict disjoint bounds early-out. No geometry edits or physical/installation approval."
+}

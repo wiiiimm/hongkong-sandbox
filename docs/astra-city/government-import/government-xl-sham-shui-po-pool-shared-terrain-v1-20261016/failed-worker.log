@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/sham_shui_po_pool_shared_terrain_v1_20261016.py", line 56, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/sham_shui_po_pool_shared_terrain_v1_20261016.py", line 49, in main
+    helper.validate_patch=finish;group=dict(uids=[e['uid'] for e in entries],cells=cells);patch=helper.make_patch(group,parent,native,sourceMeta,native_core=core,allow_native_below_clamp=True);path=DOC/'private-terrain.json';save(path,patch);candidate=dict(path=str(path.relative_to(ROOT)),sha256=digest(path.read_bytes()),uids=[row['uid']],replaces=dict(url=oldurl,sha256=digest(oldpath.read_bytes()),retainedUids=[e['uid'] for e in retained]));save(DOC/'terrain-candidates.json',[candidate]);save(DOC/'selection.json.gz',selection)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/resolve-pass.py", line 99, in make_patch
+    assert len(tri)<=terrain_triangle_budget,'terrain-runtime-budget'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: terrain-runtime-budget

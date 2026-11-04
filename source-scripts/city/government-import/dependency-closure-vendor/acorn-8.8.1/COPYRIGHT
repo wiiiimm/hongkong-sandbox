@@ -1,0 +1,149 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: acorn
+Upstream-Contact: https://github.com/ternjs/acorn/issues
+Source: https://github.com/ternjs/acorn
+Files-Excluded: dist/*.map dist/*.js dist/*.mjs test/bench/* bin/*262*
+Files-Excluded-node-acorn-node: lib/*
+Files-Excluded-node-acorn-jsx: test/tests-jsx.js
+Comment: Do not use already build or minified file
+
+Files: *
+Copyright: 2012-2022 various contributors (see AUTHORS)
+License: Expat
+
+Files: test/tests-harmony.js
+Copyright: 2015 Ingvar Stepanyan
+           2012 Ariya Hidayat
+           2012 Joost-Wim Boekesteijn
+           2011,2012 Yusuke Suzuki
+           2011,2012 Apad Borsos
+License: BSD-2-clause
+
+Files: acorn-import-assertions/*
+Copyright: Sven Sauleau <sven@sauleau.com>
+License: Expat
+
+Files: debian/*
+Copyright: 2016-2019 Julien Puydt <jpuydt@debian.org>
+ 2017-2019 Bastien Roucariès
+ 2020-2022 Yadd <yadd@debian.org>
+License: Expat
+
+Files: node-acorn-globals/*
+Copyright: 2014 Forbes Lindesay
+License: Expat
+
+Files: node-acorn-bigint/*
+Copyright: 2017-2018 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-bigint
+
+Files: node-acorn-class-fields/*
+Copyright: 2017-2019 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-class-fields
+
+Files: node-acorn-dynamic-import/*
+Copyright: 2016 Jordan Gensler <jordangens@gmail.com>
+License: Expat
+Comment: https://github.com/kesne/acorn-dynamic-import/
+
+Files: node-acorn-export-ns-from/*
+Copyright: 2017-2019 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-export-ns-from
+
+Files: node-acorn-import-meta/*
+Copyright: 2017-2018 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-import-meta
+
+Files: node-acorn-jsx/*
+Copyright: 2012-2018 Ingvar Stepanyan
+License: Expat
+
+Files: node-acorn-node/*
+Copyright: 2018 Renée Kooi <renee@kooi.me>
+License: Apache-2.0
+Comment: From https://github.com/browserify/acorn-node
+ the lib/ directory was removed in old version so LICENSE file is out
+ of date and this package is only apache-2.0
+
+Files: node-acorn-numeric-separator/*
+Copyright: 2017-2019 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-numeric-separator
+
+Files: node-acorn-private-class-elements/*
+Copyright: 2019 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-private-class-elements
+
+Files: node-acorn-private-methods/*
+Copyright: 2017-2019 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-private-methods
+
+Files: node-acorn-static-class-features/*
+Copyright: 2017-2019 by Adrian Heine
+License: Expat
+Comment: https://github.com/acornjs/acorn-static-class-features
+
+License: Apache-2.0
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+ https://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ .
+ On Debian systems, the complete text of the Apache version 2.0 license
+ can be found in "/usr/share/common-licenses/Apache-2.0".
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation files
+ (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge,
+ publish, distribute, sublicense, and/or sell copies of the Software,
+ and to permit persons to whom the Software is furnished to do so,
+ subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+License: BSD-2-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE HOLDERS OR
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

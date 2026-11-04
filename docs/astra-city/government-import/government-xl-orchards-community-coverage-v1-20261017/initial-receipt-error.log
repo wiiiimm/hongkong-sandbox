@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/orchards_community_coverage_v1_20261017.py", line 23, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/orchards_community_coverage_v1_20261017.py", line 22, in main
+    save(doc/'coverage.json',summary);save(doc/'selection.json.gz',dict(rows=rows));out=module('orchards_community_coverage_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH,'original-community-podium-full-projection-coverage-diagnostic-v1',refs,dict(summary=summary,fullAcceptance=False,newlyInstalled=0));print(dict(jobId=out['jobId'],summary=summary),flush=True)
+                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 17, in freeze
+    payload={'uids':result['uids'],'evidenceRefs':refs};jid=jobs.enqueue(batch,stage,payload);job=jobs.claim(batch,lease['owner'],[stage],lease_seconds=1800);assert job and job['id']==jid
+                    ~~~~~~^^^^^^^^
+KeyError: 'uids'

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_originals_current_rebind_v1_20261104.py", line 168, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_originals_current_rebind_v1_20261104.py", line 86, in main
+    assert production and production=={p:h for p,h in metric['inputHashes'].items() if p.startswith('3d-viewer/') and p.endswith(('.js','.mjs','.wasm'))}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": false, "exitCode": 1, "released": true}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_originals_current_rebind_v1_20261104.py", line 168, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_originals_current_rebind_v1_20261104.py", line 46, in main
+    return execute_reserved(claim['reservation'], LEASE, [sys.executable,__file__,'--owned'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v4_20261103.py", line 55, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

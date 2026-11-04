@@ -1,0 +1,9 @@
+# Remaining XL direct shared-OSM scan
+
+Codex, 9 October 2026, HKS-203. Verified Neon job `8d5f1267e2d619e69c43664fd6241906eabf4fa15594eff93f499244da127f29`. All 321 prior remaining originals checked: 226 exact unchanged prior group measurements reused; 82 newly measured groups still fail; five original caches missing; eight groups pass diagnostic coverage/extent/overlap bounds. No download/decoding repetition for byte-identical unchanged groups. Current parent IDs are preserved and only direct shared OSM references are included, never transitive relation chains.
+
+Eight candidates: June Garden 227380 (already physically investigated), Victoria Mall 227593, HSBC Centre 265848, Central Park Towers podium 311743, Manhattan Mid-Town 276331, Olympian City Two 265851, Hoi Fu Shopping Centre 177604, Kwai Chung Shopping Centre 280084. Scan grants no identity, suppression, publication or installation credit. Outcome rows and source-specific measurements are saved in Neon.
+
+Fresh seven-source official context job `06390152a43589ea3b814d3c6013a1f47e61f3bf4c8a189467b2222414767246` captures original meshes and 63 current component forms. Identity diagnostic job `1089bb702b7a7feac46c69aeea924416cd2387e7e80cbb9f6a79d73305ed3682` passes six; Olympian City Two has zero official/viewer matches and missing prepared height metadata. No metadata restoration or acceptance exception attempted. All actual exported original captures inspected: these are low podiums, not replacement high towers. Keep every other component.
+
+Central Park podium subsequently installed with full independent physical/browser/publication checks. HSBC and Kwai Chung retain prior real physical/neighbour holds; changed group measurements do not clear them. Other source-specific follow-through is separate. No permanent rejection or inferred AI geometry requirement. No historical imagery used.

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v1_20261103.py", line 83, in <module>
+    claim = reservations.claim('pair-full-parent-forms-' + str(uuid.uuid4()), sorted(keys), batch=BATCH, ttl=3600)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py", line 63, in claim
+    resources = normalise(resources)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py", line 23, in normalise
+    raise ValueError('Provide 1–1000 stable resource keys of 1–300 characters')
+ValueError: Provide 1–1000 stable resource keys of 1–300 characters

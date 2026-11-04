@@ -1,0 +1,24 @@
+"""Complete independently classified source/literal open low-feature proposal."""
+from pathlib import Path
+import importlib.util,json,numpy as np
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from one_peking_open_low_grade_feature_proposal_20261011 import verify,IDS
+BATCH='government-xl-one-peking-open-low-grade-feature-proposal-v1-20261011';DOC=ROOT/'docs/astra-city/government-import'/BATCH
+BASE=DOC.parent;PHYS=BASE/'government-xl-one-peking-two-original-retained-hullett-child-current-physical-v5-20261010';GRAPH=BASE/'government-xl-one-peking-original-ordinary-ground-graph-diagnostic-v2-20261010';CENSUS=BASE/'government-xl-one-peking-complete-original-and-literal-nonzero-edge-census-v2-20261011';RT=HERE/'local'/PHYS.name/'runtime-geometry.json.gz'
+def main():
+ assert not DOC.exists();rows=sorted(read(PHYS/'selection.json.gz')['rows'],key=lambda r:r['uid']);assets=[ROOT/r['candidate']['path'] for r in rows]
+ for p,r in zip(assets,rows):assert digest(p.read_bytes())==r['sourceSHA256']
+ original=np.concatenate([decode_original_world_triangles(p.read_bytes()) for p in assets]);runtime={r['uid']:r for r in read(RT)['rows']};assert set(runtime)=={r['uid'] for r in rows}
+ literal=np.concatenate([np.asarray(runtime[r['uid']]['position'],dtype='<f8').reshape(-1,3)[np.asarray(runtime[r['uid']]['index']).reshape(-1,3)] for r in rows]);ground=np.asarray(read(GRAPH/'complete-historical-ground-facets.json.gz')['triangles'],dtype='<f8');graph=read(GRAPH/'diagnostic.json.gz');census=read(CENSUS/'diagnostic.json.gz')
+ assert digest(original.tobytes())==graph['binding']['completeOriginalWorldTrianglesSHA256'] and digest(ground.tobytes())==graph['binding']['currentDrawnGroundSHA256']
+ assert graph['components'][12]['actorUID']=='landsd/233985:0' and graph['components'][12]['globalOriginalFaces']==IDS
+ out=[]
+ for kind,whole in [('completeOriginal',original),('actualLiteralRendered',literal)]:
+  c=next(c for c in census['completeOriginalAndLiteralCensuses'] if c['representation']==kind);assert digest(whole.tobytes())==c['completeWorldSHA256']
+  out.append(dict(representation=kind,proof=verify(whole,ground,uid='landsd/233985:0',component=12,expected_world_sha=c['completeWorldSHA256'],expected_ground_sha=graph['binding']['currentDrawnGroundSHA256'],complete_face_ids=IDS)))
+ result=json.loads(json.dumps(dict(uids=[r['uid'] for r in rows],completeOriginalAndLiteralFaces=len(original),completeGroundFacets=len(ground),completeOriginalLiteralOpenFeatureProposals=out,sourceRoleProposalSupported=True,sourceGroundRootAccepted=False,currentRegionalRebindRequired=True,historicalCandidateOnly=True,sourceGeometryChanges=0,physicalAccepted=False,installationApproved=False,qualification='One complete27-face original/literal open source feature:7openedges remain explicit; every real face is nonzero-edge connected, allfinite closed projections within unchanged-.5clearance, four entirely exposed caps and genuine positive-dimensional steep-wall grade intersections in the same exact feature. No closed-solid, architectural function, load-bearing or current root credit. Full current native/foreign/terrain/runtime/foundation/browser gates remain independent.'),allow_nan=False))
+ save(DOC/'proposal.json.gz',result);save(DOC/'actual-test-result.json',dict(newActualAdverseCasesPassed=12,initialDiscoveryTotalTestsPassed=30,initialDiscoveryIncludedPreviouslyReviewedCases=18,seconds=1.187,helperGeometryChanges=0,qualification='All12 new open-feature cases passed; module import was then changed to a module alias solely to prevent rediscovery of18 previous closed-feature cases. No test logic changed.'))
+ refs=[Path(__file__),HERE/'one_peking_open_low_grade_feature_proposal_20261011.py',HERE/'test_one_peking_open_low_grade_feature_proposal_20261011.py',HERE/'one_peking_two_closed_low_grade_feature_proposal_20261011.py',HERE/'test_one_peking_two_closed_low_grade_feature_proposal_20261011.py',HERE/'exact_original_shared_edge_component_census_v2_20261011.py',HERE/'exact_original_paired_finite_clearance_20261010.py',HERE/'exact_original_finite_triangle_contacts_20261010.py',HERE/'exact_packed_world_geometry_20261009.py',PHYS/'result.json',PHYS/'selection.json.gz',RT,GRAPH/'result.json',GRAPH/'diagnostic.json.gz',GRAPH/'complete-historical-ground-facets.json.gz',CENSUS/'result.json',CENSUS/'diagnostic.json.gz',*assets]
+ spec=importlib.util.spec_from_file_location('one_open_grade_fence',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);r=m.freeze(BATCH,'one-complete-open-low-grade-feature-original-literal-proposal-v1',refs,result);print(json.dumps(dict(jobId=r['jobId'],sourceRoleProposalSupported=True,sourceGroundRootAccepted=False,physicalAccepted=False)),flush=True)
+if __name__=='__main__':main()

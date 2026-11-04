@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_supported_live_install_v2_20261024.py", line 150, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_supported_live_install_v2_20261024.py", line 143, in main
+    keys,pointer,models,delta,refs=load(previous);save(BASE/(BATCH+'-proposal')/'installer-preflight.json',dict(passed=True,caller=ref(Path(__file__)),publisher=ref(PUB),delta=delta,resources=sorted(keys),evidenceRefs=refs,publication=False));print(json.dumps(dict(preflightPassed=True,delta=delta)));return
+                                   ^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_supported_live_install_v2_20261024.py", line 38, in load
+    keys=guard.evidence();pointer=read(POINTER);manifest=ROOT/'3d-viewer/city/data/manifest.json';models=read(stage.STAGE/'catalogue.json')['models']
+         ^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_supported_guarded_publish_v2_20261024.py", line 23, in evidence
+    assert {(i['uid'],i['width'],i['time'])for i in q['imagesActuallyViewed']}=={(u,w,t)for u in stage.SOURCES for w in [390,1280]for t in ['15:00','22:00']}
+             ~^^^^^^^
+KeyError: 'uid'

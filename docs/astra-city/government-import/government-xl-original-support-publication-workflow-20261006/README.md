@@ -1,0 +1,5 @@
+# Exact original support-pair publication
+
+Codex,6 October2026, HKS-203. Generic two-source installer revalidates current full physical proof and publishes an unchanged podium/tower pair atomically with native dependency metadata. Both models require staged/live mobile/desktop day/night, picking/collision and download failure/retry. Current fenced Neon installed receipts, runtime SHA verification and refreshed progress precede commit credit. The commit helper now accepts exact pairs but counts only actual XL members. No original model geometry edits or architectural AI calls. No source maps used.
+
+Verification: Python compilation and JavaScript syntax checks passed. End-to-end validation is pending a fresh current physical run and actual browser acceptance; no installation credit here. Fu Wen diagnostics identified missing retained catalogue registration before the unrelated serial background catalogue queue completed. The assembly fixture now loads exact current retained catalogues through the production API; actual visibility, source SHA and normal model admission remain required.

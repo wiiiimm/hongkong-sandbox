@@ -1,0 +1,22 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py
++++ docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v2-20261014/heritage-current-typed-identity-caller-draft-v2.py
+@@ -3,7 +3,7 @@
+ from functools import lru_cache
+ from pathlib import Path
+ PACKET=Path(__file__).resolve().parent;ROOT=PACKET.parents[3];HERE=ROOT/'source-scripts/city/government-import'
+-CONTRACT=PACKET/'input-contract.json';OUTPUT=PACKET/'current-identity-output-v1'
++CONTRACT=PACKET/'input-contract.json';OUTPUT=PACKET/'current-identity-output-v2'
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):
+  b=p.read_bytes();return json.loads(gzip.decompress(b)if p.suffix=='.gz'else b)
+@@ -66,7 +66,9 @@
+  g.add_argument('--preflight-only',action='store_true');g.add_argument('--replay-current-typed-identity-only',action='store_true')
+  p.add_argument('--lease-file',type=Path);p.add_argument('--test-validation',type=Path);p.add_argument('--test-validation-sha256')
+  args=p.parse_args();c=read(CONTRACT);ch=sha(CONTRACT);fence(c,ch)
+- assert not OUTPUT.exists();scope=read(ROOT/c['sourceContextPath']);meaning=read(ROOT/c['interpretationPath'])
++ assert not OUTPUT.exists();envelope=read(ROOT/c['resourceEnvelopePath']);assert envelope['canonicalResources']==c['canonicalResources']and envelope['currentManifestSHA256']==c['currentManifestSHA256']
++ for tile,h in envelope['currentTileHashes'].items():assert sha(ROOT/tile)==h
++ scope=read(ROOT/c['sourceContextPath']);meaning=read(ROOT/c['interpretationPath'])
+  sys.path.insert(0,str(PACKET));from heritage_current_typed_identity_draft_v1 import validate_scope,compose
+  far,ordinary=validate_scope(scope,meaning,expected_context_hash=c['sourceContextSemanticSHA256'],expected_interpretation_hash=c['interpretationSemanticSHA256'])
+  if args.preflight_only:

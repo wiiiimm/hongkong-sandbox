@@ -1,0 +1,70 @@
+{
+  "batch": "government-xl-civic-seven-scope-insets-v1-20261029",
+  "uids": [
+    "landsd/231013:0",
+    "landsd/23220:0",
+    "landsd/23759:0",
+    "landsd/23761:0",
+    "landsd/82290:0",
+    "landsd/82291:0",
+    "landsd/82292:0"
+  ],
+  "resources": [
+    "building:landsd/231013:0",
+    "building:landsd/23220:0",
+    "building:landsd/23759:0",
+    "building:landsd/23761:0",
+    "building:landsd/82290:0",
+    "building:landsd/82291:0",
+    "building:landsd/82292:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-civic-seven-model-scope-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-civic-seven-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-civic-seven-render-attributes-v1-20261029",
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_local_inset_v13_20261024.py",
+      "batch": "government-xl-sha-tin-civic-four-original-inset-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-civic-seven-current-ground-v1-20261029",
+        "--terrain-check",
+        "government-xl-remaining-adjacent-terrain-batch-v1-20261022-231013-0",
+        "--uid",
+        "landsd/231013:0",
+        "--companion",
+        "landsd/23220:0",
+        "--companion",
+        "landsd/23759:0",
+        "--companion",
+        "landsd/23761:0"
+      ]
+    },
+    {
+      "script": "selected_original_local_inset_v13_20261024.py",
+      "batch": "government-xl-kowloon-city-civic-three-original-inset-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-civic-seven-current-ground-v1-20261029",
+        "--terrain-check",
+        "government-xl-remaining-adjacent-terrain-batch-v1-20261022-82291-0",
+        "--uid",
+        "landsd/82291:0",
+        "--companion",
+        "landsd/82290:0",
+        "--companion",
+        "landsd/82292:0"
+      ]
+    }
+  ]
+}

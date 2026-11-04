@@ -1,0 +1,116 @@
+{
+  "mode": "staged",
+  "views": [
+    {
+      "uid": "landsd/309823:0",
+      "width": 390,
+      "phase": "failed-download",
+      "fallbackRetained": true,
+      "suppressedBasicsRestored": {}
+    }
+  ],
+  "retainedNativeOwnViews": [],
+  "errors": [
+    "page.waitForFunction: Timeout 120000ms exceeded."
+  ],
+  "aiCalls": 0,
+  "architectureReview": false,
+  "nativeHTTPObservationTimeoutMs": 120000,
+  "actorObservationTimeoutMs": 120000,
+  "startupObservationBudgetMs": 300000,
+  "retainedTravelObservationBudgetMs": 180000,
+  "startupElapsedMs": 15086,
+  "nativeAssetRequests": [
+    {
+      "url": "http://127.0.0.1:4177/city/data/official-models/government-xl-academic309823-after-kai-tak-carpark-qualified-stage-v1-20261101/assets/e4cf4099b7a1179c0c1a6ea27a7dc9036bde9ad08ba2ee900a6ac0fe3542fde8.glb.gz?v=e4cf4099b7a1179c0c1a6ea27a7dc9036bde9ad08ba2ee900a6ac0fe3542fde8",
+      "event": "requested"
+    },
+    {
+      "url": "http://127.0.0.1:4177/city/data/official-models/government-xl-academic309823-after-kai-tak-carpark-qualified-stage-v1-20261101/assets/e4cf4099b7a1179c0c1a6ea27a7dc9036bde9ad08ba2ee900a6ac0fe3542fde8.glb.gz?v=e4cf4099b7a1179c0c1a6ea27a7dc9036bde9ad08ba2ee900a6ac0fe3542fde8",
+      "event": "response",
+      "status": 200
+    }
+  ],
+  "baseMapReadiness": [
+    {
+      "uid": "landsd/309823:0",
+      "elapsedMs": 320,
+      "scope": "Base tile completion before detailed-source recovery, not a cold-load performance pass"
+    }
+  ],
+  "debug": [
+    {
+      "uid": "landsd/309823:0",
+      "modelKnown": true,
+      "buildingLoaded": true,
+      "buildingTile": "5_-3",
+      "selected": "landsd/309823:0",
+      "official": {
+        "profile": "mobile",
+        "quality": "auto",
+        "catalogues": 373,
+        "available": 7090,
+        "cached": 1,
+        "visible": 1,
+        "pending": 0,
+        "loadingPaused": false,
+        "retiring": 0,
+        "wanted": 4,
+        "supportHolds": [],
+        "errors": [
+          "landsd/309823:0",
+          "landsd/309829:0",
+          "landsd/336320:0"
+        ],
+        "variantErrors": [],
+        "geometryBytes": 60384,
+        "residentBytes": 308160,
+        "triangles": 680,
+        "limits": {
+          "count": 24,
+          "concurrency": 1,
+          "geometryBytes": 50331648,
+          "residentBytes": 134217728,
+          "selectedResidentBytes": 167772160,
+          "triangles": 450000,
+          "landmarkDistance": 1800,
+          "detailDistance": 300,
+          "minPixels": 24,
+          "drawCalls": 128
+        },
+        "warm": 0,
+        "compressed": {
+          "bytes": 443809,
+          "entries": 2,
+          "pending": 0,
+          "running": 0,
+          "hits": 1,
+          "requests": 4,
+          "maxBytes": 33554432,
+          "maxEntries": 96
+        },
+        "drawCalls": 1
+      },
+      "stream": {
+        "wanted": 9,
+        "cached": 9,
+        "loaded": 9,
+        "pending": 0,
+        "loadingPaused": false,
+        "errors": [],
+        "forms": 12864,
+        "trees": 6519,
+        "suppressedBuildings": 0,
+        "detailedModels": 1,
+        "infrastructureErrors": []
+      },
+      "cacheError": "Official model HTTP 503",
+      "wanted": [
+        "landsd/309823:0",
+        "landsd/309829:0",
+        "landsd/336320:0",
+        "landsd/26949:0"
+      ]
+    }
+  ]
+}

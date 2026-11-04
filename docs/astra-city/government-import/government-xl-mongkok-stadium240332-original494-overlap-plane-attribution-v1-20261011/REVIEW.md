@@ -1,0 +1,3 @@
+# Source-only diagnostic
+
+Exact affine plane attribution only, all494 original source overlap pairs retained. Same-plane/duplicate conclusions are bounded to complete exact closed overlap, do not authorize arbitrary facet deletion or claim full source-height function/support/current/native acceptance. A subsequent coplanar exact union consolidation must prove identical entire closed rendered surface/full coverage/topology/F32 and preserve source provenance. Distinctplanes need source-backed interpretation; adjacent-sheet retrieval does not automatically discharge these independent source obligations. Summary: {"completePositiveOverlapPairs": 494, "distinctPlaneCrossingPairs": 91, "distinctPlanePairs": 494, "exactCoplanarPairs": 0, "exactDuplicateUnorderedVertices": 0}

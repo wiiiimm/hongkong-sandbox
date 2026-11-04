@@ -1,0 +1,34 @@
+{"sourceFormAdapterPassed":true,"models":4,"dependencyFirstOrder":["landsd/159422:0","landsd/20270:0","landsd/269430:0","landsd/274231:0"]}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_coordinated_staged_browser_v1_20261023.py", line 139, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_coordinated_staged_browser_v1_20261023.py", line 125, in main
+    proc = subprocess.run(['node', str(tool), 'staged', str(path.relative_to(ROOT))], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, env={**os.environ, 'CHROME_PATH': '/opt/google/chrome/chrome'}, timeout=1200)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 2141, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+  File "/usr/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 2045, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ronsdale_three_live_browser_v7_20261023.mjs', 'staged', 'source-scripts/city/government-import/local/government-xl-island-cheong-shing-four-original-private-browser-v1-20261023/browser-config-1280.json']' timed out after 1199.999979479704 seconds
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_coordinated_staged_browser_v1_20261023.py", line 139, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_coordinated_staged_browser_v1_20261023.py", line 63, in main
+    subprocess.run([sys.executable, str(HERE / 'bounded_reserved_runner_v2_20261022.py'), str(leasepath), sys.executable, __file__, *sys.argv[1:], '--owned'], cwd=ROOT, check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_reserved_runner_v2_20261022.py', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-island-cheong-shing-four-original-private-browser-v1-20261023/reservation.json', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_coordinated_staged_browser_v1_20261023.py', '--batch', 'government-xl-island-cheong-shing-four-original-private-browser-v1-20261023', '--runtime', 'government-xl-island-cheong-shing-four-original-runtime-v4-20261023', '--patch', 'government-xl-island-industrial-paired-surface-binding-v6-20261023', '--review', 'government-xl-island-cheong-shing-physical-review-v1-20261023', '--support', 'landsd/20270:0,landsd/159422:0', '--support', 'landsd/274231:0,landsd/269430:0', '--retain-native', 'landsd/106413:0', '--retain-native', 'landsd/147024:0', '--retain-native', 'landsd/147505:0', '--retain-native', 'landsd/147996:0', '--retain-native', 'landsd/160193:0', '--retain-native', 'landsd/177604:0', '--retain-native', 'landsd/177605:0', '--retain-native', 'landsd/225173:0', '--retain-native', 'landsd/227099:0', '--retain-native', 'landsd/227455:0', '--retain-native', 'landsd/228219:0', '--retain-native', 'landsd/229310:0', '--retain-native', 'landsd/231442:0', '--retain-native', 'landsd/232818:0', '--retain-native', 'landsd/233770:0', '--retain-native', 'landsd/233775:0', '--retain-native', 'landsd/233970:0', '--retain-native', 'landsd/239350:0', '--retain-native', 'landsd/239351:0', '--retain-native', 'landsd/239397:0', '--retain-native', 'landsd/240161:0', '--retain-native', 'landsd/242294:0', '--retain-native', 'landsd/250559:0', '--retain-native', 'landsd/263404:0', '--retain-native', 'landsd/265848:0', '--retain-native', 'landsd/265851:0', '--retain-native', 'landsd/327153:0', '--retain-native', 'landsd/337075:0', '--retain-native', 'landsd/337079:0', '--retain-native', 'landsd/72277:0', '--retain-native', 'landsd/72357:0', '--retain-native', 'landsd/81242:0', '--owned']' returned non-zero exit status 1.

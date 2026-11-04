@@ -1,0 +1,56 @@
+{
+  "batch": "government-xl-villa-premiere89917-five-ramp-final-mechanical-sequence-v1-20261031",
+  "uids": [
+    "landsd/89917:0",
+    "landsd/58497:0",
+    "landsd/63823:0",
+    "landsd/121309:0",
+    "landsd/148052:0"
+  ],
+  "resources": [
+    "building:landsd/1205:0",
+    "building:landsd/121309:0",
+    "building:landsd/121443:0",
+    "building:landsd/148052:0",
+    "building:landsd/278808:0",
+    "building:landsd/325786:0",
+    "building:landsd/335260:0",
+    "building:landsd/44758:0",
+    "building:landsd/58497:0",
+    "building:landsd/6046:0",
+    "building:landsd/63823:0",
+    "building:landsd/89917:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-identity-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030"
+      ],
+      "scopeResources": "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030"
+    },
+    {
+      "script": "original_assembly_four_world_pair_context_v2_20261024.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-pairs-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030"
+      ],
+      "scopeResources": "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030"
+    },
+    {
+      "script": "selected_original_continuous_ground_context_v3_20261025.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-continuous-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030"
+      ],
+      "scopeResources": "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030"
+    }
+  ]
+}

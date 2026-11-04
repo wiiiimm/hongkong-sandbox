@@ -1,0 +1,39 @@
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+{'batch': 'government-xl-silvercord-lippo-full-form-regression-v2-20261103-chunk-000', 'jobId': 'b93cb9b1d87829f9e867058f415a6d75898bb5215479bbe26c2e643eed6f8676', 'neonVerified': True}
+{'forms': 900, 'ordinaryFlagged': 0, 'flagged': 0}
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": true, "exitCode": 0, "released": true}
+{'chunk': 0, 'checked': 900, 'total': 5403}
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+{'batch': 'government-xl-silvercord-lippo-full-form-regression-v2-20261103-chunk-001', 'jobId': 'a80774af8ab5457d82d8bb4740bbe6940df95442ec4fe99b076b1245fda24f9b', 'neonVerified': True}
+{'forms': 900, 'ordinaryFlagged': 0, 'flagged': 0}
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": true, "exitCode": 0, "released": true}
+{'chunk': 1, 'checked': 1800, 'total': 5403}
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v2_20261103.py", line 85, in <module>
+    if '--owned' in sys.argv: owned()
+                              ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v2_20261103.py", line 46, in owned
+    scope, pins, proposal, pp, manifest, models, all_forms = inputs()
+                                                             ^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v2_20261103.py", line 30, in inputs
+    mh = digest(manifest_path.read_bytes()); assert mh == scope['currentManifestSHA256'] == proposal['currentManifestSHA256']
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": false, "exitCode": 1, "released": true}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v2_20261103.py", line 96, in <module>
+    execute_reserved(claim['reservation'], LOCAL / 'reservation.json', [sys.executable, __file__, '--owned', '--chunk', str(CHUNK)])
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v3_20261103.py", line 48, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v2_20261103.py", line 103, in <module>
+    subprocess.run([sys.executable, __file__, '--chunk', str(chunk)], cwd=ROOT, check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_full_form_regression_v2_20261103.py', '--chunk', '2']' returned non-zero exit status 1.

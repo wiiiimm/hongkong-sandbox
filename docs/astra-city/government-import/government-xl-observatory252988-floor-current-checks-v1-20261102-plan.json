@@ -1,0 +1,145 @@
+{
+  "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102",
+  "uids": [
+    "landsd/252988:0"
+  ],
+  "resources": [
+    "building:landsd/118411:0",
+    "building:landsd/118474:0",
+    "building:landsd/118475:0",
+    "building:landsd/145936:0",
+    "building:landsd/145959:0",
+    "building:landsd/146212:0",
+    "building:landsd/146217:0",
+    "building:landsd/147428:0",
+    "building:landsd/147676:0",
+    "building:landsd/147935:0",
+    "building:landsd/147941:0",
+    "building:landsd/161749:0",
+    "building:landsd/210024:0",
+    "building:landsd/211445:0",
+    "building:landsd/211452:0",
+    "building:landsd/211456:0",
+    "building:landsd/211688:0",
+    "building:landsd/211690:0",
+    "building:landsd/211694:0",
+    "building:landsd/224708:0",
+    "building:landsd/226284:0",
+    "building:landsd/234810:0",
+    "building:landsd/236836:0",
+    "building:landsd/237043:0",
+    "building:landsd/237239:0",
+    "building:landsd/237274:0",
+    "building:landsd/237403:0",
+    "building:landsd/237999:0",
+    "building:landsd/238000:0",
+    "building:landsd/238210:0",
+    "building:landsd/250398:0",
+    "building:landsd/250641:0",
+    "building:landsd/251375:0",
+    "building:landsd/251377:0",
+    "building:landsd/251613:0",
+    "building:landsd/252988:0",
+    "building:landsd/252990:0",
+    "building:landsd/253609:0",
+    "building:landsd/257663:0",
+    "building:landsd/257665:0",
+    "building:landsd/25817:0",
+    "building:landsd/262778:0",
+    "building:landsd/26963:0",
+    "building:landsd/269749:0",
+    "building:landsd/269751:0",
+    "building:landsd/269754:0",
+    "building:landsd/269756:0",
+    "building:landsd/270618:0",
+    "building:landsd/29358:0",
+    "building:landsd/326134:0",
+    "building:landsd/82577:0",
+    "building:landsd/92452:0",
+    "building:landsd/92616:0",
+    "terrain:city/data/government-native-118475-0.json",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_retained_patch_scope_v3_20261026.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-yoho-current-native-bounds-v1-20261102",
+        "--patch",
+        "government-xl-observatory252988-floor-runtime-binding-v1-20261102"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v7_20261030.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-runtime",
+      "args": [
+        "--patch",
+        "government-xl-observatory252988-floor-runtime-binding-v1-20261102",
+        "--capture",
+        "government-xl-observatory252988-after-yoho-current-v1-20261102-runtime"
+      ]
+    },
+    {
+      "script": "selected_full_native_replacement_binding_v2_20261026.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-binding",
+      "args": [
+        "--patch",
+        "government-xl-observatory252988-floor-runtime-binding-v1-20261102",
+        "--runtime",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-runtime",
+        "--scope",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-scope"
+      ]
+    },
+    {
+      "script": "selected_current_installed_dependency_bindings_v2_20261028.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-dependencies",
+      "args": [
+        "--scope",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-scope"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-observatory252988-current-attributes-v1-20261102",
+        "--uid",
+        "landsd/252988:0"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-low-faces",
+      "args": [
+        "--runtime",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-observatory252988-current-attributes-v1-20261102",
+        "--uid",
+        "landsd/252988:0"
+      ]
+    },
+    {
+      "script": "selected_retained_native_neighbours_v8_20261024.py",
+      "batch": "government-xl-observatory252988-floor-current-checks-v1-20261102-neighbours",
+      "args": [
+        "--scope",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-scope",
+        "--inventory",
+        "government-xl-after-yoho-current-native-bounds-v1-20261102",
+        "--patch",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-binding",
+        "--bindings",
+        "government-xl-observatory252988-floor-current-checks-v1-20261102-dependencies"
+      ]
+    }
+  ],
+  "installationApproved": false,
+  "publication": false
+}

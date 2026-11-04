@@ -1,0 +1,5 @@
+# Coble Court — verified original installation
+
+Codex, 6 October 2026. Coble Court (landsd/7110:0) is installed with unchanged original government geometry. Verified Neon job `cc676653d5d9418c50131bc2779471b0b7681b788b0be531258f3bfa4a9ff2e5`, installed snapshot `bb777efbd7c1b780`, source SHA `b6d4076874f1db61add0e850aaa4bbc3003e947679b16ecf6cf22748a25c7375`. Complete whole-cell identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported mobile PNG inspected. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+Eighteenth new XL installation from44/308: **62 installed / 290 not installed**, 82 further installations required. Public counters: 346,108 total source forms, 4,410 enhanced, 4,396 / 212,669 government matches installed. Current34 continues; serial Hoi/Spectra/basic/uncovered57/retained follow-ups remain active/queued. Goal stays open.

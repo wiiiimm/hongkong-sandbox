@@ -1,0 +1,88 @@
+{
+  "batch": "government-xl-kowloon-city-civic-five-after-fuying-private-ground-replay-sequence-v1-20261029",
+  "uids": [
+    "landsd/82290:0",
+    "landsd/82291:0",
+    "landsd/82292:0",
+    "landsd/159177:0",
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/82290:0",
+    "building:landsd/82291:0",
+    "building:landsd/82292:0",
+    "building:landsd/159177:0",
+    "building:landsd/230911:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "rebind_private_original_terrain_v2_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-rebound-three-terrain-v1-20261029",
+      "args": [
+        "--previous",
+        "government-xl-kowloon-city-civic-three-original-inset-v1-20261029",
+        "--capture",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--previous-capture",
+        "government-xl-civic-seven-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-three-private-ground-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-rebound-three-terrain-v1-20261029",
+        "--capture",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-three-terrain-scope-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-rebound-three-terrain-v1-20261029",
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82290-0-private-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-three-private-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82290:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82291-0-private-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-three-private-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82291:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82292-0-private-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-three-private-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82292:0"
+      ]
+    }
+  ]
+}

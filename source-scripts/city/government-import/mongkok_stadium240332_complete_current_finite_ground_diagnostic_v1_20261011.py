@@ -1,0 +1,40 @@
+"""DRAFT whole15456 original Stadium/fourstream actualcurrent ordinary finite proof; no acceptance.
+Exact complete current drawn ground only. Sourceidentity62extent/350.641m2outside and all14 source-body/foreign/native obligations unchanged.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+import numpy as np,json
+from run import ROOT,HERE,read,save,digest,connect
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from exact_original_face_conservative_clearance_v5_20261010 import verify as finite
+from exact_original_triangle_pair_column_gap_20261010 import verify as column
+B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-mongkok-stadium240332-complete-current-finite-ground-diagnostic-v1-20261011';DOC=B/BATCH;CAPTURE=B/'government-xl-mongkok-stadium240332-complete-current-ground-capture-v1-20261011';RUNTIME=HERE/'local'/CAPTURE.name/'runtime-geometry.json.gz';UID='landsd/240332:0'
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ assert not DOC.exists();receipt=read(CAPTURE/'result.json');assert receipt['sourceOnly']
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt)
+ for e in receipt['evidenceRefs']:assert ref(ROOT/e['path'])==e
+ scope=read(CAPTURE/'capture-scope.json');pins=scope['inputHashes'];manifest=ROOT/'3d-viewer/city/data/manifest.json';assert ref(manifest)==scope['currentManifest']
+ def fence():
+  assert ref(manifest)==scope['currentManifest']
+  for path,h in pins.items():assert digest((ROOT/path).read_bytes())==h,path
+  for e in receipt['evidenceRefs']:assert ref(ROOT/e['path'])==e
+ fence();actor=read(CAPTURE/'review.json');assert actor['uid']==UID and not actor['wholeSourceIdentityAccepted']and actor['rawHistoricalIdentityReasons']==['source-identity-fit'];selection=next(r for r in read(CAPTURE/'selection.json.gz')['rows']if r['uid']==UID);p=ROOT/selection['candidate']['path'];original=decode_original_world_triangles(p.read_bytes());rt=next(r for r in read(RUNTIME)['rows']if r['uid']==UID);ground=np.asarray(rt['drawnGroundGeometry'],float).reshape(-1,3,3);assert original.shape==(15456,3,3)and digest(original.tobytes())==actor['completeOriginalWorldSHA256']and digest(ground.tobytes())==actor['completeActualCurrentGroundSHA256'];a=next(r for r in read(CAPTURE/'actual-render-geometry.json.gz')['rows']if r['uid']==UID);index=np.asarray(a['completeOriginalIndex']).reshape(-1,3);streams={'original':original}
+ for name,key in [('literal','completeLiteralWorldPosition'),('explicitLeftF32','completeExplicitLeftAssociatedFloat32WorldPosition'),('explicitBalancedF32','completeExplicitBalancedFloat32WorldPosition')]:streams[name]=np.asarray(a[key],float).reshape(-1,3)[index]
+ proofs={};bindings={}
+ for name,source in streams.items():
+  h=digest(source.tobytes());bindings[name]=dict(completeWorldSHA256=h,completeFaces=len(source),proofTupleSHA256=h)
+  if h in proofs:continue
+  rows=[]
+  for i,face in enumerate(source):
+   prior=finite(face,ground);lower=F(prior['exactCertifiedLowerClearanceM']);pieces=[]
+   if prior['groundProjectionCovered']and lower< -F(1,2):
+    pieces=[dict(originalGroundFace=j,proof=column(face,ground[j]))for j in prior['allProjectedBoundingCandidateOriginalGroundFacets']];gaps=[F(x['proof']['exactMinimumFiniteColumnGapM'])for x in pieces if x['proof']['exactClosedHorizontalProjectionsMeet']];assert gaps;lower=min(gaps)
+   rows.append(dict(face=i,priorCompleteFiniteProof=prior,refinedCompleteFinitePairs=pieces,exactLowerM=str(lower),completeProjectionCovered=prior['groundProjectionCovered'],ordinaryFiniteProved=bool(prior['groundProjectionCovered']and lower>=-F(1,2)),strictPositiveFiniteProved=bool(prior['groundProjectionCovered']and lower>0)))
+  proofs[h]=dict(allWholeOriginalFacetProofs=rows,completeFacetsAccounted=len(rows),ordinaryFailingSourceFaces=[r['face']for r in rows if not r['ordinaryFiniteProved']],coverageFailingSourceFaces=[r['face']for r in rows if not r['completeProjectionCovered']],allOrdinaryFiniteProved=all(r['ordinaryFiniteProved']for r in rows),allStrictPositiveFiniteProved=all(r['strictPositiveFiniteProved']for r in rows),minimumCertifiedOrRefinedLowerM=str(min(F(r['exactLowerM'])for r in rows)))
+ pre=read(CAPTURE/'source-preflight.json');refs=[ref(p)for p in [Path(__file__),p,RUNTIME,CAPTURE/'result.json',CAPTURE/'review.json',CAPTURE/'selection.json.gz',CAPTURE/'actual-render-geometry.json.gz',CAPTURE/'source-preflight.json',B/'government-xl-mongkok-stadium-original14-body-finite-contact-inventory-v1-20261011/result.json']]+[ref(HERE/(n+'.py'))for n in ['exact_packed_world_geometry_20261009','exact_original_face_conservative_clearance_v5_20261010','exact_original_triangle_pair_column_gap_20261010','exact_original_projection_coverage_v2_20261010']]
+ for r in refs:assert ref(ROOT/r['path'])==r
+ result=dict(uids=[UID],sourceOnly=True,currentAcceptance=False,installationApproved=False,sourceGeometryChanges=0,terrainGeometryChanges=0,noHistoricalFailureWaiver=True,currentManifest=pre['currentManifest'],completeActualCurrentGroundFaces=len(ground),completeActualCurrentGroundSHA256=digest(ground.tobytes()),allFourStreamBindings=bindings,allDistinctWholeSourceFiniteProofs=proofs,exactByteIdenticalFullWorldTupleReuseOnly=True,captureReceiptStatusAndAllRefsVerified=True,currentManifestAndAllCaptureInputsFencedStartEnd=True,ordinaryThresholdM='-1/2',strictPositiveSeparate=True,wholeStadiumGradeRootProved=False,foreignRegressionsDischarged=False,nativeReapproval=False,rawHistoricalIdentityReasons=actor['rawHistoricalIdentityReasons'],wholeSourceIdentityAccepted=False,genuineOriginalBodies=14,allCurrentProtectiveForms=pre['allCurrentRelevantForeignBasicNativeForms'],allHistoricalRawObligations=pre,evidenceRefs=refs,qualification='Every15456 original source facet including15zero diagnostic faces is accounted against complete relevant actual currentmakeTerrain Float32 surface; zeros provide no bridge/role. Existing ordinary>=-.5m complete finite proof is distinct from independently strict-positive exposure/grade/root and cannot qualify cap or architecture roles. Complete original source14body graph has2333proper surface crossings/336points and detached11/12/13; source3 canopy architectural interpretation does not supply current support. Original62far extent/350.641m2outside and every other15394ordinary checks survive. Historical70m sparse170of658below/min-2.024m remains notfresh/whole; allcurrent foreign/native/runtime and genuine grounding/mount roles are independent. No authenticTIN/proposed/current scope conflation.')
+ fence();save(DOC/'diagnostic.json.gz',result);print(json.dumps(dict(streams=bindings,proofs={h:{k:v for k,v in r.items()if k!='allWholeOriginalFacetProofs'}for h,r in proofs.items()},currentAcceptance=False)),flush=True)
+if __name__=='__main__':main()

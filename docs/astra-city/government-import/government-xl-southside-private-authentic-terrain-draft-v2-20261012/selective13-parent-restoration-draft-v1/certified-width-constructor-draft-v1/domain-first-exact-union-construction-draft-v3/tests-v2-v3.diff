@@ -1,0 +1,25 @@
+--- source-scripts/city/government-import/test_southside_domain_first_exact_core_union_construction_draft_v2_20261013.py
++++ source-scripts/city/government-import/test_southside_domain_first_exact_core_union_construction_draft_v3_20261013.py
+@@ -1,7 +1,7 @@
+ """UNEXECUTED focused exact boundary fixtures; no actual terrain construction."""
+ import unittest
+ from fractions import Fraction as F
+-import southside_domain_first_exact_core_union_construction_draft_v2_20261013 as m
++import southside_domain_first_exact_core_union_construction_draft_v3_20261013 as m
+ class Boundary(unittest.TestCase):
+  def branches(self,hulls,width=F(1,10)):
+   out=[]
+@@ -59,4 +59,13 @@
+   a=(F(0),F(0));b=(F(1),F(0));self.assertFalse(m.closed_segment_union_coverage(a,b,[])['covered']);self.assertFalse(m.closed_segment_union_coverage(a,b,[[]])['covered'])
+  def test_vertical_original_facet_complete_segment_coverage(self):
+   poly=[(F(0),F(0),F(0)),(F(0),F(2),F(0)),(F(0),F(2),F(2))];branches=self.branches([self.rect(-1,0,1,1),self.rect(-1,1,1,2)]);union=m.exact_core_union_boundary(branches);parts=m.partition_complete_core_union(poly,0,union);self.assertTrue(parts);self.assertTrue(all(inside for _,inside in parts));self.assertEqual(sum((m.old.intrinsic_area(p,0)for p,_ in parts),F(0)),m.old.intrinsic_area(poly,0))
++ def test_collapsed_point_empty_core_has_no_vacuous_credit(self):
++  p=(F(0),F(0));self.assertFalse(m.contains_closed(p,[]));self.assertFalse(m.closed_segment_union_coverage(p,p,[])['covered']);self.assertFalse(m.closed_segment_union_coverage(p,p,[[]])['covered'])
++ def test_complete_hole_spanning_polygon_partition_and_affine_field(self):
++  hs=[self.rect(0,0,4,1),self.rect(0,3,4,4),self.rect(0,1,1,3),self.rect(3,1,4,3)];b=self.branches(hs);u=m.exact_core_union_boundary(b);poly=[(F(0),F(2),F(0)),(F(4),F(2),F(0)),(F(4),F(2),F(4)),(F(0),F(2),F(4))];regions=m.partition_complete_core_union(poly,1,u)
++  self.assertEqual(sum((m.old.intrinsic_area(p,1)for p,inside in regions if inside),F(0)),F(12));self.assertEqual(sum((m.old.intrinsic_area(p,1)for p,inside in regions if not inside),F(0)),F(4))
++  rows=m.domain_first_partition(poly,b,1,u);self.assertEqual(sum((m.old.intrinsic_area(p,1)for p,_,_ in rows),F(0)),F(16))
++  for p,a,_ in rows:
++   centre=tuple(sum(q[k]for q in p)/len(p)for k in range(3))
++   for q in [*p,centre]:self.assertEqual(m.affine_value(a,q),m.alpha_at(q[0],q[2],b))
+ if __name__=='__main__':unittest.main(verbosity=2)

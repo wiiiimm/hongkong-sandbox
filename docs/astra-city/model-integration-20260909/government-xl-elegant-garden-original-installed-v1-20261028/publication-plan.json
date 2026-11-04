@@ -1,0 +1,225 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-elegant-garden-sixteen-original-qualified-stage-v2-20261028/plan.json",
+  "areas": [
+    {
+      "area": "Elegant Garden and exact original support companions",
+      "models": 16,
+      "catalogue": "city/data/official-models/government-xl-elegant-garden-sixteen-original-qualified-stage-v2-20261028/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-xl-elegant-garden-west-original-v1-20261028.json": null,
+    "3d-viewer/city/data/government-xl-elegant-garden-east-original-v1-20261028.json": null,
+    "3d-viewer/city/data/official-models/government-xl-elegant-garden-sixteen-original-qualified-stage-v2-20261028/catalogue.json": null,
+    "3d-viewer/city/data/tiles/-2_0.json": "c95c64b9e7cc45cf3677c778bca9913b8284bce9dbb8b443477283ba47e8bbaa",
+    "3d-viewer/city/data/manifest.json": "393055e2529573b8a98517c64a09401956ba01e3a233b1b3fa4646513c7e124d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-xl-elegant-garden-west-original-v1-20261028.json": "3b2d8e69686cb3e9114a55b07aec55d9dcff22c057aaf7bf1198802d3fea722f",
+    "3d-viewer/city/data/government-xl-elegant-garden-east-original-v1-20261028.json": "0abd1b859ad1359d98d2db7bc9e67f951f2cadb94bc6a9b21f485102c8157467",
+    "3d-viewer/city/data/official-models/government-xl-elegant-garden-sixteen-original-qualified-stage-v2-20261028/catalogue.json": "c81f4b4b60a324d5422fddfa60822977b673fb91c95b21b800eb504bd8e68048",
+    "3d-viewer/city/data/tiles/-2_0.json": "38091b283976c987189fe849928067a164128b3b0038c1fb67937c99a999b8f3",
+    "3d-viewer/city/data/manifest.json": "65d645f58ec0e1833d7cafed71419ced9b44ba5848a7a489f3b6abc9e8d3dec7"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "4ac92b5f440d474a78fea507c458411f9f44f8fc",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-fung-yip-original-v1-20261025.json",
+      "sha256": "b344ed259099f66b74976eb8ed8c0e1a8fbfca5da8c560f5a74b8eda6d8fc3af",
+      "oldAssetRetained": true
+    },
+    {
+      "url": "city/data/government-native-kwong-fung-original-v1-20261025.json",
+      "sha256": "c050f97be0f1b6124a14bfa8039184adee99bdd26eb3dda5ffd4d20348d6d2e2",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-xl-elegant-garden-west-original-v1-20261028.json",
+      "resolution": 5,
+      "area": "Private unapproved full-scene diagnostic",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -2278.3335082180834,
+            46.61901303381429,
+            -2168.312320291294,
+            113.67396147649278
+          ],
+          "outerBounds": [
+            -2282.0732906848334,
+            42.926537132776026,
+            -2164.605726477676,
+            117.36576778097124
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-7A/terrain/TERRAIN(TB)/T31500162000106E10/T31500162000106E10.gltf",
+            "sha256": "7bab327cc9cd0671667b3975ed95d326fbd326f75a3a1b3a3909797f2febb354"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-sun-yat-sen-contact-20261005/sheets/11-SW-7B/terrain/TERRAIN(TB)/T32250162000106E11/T32250162000106E11.gltf",
+            "sha256": "5df4388fd5de8b3d4a01deba42cd75e99c22af6ec1d6b1d96bd6884e154c6dab"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3053,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "3b2d8e69686cb3e9114a55b07aec55d9dcff22c057aaf7bf1198802d3fea722f",
+      "bytes": 3176109
+    },
+    {
+      "url": "city/data/government-xl-elegant-garden-east-original-v1-20261028.json",
+      "resolution": 5,
+      "area": "Private unapproved full-scene diagnostic",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -2278.3335082180834,
+            46.61901303381429,
+            -2168.312320291294,
+            113.67396147649278
+          ],
+          "outerBounds": [
+            -2282.0732906848334,
+            42.926537132776026,
+            -2164.605726477676,
+            117.36576778097124
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-7A/terrain/TERRAIN(TB)/T31500162000106E10/T31500162000106E10.gltf",
+            "sha256": "7bab327cc9cd0671667b3975ed95d326fbd326f75a3a1b3a3909797f2febb354"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-sun-yat-sen-contact-20261005/sheets/11-SW-7B/terrain/TERRAIN(TB)/T32250162000106E11/T32250162000106E11.gltf",
+            "sha256": "5df4388fd5de8b3d4a01deba42cd75e99c22af6ec1d6b1d96bd6884e154c6dab"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3053,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "0abd1b859ad1359d98d2db7bc9e67f951f2cadb94bc6a9b21f485102c8157467",
+      "bytes": 1578610
+    }
+  ],
+  "illustrativeFoundations": [
+    {
+      "uid": "landsd/99061:0",
+      "foundationBase": 14.068756194266244,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-elegant-garden-main-canopy-final-sixteen-posts-v1-20261028/summary.json",
+        "sha256": "8ef6edd468065ab498846995587fc6a4f6a51c16155bb21ce8e2de66955302be"
+      }
+    },
+    {
+      "uid": "landsd/336456:0",
+      "foundationBase": 13.922978594966732,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-elegant-garden-grand-scholar-final-sixteen-posts-v1-20261028/summary.json",
+        "sha256": "a923e72a2fee19cb74c0df4036e7491a5bf0d40f54d4912418e1e8fce751ac2c"
+      }
+    }
+  ],
+  "basicPodiumFootings": [
+    {
+      "uid": "landsd/213586:0",
+      "foundationBase": 3.8655279922224945,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-elegant-garden-qualified-footing-fragment-v2-20261028/qualified-footing-review.json",
+        "sha256": "1184d7c4afe4dedd36d877972372ddf7b8b69b6de004020e67df69f4654d529d"
+      }
+    }
+  ],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

@@ -1,0 +1,160 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-academic309823-after-kai-tak-carpark-qualified-stage-v1-20261101/plan.json",
+  "areas": [
+    {
+      "area": "Unchanged government source: HKUST car park",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-academic309823-after-kai-tak-carpark-qualified-stage-v1-20261101/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-hkust-carpark-original-v1-20261101.json": null,
+    "3d-viewer/city/data/official-models/government-xl-academic309823-after-kai-tak-carpark-qualified-stage-v1-20261101/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "d5e4488ceb4617fd9fdae3a732a764f578e55dfa4909981e4619548bc339bc0e"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-hkust-carpark-original-v1-20261101.json": "c77dc11810a546afe58b403cef43c62e83c882208ff73087bee74054227766e1",
+    "3d-viewer/city/data/official-models/government-xl-academic309823-after-kai-tak-carpark-qualified-stage-v1-20261101/catalogue.json": "36c199256e9ca596f0cd35fcf67ab2c3bd54daaab72abc878efb27d8abb85e1b",
+    "3d-viewer/city/data/manifest.json": "1b36eedbad357f498d0096c44a1d534c2cf6791356beef56d422ffd37d1c8000"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d0f4e03a820eb350ac152acd19a80d1925bc82f4",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-hkust-carpark-original-v1-20261101.json",
+      "resolution": 5,
+      "area": "HKUST carpark source-derived ground",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-academic309823-after-kai-tak-carpark-complete-authentic-inset-v3-20261101/candidate-terrain.json",
+            "sha256": "faa588e1b66ec736d6dc8ed3f8c6700f7fd69918f02134bcd168a7e622e164cc"
+          },
+          "policy": "Lower-only source-floor-bounded0.25m-clearance return, independently per disconnected domain. Existing1m core/3m return, area/height/25k guards retained. No source edit or acceptance.",
+          "sha256": "e4cf4099b7a1179c0c1a6ea27a7dc9036bde9ad08ba2ee900a6ac0fe3542fde8",
+          "sourceFaceIndices": [
+            445,
+            459
+          ],
+          "sourceFaceSHA256": "8e3fa294f1c2258ccd1f556cf8d695314bcfdc5223373fb3f610fb3534adaf4e",
+          "uid": "landsd/26949:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            10625.425038853962,
+            -5714.196100773231,
+            10649.826560667168,
+            -5635.3046875
+          ],
+          "outerBounds": [
+            10622.422811665849,
+            -5717.198465592922,
+            10652.833586418672,
+            -5632.304687209308
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hkust-native-terrain-foundation-v1-20261015/terrain/TERRAIN(TB)/T45000222000106E10/T45000222000106E10.gltf",
+            "sha256": "8f1eac8c89370348f476ef0f4964b822ec0f86b6ebd2157c9d4719c02057abf4"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hkust-adjoining-native-terrain-v1-20261015/12-NW-6C/terrain/TERRAIN(TB)/T45000216000106E10/T45000216000106E10.gltf",
+            "sha256": "8b247342aac28d03649897a0e43032b3f91b20c31703a73580b7e7a40ee5326e"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 645,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "c77dc11810a546afe58b403cef43c62e83c882208ff73087bee74054227766e1",
+      "bytes": 496691
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

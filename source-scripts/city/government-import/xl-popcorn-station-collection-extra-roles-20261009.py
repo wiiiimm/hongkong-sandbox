@@ -1,0 +1,20 @@
+"""Preserve and locate every original PopCorn face beyond strict extent, no edits."""
+import math,sys,numpy as np,shapely
+import matplotlib;matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.collections import PolyCollection
+from pyproj import Transformer
+from shapely.geometry import Polygon,mapping
+from run import ROOT,HERE,read,save,digest
+sys.path.insert(0,str(HERE.parent/'landsd-territory'));from source import request
+DOC=ROOT/'docs/astra-city/government-import/government-xl-popcorn-station-collection-20261009';r=read(DOC/'complete-original-popcorn-station-measures.json.gz');target=shapely.union_all([Polygon(b['rings'][0],b['rings'][1:]) for b in r['groupForms']]);tri=np.load(HERE/'local/government-xl-source-authored-openings-20261009/raw-fbx/B447991877202063C0/full-world-triangles.npz')['triangles'];v=np.stack([tri[:,:,0]-834500,tri[:,:,2],816500-tri[:,:,1]],axis=2);d=shapely.distance(shapely.points(v[:,:,[0,2]].reshape(-1,2)),target).reshape(-1,3);idx=np.flatnonzero((d>10).any(axis=1));far=v[idx];p=shapely.union_all(shapely.polygons(far[:,:,[0,2]]));polys=[a for a in ([p] if p.geom_type=='Polygon' else p.geoms) if a.geom_type=='Polygon'];polys.sort(key=lambda p:-p.area);rows=[];transform=Transformer.from_crs(2326,4326,always_xy=True)
+fig,axs=plt.subplots(1,2,figsize=(15,7));ax=axs[0];ax.add_collection(PolyCollection(v[:,:,[0,2]],facecolors='#b7d6d2',edgecolors='none',alpha=.35));ax.add_collection(PolyCollection(far[:,:,[0,2]],facecolors='#d1495b',edgecolors='none',alpha=.9))
+for b in r['groupForms']:
+ for ring in b['rings']:a=np.array(ring);ax.plot(a[:,0],a[:,1],color='black',linewidth=.8)
+ax.autoscale();ax.invert_yaxis();ax.set_aspect('equal');ax.set_title('All original surfaces; every >10 m face shown red')
+for i,poly in enumerate(polys):
+ mask=shapely.intersects(shapely.polygons(far[:,:,[0,2]]),poly);t=far[mask];x,z=poly.centroid.coords[0];lon,lat=transform.transform(x+834500,816500-z);n=2**20;tx=int((lon+180)/360*n);ty=int((1-math.asinh(math.tan(math.radians(lat)))/math.pi)/2*n);item={'component':i,'projectionAreaM2':poly.area,'originalFaceIndices':idx[mask].tolist(),'allOriginalFaceBounds':[t.min(axis=(0,1)).tolist(),t.max(axis=(0,1)).tolist()],'originalHeightLevels':np.unique(t[:,:,1]).tolist(),'latitude':lat,'longitude':lon,'originalProjectedGeometry':mapping(poly),'visibleSurfaceRole':'unresolved; inclined/stepped low-level source geometry near curved access ends; no semantic ownership assumed','primaryImagery':[]};ax.annotate(str(i),(x,z),color='blue')
+ if i<4:
+  url=f'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/imagery/WGS84/20/{tx}/{ty}.png';path=DOC/f'extra-{i}/original-aerial.png';path.parent.mkdir(parents=True,exist_ok=True);raw,rec=request(url,{},json_expected=False);assert raw.startswith(b'\x89PNG');path.write_bytes(raw);save(path.with_suffix('.request.json'),rec);item['primaryImagery'].append({'url':url,'tileXY':[tx,ty],'centrePixelXY':[((lon+180)/360*n-tx)*256,((1-math.asinh(math.tan(math.radians(lat)))/math.pi)/2*n-ty)*256],'path':str(path.relative_to(ROOT)),'sha256':digest(raw)})
+ rows.append(item)
+pts=far.reshape(-1,3);axs[1].scatter(pts[:,0],pts[:,1],c=pts[:,2],s=.25,cmap='viridis');axs[1].set_title('Every unchanged far vertex: x / HKPD height');axs[1].set_aspect('equal');fig.tight_layout();fig.savefig(DOC/'full-original-extra-roles.png',dpi=180);save(DOC/'full-original-extra-role-diagnostics.json.gz',{'rows':rows,'farFaceCount':len(far),'worldSourceTriangleSHA256':digest(tri.astype('<f8').tobytes()),'rawMaximumExtentM':float(d.max()),'qualification':'Exact original faces identified solely for independently reviewable diagnostics; none edited, removed or excluded from acceptance. Primary imagery is fixed georeferenced context, not metre-level source ownership proof.'});print([{'component':row['component'],'areaM2':row['projectionAreaM2'],'faceCount':len(row['originalFaceIndices']),'bounds':row['allOriginalFaceBounds'],'gps':[row['latitude'],row['longitude']]} for row in rows[:8]],flush=True)

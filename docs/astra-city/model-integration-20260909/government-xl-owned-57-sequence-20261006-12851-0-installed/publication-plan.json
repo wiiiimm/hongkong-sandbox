@@ -1,0 +1,90 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-owned-57-sequence-20261006-12851-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "Tung Mau House original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-owned-57-sequence-20261006-12851-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-12851-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-owned-57-sequence-20261006-12851-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "7fac5600f6e80a7da824f88a763cfca1f3ddb90fd0b88cb8e653d3c5dba168f1"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-12851-0.json": "c75fe5b794811ade1058096ff65cf74b7f154a5357b0e9ee0c0d0e39989b161f",
+    "3d-viewer/city/data/official-models/government-xl-owned-57-sequence-20261006-12851-0-installed/catalogue.json": "37f40b30def10240db042390b4916e64e2076a41ef6673f4f36696c0ad799297",
+    "3d-viewer/city/data/manifest.json": "7789232a1eaeff66337cd9411bfc200a3833a9fad9392eedabd1f8717b0d8eb4"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "db64f728c54fca131d699047dd05f5631e24ec24",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-12851-0.json",
+      "resolution": 5,
+      "area": "Tung Mau House unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "cfb483a01a9a9d805cc7e9b67df9689dcfbeb6af947462db0e5b90e22b37d373",
+            "revision": "2026-09-07T16:00:00+00:00",
+            "sheet": "15-NW-3B",
+            "sourceETag": "\"30b4b9c-65a904a99c060\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-12851-0/sheets/15-NW-3B/terrain/TERRAIN(TB)/T33750114000106E12/T33750114000106E12.bin",
+                "sha256": "068894806f50bf5b7eb78138469b36f7eaddb43612b54a93f393a9e028448209"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-12851-0/sheets/15-NW-3B/terrain/TERRAIN(TB)/T33750114000106E12/T33750114000106E12.gltf",
+                "sha256": "42282fd71177cb9bbc19f09e9a15fe89e11df4eff8a224502c2f30d51f575d72"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "a4a199a631d3fb88b70b446ebeccaa8a623a967598b15c461ea1a306e7ac5dad",
+            "revision": "2026-08-27T16:00:00+00:00",
+            "sheet": "15-NW-3D",
+            "sourceETag": "\"35e1ab5-6598a474c9e3a\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-163705-0/sheets/15-NW-3D/terrain/TERRAIN(TB)/T33750108000106E11/T33750108000106E11.bin",
+                "sha256": "e9b77869348562cf9f6094000450b5cefa469da7b51e0ebc89706aeef53a89d4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-163705-0/sheets/15-NW-3D/terrain/TERRAIN(TB)/T33750108000106E11/T33750108000106E11.gltf",
+                "sha256": "2307678c2e7a9a2ab53d2e46ec8d7d5a3086db8addaf0ec6bcc9fc063b9a5314"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "c75fe5b794811ade1058096ff65cf74b7f154a5357b0e9ee0c0d0e39989b161f",
+      "bytes": 2403671
+    }
+  ],
+  "estimatedBases": []
+}

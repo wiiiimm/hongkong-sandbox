@@ -1,0 +1,76 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/model-integration-20260909/civic-migration-plan.json",
+  "areas": [],
+  "before": {
+    "3d-viewer/city/data/official-models/tourist-trial-001/catalogue.json": "d64aa73ee7fc1fc2b427dae1e29339a77c3db2458dbfafa16e55b07af19aa5a9",
+    "3d-viewer/city/data/official-models/landmark-pass/catalogue.json": "0497dc4f00549295c8267de63fd023bd1c965ec37f26d2983a9d439c76ef5320",
+    "3d-viewer/city/data/official-models/island-corridor/catalogue.json": "28623e8ca259ae40cdba62b64833a092ca6a6b5d7b276521eeeec9b7003b3c63",
+    "3d-viewer/city/data/manifest.json": "0dc34ad125527c2583438190455d1f6be1c86d65380475716e1e01346531bd78"
+  },
+  "after": {
+    "3d-viewer/city/data/official-models/tourist-trial-001/catalogue.json": "2406e4b15d25ca58d2d7e5408a228561ce71276b31a2f83c16c91e83b63d87bd",
+    "3d-viewer/city/data/official-models/landmark-pass/catalogue.json": "a3bf8e202191b815c3fcf8b5e91c98f3d5a28c085b0270d60e541569c3be403f",
+    "3d-viewer/city/data/official-models/island-corridor/catalogue.json": "bd3563371cc15bed7b1f68b881f6671c4e13d1079a5b08d030985b41ba0899ae",
+    "3d-viewer/city/data/manifest.json": "0dc34ad125527c2583438190455d1f6be1c86d65380475716e1e01346531bd78"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "c3d798a229a73154898dd7cd746d520179e7a79f",
+  "priorityUpdates": [
+    {
+      "uid": "landsd/320038:0",
+      "before": "detail",
+      "after": "landmark",
+      "assetUnchanged": "b8c8a1022558342a280a78fbc70fc7cd918461d16495578a74a7676fa6643a79"
+    },
+    {
+      "uid": "landsd/322270:0",
+      "before": "detail",
+      "after": "landmark",
+      "assetUnchanged": "b1ce8e22f43eb51bda3d6728c74b6e43fa0511e223fc42ed2fd078c8c89254ef"
+    },
+    {
+      "uid": "landsd/4447:0",
+      "before": "detail",
+      "after": "landmark",
+      "assetUnchanged": "e5adf96757313fad5240a01754b53d736ba492b71f4f023d8ea08041a3934186"
+    }
+  ],
+  "dependencyUpdates": [
+    {
+      "uid": "landsd/238482:0",
+      "assetUnchanged": "74f10389d0c19788b655b54f8b6bc3466f1172afb69c4f724f7cdcdf90a1c691",
+      "before": [],
+      "after": [
+        {
+          "uid": "landsd/238483:0",
+          "state": "installed",
+          "csuid": "0856412976P20141031"
+        }
+      ]
+    },
+    {
+      "uid": "landsd/265525:0",
+      "assetUnchanged": "e977ec9df527af158c8a61c7ab4cca6e9d949ca92b940bfeb879826fa18e6095",
+      "before": [],
+      "after": [
+        {
+          "uid": "landsd/334311:0",
+          "state": "installed",
+          "csuid": "3568315076P20050726"
+        }
+      ]
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,3 @@
+Long Ping original terrain contacts, 17 October 2026
+
+All 848 canonical low-rim samples have original TIN support. Candidate vs authenticated source TIN maximum height difference is 0.000016042337m. The 80 raw failures therefore also occur against original source terrain; existing same-wall interface resolves 38, leaving 9 embedded and 33 floating samples. This is evidence against further unchanged TIN conversion work, not installation acceptance or permanent rejection. Exact coordinates and supporting source triangles are in contacts.json. Next: inspect incident original station faces and architectural support interpretation for these locations; separately resolve overlapping OSM station-access actor. No thresholds or geometry changed.

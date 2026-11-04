@@ -1,0 +1,22 @@
+"""Conservative direct-original import policy; no architectural generation or visual-quality scoring."""
+import math
+POLICY='original-government-import-v1'
+
+def reasons(row, metric, profile):
+    found=[]
+    if row['state']!='runtime-validated-awaiting-acceptance': return ['prior-validation-held']
+    if metric.get('error'): return ['detailed-check-error']
+    if not metric.get('sourcePreserved') or metric.get('sourceSHA256')!=row['sourceSHA256']: found.append('source-integrity')
+    values=['minSurfaceGap','minLowGap','maxLowGap','maxSamplerDelta']
+    if any(not isinstance(metric.get(k),(int,float)) or not math.isfinite(metric[k]) for k in values): return found+['incomplete-contact-check']
+    if metric.get('missingTerrain') or not metric.get('lowRimChecks'): found.append('terrain-coverage')
+    if metric['minSurfaceGap']<-.5: found.append('terrain-intersects-source-over-0.5m')
+    if metric['maxLowGap']>1 or metric['minLowGap']>.1: found.append('ground-contact-unresolved')
+    if metric['maxSamplerDelta']>.004: found.append('sampler-rendered-terrain-disagreement')
+    identity=metric['identity']; proof=row.get('identityProof') or {}
+    exact_ids=proof.get('exactObjectId') and proof.get('exactBuildingCSUID') and proof.get('uniqueViewerMatch')
+    bounded_centroid=identity['overlap']>=proof.get('minimumOverlap',1) and identity['centroidDistance']<=proof.get('maximumCentroidDistance',1)
+    exact_exception=exact_ids and (bounded_centroid or proof.get('identityAccepted') is True or proof.get('detailedProjectionAccepted') is True)
+    if (identity['overlap']<.98 or identity['centroidDistance']>1) and not exact_exception: found.append('strict-identity-fit')
+    if any(metric['budget'][k]>profile[k] for k in ('triangles','geometryBytes','residentBytes')): found.append('mobile-runtime-budget')
+    return found

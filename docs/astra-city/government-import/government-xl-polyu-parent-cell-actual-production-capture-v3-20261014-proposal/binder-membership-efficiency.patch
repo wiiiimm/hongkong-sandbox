@@ -1,0 +1,42 @@
+--- source-scripts/city/government-import/polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py:before
++++ source-scripts/city/government-import/polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py
+@@ -30,11 +30,12 @@
+         assert residual==[F(v)for v in t['exactVerticalSourcePlaneResidualM']]
+     return k
+ 
+-def validate_piece(p,row,raw,records):
++def validate_piece(p,row,raw,records,face_ids=None):
+     pointer=p['partitionProofReference'];i=row['capturedParentFacet']
+     assert type(i)is int and type(pointer['capturedParentFacet'])is int and type(p['candidateFace'])is int
+     assert pointer==dict(mapping='completeCapturedParentMapping',capturedParentFacet=i)
+-    assert 'partitionProof'not in p and p['candidateFace']in row['newCandidateFaces']
++    if face_ids is None:face_ids=frozenset(row['newCandidateFaces'])
++    assert 'partitionProof'not in p and p['candidateFace']in face_ids
+     assert p['kind']=='capturedCurrentParentOwnPlaneFloat32CellInsideEligibleMasks'
+     assert p['ancestor']['capturedParentFacet']==i and bytes3(p['ancestor']['wholeOriginalCapturedParentTriplet'])==bytes3(row['wholeOriginalCapturedParentTriplet'])
+     q=p['computedInsideCellEnclosure'];regions=row['completeComputedInsideEnclosureAccount']['completeSavedInsideRegions']
+@@ -80,10 +81,10 @@
+         for ordinal,(r,hit)in enumerate(zip(regions,proof['inside'])):
+             k=validate_region(r,hit,row['wholeOriginalCapturedParentTriplet'],ordinal,domain)
+             expected.extend((ordinal,j)for j in range(len(k['triangles'])))
+-        actual=[]
++        actual=[];face_ids=frozenset(row['newCandidateFaces'])
+         for j in row['newCandidateFaces']:
+             assert type(j)is int and 8011<=j<len(raw);assigned.append(j)
+-            actual.append(validate_piece(nom['candidateFaceProvenance'][j],row,raw[j],records))
++            actual.append(validate_piece(nom['candidateFaceProvenance'][j],row,raw[j],records,face_ids))
+         assert actual==expected,'complete ordered inside pieces, no subset, duplicate or swapped ancestor'
+     assert assigned==list(range(len(raw)))
+     assert sum(len(r['completeExactMaskPartition']['inside'])for r in nom['completeCapturedParentMapping'])==24448
+--- source-scripts/city/government-import/test_polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py:before
++++ source-scripts/city/government-import/test_polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py
+@@ -20,6 +20,9 @@
+         with self.assertRaises(AssertionError):h.validate_piece(self.p,self.row,self.raw,self.records)
+         self.p['partitionProofReference']['capturedParentFacet']=False
+         with self.assertRaises(AssertionError):h.validate_piece(self.p,self.row,self.raw,self.records)
++        self.p['partitionProofReference']['capturedParentFacet']=0
++        self.p['candidateFace']=8012
++        with self.assertRaises(AssertionError):h.validate_piece(self.p,self.row,self.raw,self.records,frozenset(self.row['newCandidateFaces']))
+     def test_mask_identity_cannot_transfer_between_owners(self):
+         self.p['mask']['completeMaskLineage']=dict(uid='different-actor')
+         with self.assertRaises(AssertionError):h.validate_piece(self.p,self.row,self.raw,self.records)

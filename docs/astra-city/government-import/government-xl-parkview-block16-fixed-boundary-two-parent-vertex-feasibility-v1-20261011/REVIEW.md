@@ -1,0 +1,5 @@
+# Block16 fixed-boundary two-parent feasibility
+
+Reviewed altered-terrain numerical method, not originalTIN recovery: complete94794-facet exactXYZ incidence census on the two implicated current parent facets yields4 outer-boundary vertices and zero eligible shared internal height variables. All15 exact cap/four-source finite affine constraints accounted for;13 fully fixed constraints violate unchanged strict cap or ordinary owned-source clearance. This stencil is infeasible without changing required boundary/outside vertices. No solver invocation, arbitrary sourcegrade/delta bounds, Float32 changes or mesh/terrain output. All outside terrain coordinates/topology and affected17/native/foreign support surfaces remain exact; this is not reapproval. A distinct causal complete vertex-star domain may remain investigable; global altered-terrain feasibility is not excluded. All historical negative evidence remains unchanged.
+
+Next input: complete causal vertex stars and authoritative unique point-grade bounds, plus fully identified affected17/native/foreign qualified support/clearance constraints before any nonzero solver nomination.

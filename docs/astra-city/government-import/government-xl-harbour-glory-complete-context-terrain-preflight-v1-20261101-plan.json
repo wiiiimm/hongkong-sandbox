@@ -1,0 +1,48 @@
+{
+  "batch": "government-xl-harbour-glory-complete-context-terrain-preflight-v1-20261101-sequence",
+  "uids": [
+    "landsd/247461:0",
+    "landsd/35148:0",
+    "landsd/28391:0",
+    "landsd/108870:0",
+    "landsd/260014:0",
+    "landsd/67682:0",
+    "landsd/258158:0",
+    "landsd/271909:0",
+    "landsd/273684:0",
+    "landsd/92999:0"
+  ],
+  "resources": [
+    "building:landsd/247461:0",
+    "building:landsd/35148:0",
+    "building:landsd/28391:0",
+    "building:landsd/108870:0",
+    "building:landsd/260014:0",
+    "building:landsd/67682:0",
+    "building:landsd/258158:0",
+    "building:landsd/271909:0",
+    "building:landsd/273684:0",
+    "building:landsd/92999:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-harbour-glory-complete-context-terrain-preflight-v1-20261101-buried",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-alexandra-complete-original-context-current-v1-20261101-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_terrain_domain_preflight_v1_20261025.py",
+      "batch": "government-xl-harbour-glory-complete-context-terrain-preflight-v1-20261101-domains",
+      "args": [
+        "--capture",
+        "government-xl-harbour-glory-alexandra-complete-original-context-current-v1-20261101-runtime",
+        "--inventory",
+        "government-xl-after-harbour-one-current-native-bounds-v1-20261101"
+      ]
+    }
+  ]
+}

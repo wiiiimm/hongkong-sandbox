@@ -1,0 +1,9 @@
+[
+  "\nimport {bindProductionSourceBoundTileRoutes} from './qualified_source_bound_tile_routes_v1_20261029.mjs';\nimport {sourceBoundFallbackChecks} from './source_bound_basic_lifecycle_checks_v1_20261029.mjs';",
+  "\n  await bindProductionSourceBoundTileRoutes(page,config,root,'staged',report);",
+  "\n   result.failedFallback=await sourceBoundFallbackChecks(page,false,catalogue,config);\n   await page.evaluate(()=>{const r=window.__port;window.__groupDraw(r.scene,r.camera);});await page.locator('canvas').first().screenshot({path:new URL(name+'-failed-basic.png',out).pathname});",
+  "\n  result.activeFallback=await sourceBoundFallbackChecks(page,true,catalogue,config);",
+  "\n  result.baseFallback=await sourceBoundFallbackChecks(page,false,catalogue,config);\n  await page.evaluate(()=>{const r=window.__port;window.__groupDraw(r.scene,r.camera);});await page.locator('canvas').first().screenshot({path:new URL(name+'-base-only.png',out).pathname});",
+  "\n  result.recoveredFallback=await sourceBoundFallbackChecks(page,true,catalogue,config);",
+  "\n  result.evictedFallback=await sourceBoundFallbackChecks(page,false,catalogue,config);"
+]

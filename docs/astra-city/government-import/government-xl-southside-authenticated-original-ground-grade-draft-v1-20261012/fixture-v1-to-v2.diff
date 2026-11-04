@@ -1,0 +1,11 @@
+--- source-scripts/city/government-import/test_southside_authenticated_original_grade_scope_v1_20261012.py
++++ source-scripts/city/government-import/test_southside_authenticated_original_grade_scope_v2_20261012.py
+@@ -39,7 +39,7 @@
+  def test_changed_mode(self):self.run_bad(lambda q:q['authenticated'].update(arithmetic=MODES[1]))
+  def test_changed_current_failure_scope(self):self.run_bad(lambda q:q['current'].update(allRawFailedFaces=[]))
+  def test_changed_current_orientation(self):
+-  def change(q):rows=list(q['current']['allCompleteOriginalFiniteRecords']);rows[0]=dict(rows[0],exactOrientationDiagnostic='upward-nonsteep');q['current']['allCompleteOriginalFiniteRecords']=rows
++  def change(q):rows=list(q['current']['allCompleteOriginalFiniteRecords']);replacement='steep-wall';assert rows[0]['exactOrientationDiagnostic']!=replacement;rows[0]=dict(rows[0],exactOrientationDiagnostic=replacement);q['current']['allCompleteOriginalFiniteRecords']=rows
+   self.run_bad(change)
+  def test_changed_topology(self):self.run_bad(lambda q:q['current'].update(completeOriginalTopology={}))
+  def test_self_supplied_binding(self):self.run_bad(lambda q:q.update(binding=dict(currentRowCanonicalSHA256='0'*64,authenticatedRowCanonicalSHA256='0'*64)))

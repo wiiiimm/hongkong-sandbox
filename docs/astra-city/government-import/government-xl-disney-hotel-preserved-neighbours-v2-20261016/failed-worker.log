@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disney_hotel_preserved_neighbours_v2_20261016.py", line 67, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disney_hotel_preserved_neighbours_v2_20261016.py", line 51, in main
+    helper.validate_patch(patch,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 40, in validate_patch
+    validate_native_mesh(p,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/native_terrain_validation.py", line 43, in validate_native_mesh
+    assert numerical and numerical.get('policy')=='highest-float32-surface' and numerical.get('maximumAreaM2')<=max(.25,extent.area*1e-3),'Native terrain contains overlapping height surfaces'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Native terrain contains overlapping height surfaces

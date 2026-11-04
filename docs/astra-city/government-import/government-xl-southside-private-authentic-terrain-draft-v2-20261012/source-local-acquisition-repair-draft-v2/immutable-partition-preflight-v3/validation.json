@@ -1,0 +1,94 @@
+{
+  "actualPreflightOutput": {
+    "currentAcceptance": false,
+    "fullSourceInventory": 774477,
+    "noDB": true,
+    "noLease": true,
+    "noSourceDecode": true,
+    "noTerrainConstruction": true,
+    "resources": 124,
+    "savedLineage": 78016,
+    "sourceSlots": 51560
+  },
+  "callerSHA256": "f8d1a07c72940ecaa0083b329104d5b96673c4855e937c0e42679f199423d180",
+  "currentAcceptance": false,
+  "exactReviewDraftFilePins": [
+    {
+      "bytes": 18276,
+      "path": "source-scripts/city/government-import/southside_saved_local_core_parent_adapter_v2_20261012.py",
+      "sha256": "e47a4945485e5b06db6b3c1d60e6a39d2754a3b7cd6e615d12333d3f6e6cf928"
+    },
+    {
+      "bytes": 11583,
+      "path": "source-scripts/city/government-import/test_southside_saved_local_core_parent_adapter_v2_20261012.py",
+      "sha256": "ddfebd44ee945b5b084cce4b13dca9151652b4abcc3f99168ac39149269e038c"
+    },
+    {
+      "bytes": 15809,
+      "path": "source-scripts/city/government-import/xl-southside-315025-300867-source-local-private-terrain-diagnostic-draft-v3-20261012.py",
+      "sha256": "f8d1a07c72940ecaa0083b329104d5b96673c4855e937c0e42679f199423d180"
+    },
+    {
+      "bytes": 8004,
+      "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/METHOD.md",
+      "sha256": "51c24f7a807b82ca49abc6402e5efcba16729c6db29b457c67fae7e6e9f5b218"
+    },
+    {
+      "bytes": 7581,
+      "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/input-contract.json",
+      "sha256": "457a7319030994a4f58504e54f7695c5ddb554415bac157ab4b4a87ad77155d8"
+    },
+    {
+      "bytes": 15410,
+      "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/helper-v1-v2.diff",
+      "sha256": "b0ba8fa8f90cdc191ab681e3627dce501ad42d5ac38fffb051c2e26fdb89367f"
+    },
+    {
+      "bytes": 5971,
+      "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/tests-v1-v2.diff",
+      "sha256": "ee218be1f2048a96457281a1e8a9801082df005d7c7dd0b4909e46f32714da74"
+    },
+    {
+      "bytes": 8376,
+      "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/caller-v2-v3.diff",
+      "sha256": "35d89d0669fe36ab6feb962a1bcb663383b4d9ee42210d686f71603e5185cd95"
+    },
+    {
+      "bytes": 957,
+      "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/written-draft-static-syntax.json",
+      "sha256": "7a34fcd7fcd1d1854b35d33444466c0a282ccf7d14fa5c9c342111335c6c7f0f"
+    }
+  ],
+  "exactTestValidationPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/immutable-partition-tests-v2/validation.json",
+  "exactTestValidationSHA256": "96192edcfbe5b447e0564f4e4810ff1805bdd1cc74daea919650976a109eb5cb",
+  "noClaimOrConstructionRun": true,
+  "passed": true,
+  "reviewDraftPinsPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/review-draft-file-pins.json",
+  "reviewDraftPinsSHA256": "aeaa13e595b2b584709700f19837e76ce7b6e7aef9547496013cd3c409df371c",
+  "schema": "southside-partition-v3-actual-import-preflight-validation",
+  "steps": [
+    {
+      "actualCommand": [
+        "/tmp/astra-city-venv/bin/python",
+        "-c",
+        "import importlib.util,sys;from pathlib import Path; p=Path(sys.argv[1]);sys.path.insert(0,str(p.parent));s=importlib.util.spec_from_file_location('southside_partition_v3_import_smoke',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);print('IMPORT PASS: caller/helper/run/dependency schema symbols loaded; no main/DB/lease/construction')",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-source-local-private-terrain-diagnostic-draft-v3-20261012.py"
+      ],
+      "exitCode": 0,
+      "logPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/immutable-partition-preflight-v3/import.log",
+      "logSHA256": "72d99325de5d1b0995a6a618569223954f1c04069195fd9eae1e0135cc8a64e6",
+      "step": "import"
+    },
+    {
+      "actualCommand": [
+        "/tmp/astra-city-venv/bin/python",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-source-local-private-terrain-diagnostic-draft-v3-20261012.py",
+        "--preflight-only"
+      ],
+      "exitCode": 0,
+      "logPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/source-local-acquisition-repair-draft-v2/immutable-partition-preflight-v3/preflight.log",
+      "logSHA256": "48a0af9e0316fc9779bd672bc6c597b852a3af458392b3d7bdfb5d928d5ddfd4",
+      "step": "preflight"
+    }
+  ]
+}

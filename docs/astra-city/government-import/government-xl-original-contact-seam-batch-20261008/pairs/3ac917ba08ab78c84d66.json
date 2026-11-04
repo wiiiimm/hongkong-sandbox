@@ -1,0 +1,103 @@
+{
+  "supportUid": "landsd/259604:0",
+  "uid": "landsd/198440:0",
+  "sourceSHA256": "11f518515180ca97e88c0f207075af73642e8ad57931ca5d4dd3b95e028e532e",
+  "supportSHA256": "e6bbbe3fbfcc89ea9870c71a6541ef6edf7283a95f72cb0c1b4ef7f5a8cac375",
+  "interface": {
+    "policy": "exact-original-contact-seams-v1",
+    "passed": false,
+    "samples": 6,
+    "strictContacts": 4,
+    "wallIntersections": 0,
+    "seamCorrections": 0,
+    "resolved": [],
+    "unresolved": [
+      {
+        "position": [
+          -18110.125,
+          16.266998291015625,
+          -13859.375
+        ],
+        "gap": -0.7990016937255859,
+        "reason": "support-above-rim"
+      },
+      {
+        "position": [
+          -18110.1875,
+          16.266998291015625,
+          -13858.6875
+        ],
+        "gap": -0.7990016937255859,
+        "reason": "support-above-rim"
+      }
+    ],
+    "rawInterface": {
+      "policy": "exact-native-wall-podium-interface-v1",
+      "passed": false,
+      "samples": 6,
+      "strictContacts": 4,
+      "wallIntersections": 0,
+      "strictLowRim": {
+        "samples": 6,
+        "contacts": 4,
+        "missing": 0,
+        "minGap": -0.7990016937255859,
+        "maxGap": -0.0000019073486328125,
+        "minimumGap": -0.1,
+        "maximumGap": 1,
+        "allSampledContactsPass": false,
+        "failed": [
+          {
+            "position": [
+              -18110.125,
+              16.266998291015625,
+              -13859.375
+            ],
+            "gap": -0.7990016937255859,
+            "reason": "support-above-rim"
+          },
+          {
+            "position": [
+              -18110.1875,
+              16.266998291015625,
+              -13858.6875
+            ],
+            "gap": -0.7990016937255859,
+            "reason": "support-above-rim"
+          }
+        ]
+      },
+      "maximumEmbeddingM": 0.5,
+      "resolved": [],
+      "unresolved": [
+        {
+          "position": [
+            -18110.125,
+            16.266998291015625,
+            -13859.375
+          ],
+          "gap": -0.7990016937255859,
+          "reason": "support-above-rim"
+        },
+        {
+          "position": [
+            -18110.1875,
+            16.266998291015625,
+            -13858.6875
+          ],
+          "gap": -0.7990016937255859,
+          "reason": "support-above-rim"
+        }
+      ],
+      "qualification": "Actual same-triangle vertical wall/podium intersection resolves a rim below the deck by at most the existing ordinary 0.5m source-clearance allowance. Requires other strict rim contacts. No horizontal buried floor, floating point, missing support, fully embedded source or coordinate edit is accepted."
+    },
+    "maximumEmbeddingM": 0.5,
+    "exactSeamToleranceM": 0.001,
+    "installationApproved": false,
+    "qualification": "Original support wall upper-edge seams and higher zero-area deck corners only. All original triangles, poses and raw failures retained; strict contact interval and 0.5m wall embedding limit unchanged. Full identity, source terrain/foundation, neighbours, runtime/browser and publication remain separate."
+  },
+  "passed": false,
+  "rawPassed": false,
+  "newlyPasses": false,
+  "installationApproved": false
+}

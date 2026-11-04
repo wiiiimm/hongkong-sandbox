@@ -1,0 +1,11 @@
+# Man Hei mandatory original-platform identity
+
+Fresh current identity passed under manifest `ff121add7f71b18749f43f9d11919790e5cf886433e3547b0264ce7d66d42085`, Neon `52732a9c92ddfd78fb24d59fca7f4661afb58e625e89fe7117524495ea033c69`. Both production replays recompute complete source contacts without mocks; 56 actual/adversarial tests pass. Root independently reviewed the source kernel and passed its 33 tests.
+
+Man Hei `landsd/75694:0` requires the unchanged Man Fuk platform `landsd/266062:0` at any eventual runtime installation. All 2,286 + 10,661 faces and six + 93 original parts remain. Standalone 94.8074% coverage remains failed. The independently bounded lower main-body floors supply 99.9755% current target coverage with a genuine 0.184114 m² gap (provider gap 0.182541 m²). Higher fixtures supply no coverage credit. Full original-pair ordinary 95% coverage / 10 m extent and every other foreign-actor guard remain strict. This is a named source-envelope interpretation, not complete floor coverage, legal ownership or physical support.
+
+The platform identity separately replays the reviewed named Man Oi relationship against all 34 current forms and the actual installed unchanged Man Oi original. Fresh independent platform proof: `government-xl-man-hei-dependent-platform-current-proof-v1-20261010`, Neon `7f44bf7498bf7bbafa0913bcf0efa5b46f7259b65c3b418d609acae4b3696f54`. The caller must use complete fresh input selections/contexts from `government-xl-man-hei-current-bound-mandatory-platform-inputs-v1-20261010` and `man_hei_current_bound_mandatory_platform_identity_20261010.verify_files`.
+
+No terrain, foundation, collision, runtime, staged browser or installed acceptance is granted. Mandatory pair handling must survive those independent checks. No building geometry, source pose or thresholds changed.
+
+The preserved v1 production replays and 56 tests also passed, but its evidence freeze encountered a self-held source-context reservation. V1 records that orchestration failure explicitly (`af437d4519e35940a8c22ce09bffb0017b0901f5308a7dace30bfe386b64fa35`). V2 changes only the batch and outer lease scope; the freeze helper owns its own source-context lease. No source or identity gate was bypassed.

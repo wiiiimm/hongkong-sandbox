@@ -1,0 +1,27 @@
+{'uid': 'landsd/233997:0', 'mode': 'original', 'completeSourceFaces': 12258, 'selectedFaces': [1347, 1348, 1349, 6240, 6241, 6242], 'externalContactDimensions': {0: 38, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11663], 'selectedFacesWithPositiveExternalContact': [6241]}
+{'uid': 'landsd/233997:0', 'mode': 'literal', 'completeSourceFaces': 12258, 'selectedFaces': [1347, 1348, 1349, 6240, 6241, 6242], 'externalContactDimensions': {0: 38, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11663], 'selectedFacesWithPositiveExternalContact': [6241]}
+{'uid': 'landsd/233997:0', 'mode': 'leftF32', 'completeSourceFaces': 12258, 'selectedFaces': [1347, 1348, 1349, 6240, 6241, 6242], 'externalContactDimensions': {0: 38, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11663], 'selectedFacesWithPositiveExternalContact': [6241]}
+{'uid': 'landsd/233997:0', 'mode': 'balancedF32', 'completeSourceFaces': 12258, 'selectedFaces': [1347, 1348, 1349, 6240, 6241, 6242], 'externalContactDimensions': {0: 38, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11663], 'selectedFacesWithPositiveExternalContact': [6241]}
+{'uid': 'landsd/231645:0', 'mode': 'original', 'completeSourceFaces': 13725, 'selectedFaces': [8231, 8232, 8233], 'externalContactDimensions': {0: 16, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11518], 'selectedFacesWithPositiveExternalContact': [8233]}
+{'uid': 'landsd/231645:0', 'mode': 'literal', 'completeSourceFaces': 13725, 'selectedFaces': [8231, 8232, 8233], 'externalContactDimensions': {0: 16, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11518], 'selectedFacesWithPositiveExternalContact': [8233]}
+{'uid': 'landsd/231645:0', 'mode': 'leftF32', 'completeSourceFaces': 13725, 'selectedFaces': [8231, 8232, 8233], 'externalContactDimensions': {0: 16, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11518], 'selectedFacesWithPositiveExternalContact': [8233]}
+{'uid': 'landsd/231645:0', 'mode': 'balancedF32', 'completeSourceFaces': 13725, 'selectedFaces': [8231, 8232, 8233], 'externalContactDimensions': {0: 16, 1: 1}, 'positiveExternalContactCount': 1, 'positiveExternalWallFaces': [11518], 'selectedFacesWithPositiveExternalContact': [8233]}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_lower_patch_source_contacts_v1_20261103.py", line 92, in <module>
+    owned()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_lower_patch_source_contacts_v1_20261103.py", line 87, in owned
+    module('silvercord_lippo_lower_contacts_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH, 'complete-four-world-low-downward-source-facet-finite-contacts', list(dict.fromkeys(refs)), result)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 24, in freeze
+    c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(jid,)).fetchone()==('complete',result)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": false, "exitCode": 1, "released": true}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/silvercord_lippo_lower_patch_source_contacts_v1_20261103.py", line 97, in <module>
+    execute_reserved(claim['reservation'], LOCAL / 'reservation.json', [sys.executable, __file__, '--owned'])
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v4_20261103.py", line 55, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

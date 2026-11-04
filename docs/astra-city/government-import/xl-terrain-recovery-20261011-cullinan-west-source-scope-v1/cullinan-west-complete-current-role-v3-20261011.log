@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v3.py", line 125, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v3.py", line 124, in main
+    assert not DOC.exists();result=recheck();save(DOC/'typed-role.json.gz',result);s=importlib.util.spec_from_file_location('freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'complete-fresh-current-cullinan-two-original-qualified-native-support-and-named-visual-role-v3',[ROOT/r['path']for r in result['evidenceRefs']]+[DOC/'typed-role.json.gz'],dict(uids=result['uids'],scriptChecksPassed=True,wholeOwnedOriginalFaces=22312,completeOwnedComponents=32,ownedVisualComponents=[270,294,295],nativeReacceptance=False,installationApproved=False,newlyInstalled=0))
+                                   ^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v3.py", line 103, in recheck
+    checks=read(folder/'neighbour-checks.json');assert all(r['passed']and not r['reasons']for r in checks['rows']);native=read(folder/'native-neighbour-checks.json');assert set(native['blocked'])==set(native['resolved'])=={UIDS[0]} and all(r['passed'] and not r['newlyBuried']for r in native['rows'])
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v3.py", line 103, in <genexpr>
+    checks=read(folder/'neighbour-checks.json');assert all(r['passed']and not r['reasons']for r in checks['rows']);native=read(folder/'native-neighbour-checks.json');assert set(native['blocked'])==set(native['resolved'])=={UIDS[0]} and all(r['passed'] and not r['newlyBuried']for r in native['rows'])
+                                                           ~^^^^^^^^^^
+KeyError: 'passed'

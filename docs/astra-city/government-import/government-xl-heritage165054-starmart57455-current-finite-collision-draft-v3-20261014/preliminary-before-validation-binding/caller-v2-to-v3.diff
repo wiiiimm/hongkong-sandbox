@@ -1,0 +1,69 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-starmart57455-current-finite-collision-draft-v2-20261014/heritage-starmart-current-finite-draft-v2.py
++++ docs/astra-city/government-import/government-xl-heritage165054-starmart57455-current-finite-collision-draft-v3-20261014/heritage-starmart-current-finite-draft-v3.py
+@@ -1,9 +1,9 @@
+ """ROOT-only full four-view Museum/Star Mart finite surfaces, no acceptance."""
+-import argparse,gzip,hashlib,json,subprocess,sys,time
++import argparse,gzip,hashlib,json,sys,time
+ from pathlib import Path
+ PACKET=Path(__file__).resolve().parent;ROOT=PACKET.parents[3]
+ HERE=ROOT/'source-scripts/city/government-import';CONTRACT=PACKET/'input-contract.json'
+-OUTPUT=PACKET/'collision-output-v2'
++OUTPUT=PACKET/'collision-output-v3'
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):
+  raw=p.read_bytes();return json.loads(gzip.decompress(raw) if p.suffix=='.gz' else raw)
+@@ -24,6 +24,17 @@
+  assert scope['worldTrianglesSHA256']==array['worldTrianglesSHA256']==c['providerOriginalWorldSHA256']
+  assert scope['completeOriginalFaces']==array['completeOriginalFaceCount']==15140
+  assert len(array['completeOrderedOriginalTriangles'])==15140
++ capture_path=ROOT/c['reusedCompleteCapturePath'];pose_path=ROOT/c['reusedPoseAuditPath'];log_path=ROOT/c['reusedCaptureLogPath']
++ assert sha(capture_path)==c['reusedCompleteCaptureSHA256']=='25515aa53a0aba9e27009c1e94d7320bc06549076d6d3f1e60bc13ea8022a81e'
++ saved_log=read(log_path);assert saved_log['exitCode']==0
++ log_record=json.loads(saved_log['stdout'].strip());assert log_record['complete']and log_record['captureSHA256']==sha(capture_path)and log_record['sourceFaces']==15140
++ actual=read(capture_path);pose=read(pose_path)
++ assert actual['poseAuditSHA256']==sha(pose_path)and actual['startAndEndInputsVerified']
++ assert actual['sourceSHA256']==c['sourceSHA256']and actual['completeOriginalFaceCount']==15140
++ assert actual['entry']==read(ROOT/c['sourceRowPath'])['candidate']['entry']
++ assert actual['currentSourceForm']==read(ROOT/c['sourceRowPath'])['source']['building']
++ assert pose['exactLoaderTransformContractMatched']and pose['noToleranceIntroduced']and pose['sourcePoseChanges']==0
++ for path,h in actual['inputHashes'].items():assert sha(ROOT/path)==h,path
+  if args.preflight_only:
+   assert args.lease_file is None;fence(c,ch)
+   print(json.dumps({'passed':True,'sourceFaces':15140,'fullBASICUID':'landsd/57455:0','allChosenWitnessFacesNotUsedAsScope':True,'resources':c['canonicalResources'],'noModelImportsOrCalculation':True,'noDBOrLease':True}));return
+@@ -49,20 +60,19 @@
+  from xl_source_stream_binding_20261009 import source_stream_binding
+  OUTPUT.mkdir();beat(True)
+  try:
+-  result=subprocess.run(['node',str(PACKET/'heritage-starmart-current-geometry-draft-v2.mjs'),'--capture-current-full-geometry-only'],cwd=ROOT,capture_output=True,text=True)
+-  save(OUTPUT/'actual-capture-log.json',{'exitCode':result.returncode,'stdout':result.stdout,'stderr':result.stderr});assert result.returncode==0,'Actual capture failed; preserved log'
+-  actual=read(OUTPUT/'complete-current-star-and-museum-geometry.json.gz');assert actual['startAndEndInputsVerified']
+-  pose=read(OUTPUT/'actual-and-expected-source-pose.json');assert actual['poseAuditSHA256']==sha(OUTPUT/'actual-and-expected-source-pose.json')
+-  assert pose['exactLoaderTransformContractMatched'] and pose['noToleranceIntroduced'] and pose['sourcePoseChanges']==0
++  # Complete original capture/pose/log already authenticated before claim branch.
+   original=np.asarray(array['completeOrderedOriginalTriangles'],dtype='<f8');assert original.shape==(15140,3,3) and hashlib.sha256(original.tobytes()).hexdigest()==c['providerOriginalWorldSHA256']
+   ix=np.asarray(actual['completeOriginalIndex'],dtype=np.int64).reshape(-1,3)
+   assert len(ix)==15140 and len(actual['actualSourceMeshes'])==1
+   source_mesh=actual['actualSourceMeshes'][0];attributes=source_mesh['completeAttributes'];local_ix=np.asarray(source_mesh['completeIndex'],dtype=np.int64)
+   raw=(ROOT/c['originalAssetPath']).read_bytes();binding=source_stream_binding(raw);assert binding==scope['completeSourceStreamBinding']==array['completeSourceStreamBinding']
++  from exact_source_attribute_json_zero_sign_transport_v1 import verify as verify_attribute_transport
++  transport=verify_attribute_transport(raw,actual)
++  assert len(transport['attributes']['normal']['zeroSignTransportRecords'])==c['expectedLostNORMALZeroSignScalars']==18
+   for name,key in [('position','position'),('normal','normal'),('color','colour')]:
+-   descriptor=attributes[name];assert descriptor['itemSize']==3 and descriptor['arrayType']=='Float32Array'
+-   values=np.asarray(descriptor['values'],dtype='<f4').reshape(-1,3)[local_ix]
+-   assert hashlib.sha256(values.tobytes()).hexdigest()==binding[key+'TriangleStreamSHA256']
++   assert transport['attributes'][name]['originalIndexedFloat32TriangleSHA256']==binding[key+'TriangleStreamSHA256']
++  assert transport['attributes']['position']['completeOriginalFloat32BytesExactlyEqual']and transport['attributes']['color']['completeOriginalFloat32BytesExactlyEqual']
++  save(OUTPUT/'exact-original-vs-json-attribute-transport.json',transport)
+   basic=actual['starMart'];bi=np.asarray(basic['completeIndex'],dtype=np.int64).reshape(-1,3)
+   base=np.asarray(basic['completePosition'],dtype='<f8').reshape(-1,3);assert len(base)==basic['completeVertices'] and len(bi)==basic['completeFaces']
+   streams={'providerOriginal':original}
+@@ -82,7 +92,7 @@
+    rows.append(row);save(OUTPUT/(mode+'-full-finite-contacts.json.gz'),row)
+   beat(True);fence(c,ch);prior_neon_fence();assert reservations.owns(lease)
+   for path,h in actual['inputHashes'].items():assert sha(ROOT/path)==h,path
+-  out={'uids':['landsd/165054:0'],'independentForeignUID':'landsd/57455:0','sourceSHA256':c['sourceSHA256'],'completeOriginalSourceFaces':15140,'fullBASICFaces':basic['completeFaces'],'fourViews':rows,'priorProjectedTwoWitnessesRetained':[12346,12347],'priorProjectedForeignOverlapM2':0.10717968519970641,'allTouchAndZeroPrimitivesRetained':True,'noChosenFaceShortcut':True,'noOwnershipException':True,'actualCaptureSHA256':sha(OUTPUT/'complete-current-star-and-museum-geometry.json.gz'),'actualPoseAuditSHA256':sha(OUTPUT/'actual-and-expected-source-pose.json'),'allInputHashes':c['filePins'],'currentAcceptance':False,'physicalAccepted':False,'installationApproved':False,'sourceGeometryChanges':0,'terrainGeometryChanges':0}
++  out={'uids':['landsd/165054:0'],'independentForeignUID':'landsd/57455:0','sourceSHA256':c['sourceSHA256'],'completeOriginalSourceFaces':15140,'fullBASICFaces':basic['completeFaces'],'fourViews':rows,'priorProjectedTwoWitnessesRetained':[12346,12347],'priorProjectedForeignOverlapM2':0.10717968519970641,'allTouchAndZeroPrimitivesRetained':True,'noChosenFaceShortcut':True,'noOwnershipException':True,'actualCaptureSHA256':sha(capture_path),'actualPoseAuditSHA256':sha(pose_path),'sourceAttributeTransportSHA256':sha(OUTPUT/'exact-original-vs-json-attribute-transport.json'),'capturedNormalByteParityClaim':False,'originalNormalSourceHashUnchanged':True,'actualCaptureReusedNoRecapture':True,'allInputHashes':c['filePins'],'currentAcceptance':False,'physicalAccepted':False,'installationApproved':False,'sourceGeometryChanges':0,'terrainGeometryChanges':0}
+   save(OUTPUT/'diagnostic.json.gz',out);save(OUTPUT/'result.json',{'uids':['landsd/165054:0'],'complete':True,'diagnosticSHA256':sha(OUTPUT/'diagnostic.json.gz'),'sourceFaces':15140,'BASICFaces':basic['completeFaces'],'contactCounts':[len(r['fullFiniteSurfaceContacts']['contacts'])for r in rows],'physicalAccepted':False,'currentAcceptance':False,'newlyInstalled':0})
+   print(json.dumps(read(OUTPUT/'result.json')),flush=True)
+  except BaseException as error:

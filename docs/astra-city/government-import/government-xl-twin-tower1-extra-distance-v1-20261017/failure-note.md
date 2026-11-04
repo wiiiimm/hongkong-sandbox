@@ -1,0 +1,1 @@
+Receipt-routing failure before geometry calculation: historical recovery receipt does not enumerate the asset path. No model fault. V2 authenticates exact bytes and size against the frozen sheet record already bound by the completed nomination receipt. Original V1 and log retained.

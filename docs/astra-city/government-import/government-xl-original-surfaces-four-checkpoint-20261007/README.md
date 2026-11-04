@@ -1,0 +1,13 @@
+# Original terrain and component recovery
+
+XL352 remains 87 installed / 265 held: 43 new installations from the goal baseline, with 57 required to reach 100. This checkpoint grants zero installation credit. Eighteen completed current physical/component phases were read back from Neon and fenced by job `c804bde54745d08876c13d2f79120c98127c2fa30a87f0ad62afc7493bd39b67`.
+
+Original 5m DTM facets selected below the exact diagnosed buried source faces fix Festival Walk 91827 contact/foundation. Existing parent planes outside the source fix nine neighboring basic forms; one original Festival component 104302 remains. Its exact original mesh was recovered locally without transfer. Joint two-source identity, foundation and all neighbors pass; 619 of 1224 strict upper/lower support contacts remain unresolved. No acceptance or geometry changes are inferred from those partial results.
+
+HK Observatory 252988 retains seven exact contact failures; DTM is higher at all seven positions. The original retained 118475 remains safe. 265848 and Fu Tor Loy 228219 pass own source/foundation and retained-native checks, but overlapping basic neighbors regress. Complete original-parent footprints resolve neighbors while breaking the source checks. Both variants and their reasons remain saved rather than replacing the failure with success.
+
+The portable three-original-surfaces preview covers 112 historical meshes, including vertices, centers and all low-rim edge samples. Each point may choose a different original surface, so four pointwise positives do not prove coherent terrain or acceptance. Current input-hash freshness is explicit. Local sample grids and geometry are ignored caches; their paths and SHA256 are recorded. Regenerate with `xl-three-original-surfaces-preview.py --batch <fresh-government-xl-batch>`, then `xl-three-original-surfaces-preview.mjs <local-batch-path>`. The source DTM is the read-only archive documented in `landmark-preflight/terrain-inputs.json`.
+
+The earlier face sampler failed because a rendered-facet adapter lacks grid metadata; its bounded facet successor uses exact native facets and clips the selected region. Eleven targeted tests cover plane crossings, unchanged source heights, explicit mask boundaries, exact DTM band selection and vectorized parent sampling including water and display overrides. Every source identity, physical, neighbor, runtime and browser/publication guard remains required. No architectural AI or external model generation was used.
+
+Continue the active 100-new-XL goal after commits; these are durable checkpoints, not completion. New diagnostics for 34 held sources require separate existing-review and cache-recovery routes. Failed preparations do not produce acceptance inputs.

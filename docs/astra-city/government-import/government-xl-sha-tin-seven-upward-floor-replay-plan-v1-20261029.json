@@ -1,0 +1,152 @@
+{
+  "batch": "government-xl-sha-tin-seven-upward-floor-replay-sequence-v1-20261029",
+  "uids": [
+    "landsd/271344:0",
+    "landsd/231013:0",
+    "landsd/23220:0",
+    "landsd/23759:0",
+    "landsd/23761:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "resources": [
+    "building:landsd/271344:0",
+    "building:landsd/231013:0",
+    "building:landsd/23220:0",
+    "building:landsd/23759:0",
+    "building:landsd/23761:0",
+    "building:landsd/92881:0",
+    "building:landsd/238142:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-sha-tin-seven-upward-floor-terrain-return-v1-20261029",
+        "--capture",
+        "government-xl-sha-tin-civic-seven-complete-runtime-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-sha-tin-seven-upward-floor-scope-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-sha-tin-seven-upward-floor-terrain-return-v1-20261029",
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_current_installed_dependency_bindings_v1_20261024.py",
+      "batch": "government-xl-sha-tin-seven-upward-floor-dependency-bindings-v1-20261029",
+      "scopeResources": "government-xl-sha-tin-seven-upward-floor-scope-v1-20261029",
+      "args": [
+        "--scope",
+        "government-xl-sha-tin-seven-upward-floor-scope-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_retained_native_neighbours_v9_20261029.py",
+      "batch": "government-xl-sha-tin-seven-upward-floor-region-regression-v1-20261029",
+      "scopeResources": "government-xl-sha-tin-seven-upward-floor-scope-v1-20261029",
+      "args": [
+        "--scope",
+        "government-xl-sha-tin-seven-upward-floor-scope-v1-20261029",
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029",
+        "--patch",
+        "government-xl-sha-tin-seven-upward-floor-terrain-return-v1-20261029",
+        "--bindings",
+        "government-xl-sha-tin-seven-upward-floor-dependency-bindings-v1-20261029"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-271344-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/271344:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-231013-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/231013:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-23220-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/23220:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-23759-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/23759:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-23761-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/23761:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-92881-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/92881:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-sha-tin-upward-floor-238142-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-sha-tin-seven-upward-floor-runtime-v1-20261029",
+        "--attributes",
+        "government-xl-sha-tin-seven-final-ground-attributes-v1-20261029",
+        "--uid",
+        "landsd/238142:0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_render_attributes_v1.py", line 55, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_render_attributes_v1.py", line 41, in main
+    subprocess.run(['node', str(tool), str((doc / 'input.json.gz').relative_to(ROOT)), str((doc / 'attributes.json.gz').relative_to(ROOT))], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_render_attributes_v1.mjs', 'docs/astra-city/government-import/government-xl-after-disneyland-piers-next-five-attributes-v1-20261030/input.json.gz', 'docs/astra-city/government-import/government-xl-after-disneyland-piers-next-five-attributes-v1-20261030/attributes.json.gz']' returned non-zero exit status 1.
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}

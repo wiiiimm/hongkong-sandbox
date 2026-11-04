@@ -1,0 +1,27 @@
+{
+  "callerSHA256": "2160b1013d5a90642a800d56941502f7505a71f8b5ca48ed461ab1335e1abe9c",
+  "leaseClaimed": false,
+  "steps": [
+    {
+      "command": [
+        "/tmp/astra-city-venv/bin/python",
+        "-c",
+        "import importlib.util; from pathlib import Path; p=Path('source-scripts/city/government-import/xl-southside-315025-300867-authenticated-original-ground-grade-v2-20261012.py'); s=importlib.util.spec_from_file_location('southside_authentic_grade_v2_import_only',p); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); print('IMPORT PASS; no main/preflight/DB/lease invoked')"
+      ],
+      "exitCode": 0,
+      "kind": "import",
+      "logSHA256": "58de46bc0d6967942dc7692a0df73895fe9e2b0c3cbe8f6759ae01b9843160f0"
+    },
+    {
+      "command": [
+        "/tmp/astra-city-venv/bin/python",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-authenticated-original-ground-grade-v2-20261012.py",
+        "--preflight-only"
+      ],
+      "exitCode": 0,
+      "kind": "preflight",
+      "logSHA256": "ee4ef41976e3b3d55bef2a1c6170225cf923ade1a54f223dfc44db0dab3bbe58"
+    }
+  ],
+  "workerStarted": false
+}

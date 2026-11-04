@@ -1,0 +1,67 @@
+{
+  "mode": "staged",
+  "views": [],
+  "retainedNativeOwnViews": [],
+  "errors": [
+    "page.waitForFunction: Timeout 120000ms exceeded."
+  ],
+  "aiCalls": 0,
+  "architectureReview": false,
+  "nativeHTTPObservationTimeoutMs": 120000,
+  "actorObservationTimeoutMs": 120000,
+  "startupObservationBudgetMs": 300000,
+  "retainedTravelObservationBudgetMs": 180000,
+  "startupElapsedMs": 14524,
+  "nativeAssetRequests": [
+    {
+      "url": "http://127.0.0.1:4176/city/data/official-models/government-xxl-pao-20260913/assets/c45253aeb258f6ffa8e56a069a7ed03e2ecf153a75ad0435370a008e525703f5.glb.gz?v=c45253aeb258f6ffa8e56a069a7ed03e2ecf153a75ad0435370a008e525703f5",
+      "event": "requested"
+    },
+    {
+      "url": "http://127.0.0.1:4176/city/data/official-models/government-xxl-pao-20260913/assets/c45253aeb258f6ffa8e56a069a7ed03e2ecf153a75ad0435370a008e525703f5.glb.gz?v=c45253aeb258f6ffa8e56a069a7ed03e2ecf153a75ad0435370a008e525703f5",
+      "event": "response",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4176/city/data/official-models/government-xl-polyu-qualified-stage-v1-20261015/assets/ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15.glb.gz?v=ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15",
+      "event": "requested"
+    },
+    {
+      "url": "http://127.0.0.1:4176/city/data/official-models/government-xl-polyu-qualified-stage-v1-20261015/assets/ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15.glb.gz?v=ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15",
+      "event": "response",
+      "status": 200
+    }
+  ],
+  "baseMapReadiness": [
+    {
+      "uid": "landsd/305600:0",
+      "elapsedMs": 5146,
+      "scope": "Base tile completion before detailed-source recovery, not a cold-load performance pass"
+    }
+  ],
+  "sourceBasicFallbackFailures": [
+    {
+      "uid": "landsd/305600:0",
+      "buildingLoaded": true,
+      "basicHidden": false,
+      "cacheEntryPresent": true,
+      "detailSuppressed": true,
+      "basicGroupVisible": true,
+      "hasOwnFeatureGeometry": false,
+      "retainedNativeStates": [
+        {
+          "uid": "landsd/305793:0",
+          "active": true,
+          "visible": true,
+          "sha256": "c45253aeb258f6ffa8e56a069a7ed03e2ecf153a75ad0435370a008e525703f5"
+        },
+        {
+          "uid": "landsd/305582:0",
+          "active": true,
+          "visible": true,
+          "sha256": "ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/oi_sin_qualified_stage_v1_20261017.py", line 47, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/oi_sin_qualified_stage_v1_20261017.py", line 37, in main
+    r=rows[m['uid']];assert m['proceduralWindows']is False and not m.get('suppressesBuildingUids');m.update(originalSourceKey=r['sectionId']+'/'+r['modelId'],sourceIdentityReviewed=True,identityReviewApproved=True,placementReviewed=True,publicationApproved=True,sourceFunctionalApplicability=ref(DOC/'qualification.json'),sourceIdentityReview=ref(folder('carpark-source-review-v1')/'ROOT-SOURCE-REVIEW.json'),sourceEvidenceInterpretationUsedAI=True,aiGeometryModelling=False,placementReview='Complete unchanged original assembly at1x. Exact-source identity/junction reviews retain raw strict warnings; all-mode foundations and actual perimeter evidence, all current neighbours and desktop/mobile exports verified.')
+                                                                                                                              ~^^^^^^^^^^^^^
+KeyError: 'sectionId'

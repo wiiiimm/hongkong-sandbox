@@ -1,0 +1,246 @@
+{
+  "issue": "HKS-208",
+  "reviewedAt": "2026-09-07T11:15:08.309358+00:00",
+  "approvedUIDs": [
+    "landsd/252035:0",
+    "landsd/319803:0"
+  ],
+  "heldUIDs": [
+    "landsd/322573:0",
+    "landsd/248218:0"
+  ],
+  "rows": [
+    {
+      "uid": "landsd/322573:0",
+      "name": "Opus Hong Kong",
+      "recommendation": "hold",
+      "followUp": "HKS-209",
+      "reason": "Native twisting facade and roof are recognisable and runtime tests pass, but current70m terrain crosses its foundation band by several metres. Foundation contact is not adequately resolved for publication.",
+      "visibleImprovement": "Twisting columns, curved facades and roof structures replace the basic extrusion.",
+      "evidence": "after/opus-landsd-322573-0-day.png",
+      "cpuTerrainEvidence": {
+        "sampleCount": 286,
+        "minGround": 230.93599999999356,
+        "maxGround": 242.4446857142782,
+        "roofGround": 236.72142857141637,
+        "roof": [
+          1500.5797526041667,
+          293.25299072265625,
+          2001.6774088541667
+        ],
+        "sourceYBounds": [
+          236.843994140625,
+          293.25299072265625
+        ],
+        "resolutions": [
+          70
+        ]
+      },
+      "imageInspected": true
+    },
+    {
+      "uid": "landsd/252035:0",
+      "name": "Hysan Place podium",
+      "recommendation": "publish-with-tower",
+      "pair": "landsd/319803:0",
+      "reason": "Exact source identity and native geometry match; the joint complex screenshot shows its stepped podium, facade bands and connections to the tower. Publish the coupled source parts together. Current coarse ground remains a regional terrain limitation.",
+      "evidence": "after/hysan-place-landsd-319803-0-day.png",
+      "cpuTerrainEvidence": {
+        "sampleCount": 144,
+        "minGround": 5.002399999999227,
+        "maxGround": 6.860457142856546,
+        "roofGround": 5.146949404762438,
+        "roof": [
+          2453.0595703125,
+          49.210996389389045,
+          831.6539713541666
+        ],
+        "sourceYBounds": [
+          3.8570001125335693,
+          49.21099638938904
+        ],
+        "resolutions": [
+          70
+        ]
+      },
+      "imageInspected": true
+    },
+    {
+      "uid": "landsd/319803:0",
+      "name": "Hysan Place tower",
+      "recommendation": "publish-with-podium",
+      "pair": "landsd/252035:0",
+      "reason": "Distinct roof and facade form are visible, the raised tower is supported by its separate native podium, and source picking/contact/fallback tests pass. Bare-ground gap is expected for an upper building part.",
+      "evidence": "after/hysan-place-landsd-319803-0-day.png",
+      "cpuTerrainEvidence": {
+        "sampleCount": 66,
+        "minGround": 5.0262514285709585,
+        "maxGround": 6.737371428571976,
+        "roofGround": 6.257384672618059,
+        "roof": [
+          2490.025390625,
+          209.43633143107095,
+          848.9830729166666
+        ],
+        "sourceYBounds": [
+          44.14699935913086,
+          209.93999862670898
+        ],
+        "resolutions": [
+          70
+        ]
+      },
+      "imageInspected": true
+    },
+    {
+      "uid": "landsd/248218:0",
+      "name": "The Peak Tower",
+      "recommendation": "hold",
+      "followUp": "HKS-209",
+      "reason": "Source roof and terrace details render correctly, but current70m terrain rises roughly8–20m above the source model bottom and clips lower levels. Hold until terrain/foundation review; do not raise or multiply the model.",
+      "visibleImprovement": "Projecting roof, terrace equipment and articulated lower wings replace the basic block.",
+      "evidence": "after/peak-tower-landsd-248218-0-day.png",
+      "cpuTerrainEvidence": {
+        "sampleCount": 149,
+        "minGround": 386.8828428571214,
+        "maxGround": 398.2453999999963,
+        "roofGround": 394.15052548362377,
+        "roof": [
+          -1027.4371744791667,
+          430.1863301595052,
+          1792.376953125
+        ],
+        "sourceYBounds": [
+          378.50799560546875,
+          430.29998779296875
+        ],
+        "resolutions": [
+          70
+        ]
+      },
+      "imageInspected": true
+    }
+  ],
+  "browser": {
+    "before": "passed",
+    "after": "passed",
+    "errors": [],
+    "evidenceDirectory": "docs/astra-city/architecture-batch/new-sources-browser",
+    "areas": [
+      {
+        "area": "opus",
+        "models": [
+          "landsd/322573:0"
+        ],
+        "performance": {
+          "median": 16.69999999999891,
+          "p95": 16.799999999999272
+        },
+        "mobilePerformance": {
+          "median": 16.699999999999818,
+          "p95": 16.800000000000182
+        },
+        "walkArrival": {
+          "position": [
+            0,
+            4.135,
+            575
+          ],
+          "collision": false
+        },
+        "flight": {
+          "position": [
+            588.4166917004544,
+            500,
+            -348.357980698591
+          ],
+          "collision": false,
+          "distance": 64.07699999999944
+        }
+      },
+      {
+        "area": "hysan-place",
+        "models": [
+          "landsd/252035:0",
+          "landsd/319803:0"
+        ],
+        "performance": {
+          "median": 16.69999999999891,
+          "p95": 16.700000000000728
+        },
+        "mobilePerformance": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000728
+        },
+        "walkArrival": {
+          "position": [
+            0,
+            4.135,
+            575
+          ],
+          "collision": false
+        },
+        "flight": {
+          "position": [
+            588.7280012180239,
+            500,
+            -350.41778860814736
+          ],
+          "collision": false,
+          "distance": 68.19379999999919
+        }
+      },
+      {
+        "area": "peak-tower",
+        "models": [
+          "landsd/248218:0"
+        ],
+        "performance": {
+          "median": 16.699999999999818,
+          "p95": 16.800000000000182
+        },
+        "mobilePerformance": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000728
+        },
+        "walkArrival": {
+          "position": [
+            0,
+            4.135,
+            575
+          ],
+          "collision": false
+        },
+        "flight": {
+          "position": [
+            588.1109412814143,
+            500,
+            -346.3349550731341
+          ],
+          "collision": false,
+          "distance": 73.3645999999988
+        }
+      }
+    ],
+    "failedLoadFallbackAndRetry": "passed"
+  },
+  "supportEvidence": "docs/astra-city/architecture-batch/new-sources-browser/hysan-support.json",
+  "rejectedEvidence": [
+    "after/hysan-place-landsd-252035-0-day.png: camera occluded by neighbouring tower",
+    "alternate/after/hysan-podium-wide-landsd-252035-0-day.png: wider west camera still hides podium; use joint tower/complex image"
+  ],
+  "limits": [
+    "Physical mobile hardware untested; mobile checks use390px Chrome emulation.",
+    "Day/night building lighting is procedural and not a claim of photo-textured facade fidelity.",
+    "No terrain, vertex, source-height or vertical-scale changes were made in this review.",
+    "Hysan approval is a bounded model upgrade, not region or ground-floor route sign-off.",
+    "Further terrain work is tracked separately; basic fallbacks must remain for held models."
+  ],
+  "alternateCameraRun": {
+    "before": "passed",
+    "after": "failed",
+    "failure": "Hysan podium detail activation timed out at the deliberately wide mobile camera after120seconds; desktop model, walking and flight checks had passed. The exact culling/budget reason was not established.",
+    "evidence": "docs/astra-city/architecture-batch/new-sources-browser/alternate/after/verification.json",
+    "effectOnRecommendation": "The main four-model mobile run passed at normal review distance. The alternate images are rejected as visual evidence; use the clear joint Hysan complex view. Opus and Peak remain held; no additional front-angle acceptance claim."
+  }
+}

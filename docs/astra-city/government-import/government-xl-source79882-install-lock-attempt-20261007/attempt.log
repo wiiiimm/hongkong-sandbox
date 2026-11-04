@@ -1,0 +1,14 @@
+{
+  "ok": false,
+  "exitCode": 143,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-explicit-cell-root-install.py", line 269, in <module>
+    else:start()
+         ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-explicit-cell-root-install.py", line 54, in start
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run',
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-source79882-original-podium-installed-20261007/install-reservation.json', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-explicit-cell-root-install.py', '--uid', 'landsd/79882:0', '--batch', 'government-xl-source79882-original-podium-installed-20261007', '--source', 'docs/astra-city/government-import/government-xl-source79882-complete-parent-current-recheck-20261007', '--base', 'docs/astra-city/government-import/government-xl-seven-more-original-supports-current-inputs-20261007', '--owned']' returned non-zero exit status 143.

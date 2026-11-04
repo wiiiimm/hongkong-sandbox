@@ -1,0 +1,33 @@
+--- source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py
++++ source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v3_20261013.py
+@@ -11,7 +11,7 @@
+ from upton_six_basic_preserved_ground_feasibility_draft_v1_20261012 import code_paths
+ 
+ BASE=ROOT/'docs/astra-city/government-import'
+-BATCH='government-xl-upton-v6-saved-actual-union-finite-regression-v2-20261013'
++BATCH='government-xl-upton-v6-saved-actual-union-finite-regression-v3-20261013'
+ DOC=BASE/BATCH; LOCAL=HERE/'local'/BATCH; PROPOSAL=BASE/(BATCH+'-proposal'); LEASE=LOCAL/'reservation.json'
+ V6=BASE/'government-xl-upton-two-original-complete-mask-current-nam-enclosure-v6-20261013'
+ MAX=BASE/'government-xl-upton-v6-saved64-actual-max-geometry-bound-validator-v1-20261013'
+@@ -118,7 +118,7 @@
+      p=DOC/'chunks'/uid.replace('/','-').replace(':','-')/mode/(str(len(chunks)).zfill(5)+'.json.gz');assert not p.exists();tmp=p.with_name(p.name+'.tmp.json.gz')
+      save(tmp,dict(uid=uid,mode=mode,wholeWorldSHA256=sha(w),completeNewGroundSHA256=sha(ground),completeOldGroundSHA256=sha(prior_ground),rows=rows));tmp.replace(p);chunks.append(ref(p));rows=[];pulse(True)
+     for i in ids:
+-     face=w[i];selected,binding=complete.select(face.tolist());old_ids,old_binding=before.select(face.tolist());prior=old_records[i]['candidate'];assert prior['sourceFaceSHA256']==sha(face)and prior['completeGroundSHA256']==sha(prior_ground)
++     face=w[i];exact_face=[[F(x)for x in p]for p in face.tolist()];selected,binding=complete.select(exact_face);old_ids,old_binding=before.select(exact_face);prior=old_records[i]['candidate'];assert prior['sourceFaceSHA256']==sha(face)and prior['completeGroundSHA256']==sha(prior_ground)
+      if prior['coarse'] is not None:
+       coarse=prior['coarse'];final=prior['paired']or coarse
+       assert coarse['allProjectedBoundingCandidateOriginalGroundFacets']==old_ids.tolist()and coarse['sourceFaceSHA256']==sha(face)and coarse['completeCurrentGroundSHA256']==sha(prior_ground)
+
+--- docs/astra-city/government-import/government-xl-upton-v6-saved-actual-union-finite-regression-v2-20261013-proposal/METHOD.md
++++ docs/astra-city/government-import/government-xl-upton-v6-saved-actual-union-finite-regression-v3-20261013-proposal/METHOD.md
+@@ -14,6 +14,8 @@
+ 
+ Preparation is not run yet. ROOT reviews this caller/METHOD/pins before actual import/schema or claimed worker. After successful new-union results, source grade/cap relevant-tuple reconciliation and the typed terminal-role binder are separate next stages; current placement/runtime/foundation/foreign guards and private browser remain unfulfilled. No global watertightness/allindexed/allstrict, per-window weld or extra engineering root is introduced.
+ 
+-Proposed eventual command: /tmp/astra-city-venv/bin/python source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py --check-saved-actual-union-only. Canonical11 maintained supervisor, pinned Neon, exact before/end references and current fence, existing source-only freezer. Only ROOT may authorise it.
++Proposed eventual command: /tmp/astra-city-venv/bin/python source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v3_20261013.py --check-saved-actual-union-only. Canonical11 maintained supervisor, pinned Neon, exact before/end references and current fence, existing source-only freezer. Only ROOT may authorise it.
+ 
+ V2 also verifies the saved complete1911 BASIC baseline schema: actual source world hashes/unused vertex and face counts,52 affected UID lists,2114 selected full facets and exactly one capturedConstructorFloat32World label. This is schema/hash verification only. The new worker binds actual preparation summary, closed command logs and literal closure refs before any finite computation. The original failed caller/METHOD/pins/import/schema logs and failed external /tmp-relative summary writer are preserved in the v1 adjacent failure archive; no completed finite job, lease or accepted schema is claimed for that attempt. Numerical selection/reuse/cache/chunk logic is byte-for-byte unchanged.
++
++V3 preserves the actual v2 first-selection interface failure, caller/log/claim and fresh terminal/released11/PID audit. V2 produced no finite chunk or completed receipt. The only execution change beyond distinct batch is representing each untouched binary64 coordinate as Fraction(x), an exact integer ratio of the saved Python float, before both existing CompleteGround.select calls. No decimal string roundtrip, rational helper relaxation, changed projected bounds, geometry hash or finite predicate. Source arrays and all kernel inputs remain untouched; original signed-zero array bytes still bind hashes and reuse. Fractions identify the same real zero for selection without rewriting source bytes. Actual v3 import/schema and exact selector-interface smoke remain unexecuted and require ROOT review. No failed v2 output is relabelled complete.

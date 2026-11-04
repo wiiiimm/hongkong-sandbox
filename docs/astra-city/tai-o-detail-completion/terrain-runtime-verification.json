@@ -1,0 +1,27 @@
+{
+  "stagedOnly": true,
+  "vertices": 6857,
+  "maxMeshErrorMetres": 0.0000019052734359092938,
+  "maxSamplerErrorMetres": 1.1723955140041653e-13,
+  "patches": [
+    {
+      "id": "tai-o-source-refinement-1",
+      "vertices": 2601
+    },
+    {
+      "id": "tai-o-source-refinement-2",
+      "vertices": 4256
+    }
+  ],
+  "checks": [
+    "Actual makeTerrain child mesh agrees with source-derived grid vertices",
+    "Nested makeTerrainSampler agrees at all vertices including child/parent joins",
+    "No patch vertex intersects retained mapped hydro; outside child samples unchanged",
+    "All seven source models pass whole-footprint highest-roof and floating-base screens",
+    "Three explicit null-source estimated base updates are required"
+  ],
+  "limits": [
+    "Root must omit parent cells and render each child once using nested renderer support.",
+    "No GPU/browser or individual roof-face acceptance is claimed."
+  ]
+}

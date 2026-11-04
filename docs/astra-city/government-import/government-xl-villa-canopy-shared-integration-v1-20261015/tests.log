@@ -1,0 +1,24 @@
+✔ async geometry validation agrees with synchronous fallback validation across chunks (17.18454ms)
+✔ aborting asynchronous validation does not cache a partially checked source (2.05744ms)
+✔ open-sided roofs keep source top and omit walls/windows (12.153389ms)
+✔ source courtyard remains open through roof and supports (3.313989ms)
+✔ explicit foundation skirt does not move the source roof or acquire windows (0.81125ms)
+✔ open supports use explicit foundation while leaving air unsealed (0.45937ms)
+✔ ordinary buildings preserve single volume and window attributes (0.99796ms)
+✔ cached layout updates if explicitly supplied foundation changes (0.46638ms)
+✔ BuildingIndex shares open roof and support geometry (4.49617ms)
+✔ terrain exact grid edges preserve source vertex elevations (1.23549ms)
+✔ validated detailed model geometry replaces the simple extrusion (0.44625ms)
+✔ invalid or misplaced detailed arrays retain source extrusion fallback (2.7898ms)
+✔ indexed detailed geometry joins the non-indexed shared palette batches (0.71793ms)
+✔ integrated canopy matches complete collision-tested production meshes without mutating official form (16.353869ms)
+✔ correction rejects changed identity, geometry, elevations or detailed replacement (0.740969ms)
+✔ cached description does not retain correction after identity changes (1.81098ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.705716

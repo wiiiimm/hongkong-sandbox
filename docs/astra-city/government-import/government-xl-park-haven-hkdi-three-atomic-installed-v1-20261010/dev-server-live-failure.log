@@ -1,0 +1,83 @@
+{
+  "published": false,
+  "areas": [
+    {
+      "area": "Park Haven complete unchanged original podium and upper body",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-terrain-recovery-park-haven-two-typed-stage-v5-20261010/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    },
+    {
+      "area": "HKDI original Block B, current qualified native cap support",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-terrain-recovery-hkdi-block-b-qualified-native-stage-v1-20261010/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "estimatedBases": []
+}
+{
+  "published": true,
+  "areas": [
+    {
+      "area": "Park Haven complete unchanged original podium and upper body",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-terrain-recovery-park-haven-two-typed-stage-v5-20261010/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    },
+    {
+      "area": "HKDI original Block B, current qualified native cap support",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-terrain-recovery-hkdi-block-b-qualified-native-stage-v1-20261010/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "estimatedBases": []
+}
+live 1280 initialising
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4176/city.html
+Call log:
+[2m  - navigating to "http://127.0.0.1:4176/city.html", waiting until "load"[22m
+
+    at /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-multi-native-solid-browser-v5.mjs:31:52 {
+  name: 'Error'
+}
+
+Node.js v24.18.0
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py", line 202, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py", line 188, in main
+    with locked_publication(ROOT):return owned(args)
+                                         ^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py", line 158, in owned
+    call(['node',str(HERE/browser),'live',ref(stage.STAGE/'browser-config.json')['path']])
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py", line 59, in call
+    subprocess.run(cmd,cwd=ROOT,check=True,env={**os.environ,'CHROME_PATH':'/opt/google/chrome/chrome'});owns()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-multi-native-solid-browser-v5.mjs', 'live', 'source-scripts/city/government-import/accepted/government-xl-terrain-recovery-park-haven-two-typed-stage-v5-20261010/browser-config.json']' returned non-zero exit status 1.
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py", line 202, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py", line 200, in main
+    subprocess.run(cmd,cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-park-haven-hkdi-three-atomic-installed-v1-20261010/install-reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v1-20261010.py', '--previous-count', 'docs/astra-city/government-import/government-xl-caine-man-fuk-twelve-atomic-installed-v2-20261010/full-xl-current-count.json', '--owned', '--closure', 'docs/astra-city/government-import/xl-park-hkdi-current-source-root-closure-v1-20261010/closed-scope.json', '--closure', 'docs/astra-city/government-import/xl-park-hkdi-current-stage-root-closure-v1-20261010/closed-scope.json']' returned non-zero exit status 1.

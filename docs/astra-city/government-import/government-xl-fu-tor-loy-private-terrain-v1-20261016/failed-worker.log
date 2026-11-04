@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fu_tor_loy_private_terrain_v1_20261016.py", line 66, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fu_tor_loy_private_terrain_v1_20261016.py", line 47, in main
+    patch=helper.make_patch(group,parent,np.concatenate(pieces),sources,native_core=core)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/resolve-pass.py", line 64, in make_patch
+    if not allow_native_below_clamp:assert native[:,:,1].min()>=1.2,'native-terrain-near-water-clamp'
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: native-terrain-near-water-clamp

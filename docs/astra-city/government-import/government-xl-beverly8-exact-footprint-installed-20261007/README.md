@@ -1,0 +1,5 @@
+# Beverly Garden Block 8 — verified original installation
+
+Codex, 7 October 2026. Beverly Garden Block 8 (landsd/29943:0) is installed with unchanged original government geometry. Verified Neon job `4a81775afd755d71d92306627d73935097aaa45dff06fe9d2bb22b7d8c3e3462`, installed snapshot `f67d157ab539ed59`, source hashes `{'landsd/29943:0': 'a68e7e7e666eb916ddbf817c8559cc6228215923c00c7c45f719ad2fbd151e57'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+35 new XL installations from44/308: **79 installed / 273 not installed**, 65 further installations required. Public counters: 346,108 total source forms, 4,430 enhanced, 4,416 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

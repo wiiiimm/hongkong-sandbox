@@ -1,0 +1,1 @@
+The first receipt wrapper failed before DOC creation, Neon access or a lease. It asserted the three case rows in a presentation-specific order. V2 validates the exact unique UID set and count, retaining the actual saved row order. No original research or source files changed. V1 remains immutable.

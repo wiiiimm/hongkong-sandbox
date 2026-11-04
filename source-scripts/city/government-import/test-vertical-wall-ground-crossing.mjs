@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {classifyVerticalWallCrossings as classify} from './vertical-wall-ground-crossing.mjs';
+const wall=[[0,-1,0],[0,2,0],[1,-1,0]],failure={point:wall[0],gap:-1,kind:'vertex'},flat=()=>0;
+test('exact original wall crossing is observed without granting acceptance',()=>{const r=classify([wall],[failure],flat);assert(r.allFailedSamplesAreExactVerticalWallCrossings);assert.equal(r.acceptanceGranted,false);assert.equal(r.geometryChanges,0);});
+test('fully buried wall is not a crossing',()=>{const t=wall.map(p=>[p[0],p[1]-3,p[2]]);assert.equal(classify([t],[{point:t[0],gap:-4,kind:'vertex'}],flat).allFailedSamplesAreExactVerticalWallCrossings,false);});
+test('a shared buried roof/ground face prevents vertical-only classification',()=>{const roof=[wall[0],[1,-1,0],[0,-1,1]];assert.equal(classify([wall,roof],[failure],flat).allFailedSamplesAreExactVerticalWallCrossings,false);});
+test('near vertical sloped surfaces are not exact original vertical walls',()=>{const t=[wall[0],[0,2,.001],wall[2]];assert.equal(classify([t],[failure],flat).allFailedSamplesAreExactVerticalWallCrossings,false);});
+test('missing terrain, changed gap and unidentified sample cannot earn crossing credit',()=>{for(const [fail,height] of [[failure,()=>null],[{...failure,gap:-2},flat],[{...failure,kind:'low-edge'},flat]])assert.equal(classify([wall],[fail],height).allFailedSamplesAreExactVerticalWallCrossings,false);});
+test('empty failure set cannot manufacture evidence',()=>assert.equal(classify([wall],[],flat).allFailedSamplesAreExactVerticalWallCrossings,false));

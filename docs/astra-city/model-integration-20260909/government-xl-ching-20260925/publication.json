@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-ching-20260925/plan.json",
+  "areas": [
+    {
+      "area": "Ching houses original government models",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-ching-20260925/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-26542-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-ching-20260925/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "685d93ac46c3f3511a166f8b9d89fa43b80f18165ae030c80e1fc791b7b53919"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-26542-0.json": "46982b10f64af071916ff14984174b26e491664373f888765d4aad8b4c75b6d9",
+    "3d-viewer/city/data/official-models/government-xl-ching-20260925/catalogue.json": "f314d4ae6af4680e2df0b3829101570783ead5ae287351dfc00098441157b730",
+    "3d-viewer/city/data/manifest.json": "a8cf5eea4402c30abd486a53c9a0c1c4caf72e6b0bd0c1aba501a2ee9a3e072c"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "74a012061ad2a10c9fe38ca19efa0bb12f4fb32c",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-26542-0.json",
+      "resolution": 5,
+      "area": "Ching houses exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "143150903023f8678d00ac96390fcf9901af524ac6e8645a0b84dc157b936fe1",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "3-SW-11B",
+            "sourceETag": "\"260a004-63dcf8d4804a1\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.bin",
+                "sha256": "7bd0ae26f6511c9cfeb183cdca7e5798002fa3620333174af72a89ca753ffdb4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.gltf",
+                "sha256": "6bb73fede1a367d794501957dea815e12c794e85b1e5f03e64dadea094e189ec"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3053,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "46982b10f64af071916ff14984174b26e491664373f888765d4aad8b4c75b6d9",
+      "bytes": 2853423
+    }
+  ],
+  "estimatedBases": []
+}

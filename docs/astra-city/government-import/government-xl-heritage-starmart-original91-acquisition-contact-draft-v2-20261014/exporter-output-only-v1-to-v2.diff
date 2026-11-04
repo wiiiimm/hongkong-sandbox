@@ -1,0 +1,22 @@
+--- docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/heritage-starmart-original91-geometry-draft-v1.mjs
++++ docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v2-20261014/heritage-starmart-original91-geometry-draft-v2.mjs
+@@ -8,8 +8,8 @@
+ for(const[p,h]of Object.entries(pins))assert.equal(hash(readFileSync(new URL(p,root))),h,p);
+ assert.equal(hash(readFileSync(new URL(import.meta.url))),c.exporterSHA256);assert.equal(process.argv[2],'--capture-authenticated-original-only');
+ const closure=snapshotModuleClosure(new URL('3d-viewer/vendor/GLTFLoader.js',root),root);assert.equal(closure.schema,'exact-literal-static-dynamic-resource-closure-v1');assert.equal(closure.unsupportedDynamicImports,0);assert(closure.completeAuditedLiteralImportClosure&&closure.computedImportsRejected);Object.assign(pins,closure.inputHashes);
+-const target=new URL('original-source-contact-output-v1/complete-star-original-current-geometry.json.gz',D);assert(!existsSync(target));
+-const asset=new URL('original-source-contact-output-v1/packed/assets/'+c.starSourceSHA256+'.glb.gz',D),raw=readFileSync(asset);assert.equal(hash(raw),c.starSourceSHA256);
++const target=new URL('original-source-contact-output-v2/complete-star-original-current-geometry.json.gz',D);assert(!existsSync(target));
++const asset=new URL('original-source-contact-output-v2/packed/assets/'+c.starSourceSHA256+'.glb.gz',D),raw=readFileSync(asset);assert.equal(hash(raw),c.starSourceSHA256);
+ const glb=gunzipSync(raw);assert.equal(glb.length,10440);const header=new DataView(glb.buffer,glb.byteOffset,glb.byteLength);assert.equal(header.getUint32(0,true),0x46546c67);assert.equal(header.getUint32(8,true),glb.length);
+ const doc=JSON.parse(glb.subarray(20,20+header.getUint32(12,true)));assert.equal(doc.scenes.length,1);assert.deepEqual(doc.scenes[doc.scene??0].nodes,[0]);assert.equal(doc.nodes.length,2);assert.equal(doc.nodes[0].name,'B370872650701063C0');assert.deepEqual(doc.nodes[0].children,[1]);assert.deepEqual(doc.nodes[1],{mesh:0});
+ const THREE=await import('../../../../3d-viewer/vendor/three.module.js');const{GLTFLoader}=await import('../../../../3d-viewer/vendor/GLTFLoader.js');
+@@ -17,7 +17,7 @@
+ const meshes=[];group.traverse(n=>{if(n.isMesh)meshes.push(n);});assert.equal(meshes.length,1);const mesh=meshes[0];
+ const expectedGroup=new THREE.Group(),expectedRoot=new THREE.Object3D(),expectedMesh=new THREE.Object3D();expectedRoot.applyMatrix4(new THREE.Matrix4().fromArray(doc.nodes[0].matrix));expectedRoot.add(expectedMesh);expectedGroup.add(expectedRoot);expectedGroup.position.set(-834500,0,816500);expectedGroup.updateMatrixWorld(true);
+ const pose={actualGroupLocal:Array.from(group.matrix.elements),actualGroupWorld:Array.from(group.matrixWorld.elements),actualRootLocal:Array.from(group.children[0].matrix.elements),actualRootWorld:Array.from(group.children[0].matrixWorld.elements),actualMeshLocal:Array.from(mesh.matrix.elements),actualMeshWorld:Array.from(mesh.matrixWorld.elements),expectedGroupWorld:Array.from(expectedGroup.matrixWorld.elements),expectedRootLocal:Array.from(expectedRoot.matrix.elements),expectedRootWorld:Array.from(expectedRoot.matrixWorld.elements),expectedMeshWorld:Array.from(expectedMesh.matrixWorld.elements),originalRootMatrix:doc.nodes[0].matrix,originalNodesVerbatim:doc.nodes,exactLoaderTransformContractMatched:mesh.matrixWorld.equals(expectedMesh.matrixWorld)&&group.children[0].matrix.equals(expectedRoot.matrix)&&group.matrixWorld.equals(expectedGroup.matrixWorld),unitScale:mesh.scale.toArray(),noSourcePoseChanges:true};
+-writeFileSync(new URL('original-source-contact-output-v1/star-actual-original-pose.json',D),JSON.stringify(pose,null,2)+'\n');assert(pose.exactLoaderTransformContractMatched);assert.deepEqual(mesh.scale.toArray(),[1,1,1]);
++writeFileSync(new URL('original-source-contact-output-v2/star-actual-original-pose.json',D),JSON.stringify(pose,null,2)+'\n');assert(pose.exactLoaderTransformContractMatched);assert.deepEqual(mesh.scale.toArray(),[1,1,1]);
+ const p=mesh.geometry.attributes.position,ix=Array.from(mesh.geometry.index.array);assert.equal(p.count,241);assert.equal(ix.length/3,91);assert(ix.every(i=>Number.isInteger(i)&&i>=0&&i<p.count));
+ const attrs={};for(const[name,a]of Object.entries(mesh.geometry.attributes)){
+  assert(a.array instanceof Float32Array&&a.itemSize===3&&a.count===241&&!a.normalized);assert(Array.from(a.array).every(Number.isFinite));

@@ -1,0 +1,34 @@
+{
+  "batch": "government-xl-yoho-mall-ii273672-current-floor-inputs-v1-20261102",
+  "uids": [
+    "landsd/273672:0"
+  ],
+  "resources": [
+    "building:landsd/273672:0",
+    "building:landsd/189427:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-yoho-mall-i-original-v1-20261020.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_retained_patch_scope_v3_20261026.py",
+      "batch": "government-xl-yoho-mall-ii273672-current-floor-inputs-v1-20261102-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-harbourfront-current-native-bounds-v1-20261102",
+        "--patch",
+        "government-xl-yoho-mall-ii273672-current-terrain-descriptor-v1-20261102"
+      ]
+    },
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-yoho-mall-ii273672-current-floor-inputs-v1-20261102-buried",
+      "scopeResources": "government-xl-yoho-mall-ii273672-current-floor-inputs-v1-20261102-scope",
+      "args": [
+        "--runtime",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-runtime"
+      ]
+    }
+  ],
+  "qualification": "Read-only complete current existing terrain envelope and exact original buried faces; source/cache bytes unchanged; no new model or geometry approval."
+}

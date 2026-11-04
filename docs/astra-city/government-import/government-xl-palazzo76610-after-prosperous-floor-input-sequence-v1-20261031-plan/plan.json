@@ -1,0 +1,33 @@
+{
+  "batch": "government-xl-palazzo76610-after-prosperous-floor-input-sequence-v1-20261031",
+  "uids": [
+    "landsd/76610:0"
+  ],
+  "resources": [
+    "building:landsd/76610:0"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_upward_negative_packet_v1_20261029.py",
+      "batch": "government-xl-palazzo76610-after-prosperous-floor16889-packet-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-palazzo76610-twelve-original-patch-runtime-v1-20261031",
+        "--low-faces",
+        "government-xl-palazzo76610-complete-ground-v1-20261031",
+        "--uid",
+        "landsd/76610:0",
+        "--face",
+        "16889"
+      ]
+    },
+    {
+      "script": "rendered_native_terrain_input_proof_v1_20261029.py",
+      "batch": "government-xl-palazzo76610-after-prosperous-terrain-input-v1-20261031",
+      "args": [
+        "--patch",
+        "government-xl-after-villa-premiere-76610-original-inset-v1-20261031"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Pure local diagnostic only; not a Neon acceptance receipt. Exact MAX-height equivalence failed for both current original/source-support domains after Float32 retriangulation. Raw witnesses preserved. No geometry changes, publication, identity, physical or nonregression approval granted. Existing actor guards remain required.

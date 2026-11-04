@@ -1,0 +1,28 @@
+# Complete PolyU actor terrain inputs and three current native deltas
+
+V3 current capture8957fe78…/resultSHAfa6c329a0007bea6d0684da99b6dadc00751258e12b7bbc302f934cffeecc80b ROOT-verified: all ordinary25-row/3366-site guards, samplers and1247grid pass. No guard/constructor/source-role replays are needed. Its native terrain draw was limited to replacement rectangle; native59527 original extent is wider. Full-face finite checks must not mistake extraction limits for ground gaps.
+
+This bounded next capture draws current and candidate terrain once with complete closed-AABB ROI covering all source/literal/two explicitF32 whole actors. Include native provider-original complete unused source bounds from unchanged source proof in fresh6649v4 inventory (same current assetc45253ae…/135627vertices/59527faces/originalWorld4f527cba…). Only this provider SOURCE proof is reused, not old runtime fields. Include full current native literal/left/balanced135627POSITION arrays including unused, provider-original59527 faces, owned10536 original/literal/F32 faces plus saved complete original POSITION proof and all3 completeWholeUnusedVertexBounds, and all24 BASIC complete actual unused positions/3worlds. Complete face order/hash/mode/suppression/empty constructors remain explicit. Current305582 BASIC remains separate from owned10536 original. Unused extent is a source-bound ROI obligation, not a finite face index.
+
+Runtime reuses current exact makeTerrain and captures every drawn triplet whose closed projection bounds touch this complete ROI, all slopes/zero projections retained; every omitted triangle is strictly outside every actor projection. Complete before/after strict exterior ordered byte hashes must match. Store actor arrays once without source/native305793 reload. Candidate remains unchanged186690facets/702195POSITION; no overlap approval copied. Currentmanifest12971667…/snapshotbe5/native6653 and all relevant current source/form/catalogue/module bytes remain strict via reviewedV3 bindings.
+
+Only three added Upton/Aqua assets are loaded with current official-model-assets:12728,338946,193086. Existing reviewed exact packed_world_bounds_v3 computes complete provider-original POSITION bounds/counts; actual current meshes supply literal and two explicitF32 scalar bounds/matrices/attribute hashes including unused. Actual source SHA/canonical entries/current forms/indexcounts must match. These entries have no footprintScope or extra dependencies beyond338946→12728. Read current form tiles with duplicate/missing checks, pin ALL actually read tile bytes. Any unexpected callback dependency fails. Each of4bounds must be strictly disjoint from exact full replacement domain; touch/overlap remains a full actual-stream obligation, never separation credit from catalogue recorded bounds. This does not reload6650other native meshes or waive their binding: the exact cached6650 current-tuple/domain composition must be rebound separately before publication.
+
+Source/geometry/fixed1×providerposes immutable. This is input acquisition only: no guard/finite/overlap/pair/ray/approval/native reacceptance/physical/install work. Pure preparation explicitly calls reservations.normalise on57resources (25 scoped actors+3new natives/building and terrain+immutable proof) withoutDB. Non-LandsD forms use foreign-form namespace. Standard maintained canonical workflow and distinct freezer reservation, no launcher logs inside frozen DOC.
+
+ROOT full read then:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 /tmp/astra-city-venv/bin/python source-scripts/city/government-import/polyu_whole_actor_current_ground_delta3_prepare_v1_draft_20261014.py --build-pins-only
+PYTHONDONTWRITEBYTECODE=1 /tmp/astra-city-venv/bin/python source-scripts/city/government-import/polyu_whole_actor_current_ground_delta3_prepare_v1_draft_20261014.py --prepare-only
+```
+
+Actual import/schema/source-array hashes/unused extents/resources normalise plus strict literal runtime closure; no new mathematical helper/tests. Reuse existing packed-world/F32/exporter/finite contracts honestly. After preparation review:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 /tmp/astra-city-venv/bin/python source-scripts/city/government-import/polyu_whole_actor_current_ground_delta3_caller_v1_draft_20261014.py --capture-whole-actor-ground-delta3-only
+```
+
+Native59527 source is not decoded again. New3 provider bounds decode is necessary source-original delta evidence, separate from native provider bound cache. Source-only exact pinnedNeon/allrefs/current/endfences/groups/PIDs audited after terminal. No worker/preparation/DB/lease was executed during drafting.
+
+Follow-on finite draft polyu_complete_saved_actor_finite_v1_draft_20261014.py uses unchanged finite_record(v5/pairedv3), CompleteGround and exact Fraction(float) selection. Every native59527 and owned10536 source slot in4worlds, and24 BASIC full slots in3worlds, receives before/new complete relevant ground bindings. Atomic64 rows, pure exact face/selected-ground-byte cache and full-world mode cache retain all failures. Already-identical tuple results reuse verbatim including negatives. Current-clear regressions separated from pre-existing burial/coverage, suppression and zeros retained. No root/architecture/engineering/topology gate, no finite work until captured full terrain result exists and ROOT reviews pins/schema. Geometry-bound overlap next can reuse raw unchanged148459 prefix/complete1.57M old-old pair evidence; compute only new37231-face pairs and fresh whole GEOS excess/provenance, then fresh64actualMAX/realvalidator. No oldapproval transfer, source layers preserved, no broad previous pair replay.

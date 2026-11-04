@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/oceanwalk_neighbour32653_restore_v1_20261029.py", line 78, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/oceanwalk_neighbour32653_restore_v1_20261029.py", line 45, in main
+    verify_object(R2Store('hk-sandbox-assets'), artifact['key'], artifact['sha256'], artifact['bytes'], bundle)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/landmark-resume/r2_snapshot.py", line 79, in __init__
+    endpoint = r2_endpoint(os.environ)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/landmark-resume/r2_snapshot.py", line 66, in r2_endpoint
+    raise ValueError('Set R2_ENDPOINT_URL or a valid R2_ACCOUNT_ID')
+ValueError: Set R2_ENDPOINT_URL or a valid R2_ACCOUNT_ID

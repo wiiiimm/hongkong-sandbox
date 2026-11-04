@@ -1,0 +1,130 @@
+{
+  "batch": "government-xl-disneyland-piers-after-passenger-fresh-diagnostics-v3-20261030",
+  "uids": [
+    "landsd/75642:0",
+    "landsd/75643:0"
+  ],
+  "resources": [
+    "building:landsd/75642:0",
+    "building:landsd/75643:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-selection-v3-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-passenger-native-bounds-v1-20261030",
+        "--capture",
+        "government-xl-disneyland-pier-75642-scoped-selection-v1-20261029",
+        "--capture",
+        "government-xl-disneyland-pier-75643-scoped-selection-v1-20261029",
+        "--uid",
+        "landsd/75642:0",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75642-current-ground-v3-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-selection-v3-20261030",
+        "--uid",
+        "landsd/75642:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75642-attributes-v3-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-75642-current-ground-v3-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75642-identity-v3-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-75642-current-ground-v3-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75642-source-scope-v3-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-75642-current-ground-v3-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-75642-attributes-v3-20261030",
+        "--inventory",
+        "government-xl-after-passenger-native-bounds-v1-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75642-current-foundations-v3-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-75642-current-ground-v3-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-75642-attributes-v3-20261030",
+        "--uid",
+        "landsd/75642:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75643-current-ground-v3-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-selection-v3-20261030",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75643-attributes-v3-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-75643-current-ground-v3-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75643-identity-v3-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-75643-current-ground-v3-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75643-source-scope-v3-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-75643-current-ground-v3-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-75643-attributes-v3-20261030",
+        "--inventory",
+        "government-xl-after-passenger-native-bounds-v1-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-75643-current-foundations-v3-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-75643-current-ground-v3-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-75643-attributes-v3-20261030",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    }
+  ]
+}

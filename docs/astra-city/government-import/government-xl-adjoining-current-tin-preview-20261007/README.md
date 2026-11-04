@@ -1,0 +1,3 @@
+# Current adjoining original TIN diagnostic
+
+Codex, 7 October 2026. Ten exact production meshes were checked against original government terrain after freshly auditing 11 adjoining official directories. All eleven cached terrain receipts still match the current official hashes. All ten diagnostic checks completed, none skipped, and none passes highest-TIN or mixed original-surface pointwise checks. This grants zero review or installation credit. Source bytes and non-terrain production pose/loader inputs are unchanged; historical terrain context changes are explicitly recorded. Archived in verified Neon checkpoint `253048e7e50bd54bf3e7b643ffbc9640e1ef6f21d06c5e40914fc41873b2a841`. No original geometry edits, architectural AI calls or historical Lantau imagery.

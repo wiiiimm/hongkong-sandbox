@@ -1,0 +1,117 @@
+"""Check an exact surveyed BASIC podium with the existing production contact tool.
+
+This diagnostic grants no physical, identity, installation or publication approval.
+"""
+import argparse
+import subprocess
+import sys
+import uuid
+from copy import deepcopy
+from pathlib import Path
+
+from run import ROOT, HERE, read, save, digest, reservations
+from china_ferry_current_foundations_v1_20261020 import authenticate
+from north_pair_nonwall_topology_v1_20261027 import execute_reserved
+from primrose_compound_foundation_v2_20261015 import module
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    for key in ['batch', 'runtime', 'scope', 'uid', 'support-uid']:
+        parser.add_argument('--' + key, required=True)
+    parser.add_argument('--owned', action='store_true')
+    parser.add_argument('--resume-contact', action='store_true')
+    a = parser.parse_args()
+    assert all(v.startswith('government-xl-') and '/' not in v
+               for v in [a.batch, a.runtime, a.scope])
+    base = ROOT / 'docs/astra-city/government-import'
+    out = base / a.batch
+    assert not out.exists() or (a.resume_contact and not (out / 'result.json').exists())
+    refs = [Path(__file__)]
+
+    def take(batch, name):
+        pins = authenticate(base / batch)[1]
+        path = base / batch / name
+        assert digest(path.read_bytes()) == pins[str(path.relative_to(ROOT))]
+        refs.extend([base / batch / 'result.json', path])
+        return read(path)
+
+    selected = take(a.runtime, 'selection.json.gz')
+    assert len(selected['rows']) == 1 and selected['rows'][0]['uid'] == a.uid
+    source = deepcopy(selected['rows'][0])
+    scope = take(a.scope, 'summary.json')
+    forms = take(a.scope, a.uid.split('/')[1] + '-forms.json.gz')
+    manifest = ROOT / '3d-viewer/city/data/manifest.json'
+    assert digest(manifest.read_bytes()) == selected['manifestSHA256'] == scope['currentManifestSHA256']
+    refs.append(manifest)
+    assert len({r['building']['uid'] for r in forms}) == len(forms)
+    assert a.uid in {r['building']['uid'] for r in forms}
+    support = next(r for r in forms if r['building']['uid'] == a.support_uid)
+    assert a.uid != a.support_uid
+    assert support['building']['structureType'] == 'Podium'
+    assert support['building']['heightSource'] == 'landsd'
+    for record in forms:
+        path = ROOT / '3d-viewer' / record['tile']
+        assert digest(path.read_bytes()) == record['tileSHA256']
+        assert [record['building']] == [b for b in read(path)['buildings']
+                                       if b['uid'] == record['building']['uid']]
+        refs.append(path)
+    resources = sorted({'building:' + r['building']['uid'] for r in forms}
+                       | {'terrain:city/data/terrain.json'})
+    control = HERE / 'local' / (a.batch + '-lease') / 'reservation.json'
+    if not a.owned:
+        assert not control.parent.exists() or a.resume_contact
+        claim = reservations.claim('retained-basic-contact-' + str(uuid.uuid4()),
+                                   resources, batch=a.batch, ttl=3600)
+        assert claim['ok'], claim
+        return execute_reserved(claim['reservation'], control,
+                                [sys.executable, __file__, *sys.argv[1:], '--owned'])
+    lease = read(control)
+    assert reservations.owns(lease) and set(lease['resources']) == set(resources)
+    asset = ROOT / source['candidate']['path']
+    assert digest(asset.read_bytes()) == source['sourceSHA256']
+    refs.append(asset)
+    source['candidate']['entry']['proceduralWindows'] = False
+    row = dict(uid=a.uid, supportUid=a.support_uid, source=source, supportForm=support)
+    payload = dict(rows=[row], manifestSHA256=selected['manifestSHA256'],
+         evidenceRefs=[dict(path=str(p.relative_to(ROOT)), sha256=digest(p.read_bytes()))
+                       for p in dict.fromkeys(refs)])
+    tool = HERE / 'current_basic_podium_original_contact_v1_20261023.mjs'
+    if a.resume_contact:
+        old = read(out / 'input.json.gz')
+        assert old['rows'] == payload['rows'] and old['manifestSHA256'] == payload['manifestSHA256']
+        for ref in old['evidenceRefs']:
+            path = ROOT / ref['path']
+            if path == Path(__file__):
+                path = out / 'failed-producer.py.txt'
+            assert digest(path.read_bytes()) == ref['sha256']
+            refs.append(path)
+    else:
+        save(out / 'input.json.gz', payload)
+        with (out / 'worker.log').open('w') as log:
+            subprocess.run(['node', str(tool), str(out.relative_to(ROOT))], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+    assert reservations.owns(lease)
+    report = read(out / 'checks.json.gz')
+    assert len(report['rows']) == 1
+    for path, value in report['inputHashes'].items():
+        assert digest((ROOT / path).read_bytes()) == value
+        refs.append(ROOT / path)
+    checked = report['rows'][0]
+    result = dict(uids=[a.uid], uid=a.uid, supportUid=a.support_uid, sourceSHA256=source['sourceSHA256'],
+                  canonicalContactPassed=checked['canonicalContactPassed'],
+                  basicIsCurrentFinalSupport=checked['basicIsCurrentFinalSupport'],
+                  samples=checked['proof']['samples'], strictContacts=checked['proof']['strictContacts'],
+                  unresolved=len(checked['proof']['unresolved']), leaseResources=resources,
+                  sourceGeometryChanges=0, sourcePoseChanges=0, installationApproved=False,
+                  physicalAcceptance=False, publication=False)
+    save(out / 'summary.json', result)
+    refs.append(tool)
+    module('selected_retained_basic_contact_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(
+        a.batch, 'current-original-retained-surveyed-basic-contact-diagnostic',
+        list(dict.fromkeys(refs)), result)
+    print(result, flush=True)
+
+
+if __name__ == '__main__':
+    main()

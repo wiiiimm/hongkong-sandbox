@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_history_highest_surface_v1_20261016.py", line 40, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_history_highest_surface_v1_20261016.py", line 35, in main
+    with (DOC/'worker.log').open('w') as log:subprocess.run(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/acceptance-metrics-retained-group-parent.mjs', '--selection', 'docs/astra-city/government-import/government-xl-science-history-highest-surface-v1-20261016/selection.json.gz', '--terrain-candidates', 'docs/astra-city/government-import/government-xl-science-history-highest-surface-v1-20261016/terrain-candidates.json', '--out', 'docs/astra-city/government-import/government-xl-science-history-highest-surface-v1-20261016/metrics.json', '--geometry-out', 'source-scripts/city/government-import/local/government-xl-science-history-highest-surface-v1-20261016/runtime-geometry.json.gz']' returned non-zero exit status 1.

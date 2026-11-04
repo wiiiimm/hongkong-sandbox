@@ -1,0 +1,26 @@
+{
+  "name": "hong-kong-astra-city",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:browser": "node tests/browser.mjs",
+    "test:night": "node tests/night-browser.mjs",
+    "test:clock": "node tests/clock-browser.mjs",
+    "test:lighting-render": "node tests/lighting-render.mjs",
+    "test:integration": "node tests/integration-browser.mjs",
+    "test:sky": "node tests/sky-browser.mjs",
+    "test:weather": "node tests/weather-render.mjs",
+    "test:aircraft": "node tests/aircraft-browser.mjs",
+    "test:aircraft-city": "node tests/aircraft-city-browser.mjs",
+    "test:islands": "node tests/islands-browser.mjs",
+    "test:regional": "node tests/regional-browser.mjs",
+    "test:bridges-browser": "node tests/bridges-browser.mjs",
+    "test:mui-wo": "node tests/mui-wo-buildings-browser.mjs after",
+    "test:territory": "node tests/landsd-territory-browser.mjs",
+    "test:aircraft-picker": "node tests/aircraft-picker-browser.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.55.1"
+  }
+}

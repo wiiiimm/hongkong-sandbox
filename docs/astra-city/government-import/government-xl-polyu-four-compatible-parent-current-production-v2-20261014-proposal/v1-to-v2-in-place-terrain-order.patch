@@ -1,0 +1,121 @@
+--- source-scripts/city/government-import/polyu_four_parent_current_capture_binding_v1_draft_20261014.py
++++ source-scripts/city/government-import/polyu_four_parent_current_capture_binding_v2_draft_20261014.py
+@@ -13,8 +13,8 @@
+  expected=copy.deepcopy(old);expected['officialModelCatalogues']=old['officialModelCatalogues']+[UPTON_CAT,AQUA_CAT]
+  matches=[i for i,p in enumerate(old['terrainPatches'])if p['url']==OLD_PATCH];assert len(matches)==1
+  changed=[p for p in current['terrainPatches']if p not in old['terrainPatches']];assert len(changed)==1 and changed[0]['url']==UPTON_PATCH
+- # Publisher removes the replaced entry and appends the new one; order matters.
+- expected['terrainPatches']=[p for p in old['terrainPatches']if p['url']!=OLD_PATCH]+changed
++ # Actual installed publisher replaces the sole entry in place; order matters.
++ expected['terrainPatches'][matches[0]]=changed[0]
+  assert current==expected,'unexpected current field/catalogue/terrain/order delta'
+  return dict(addedCatalogueURLs=[UPTON_CAT,AQUA_CAT],removedTerrainURL=OLD_PATCH,addedTerrainURL=UPTON_PATCH,
+              oldSceneRemainsHistorical=True,noOldManifestRestore=True)
+--- source-scripts/city/government-import/test_polyu_four_parent_current_capture_binding_v1_draft_20261014.py
++++ source-scripts/city/government-import/test_polyu_four_parent_current_capture_binding_v2_draft_20261014.py
+@@ -1,9 +1,9 @@
+ import copy,unittest
+ import numpy as np
+-from polyu_four_parent_current_capture_binding_v1_draft_20261014 import scene_delta,terrain_disjoint,UPTON_CAT,AQUA_CAT,UPTON_PATCH,OLD_PATCH
++from polyu_four_parent_current_capture_binding_v2_draft_20261014 import scene_delta,terrain_disjoint,UPTON_CAT,AQUA_CAT,UPTON_PATCH,OLD_PATCH
+ def scenes():
+  old=dict(officialModelCatalogues=['old'],terrainPatches=[dict(url=OLD_PATCH),dict(url='other')],unchanged=dict(x=1))
+- new=copy.deepcopy(old);new['officialModelCatalogues']+=[UPTON_CAT,AQUA_CAT];new['terrainPatches']=[dict(url='other'),dict(url=UPTON_PATCH)]
++ new=copy.deepcopy(old);new['officialModelCatalogues']+=[UPTON_CAT,AQUA_CAT];new['terrainPatches']=[dict(url=UPTON_PATCH),dict(url='other')]
+  return old,new
+ def patch():return dict(w=2,h=2,meta=dict(georef=dict(W=2,H=2,aE=1,aN=-1,bE=834500,bN=816500)),elev=[0]*4,renderedElev=[0]*4,vegetation=[0]*4,nativeMesh=dict(position=[0,0,0,1,0,0,0,0,1],index=[0,1,2]))
+ class Binding(unittest.TestCase):
+@@ -18,6 +18,9 @@
+  def test_another_terrain_change_rejected(self):
+   old,new=scenes();new['terrainPatches'].append(dict(url='extra'))
+   with self.assertRaises(AssertionError):scene_delta(old,new)
++ def test_remove_and_append_terrain_order_rejected(self):
++  old,new=scenes();new['terrainPatches'].reverse()
++  with self.assertRaises(AssertionError):scene_delta(old,new)
+  def test_unused_native_position_cannot_be_ignored(self):
+   p=patch();p['nativeMesh']['position']+=[10,0,10]
+   with self.assertRaises(AssertionError):terrain_disjoint(p,[9,9,11,11])
+--- source-scripts/city/government-import/polyu_four_parent_current_production_caller_v1_draft_20261014.py
++++ source-scripts/city/government-import/polyu_four_parent_current_production_caller_v2_draft_20261014.py
+@@ -4,11 +4,11 @@
+ from run import ROOT,HERE,read,save,connect,reservations
+ from exact_distinct_evidence_refs_v1_20261014 import distinct_refs
+ from polyu_compact_runtime_mesh_projection_v1_draft_20261014 import mesh_binding,project,verify
+-import polyu_four_parent_current_capture_binding_v1_draft_20261014 as binding
++import polyu_four_parent_current_capture_binding_v2_draft_20261014 as binding
+ from polyu_four_compatible_parent_region_nomination_v1_draft_20261014 import ref,check
+-BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-polyu-four-compatible-parent-current-production-v1-20261014'
++BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-polyu-four-compatible-parent-current-production-v2-20261014'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+-RUNTIME=HERE/'polyu_four_parent_current_production_runtime_v1_draft_20261014.mjs'
++RUNTIME=HERE/'polyu_four_parent_current_production_runtime_v2_draft_20261014.mjs'
+ NOM=BASE/'government-xl-polyu-four-compatible-parent-region-nomination-v1-20261014'
+ CAPTURE=BASE/'government-xl-polyu-append-source-region-historical-production-v1-20261014'
+ UPTON=BASE/'government-xl-upton-joint-original-functional-installed-v2-20261014';AQUA=BASE/'government-xl-aqua-marine193086-original-installed-v1-20261014'
+@@ -59,8 +59,8 @@
+   if time.monotonic()-last>20:assert reservations.heartbeat(lease)['ok']and reservations.owns(lease);last=time.monotonic()
+  pins,receipt,nom,old,complete,source_input,forms,prior,delta,resources=load();assert lease['resources']==resources
+  prep=read(PROPOSAL/'actual-readonly-preparation.json');assert prep['passed']and prep['caller']==ref(Path(__file__))and prep['runtime']==ref(RUNTIME)
+- validation=read(check(prep['bindingValidationRef']));assert validation['passedTests']==6 and validation['failedTests']==0 and validation['exitCode']==0
+- assert validation['executedCodeRefs']==[ref(Path(binding.__file__)),ref(HERE/'test_polyu_four_parent_current_capture_binding_v1_draft_20261014.py')]
++ validation=read(check(prep['bindingValidationRef']));assert validation['passedTests']==7 and validation['failedTests']==0 and validation['exitCode']==0
++ assert validation['executedCodeRefs']==[ref(Path(binding.__file__)),ref(HERE/'test_polyu_four_parent_current_capture_binding_v2_draft_20261014.py')]
+  refs=distinct_refs(pins['codeRefs']+pins['inputRefs']+prep['evidenceRefs']+validation['evidenceRefs']+[ref(PROPOSAL/'draft-pins.json'),ref(PROPOSAL/'actual-readonly-preparation.json')])
+  for folder in [NOM,UPTON,AQUA]:
+   r=read(folder/'result.json')
+@@ -72,7 +72,7 @@
+  preservation=dict(unchangedPriorFacets=148459,unchangedOldMappings=3214,unchangedPrefixFacets=1485,retainedPriorPositionVertices=587502)
+  projection=project(nom['newNativeMesh'],nomref,complete,preservation);verify(projection,nomref,complete,preservation)
+  save(DOC/'compact-runtime-mesh-projection.json.gz',projection);projection_ref=ref(DOC/'compact-runtime-mesh-projection.json.gz');refs=distinct_refs(refs+[projection_ref])
+- save(DOC/'input.json.gz',dict(schema='polyu-four-compatible-parent-current-production-v1',historicalReplay=False,currentAcceptance=False,physicalAccepted=False,
++ save(DOC/'input.json.gz',dict(schema='polyu-four-compatible-parent-current-production-v2',historicalReplay=False,currentAcceptance=False,physicalAccepted=False,
+   currentManifestSHA256=binding.CURRENT,currentSnapshot='be5f7671a989392d',currentCatalogueModels=6653,currentSceneDeltaBinding=delta,
+   completedNominationJob=receipt['jobId'],newNomination=nomref,runtimeProjection=projection_ref,completeMeshBinding=complete,explicitPreservationCounts=preservation,
+   previousPrivateCandidate=nom['previousApprovedCandidate'],completeNewNativeFacets=complete['completeIndexedFaces'],completeNewPositionVertices=complete['completePositionVertices'],
+--- source-scripts/city/government-import/polyu_four_parent_current_production_runtime_v1_draft_20261014.mjs
++++ source-scripts/city/government-import/polyu_four_parent_current_production_runtime_v2_draft_20261014.mjs
+@@ -10,7 +10,7 @@
+ const sha=b=>createHash('sha256').update(b).digest('hex');
+ function raw(p){const u=new URL(p,root);assert(u.pathname.startsWith(root.pathname));const b=readFileSync(u),h=sha(b);if(hashes[p])assert.equal(hashes[p],h,p);hashes[p]=h;return b;}
+ function read(p){const b=raw(p);return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b);}
+-const input=read(doc+'/input.json.gz');assert.equal(input.schema,'polyu-four-compatible-parent-current-production-v1');assert.equal(input.physicalAccepted,false);assert.equal(input.currentAcceptance,false);assert.equal(input.historicalReplay,false);
++const input=read(doc+'/input.json.gz');assert.equal(input.schema,'polyu-four-compatible-parent-current-production-v2');assert.equal(input.physicalAccepted,false);assert.equal(input.currentAcceptance,false);assert.equal(input.historicalReplay,false);
+ for(const q of input.allInputRefs)assert.equal(sha(raw(q.path)),q.sha256,q.path);
+ const closure=snapshotModuleClosure(import.meta.url,root);assert(closure.computedImportsRejected&&closure.completeAuditedLiteralImportClosure);assert.equal(closure.unsupportedDynamicImports,0);
+ for(const[p,h]of Object.entries(closure.inputHashes))assert.equal(sha(raw(p)),h,p);
+--- source-scripts/city/government-import/polyu_four_parent_current_production_prepare_v1_draft_20261014.py
++++ source-scripts/city/government-import/polyu_four_parent_current_production_prepare_v2_draft_20261014.py
+@@ -1,10 +1,10 @@
+-"""ROOT-only completed-nominee pins, six fixtures, import/schema and literal closure."""
++"""ROOT-only completed-nominee pins, seven fixtures, import/schema and literal closure."""
+ from pathlib import Path
+ import ast,json,gzip,hashlib,sys,subprocess,os
+ ROOT=Path(__file__).resolve().parents[3];HERE=Path(__file__).resolve().parent;BASE=ROOT/'docs/astra-city/government-import'
+-P=BASE/'government-xl-polyu-four-compatible-parent-current-production-v1-20261014-proposal'
+-CALLER=HERE/'polyu_four_parent_current_production_caller_v1_draft_20261014.py';RUNTIME=HERE/'polyu_four_parent_current_production_runtime_v1_draft_20261014.mjs'
+-HELPER=HERE/'polyu_four_parent_current_capture_binding_v1_draft_20261014.py';TEST=HERE/'test_polyu_four_parent_current_capture_binding_v1_draft_20261014.py'
++P=BASE/'government-xl-polyu-four-compatible-parent-current-production-v2-20261014-proposal'
++CALLER=HERE/'polyu_four_parent_current_production_caller_v2_draft_20261014.py';RUNTIME=HERE/'polyu_four_parent_current_production_runtime_v2_draft_20261014.mjs'
++HELPER=HERE/'polyu_four_parent_current_capture_binding_v2_draft_20261014.py';TEST=HERE/'test_polyu_four_parent_current_capture_binding_v2_draft_20261014.py'
+ NOM=BASE/'government-xl-polyu-four-compatible-parent-region-nomination-v1-20261014';CAP=BASE/'government-xl-polyu-append-source-region-historical-production-v1-20261014'
+ UPTON=BASE/'government-xl-upton-joint-original-functional-installed-v2-20261014';AQUA=BASE/'government-xl-aqua-marine193086-original-installed-v1-20261014'
+ MANIFEST=ROOT/'3d-viewer/city/data/manifest.json'
+@@ -49,6 +49,7 @@
+  for folder in [UPTON,AQUA]:inputs +=[ref(folder/n)for n in ['result.json','ROOT-VERIFIED.json','installed-acceptance.json']]
+  for url in manifest['officialModelCatalogues']:inputs.append(ref(ROOT/'3d-viewer'/url))
+  for entry in manifest['terrainPatches']:inputs.append(ref(ROOT/'3d-viewer'/entry['url']))
++ inputs +=[ref(P/'actual-scene-delta-diagnosis.json')]+[ref(BASE/'government-xl-polyu-four-compatible-parent-current-production-v1-20261014-proposal'/n)for n in ['draft-pins.json','draft-files.json','METHOD.md','binding-validation.json','actual-six-binding-fixtures.log','actual-current-capture-import.log','actual-current-capture-schema.log']]+[ref(HERE/n)for n in ['polyu_four_parent_current_capture_binding_v1_draft_20261014.py', 'test_polyu_four_parent_current_capture_binding_v1_draft_20261014.py', 'polyu_four_parent_current_production_caller_v1_draft_20261014.py', 'polyu_four_parent_current_production_runtime_v1_draft_20261014.mjs', 'polyu_four_parent_current_production_prepare_v1_draft_20261014.py']]
+  inputs +=[ref(ROOT/'3d-viewer/city/data/terrain.json'),ref(ROOT/'3d-viewer/city/data/government-native-79882-0.json')]
+  for pin in distinct(inputs):assert ref(ROOT/pin['path'])==pin
+  code=[ref(p)for p in code_paths()]+[ref(RUNTIME),ref(P/'METHOD.md'),ref(P/'runtime-historical-append-to-current-four-parent.patch'),ref(HERE/'polyu_compact_runtime_mesh_projection_v1_draft_20261014.mjs'),ref(HERE/'exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs'),ref(HERE/'dependency-closure-vendor/acorn-8.8.1/acorn.mjs'),ref(HERE/'exact_incremental_json_gzip_v1_20261012.mjs')]
+@@ -66,8 +67,8 @@
+   with log.open('xb')as f:proc=subprocess.run(cmd,cwd=ROOT,env=env,stdout=f,stderr=subprocess.STDOUT)
+   commands.append(dict(command=cmd,exitCode=proc.returncode,log=ref(log)));refs.append(ref(log));fence();assert proc.returncode==0,(name,proc.returncode)
+   return log
+- log=run('actual-six-binding-fixtures',[sys.executable,str(TEST),'-v']);text=log.read_text();assert 'Ran 6 tests'in text and '\nOK\n'in text
+- validation=P/'binding-validation.json';save(validation,dict(passedTests=6,failedTests=0,exitCode=0,executedCodeRefs=[ref(HELPER),ref(TEST)],evidenceRefs=[ref(HELPER),ref(TEST),ref(log)]));refs.append(ref(validation))
++ log=run('actual-seven-binding-fixtures',[sys.executable,str(TEST),'-v']);text=log.read_text();assert 'Ran 7 tests'in text and '\nOK\n'in text
++ validation=P/'binding-validation.json';save(validation,dict(passedTests=7,failedTests=0,exitCode=0,executedCodeRefs=[ref(HELPER),ref(TEST)],evidenceRefs=[ref(HELPER),ref(TEST),ref(log)]));refs.append(ref(validation))
+  run('actual-current-capture-import',[sys.executable,'-c',"import sys;sys.path.insert(0,"+repr(str(HERE))+");import "+CALLER.stem+";print('IMPORT PASS')"])
+  run('actual-current-capture-schema',[sys.executable,str(CALLER),'--schema-only'])
+  closure=P/'literal-runtime-closure.json'

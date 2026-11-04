@@ -1,0 +1,58 @@
+{
+  "batch": "government-xl-passenger162768-after-civic-five-post-preserving-validation-sequence-v1-20261030",
+  "uids": [
+    "landsd/162768:0"
+  ],
+  "resources": [
+    "building:landsd/162768:0",
+    "terrain:city/data/terrain.json",
+    "building:landsd/161745:0"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-passenger162768-after-civic-five-post-preserving-runtime-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-passenger162768-after-civic-five-post-preserving-inset-v1-20261030",
+        "--capture",
+        "government-xl-passenger162768-after-civic-five-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-passenger162768-after-civic-five-post-preserving-scope-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-civic-five-native-bounds-v1-20261030",
+        "--patch",
+        "government-xl-passenger162768-after-civic-five-post-preserving-inset-v1-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-passenger162768-after-civic-five-post-preserving-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-passenger162768-after-civic-five-post-preserving-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-passenger162768-after-civic-five-attributes-v1-20261030",
+        "--uid",
+        "landsd/162768:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_form_checks_v1.py",
+      "batch": "government-xl-passenger162768-after-civic-five-post-preserving-forms-v1-20261030",
+      "scopeResources": "government-xl-passenger162768-after-civic-five-post-preserving-scope-v1-20261030",
+      "args": [
+        "--scope",
+        "government-xl-passenger162768-after-civic-five-post-preserving-scope-v1-20261030",
+        "--inventory",
+        "government-xl-after-civic-five-native-bounds-v1-20261030",
+        "--patch",
+        "government-xl-passenger162768-after-civic-five-post-preserving-inset-v1-20261030"
+      ]
+    }
+  ]
+}

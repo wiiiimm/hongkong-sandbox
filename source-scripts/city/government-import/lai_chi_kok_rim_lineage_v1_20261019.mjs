@@ -1,0 +1,9 @@
+/** Reproduce exact original rim sample construction, retaining generating source faces. */
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';import {gunzipSync} from 'node:zlib';import assert from 'node:assert/strict';import {lowRimSamples} from './support-contact.mjs';
+const src='docs/astra-city/government-import/government-xl-lai-chi-kok-original-component-checks-v1-20261019/',out='docs/astra-city/government-import/government-xl-lai-chi-kok-rim-contact-paths-v1-20261019/';const read=p=>JSON.parse(gunzipSync(readFileSync(p))),input=read(src+'input.json.gz'),proofs=read(src+'support.json.gz'),rows=[];
+for(const g of input.rows){const bottom=Math.min(...g.position.filter((_,i)=>i%3===1)),generated=new Map(),add=(p,face,kind)=>{const key=JSON.stringify(p);if(!generated.has(key))generated.set(key,[]);generated.get(key).push({face,kind});};
+ for(let i=0;i<g.index.length;i+=3){const v=[0,1,2].map(k=>g.position.slice(g.index[i+k]*3,g.index[i+k]*3+3));for(const p of v)if(p[1]<=bottom+.35)add(p,i/3,'original-vertex');for(let e=0;e<3;e++){const a=v[e],b=v[(e+1)%3];if(Math.max(a[1],b[1])>bottom+.35)continue;const steps=Math.ceil(Math.hypot(a[0]-b[0],a[2]-b[2]));for(let j=1;j<steps;j++)add(a.map((n,k)=>n+(b[k]-n)*j/steps),i/3,'original-edge-sample');}}
+ const canonical=new Set(lowRimSamples(g,bottom).map(p=>JSON.stringify(p))),proof=proofs.rows.find(r=>r.uid===g.uid).proof;
+ const samples=proof.unresolved.map((f,i)=>{const key=JSON.stringify(f.position);assert(canonical.has(key));assert(generated.has(key));return {sample:i,...f,generators:generated.get(key)};});rows.push({uid:g.uid,samples,rawStrictContacts:proof.strictContacts});
+}
+mkdirSync(out,{recursive:true});writeFileSync(out+'lineage.json',JSON.stringify({rows,installationApproved:false}));console.log(JSON.stringify(rows.map(r=>({uid:r.uid,samples:r.samples.length}))));

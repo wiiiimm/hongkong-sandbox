@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v1_20261012.py", line 143, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v1_20261012.py", line 139, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v1_20261012.py", line 132, in owned
+    fence();p=subprocess.run(['node',str(script),str(DOC.relative_to(ROOT))],cwd=ROOT,capture_output=True,text=True);save(DOC/(script.stem+'-actual-log.json'),dict(exitCode=p.returncode,stdout=p.stdout,stderr=p.stderr));assert p.returncode==0,p.stderr;fence()
+                                                                                                                                                                                                                                   ^^^^^^^^^^^^^^^
+AssertionError: file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_actors_draft_v1_20261012.mjs:38
+writeFileSync(new URL(outputPath,root),gzipSync(JSON.stringify({rows:results.filter(r=>r.role==='owned-original'),nativeContextRows:results.filter(r=>r.role==='installed-native-context'),basicContextRows,inputHashes:hashes,completeRecursiveProductionModuleClosure:closure,completeBasicGeometryModuleClosure:basicClosure,wholeDomain:input.domain,wholeNativeMeshRuntimeApprovalUnchanged:true,startEndAllInputsVerified:true,explicitArithmeticOnlyNotUniversalGPUCameraGuarantee:true,currentAcceptance:false,nativeReacceptance:false,sourceGeometryChanges:0})));console.log(JSON.stringify({completeOriginalFaces:13704,sourceGeometryChanges:0,currentAcceptance:false}));
+                                                     ^
+
+RangeError: Invalid string length
+    at JSON.stringify (<anonymous>)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_actors_draft_v1_20261012.mjs:38:54
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.18.0
+
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v1_20261012.py", line 143, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v1_20261012.py", line 142, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-upton-whole-parent-current-domain-capture-v1-20261012/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v1_20261012.py', '--owned']' returned non-zero exit status 1.

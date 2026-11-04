@@ -1,0 +1,69 @@
+{
+  "batch": "government-xl-after-villa-premiere-275446-coast-acceptance-diagnostics-sequence-v2-20261031",
+  "uids": [
+    "landsd/275446:0"
+  ],
+  "resources": [
+    "building:landsd/275446:0",
+    "building:landsd/276373:0",
+    "building:landsd/278873:0",
+    "building:landsd/284994:0",
+    "building:landsd/284995:0",
+    "building:landsd/317002:0",
+    "building:landsd/317003:0",
+    "building:landsd/317006:0",
+    "building:landsd/318697:0",
+    "building:landsd/318698:0",
+    "building:landsd/318699:0",
+    "building:landsd/318700:0",
+    "building:landsd/318701:0",
+    "building:landsd/318704:0",
+    "building:landsd/318722:0",
+    "building:landsd/330757:0",
+    "building:landsd/330758:0",
+    "building:landsd/330760:0",
+    "building:landsd/330763:0",
+    "building:landsd/330830:0",
+    "building:landsd/330957:0",
+    "source-form:way/1246070370:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-villa-premiere-275446-coast-four-world-foundations-v2-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-after-villa-premiere-275446-coast-runtime-v2-20261031",
+        "--attributes",
+        "government-xl-after-villa-premiere-next-three-attributes-v1-20261031",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_form_checks_v1.py",
+      "batch": "government-xl-after-villa-premiere-275446-coast-basic-checks-v2-20261031",
+      "args": [
+        "--scope",
+        "government-xl-after-villa-premiere-275446-coast-terrain-scope-v2-20261031",
+        "--inventory",
+        "government-xl-after-villa-premiere-native-bounds-v1-20261031",
+        "--patch",
+        "government-xl-after-villa-premiere-275446-coast-partition-inset-v2-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-after-villa-premiere-275446-coast-complete-ground-v2-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-after-villa-premiere-275446-coast-runtime-v2-20261031",
+        "--attributes",
+        "government-xl-after-villa-premiere-next-three-attributes-v1-20261031",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    }
+  ]
+}

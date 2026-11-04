@@ -1,0 +1,153 @@
+{
+  "issue": "HKS-213",
+  "batchId": "whampoa-special",
+  "generatedAt": "2026-09-08T19:32:05.882677+00:00",
+  "plan": "source-scripts/city/whampoa-special/plan.json",
+  "planSHA256": "eb5b9c935799427e5d333ec9cee40cb6bd4d7e3a36a4cbabdc10c86e085f8c90",
+  "serviceMetadata": "source-scripts/city/whampoa-special/service.json",
+  "sourceIndex": "source-scripts/city/whampoa-special/index.json",
+  "summary": {
+    "acquired-and-staged": 2,
+    "no-exact-model-in-complete-checked-sheets": 0,
+    "deferred": 0
+  },
+  "nativeModelParts": 2,
+  "exactCSUIDMatchedTargets": 2,
+  "sourceTiles": 1,
+  "completedTiles": 1,
+  "reusedDirectories": 1,
+  "reusedNativeMembers": 0,
+  "newNativeMembers": 4,
+  "transfer": {
+    "receivedBytes": 79987,
+    "newThisInvocationBytes": 0,
+    "chargedBytes": 79987,
+    "capBytes": 10000000,
+    "requests": 5,
+    "ledger": "source-scripts/city/whampoa-special/transfer-ledger.json"
+  },
+  "rows": [
+    {
+      "uid": "landsd/144948:0",
+      "objectId": 144948,
+      "csuid": "3760518343T20050430",
+      "name": "The Whampoa",
+      "x": 3113.634,
+      "z": -1845.213,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "11-NE-21C"
+      ],
+      "outcome": "acquired-and-staged",
+      "sourceCoverageComplete": true,
+      "standardMatch": true,
+      "models": [
+        {
+          "sheet": "11-NE-21C",
+          "modelId": "B376051834301063C0",
+          "manifest": "source-scripts/city/whampoa-special/staged/11-NE-21C/manifest.json",
+          "exactCSUIDMatch": true,
+          "officialBuildingCSUIDs": [
+            "3760518343T20050430"
+          ],
+          "sourceHashes": {
+            "BUILDING/B376051834301063C0/B376051834301063C0.gltf": "219cd12ea3cb2e0d5abd722f50eac6b0e6cd88ba66452e09bcca8a323e3bdf42",
+            "BUILDING/B376051834301063C0/B376051834301063C0.bin": "d04c4bfc510843be27e0543a5254f3a9c96ab2ed7c0358fe62fb4c69e323728f"
+          },
+          "nativeBounds": [
+            [
+              3091.3515625,
+              5.834000110626221,
+              -1882.5234375
+            ],
+            [
+              3135.1484375,
+              32.00600051879883,
+              -1808.6015625
+            ]
+          ],
+          "triangles": 2973
+        }
+      ],
+      "sheetsChecked": [
+        {
+          "sheet": "11-NE-21C",
+          "status": "staged",
+          "exactEntries": [
+            "BUILDING/B376051834301063C0/B376051834301063C0.gltf"
+          ],
+          "directory": {
+            "completeEntries": 376,
+            "centralDirectoryBytes": 42562,
+            "centralDirectoryOffset": 4557895,
+            "directorySHA256": "a834125e571b198f77c158d4ce68028797ce9d56263933707ade5c1e7f1782f4"
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "uid": "landsd/225581:0",
+      "objectId": 225581,
+      "csuid": "3761118340P20060311",
+      "name": "The Whampoa",
+      "x": 3111.477,
+      "z": -1840.501,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "11-NE-21C"
+      ],
+      "outcome": "acquired-and-staged",
+      "sourceCoverageComplete": true,
+      "standardMatch": true,
+      "models": [
+        {
+          "sheet": "11-NE-21C",
+          "modelId": "B376111834002063C0",
+          "manifest": "source-scripts/city/whampoa-special/staged/11-NE-21C/manifest.json",
+          "exactCSUIDMatch": true,
+          "officialBuildingCSUIDs": [
+            "3761118340P20060311"
+          ],
+          "sourceHashes": {
+            "BUILDING/B376111834002063C0/B376111834002063C0.gltf": "d1f5279e53257dabca7578c8f1bc895031934f90f7d6780ff4da9a4c7a7a5a3f",
+            "BUILDING/B376111834002063C0/B376111834002063C0.bin": "6df4305087d6b035f45105f9b52b52bfb0c81fefab093d4ec5b33c7f5c412001"
+          },
+          "nativeBounds": [
+            [
+              3084.9921875,
+              4.164999961853027,
+              -1890.0078125
+            ],
+            [
+              3139.8828125,
+              13.315999984741211,
+              -1785.2421875
+            ]
+          ],
+          "triangles": 1835
+        }
+      ],
+      "sheetsChecked": [
+        {
+          "sheet": "11-NE-21C",
+          "status": "staged",
+          "exactEntries": [
+            "BUILDING/B376111834002063C0/B376111834002063C0.gltf"
+          ],
+          "directory": {
+            "completeEntries": 376,
+            "centralDirectoryBytes": 42562,
+            "centralDirectoryOffset": 4557895,
+            "directorySHA256": "a834125e571b198f77c158d4ce68028797ce9d56263933707ade5c1e7f1782f4"
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "qualification": "No-exact-model is only for complete current checked official sheet directories, not a territory-wide absence claim. Source acquisition/staging is not placement acceptance or publication. Native source geometry remains 1x HKPD; no modelling or terrain fixes.",
+  "aiCalls": 0
+}

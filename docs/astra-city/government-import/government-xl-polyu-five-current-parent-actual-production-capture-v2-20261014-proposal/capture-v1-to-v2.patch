@@ -1,0 +1,101 @@
+--- source-scripts/city/government-import/polyu_five_current_parent_actual_production_capture_v1_20261014.py
++++ source-scripts/city/government-import/polyu_five_current_parent_actual_production_capture_v2_20261014.py
+@@ -6,13 +6,15 @@
+ from pathlib import Path
+ import sys,json,uuid,time,subprocess
+ import numpy as np
+-import polyu_five_eligible_current_parent_nomination_v1_20261014 as nomination
+-from polyu_five_saved_nomination_binding_v1_20261014 import validate_binding
++import polyu_five_eligible_current_parent_nomination_v3_20261014 as nomination
++from polyu_five_saved_nomination_binding_v2_20261014 import validate_binding
+ from run import ROOT,HERE,read,save,connect,reservations
+ ref,check=nomination.ref,nomination.check;prior=nomination.prior
+-BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-polyu-five-current-parent-actual-production-capture-v1-20261014'
++BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-polyu-five-current-parent-actual-production-capture-v2-20261014'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+-RUNTIME=HERE/'polyu_five_current_parent_actual_production_runtime_v1_20261014.mjs'
++RUNTIME=HERE/'polyu_five_current_parent_actual_production_runtime_v2_20261014.mjs'
++ACTORS=HERE/'polyu_five_parent_complete_current_actor_capture_v2_20261014.mjs'
++from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+ CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
+ OLD_DOC=BASE/'government-xl-polyu-sports305582-saved-private-candidate-runtime-only-v1-20261013';OLD_JOB='ce2589c6c43d007f527d6bc78e51204abf4344a261fd41b0436dc1c6234d316f'
+ VALIDATOR=HERE/'resolve-pass-indexed-parent-clipping.py'
+@@ -24,12 +26,14 @@
+  verification=read(nomination.DOC/'ROOT-VERIFIED.json');assert verification['jobId']==receipt['jobId'] and verification['exactNeonReadback'] and verification['allEvidenceHashesVerified'] and verification['leaseReleased']
+  _,_,result,records,base,patch,oldraw,lineage,parents,_=nomination.load()
+  diag=read(nomination.DOC/'complete-five-mask-partition-diagnostic.json.gz');assert not diag['unresolved'] and diag['completeFeasibilitySummaryVerbatim']==result
+- nom=read(nomination.DOC/'private-five-mask-current-parent-nomination.json.gz');assert nom['schema']=='private-source-plane-preserving-five-current-parent-mask-nomination-v1'
++ nom=read(nomination.DOC/'private-five-mask-current-parent-nomination.json.gz');assert nom['schema']=='private-source-plane-preserving-five-current-parent-mask-nomination-v3'
+  assert nom['previousPrivateCandidate']==dict(path=base['candidatePath'],sha256=base['candidateSHA256']) and nom['eligibleUIDs']==nomination.ELIGIBLE and nom['independentConflictActors']==nomination.CONFLICTS
+  assert nom['all25AffectedActors']==prior.UIDS and nom['all752FourModeNegativesAnd21BodiesRetained']==result['all752FourModeNegativesAndWhole21SourceRolesRetained']
+  assert nom['native59527WholeBeforeAfterPending'] and nom['original3366GuardSitesNeedFreshActualReplay'] and not nom['physicalAccepted'] and not nom['installationApproved']
+  raw=validate_binding(nom,patch,lineage,parents);assert len(raw)==pins['completeNewNativeFacets'] and nomination.feasibility.sha(raw)==pins['completeNewRawSHA256']
+  assert len(nom['newNativeMesh']['position'])//3==pins['completeNewPositionVertices']
++ assert nomination.feasibility.sha(raw[:1485])==nomination.PREFIX_PACKED_SHA
++ assert len(nom['completeOldPrivateMapping'])==3214 and len(nom['completeCapturedParentMapping'])==12
+  old_receipt=read(OLD_DOC/'result.json');assert old_receipt['jobId']==pins['completedOriginalCaptureJob']==OLD_JOB
+  original=read(OLD_DOC/'saved-candidate-runtime-only-account.json.gz');guards=original['account']['ordinary25NeighbourRawGuards']['rows'];assert len(guards)==25 and [r['uid']for r in guards]==prior.UIDS
+  nine=[r for r in guards if r['reasons']==['increased-neighbour-ground-gap']];assert len(nine)==9 and sum(r['checks']for r in nine)==3366
+@@ -42,7 +46,7 @@
+ 
+ def schema_only():
+  pins,receipt,nom,raw,base,patch,result,proof,guards,resources=load()
+- return dict(passed=True,caller=ref(Path(__file__)),runtime=ref(RUNTIME),completedNominationJob=receipt['jobId'],completeNewNativeFacets=len(raw),completeNewRawSHA256=nomination.feasibility.sha(raw),oldPrivate3214MappingComplete=True,currentParent12MappingComplete=True,allOriginalPositionIncludingUnusedPrefixRetained=True,completeActors=25,canonicalResources=resources,wholeNative59527BeforeAfterPending=True,wholeOwned10536FourWorldAnd752Negatives21RolesRetained=True,allOriginalNine3366GuardSitesNeedActualReplay=True,fullParentGridNodes=1247,noProductionImportCaptureSourceCalculationDBLeaseWorker=True)
++ return dict(passed=True,caller=ref(Path(__file__)),runtime=ref(RUNTIME),completedNominationJob=receipt['jobId'],completeNewNativeFacets=len(raw),completeNewRawSHA256=nomination.feasibility.sha(raw),oldPrivate3214MappingComplete=True,currentParent12MappingComplete=True,allOriginalPositionIncludingUnusedPrefixRetained=True,completeActors=25,canonicalResources=resources,wholeNative59527BeforeAfterPending=True,wholeOwned10536FourWorldAnd752Negatives21RolesRetained=True,allOriginalNine3366GuardSitesNeedActualReplay=True,fullParentGridNodes=1247,noProductionImportCaptureSourceCalculationDBLeaseWorker=True,fullV3ProofReferencesResolved=True,complete832And1485PrefixHashPreserved=True)
+ 
+ def owned():
+  lease=read(LEASE);assert reservations.owns(lease) and not DOC.exists();last=time.monotonic()
+@@ -51,7 +55,8 @@
+   if time.monotonic()-last>20:assert reservations.heartbeat(lease)['ok'] and reservations.owns(lease);last=time.monotonic()
+  pins,receipt,nom,raw,base,patch,result,proof,guards,resources=load();assert lease['resources']==resources
+  prep=read(PROPOSAL/'actual-readonly-preparation.json');assert prep['passed'] and prep['caller']==ref(Path(__file__)) and prep['runtime']==ref(RUNTIME)
+- refs=pins['codeRefs']+pins['inputRefs']+[ref(PROPOSAL/'draft-pins.json'),ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'actual-readonly-preparation.json')]+prep['evidenceRefs']
++ binding_validation=read(check(prep['bindingValidationRef']));assert binding_validation['passedTests']==8 and binding_validation['failedTests']==0 and binding_validation['exitCode']==0
++ refs=pins['codeRefs']+pins['inputRefs']+[ref(PROPOSAL/'draft-pins.json'),ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'actual-readonly-preparation.json')]+prep['evidenceRefs']+[prep['bindingValidationRef']]+binding_validation['evidenceRefs']
+  for folder,job in [(nomination.DOC,receipt['jobId']),(OLD_DOC,pins['completedOriginalCaptureJob'])]:
+   q=read(folder/'result.json')
+   with connect()as db:db.execute('SET TRANSACTION READ ONLY');assert db.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(job,)).fetchone()==('complete',q)
+@@ -61,7 +66,24 @@
+   for q in refs:check(q);pulse()
+   assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==CURRENT and reservations.owns(lease)
+  fence();DOC.mkdir();g=patch['meta']['georef'];domain=[g['bE']-834500,816500-g['bN'],g['bE']+(patch['w']-1)*g['aE']-834500,816500-(g['bN']+(patch['h']-1)*g['aN'])]
+- save(DOC/'input.json.gz',dict(schema='polyu-five-current-parent-actual-production-capture-v1',currentManifestSHA256=CURRENT,completedNominationJob=receipt['jobId'],newNomination=ref(nomination.DOC/'private-five-mask-current-parent-nomination.json.gz'),previousPrivateCandidate=nom['previousPrivateCandidate'],completeNewNativeFacets=len(raw),completeNewPositionVertices=len(nom['newNativeMesh']['position'])//3,fullParentDomain=domain,exact25CurrentForms=[r['currentForm']for r in proof['rows']],complete25SourceEvidence=proof,previousOriginalGuardRows=guards,originalGuardDefinition=ref(HERE/'check-neighbours.mjs'),allInputRefs=refs,all752Negatives21Bodies=result['all752FourModeNegativesAndWhole21SourceRolesRetained'],native59527WholeBeforeAfterStillPending=True,physicalAccepted=False))
++ save(DOC/'input.json.gz',dict(schema='polyu-five-current-parent-actual-production-capture-v2',currentManifestSHA256=CURRENT,completedNominationJob=receipt['jobId'],newNomination=ref(nomination.DOC/'private-five-mask-current-parent-nomination.json.gz'),previousPrivateCandidate=nom['previousPrivateCandidate'],completeNewNativeFacets=len(raw),completeNewPositionVertices=len(nom['newNativeMesh']['position'])//3,fullParentDomain=domain,exact25CurrentForms=[r['currentForm']for r in proof['rows']],complete25SourceEvidence=proof,previousOriginalGuardRows=guards,originalGuardDefinition=ref(HERE/'check-neighbours.mjs'),targetedNativeSource=dict(uid='landsd/305793:0',entry=base['account']['installedPodiumFalseHoldVerbatim']['entry'],asset=base['account']['installedPodiumFalseHoldVerbatim']['asset']),allInputRefs=refs,all752Negatives21Bodies=result['all752FourModeNegativesAndWhole21SourceRolesRetained'],native59527WholeBeforeAfterStillPending=True,physicalAccepted=False))
++ actor_command=['node',str(ACTORS),str(DOC.relative_to(ROOT))]
++ with (DOC/'actual-current-actor-capture.log').open('xb')as log:actor_process=subprocess.run(actor_command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
++ save(DOC/'actual-current-actor-command.json',dict(command=actor_command,exitCode=actor_process.returncode,noLiveChanges=True))
++ if actor_process.returncode!=0:
++  save(DOC/'actual-actor-capture-failure.json',dict(exitCode=actor_process.returncode,noNativeOrBasicWaiver=True))
++ else:
++  try:
++   actor_capture=read(DOC/'complete-fresh-current-native59527-and24-BASIC.json.gz')
++   assert actor_capture['startEndAllInputsVerified']and actor_capture['currentManifestSHA256']==CURRENT
++   assert len(actor_capture['basicRows'])==24 and actor_capture['nativeRow']['completeFaces']==59527
++   native_source=base['account']['installedPodiumFalseHoldVerbatim']
++   original=decode_original_world_triangles(check(native_source['asset']).read_bytes())
++   assert original.shape==(59527,3,3)and nomination.feasibility.sha(original)=='4f527cba16bd9e54f70c773fdcf7febec3e7c3d6d005bfed5b1f62df8fc315b8'
++   save(DOC/'native59527-unchanged-provider-original-world.json.gz',dict(uid='landsd/305793:0',source=native_source['asset'],originalWorldSHA256=nomination.feasibility.sha(original),completeWorldTriangles=original.tolist(),completeFaces=59527,noSourcePoseGeometryChanges=True,noNativeReacceptance=True))
++   for path,h in actor_capture['inputHashes'].items():refs.append(dict(path=path,sha256=h))
++  except (AssertionError,ValueError,KeyError)as error:
++   save(DOC/'actual-native-source-binding-failure.json',dict(type=type(error).__name__,message=str(error),allActualActorOutputsPreserved=True,noOriginalHashRelabelling=True,noNativeAcceptance=True))
+  command=['node',str(RUNTIME),str(DOC.relative_to(ROOT))]
+  with (DOC/'actual-production-replay.log').open('xb')as log:r=subprocess.run(command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
+  save(DOC/'actual-runtime-command.json',dict(command=command,exitCode=r.returncode,noLiveChanges=True))
+@@ -74,7 +96,7 @@
+   except (AssertionError,ValueError)as e:failure=dict(type=type(e).__name__,message=str(e))
+   save(DOC/'real-validator-outcome.json',dict(passed=failure is None,actualFailure=failure,unchangedValidator=ref(VALIDATOR),noOldOverlapApproval=True,noToleranceChanges=True,notPhysicalAcceptance=True))
+  else:save(DOC/'real-validator-outcome.json',dict(passed=False,notExecuted=True,actualRuntimeExitCode=r.returncode,noSamplerErrorWaiver=True))
+- save(DOC/'diagnostic.json.gz',dict(completedNomination=ref(nomination.DOC/'result.json'),runtimeExitCode=r.returncode,privateActualProductionCapture=True,complete25ScopeAnd51ResourcesRetained=True,completeOriginalGuardDefinitionAndNine3366CountRetained=True,all752NegativesAnd21SourceRolesVerbatim=result['all752FourModeNegativesAndWhole21SourceRolesRetained'],independentFourConflictActorsVerbatim=nomination.CONFLICTS,native59527WholeBeforeAfterFinitePending=True,fullSourceAndActualGroundCoverageFiniteOverlapMAXSeamRootRuntimeBrowserGatesPending=True,physicalAccepted=False,installationApproved=False,newlyInstalled=0))
++ save(DOC/'diagnostic.json.gz',dict(completedNomination=ref(nomination.DOC/'result.json'),runtimeExitCode=r.returncode,privateActualProductionCapture=True,complete25ScopeAnd51ResourcesRetained=True,targetedNative59527And24BASICCaptureExitCode=actor_process.returncode,current305582BASICSeparateFromOwned10536Source=True,completeOriginalGuardDefinitionAndNine3366CountRetained=True,all752NegativesAnd21SourceRolesVerbatim=result['all752FourModeNegativesAndWhole21SourceRolesRetained'],independentFourConflictActorsVerbatim=nomination.CONFLICTS,native59527WholeBeforeAfterFinitePending=True,actualViewerFiniteOverlapMAXSeamRuntimeBrowserGatesPending=True,bodyZeroCrossingContextNotAdditionalEngineeringAdmissionGate=True,physicalAccepted=False,installationApproved=False,newlyInstalled=0))
+  fence();refs+=[ref(p)for p in DOC.rglob('*')if p.is_file()]
+  prior.module('polyu_five_actual_capture_freezer',prior.FREEZER).freeze(BATCH,'private-five-mask-fresh-whole-parent-actual-production-capture-only',[check(q)for q in refs],dict(uids=prior.UIDS,sourceOnly=True,privateCandidate=True,physicalAccepted=False,newlyInstalled=0))
+ 
+@@ -83,7 +105,7 @@
+  if '--owned'in sys.argv:return owned()
+  assert '--capture-five-current-parent-private-candidate-only'in sys.argv and not DOC.exists() and not LOCAL.exists()
+  *_,resources=load();prep=read(PROPOSAL/'actual-readonly-preparation.json');assert prep['passed'] and prep['caller']==ref(Path(__file__)) and prep['runtime']==ref(RUNTIME)
+- claim=reservations.claim('polyu-five-parent-production-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation']
++ claim=reservations.claim('polyu-five-parent-production-v2-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation']
+  try:
+   save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  finally:

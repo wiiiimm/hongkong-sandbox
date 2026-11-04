@@ -1,0 +1,917 @@
+{
+  "issue": "HKS-214",
+  "uid": "landsd/297401:0",
+  "finding": "Inherited coarse water mask suppressed source-confirmed reclaimed land underneath the station. Previous rim-only visual/CPU acceptance missed the interior hole.",
+  "source": {
+    "sheet": "11-NW-24C",
+    "revision": "2025-10-27T16:00:00+00:00",
+    "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/manifest.json",
+    "manifestSha256": "297974937fba5a24f30866e9b53acaa9842df9d3ec8357935df92510cd76e0c1",
+    "worldBounds": [
+      [
+        0.0,
+        -14.173528671264648,
+        -2100.0
+      ],
+      [
+        750.0,
+        12.377494812011719,
+        -1500.0
+      ]
+    ],
+    "files": [
+      {
+        "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/TERRAIN(TB)/T34500180000106E11/T34500180000106E11.bin",
+        "sha256": "0a89380e17ecd14dc2d5edce3ea9ef0247b1233b7d823a17299d27050dfaa20f",
+        "bytes": 15830640
+      },
+      {
+        "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/TERRAIN(TB)/T34500180000106E11/T34500180000106E11-geometry.gltf",
+        "sha256": "69ee3f47e057ee1bd0f689c585a529036096cbb4dc060fe0e0f206a852f6b400",
+        "bytes": 1414
+      }
+    ],
+    "sourceFilesVerified": true
+  },
+  "sourceVerified": true,
+  "supersededPatch": "3d-viewer/city/data/support-native-297401-0.json",
+  "supersededSHA256": "53be9056f1c4710aaf9d55c87a3c83dbbc19fc680a25672546f0828f906f5ffc",
+  "replacementPatch": "source-scripts/city/identity-hold-review/terrain-patches/support-native-297401-0-station-land-v2.json",
+  "replacementSHA256": "7e5422186d5fdd48879d3f9489a3662172186a4ca70d08cc3a5305362c28d559",
+  "sourcePositiveMaskedNodesInFootprintCollar": 10782,
+  "changedNodes": 10782,
+  "boundaryChangeMetres": 0.0,
+  "coarseCells": [
+    498,
+    420,
+    503,
+    425
+  ],
+  "previousCoarseCells": [
+    500,
+    420,
+    503,
+    425
+  ],
+  "extensionWestMetres": 140,
+  "changedNativeHeightRange": [
+    6.97080249550649,
+    9.037729206568747
+  ],
+  "outsideCorrectionNodesChanged": 0,
+  "fullFootprintGrid": {
+    "samples": 20565,
+    "nativeCovered": 20565,
+    "nativeHeightRange": [
+      6.0185996566602284,
+      9.000358276569502
+    ],
+    "outsideReplacementChild": 0,
+    "outsideReplacementCoarseWaterSamples": 0,
+    "outsideChildCoarseWaterExamples": []
+  },
+  "centre": {
+    "xz": [
+      592.276,
+      -1845.39
+    ],
+    "sourceTIN": 7.637826099603459,
+    "oldChildRendered": -4.0,
+    "newChildRendered": 7.637825870001035
+  },
+  "verticalScale": 1,
+  "published": false,
+  "approval": "Await final scene ray/triangle and architectural surface checks.",
+  "probes": [
+    {
+      "xz": [
+        592.0,
+        -1999.0
+      ],
+      "sourceTIN": 6.134439050959349,
+      "stagedGround": 6.134478
+    },
+    {
+      "xz": [
+        584.0,
+        -1983.0
+      ],
+      "sourceTIN": 7.684571926410381,
+      "stagedGround": 7.684572
+    },
+    {
+      "xz": [
+        601.0,
+        -1976.0
+      ],
+      "sourceTIN": 6.2805474348098205,
+      "stagedGround": 6.2805475
+    },
+    {
+      "xz": [
+        604.0,
+        -1970.0
+      ],
+      "sourceTIN": 6.2698592248697,
+      "stagedGround": 6.269859499999999
+    },
+    {
+      "xz": [
+        570.0,
+        -1964.0
+      ],
+      "sourceTIN": 8.244681483358994,
+      "stagedGround": 8.244681500000002
+    },
+    {
+      "xz": [
+        595.0,
+        -1960.0
+      ],
+      "sourceTIN": 6.91092559109031,
+      "stagedGround": 6.9109255
+    },
+    {
+      "xz": [
+        604.0,
+        -1956.0
+      ],
+      "sourceTIN": 6.462162687004618,
+      "stagedGround": 6.4621625
+    },
+    {
+      "xz": [
+        598.0,
+        -1952.0
+      ],
+      "sourceTIN": 6.796758575282121,
+      "stagedGround": 6.796758499999999
+    },
+    {
+      "xz": [
+        598.0,
+        -1948.0
+      ],
+      "sourceTIN": 6.923917551207427,
+      "stagedGround": 6.923918
+    },
+    {
+      "xz": [
+        615.0,
+        -1944.0
+      ],
+      "sourceTIN": 6.326401421395714,
+      "stagedGround": 6.325818
+    },
+    {
+      "xz": [
+        599.0,
+        -1939.0
+      ],
+      "sourceTIN": 6.9583748494617925,
+      "stagedGround": 6.958375
+    },
+    {
+      "xz": [
+        580.0,
+        -1934.0
+      ],
+      "sourceTIN": 7.738606190365474,
+      "stagedGround": 7.738606
+    },
+    {
+      "xz": [
+        600.0,
+        -1930.0
+      ],
+      "sourceTIN": 7.025612414595245,
+      "stagedGround": 7.026384499999999
+    },
+    {
+      "xz": [
+        606.0,
+        -1926.0
+      ],
+      "sourceTIN": 6.861497163122496,
+      "stagedGround": 6.861382
+    },
+    {
+      "xz": [
+        597.0,
+        -1922.0
+      ],
+      "sourceTIN": 7.234134875199858,
+      "stagedGround": 7.2341345
+    },
+    {
+      "xz": [
+        568.0,
+        -1918.0
+      ],
+      "sourceTIN": 8.26012383994079,
+      "stagedGround": 8.260123499999999
+    },
+    {
+      "xz": [
+        571.0,
+        -1915.0
+      ],
+      "sourceTIN": 8.165765222844577,
+      "stagedGround": 8.1657655
+    },
+    {
+      "xz": [
+        566.0,
+        -1912.0
+      ],
+      "sourceTIN": 8.350630958282315,
+      "stagedGround": 8.350631
+    },
+    {
+      "xz": [
+        625.0,
+        -1910.0
+      ],
+      "sourceTIN": 6.387058025349756,
+      "stagedGround": 6.387058
+    },
+    {
+      "xz": [
+        605.0,
+        -1907.0
+      ],
+      "sourceTIN": 7.006663098185996,
+      "stagedGround": 7.006663
+    },
+    {
+      "xz": [
+        577.0,
+        -1904.0
+      ],
+      "sourceTIN": 7.994298847158845,
+      "stagedGround": 7.9942985
+    },
+    {
+      "xz": [
+        621.0,
+        -1902.0
+      ],
+      "sourceTIN": 6.576824281198002,
+      "stagedGround": 6.576824
+    },
+    {
+      "xz": [
+        579.0,
+        -1899.0
+      ],
+      "sourceTIN": 7.941743617532054,
+      "stagedGround": 7.941743499999999
+    },
+    {
+      "xz": [
+        614.0,
+        -1897.0
+      ],
+      "sourceTIN": 6.794058961417319,
+      "stagedGround": 6.794058999999999
+    },
+    {
+      "xz": [
+        559.0,
+        -1894.0
+      ],
+      "sourceTIN": 8.65705535737363,
+      "stagedGround": 8.6570555
+    },
+    {
+      "xz": [
+        584.0,
+        -1892.0
+      ],
+      "sourceTIN": 7.79137959910771,
+      "stagedGround": 7.7913795
+    },
+    {
+      "xz": [
+        606.0,
+        -1890.0
+      ],
+      "sourceTIN": 7.058735205598698,
+      "stagedGround": 7.0587349999999995
+    },
+    {
+      "xz": [
+        626.0,
+        -1888.0
+      ],
+      "sourceTIN": 6.645899841428003,
+      "stagedGround": 6.6459
+    },
+    {
+      "xz": [
+        554.0,
+        -1885.0
+      ],
+      "sourceTIN": 8.831069479102187,
+      "stagedGround": 8.831069499999998
+    },
+    {
+      "xz": [
+        572.0,
+        -1883.0
+      ],
+      "sourceTIN": 8.24126767322069,
+      "stagedGround": 8.2412675
+    },
+    {
+      "xz": [
+        590.0,
+        -1881.0
+      ],
+      "sourceTIN": 7.619913223421978,
+      "stagedGround": 7.619913500000001
+    },
+    {
+      "xz": [
+        608.0,
+        -1879.0
+      ],
+      "sourceTIN": 7.155279190199766,
+      "stagedGround": 7.155279
+    },
+    {
+      "xz": [
+        625.0,
+        -1877.0
+      ],
+      "sourceTIN": 6.7475620479117415,
+      "stagedGround": 6.747562
+    },
+    {
+      "xz": [
+        643.0,
+        -1875.0
+      ],
+      "sourceTIN": 6.310113640809279,
+      "stagedGround": 6.3101140000000004
+    },
+    {
+      "xz": [
+        569.0,
+        -1872.0
+      ],
+      "sourceTIN": 8.383928694135657,
+      "stagedGround": 8.3839285
+    },
+    {
+      "xz": [
+        586.0,
+        -1870.0
+      ],
+      "sourceTIN": 7.7974772884036865,
+      "stagedGround": 7.797477499999999
+    },
+    {
+      "xz": [
+        603.0,
+        -1868.0
+      ],
+      "sourceTIN": 7.405248817511755,
+      "stagedGround": 7.405249
+    },
+    {
+      "xz": [
+        620.0,
+        -1866.0
+      ],
+      "sourceTIN": 6.93034309376419,
+      "stagedGround": 6.930343000000001
+    },
+    {
+      "xz": [
+        635.0,
+        -1864.0
+      ],
+      "sourceTIN": 6.571344218592602,
+      "stagedGround": 6.571344
+    },
+    {
+      "xz": [
+        637.0,
+        -1862.0
+      ],
+      "sourceTIN": 6.519906947669508,
+      "stagedGround": 6.5199145000000005
+    },
+    {
+      "xz": [
+        635.0,
+        -1860.0
+      ],
+      "sourceTIN": 6.569435817368479,
+      "stagedGround": 6.569436
+    },
+    {
+      "xz": [
+        633.0,
+        -1858.0
+      ],
+      "sourceTIN": 6.618972775703283,
+      "stagedGround": 6.618973
+    },
+    {
+      "xz": [
+        631.0,
+        -1856.0
+      ],
+      "sourceTIN": 6.670815234471369,
+      "stagedGround": 6.670815000000001
+    },
+    {
+      "xz": [
+        629.0,
+        -1854.0
+      ],
+      "sourceTIN": 6.7249709749677,
+      "stagedGround": 6.724971
+    },
+    {
+      "xz": [
+        627.0,
+        -1852.0
+      ],
+      "sourceTIN": 6.779126715464034,
+      "stagedGround": 6.779519
+    },
+    {
+      "xz": [
+        624.0,
+        -1850.0
+      ],
+      "sourceTIN": 6.860964369018561,
+      "stagedGround": 6.860964000000001
+    },
+    {
+      "xz": [
+        607.0,
+        -1848.0
+      ],
+      "sourceTIN": 7.26952218886401,
+      "stagedGround": 7.269532999999999
+    },
+    {
+      "xz": [
+        583.0,
+        -1846.0
+      ],
+      "sourceTIN": 8.115215540384833,
+      "stagedGround": 8.108348
+    },
+    {
+      "xz": [
+        558.0,
+        -1844.0
+      ],
+      "sourceTIN": 8.864466986507342,
+      "stagedGround": 8.858116500000001
+    },
+    {
+      "xz": [
+        646.0,
+        -1843.0
+      ],
+      "sourceTIN": 6.376787093560541,
+      "stagedGround": 6.374071000000001
+    },
+    {
+      "xz": [
+        621.0,
+        -1841.0
+      ],
+      "sourceTIN": 6.98387795406127,
+      "stagedGround": 6.983878000000001
+    },
+    {
+      "xz": [
+        597.0,
+        -1839.0
+      ],
+      "sourceTIN": 7.538722460904349,
+      "stagedGround": 7.5376855
+    },
+    {
+      "xz": [
+        573.0,
+        -1837.0
+      ],
+      "sourceTIN": 8.192913720244375,
+      "stagedGround": 8.1929135
+    },
+    {
+      "xz": [
+        546.0,
+        -1835.0
+      ],
+      "sourceTIN": 8.773829092804897,
+      "stagedGround": 8.773829
+    },
+    {
+      "xz": [
+        631.0,
+        -1834.0
+      ],
+      "sourceTIN": 6.757865238946229,
+      "stagedGround": 6.757865499999999
+    },
+    {
+      "xz": [
+        596.0,
+        -1832.0
+      ],
+      "sourceTIN": 7.5821972290978,
+      "stagedGround": 7.581521
+    },
+    {
+      "xz": [
+        553.0,
+        -1830.0
+      ],
+      "sourceTIN": 8.841573032972885,
+      "stagedGround": 8.841573
+    },
+    {
+      "xz": [
+        630.0,
+        -1829.0
+      ],
+      "sourceTIN": 6.84198516044769,
+      "stagedGround": 6.841984999999999
+    },
+    {
+      "xz": [
+        585.0,
+        -1827.0
+      ],
+      "sourceTIN": 7.887651589342863,
+      "stagedGround": 7.8876515000000005
+    },
+    {
+      "xz": [
+        533.0,
+        -1825.0
+      ],
+      "sourceTIN": 8.632167486468461,
+      "stagedGround": 8.632167499999998
+    },
+    {
+      "xz": [
+        620.0,
+        -1824.0
+      ],
+      "sourceTIN": 7.255505495926695,
+      "stagedGround": 7.2555055
+    },
+    {
+      "xz": [
+        597.0,
+        -1822.0
+      ],
+      "sourceTIN": 7.84783222377327,
+      "stagedGround": 7.847832
+    },
+    {
+      "xz": [
+        588.0,
+        -1820.0
+      ],
+      "sourceTIN": 8.126081176675903,
+      "stagedGround": 8.126081
+    },
+    {
+      "xz": [
+        583.0,
+        -1818.0
+      ],
+      "sourceTIN": 8.319061521134923,
+      "stagedGround": 8.3190615
+    },
+    {
+      "xz": [
+        579.0,
+        -1816.0
+      ],
+      "sourceTIN": 8.49072471348304,
+      "stagedGround": 8.490724499999999
+    },
+    {
+      "xz": [
+        577.0,
+        -1814.0
+      ],
+      "sourceTIN": 8.592086618030484,
+      "stagedGround": 8.5914565
+    },
+    {
+      "xz": [
+        530.0,
+        -1812.0
+      ],
+      "sourceTIN": 8.628086228179436,
+      "stagedGround": 8.628086
+    },
+    {
+      "xz": [
+        526.0,
+        -1810.0
+      ],
+      "sourceTIN": 8.664551386576141,
+      "stagedGround": 8.6608275
+    },
+    {
+      "xz": [
+        525.0,
+        -1808.0
+      ],
+      "sourceTIN": 8.643672227459183,
+      "stagedGround": 8.6403255
+    },
+    {
+      "xz": [
+        523.0,
+        -1806.0
+      ],
+      "sourceTIN": 8.579144112414383,
+      "stagedGround": 8.595722
+    },
+    {
+      "xz": [
+        516.0,
+        -1804.0
+      ],
+      "sourceTIN": 8.61054471657985,
+      "stagedGround": 8.610533499999999
+    },
+    {
+      "xz": [
+        507.0,
+        -1802.0
+      ],
+      "sourceTIN": 8.563119931440424,
+      "stagedGround": 8.563119499999999
+    },
+    {
+      "xz": [
+        656.0,
+        -1801.0
+      ],
+      "sourceTIN": 6.4089766608109215,
+      "stagedGround": 6.4047979999999995
+    },
+    {
+      "xz": [
+        639.0,
+        -1799.0
+      ],
+      "sourceTIN": 6.837094745262884,
+      "stagedGround": 6.837095000000001
+    },
+    {
+      "xz": [
+        613.0,
+        -1797.0
+      ],
+      "sourceTIN": 7.491778635305502,
+      "stagedGround": 7.491779
+    },
+    {
+      "xz": [
+        575.0,
+        -1795.0
+      ],
+      "sourceTIN": 8.41466383026841,
+      "stagedGround": 8.413788499999999
+    },
+    {
+      "xz": [
+        652.0,
+        -1794.0
+      ],
+      "sourceTIN": 6.677506454159571,
+      "stagedGround": 6.675509
+    },
+    {
+      "xz": [
+        602.0,
+        -1792.0
+      ],
+      "sourceTIN": 7.846646219444948,
+      "stagedGround": 7.846646
+    },
+    {
+      "xz": [
+        474.0,
+        -1790.0
+      ],
+      "sourceTIN": 8.541053905250552,
+      "stagedGround": 8.541054000000003
+    },
+    {
+      "xz": [
+        612.0,
+        -1789.0
+      ],
+      "sourceTIN": 7.665519000668359,
+      "stagedGround": 7.665519
+    },
+    {
+      "xz": [
+        480.0,
+        -1787.0
+      ],
+      "sourceTIN": 8.559684579243882,
+      "stagedGround": 8.5596845
+    },
+    {
+      "xz": [
+        606.0,
+        -1786.0
+      ],
+      "sourceTIN": 7.864196860696837,
+      "stagedGround": 7.864197000000001
+    },
+    {
+      "xz": [
+        468.0,
+        -1784.0
+      ],
+      "sourceTIN": 8.55592375511202,
+      "stagedGround": 8.555924
+    },
+    {
+      "xz": [
+        589.0,
+        -1783.0
+      ],
+      "sourceTIN": 8.236616330493327,
+      "stagedGround": 8.236616000000001
+    },
+    {
+      "xz": [
+        651.0,
+        -1782.0
+      ],
+      "sourceTIN": 6.937364216847253,
+      "stagedGround": 6.9373640000000005
+    },
+    {
+      "xz": [
+        572.0,
+        -1780.0
+      ],
+      "sourceTIN": 8.646050035637378,
+      "stagedGround": 8.646049999999999
+    },
+    {
+      "xz": [
+        633.0,
+        -1779.0
+      ],
+      "sourceTIN": 7.354528019658637,
+      "stagedGround": 7.354528
+    },
+    {
+      "xz": [
+        496.0,
+        -1777.0
+      ],
+      "sourceTIN": 8.579951055903058,
+      "stagedGround": 8.579467000000001
+    },
+    {
+      "xz": [
+        616.0,
+        -1776.0
+      ],
+      "sourceTIN": 7.814321871365598,
+      "stagedGround": 7.814322000000001
+    },
+    {
+      "xz": [
+        480.0,
+        -1774.0
+      ],
+      "sourceTIN": 8.602086897708835,
+      "stagedGround": 8.602087000000001
+    },
+    {
+      "xz": [
+        600.0,
+        -1773.0
+      ],
+      "sourceTIN": 8.09455698386064,
+      "stagedGround": 8.094557
+    },
+    {
+      "xz": [
+        662.0,
+        -1772.0
+      ],
+      "sourceTIN": 6.292900472004276,
+      "stagedGround": 6.2930355
+    },
+    {
+      "xz": [
+        585.0,
+        -1770.0
+      ],
+      "sourceTIN": 8.156758970536792,
+      "stagedGround": 8.156759
+    },
+    {
+      "xz": [
+        652.0,
+        -1769.0
+      ],
+      "sourceTIN": 6.945438515937628,
+      "stagedGround": 6.9454385
+    },
+    {
+      "xz": [
+        607.0,
+        -1767.0
+      ],
+      "sourceTIN": 8.005533233973098,
+      "stagedGround": 8.005533
+    },
+    {
+      "xz": [
+        558.0,
+        -1765.0
+      ],
+      "sourceTIN": 8.816194563599508,
+      "stagedGround": 8.8161945
+    },
+    {
+      "xz": [
+        638.0,
+        -1764.0
+      ],
+      "sourceTIN": 8.110144007206118,
+      "stagedGround": 8.1102805
+    },
+    {
+      "xz": [
+        608.0,
+        -1762.0
+      ],
+      "sourceTIN": 7.977120157120986,
+      "stagedGround": 7.97712
+    },
+    {
+      "xz": [
+        590.0,
+        -1760.0
+      ],
+      "sourceTIN": 8.094188673273548,
+      "stagedGround": 8.0775845
+    },
+    {
+      "xz": [
+        594.0,
+        -1758.0
+      ],
+      "sourceTIN": 7.987095141813591,
+      "stagedGround": 7.987095
+    },
+    {
+      "xz": [
+        549.0,
+        -1755.0
+      ],
+      "sourceTIN": 8.607200971352572,
+      "stagedGround": 8.6058645
+    },
+    {
+      "xz": [
+        596.0,
+        -1752.0
+      ],
+      "sourceTIN": 8.162589029903277,
+      "stagedGround": 8.162589
+    },
+    {
+      "xz": [
+        548.0,
+        -1745.0
+      ],
+      "sourceTIN": 8.642758256340743,
+      "stagedGround": 8.6378165
+    }
+  ],
+  "changedNodeEvidence": {
+    "path": "docs/astra-city/identity-hold-review/station-mask/changed-nodes.json",
+    "sha256": "bad10e457e09c48cf6e2998ca194c95771f74bc74834266e2080408d8026ba78",
+    "existingChildNodes": 8787,
+    "newWesternExtensionNodes": 1995
+  }
+}

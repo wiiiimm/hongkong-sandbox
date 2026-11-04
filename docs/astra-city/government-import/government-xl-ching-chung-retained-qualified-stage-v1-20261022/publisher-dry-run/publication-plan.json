@@ -1,0 +1,102 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-ching-chung-retained-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Ching Chung House unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-ching-chung-retained-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-ching-chung-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-ching-chung-retained-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "e8a69f27ad03dbe96081ddab918c342a7bbe92e0baf74e74e03154b622ded790"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-ching-chung-original-v1-20261022.json": "e01f6c10bc0f6829c3148b81ee8fd7299e1a6b6ce430b8703c2cb1f226d2e6b5",
+    "3d-viewer/city/data/official-models/government-xl-ching-chung-retained-qualified-stage-v1-20261022/catalogue.json": "4ef7bacba93bdcae14e6df4d401b1c346d343244496e6d65d6f6615de03f5105",
+    "3d-viewer/city/data/manifest.json": "8c3c54ea18912eb2662b37e39c0746f05fcdf1b773da7d9d3f825a502003f70c"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "0b511e53180b5d52de3f79c8e4ee2d24df5a4ee0",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-royal-green3-original-v1-20261018.json",
+      "sha256": "0b7a8936903435866f87208c254b569a36124f4601d7beed8817592339594c1e",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-ching-chung-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Ching Chung House unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -3298.074592605056,
+            -22892.5546875,
+            -3246.048948858067,
+            -22841.540393659518
+          ],
+          "outerBounds": [
+            -3301.0757141702234,
+            -22895.5546875,
+            -3243.043451682269,
+            -22838.462355888074
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-ching-hin-house-terrain-continuation-v3-20261005/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.gltf",
+            "sha256": "6bb73fede1a367d794501957dea815e12c794e85b1e5f03e64dadea094e189ec"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 6035,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "retainedNativeSources": [
+          {
+            "retainedUids": [
+              "landsd/11093:0",
+              "landsd/212694:0",
+              "landsd/23004:0",
+              "landsd/233193:0",
+              "landsd/23818:0",
+              "landsd/26542:0",
+              "landsd/26653:0",
+              "landsd/26669:0",
+              "landsd/75606:0",
+              "landsd/9698:0"
+            ],
+            "sha256": "0b7a8936903435866f87208c254b569a36124f4601d7beed8817592339594c1e",
+            "url": "city/data/government-royal-green3-original-v1-20261018.json"
+          }
+        ],
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e01f6c10bc0f6829c3148b81ee8fd7299e1a6b6ce430b8703c2cb1f226d2e6b5",
+      "bytes": 5334846
+    }
+  ],
+  "estimatedBases": []
+}

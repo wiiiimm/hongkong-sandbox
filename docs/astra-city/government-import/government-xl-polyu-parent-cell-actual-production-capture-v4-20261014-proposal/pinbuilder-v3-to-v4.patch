@@ -1,0 +1,35 @@
+--- docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/build-completed-input-pins.py
++++ docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v4-20261014-proposal/build-completed-input-pins.py
+@@ -8,8 +8,9 @@
+ ROOT=Path(__file__).resolve().parents[4];HERE=ROOT/'source-scripts/city/government-import';BASE=ROOT/'docs/astra-city/government-import';PROPOSAL=Path(__file__).resolve().parent
+ NOM=BASE/'government-xl-polyu-saved-parent-cell-repacking-v1-20261014'
+ CAP=BASE/'government-xl-polyu-five-current-parent-actual-production-capture-v2-20261014'
+-CALLER=HERE/'polyu_parent_cell_actual_production_capture_v3_draft_20261014.py'
+-RUNTIME=HERE/'polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs'
++FAILED=BASE/'government-xl-polyu-parent-cell-actual-production-capture-v3-20261014'
++CALLER=HERE/'polyu_parent_cell_actual_production_capture_v4_draft_20261014.py'
++RUNTIME=HERE/'polyu_parent_cell_actual_production_runtime_v4_draft_20261014.mjs'
+ HELPER=HERE/'polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py'
+ TEST=HERE/'test_polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py'
+ def read(p):
+@@ -36,9 +37,9 @@
+             for name in names:
+                 q=HERE/(name.split('.')[0]+'.py')
+                 if q.is_file():pending.append(q)
+-    for p in [RUNTIME,PROPOSAL/'METHOD.md',Path(__file__).resolve(),PROPOSAL/'prepare-readonly-v3.py']:
++    for p in [RUNTIME,HERE/'polyu_compact_runtime_mesh_projection_v1_draft_20261014.py',HERE/'polyu_compact_runtime_mesh_projection_v1_draft_20261014.mjs',HERE/'test_polyu_compact_runtime_mesh_projection_v1_draft_20261014.py',PROPOSAL/'METHOD.md',Path(__file__).resolve(),PROPOSAL/'prepare-readonly-v4.py']:
+         q=ref(p);code[q['path']]=q
+-    for folder in [NOM,CAP]:
++    for folder in [NOM,CAP,FAILED]:
+         for q in read(folder/'result.json')['evidenceRefs']+[ref(folder/'result.json'),ref(folder/'ROOT-VERIFIED.json'),ref(folder/'neon-sync.json')]:
+             if q['path']in inputs:assert inputs[q['path']]==q,'Conflicting frozen evidence '+q['path']
+             inputs[q['path']]=q
+@@ -46,7 +47,7 @@
+         if path in inputs:assert inputs[path]==q;inputs.pop(path)
+     current='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
+     assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==current
+-    value=dict(caller=ref(CALLER),runtime=ref(RUNTIME),bindingHelper=ref(HELPER),bindingTests=ref(TEST),completedNominationJob=receipt['jobId'],previousCompleteCaptureJob=previous['jobId'],completeNewNativeFacets=len(raw),completeNewPositionVertices=len(positions),completeNewRawSHA256=hashlib.sha256(raw.tobytes()).hexdigest(),currentManifestSHA256=current,codeRefs=sorted(code.values(),key=lambda q:q['path']),inputRefs=sorted(inputs.values(),key=lambda q:q['path']),noSourceDecodeOrProductionCapture=True)
++    value=dict(caller=ref(CALLER),runtime=ref(RUNTIME),bindingHelper=ref(HELPER),bindingTests=ref(TEST),completedNominationJob=receipt['jobId'],previousCompleteCaptureJob=previous['jobId'],completeNewNativeFacets=len(raw),completeNewPositionVertices=len(positions),completePriorV3PositionVertices=read(CAP/'input.json.gz')['completeNewPositionVertices'],completeNewRawSHA256=hashlib.sha256(raw.tobytes()).hexdigest(),currentManifestSHA256=current,codeRefs=sorted(code.values(),key=lambda q:q['path']),inputRefs=sorted(inputs.values(),key=lambda q:q['path']),noSourceDecodeOrProductionCapture=True)
+     with (PROPOSAL/'draft-pins.json').open('x')as f:json.dump(value,f,indent=2,sort_keys=True);f.write('\n')
+     print(json.dumps(dict(pins=ref(PROPOSAL/'draft-pins.json'),actualFacets=len(raw),actualPositionVertices=len(positions),completedNominationJob=receipt['jobId'])))
+ if __name__=='__main__':main()

@@ -1,0 +1,58 @@
+{
+  "batch": "government-xl-after-tung-on-qe311317-patch-sequence-v1-20261026",
+  "uids": [
+    "landsd/311317:0"
+  ],
+  "resources": [
+    "building:landsd/311317:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v6_20261024.py",
+      "batch": "government-xl-after-tung-on-qe311317-patch-runtime-v1-20261026",
+      "args": [
+        "--patch",
+        "government-xl-after-tung-on-qe311317-original-inset-v1-20261026",
+        "--capture",
+        "government-xl-after-tung-on-qe311317-ground-v1-20261026",
+        "--uid",
+        "landsd/311317:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-after-tung-on-qe311317-patch-scope-v1-20261026",
+      "args": [
+        "--inventory",
+        "government-xl-after-tung-on-current-inventory-v1-20261026",
+        "--patch",
+        "government-xl-after-tung-on-qe311317-original-inset-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_current_installed_dependency_bindings_v1_20261024.py",
+      "batch": "government-xl-after-tung-on-qe311317-dependency-bindings-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-tung-on-qe311317-patch-scope-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-patch-scope-v1-20261026"
+    },
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-after-tung-on-qe311317-foreign-basic-contacts-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-tung-on-qe311317-model-scope-v1-20261026",
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-patch-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-tung-on-qe311317-attributes-v1-20261026",
+        "--uid",
+        "landsd/311317:0"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-patch-scope-v1-20261026"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Man Hei source-only identity proposal, 10 October 2026.
+
+All 2,286 untouched tower facets (six components: 1,254/166/166/684/8/8) and 10,661 platform facets (93 components) are retained. An unmocked complete original contact replay finds 209 positive-dimensional interfaces. The 33 actual/adverse unit tests reuse the separately byte-bound full contact fixture for repeated geometry-adverse cases; the production producer recomputes the interfaces independently.
+
+The original tower alone covers 94.8074% of the current target, below the unchanged 95% requirement. Only upward original platform MAINBODY0 facets within its primary 32.2–43.4m HKPD span contribute lower-floor identity credit. All 18 higher supplying fixture facets receive zero lower-floor credit. Tower plus these original floors covers 99.97546% current / 99.97567% primary, with genuine 0.184114 / 0.182541m² uncovered strips preserved. This is NOT a complete missing-floor coverage proof. Whole original pair coverage is 98.5679%, extent 1.863m. Both complete unchanged originals are mandatory runtime.
+
+The Housing Authority named H-block typical floor plan (reference, not a survey) and untouched source form establish the narrow named principal-footprint/platform interpretation; no common OP, legal property ownership or structural function is claimed. Current CSDI unique Active CSUID/BuildingID/Tower/Podium/date/GeoRef records and complete original byte/world hashes are explicit. The raw 1.722425m² Man Oi overlap remains; the platform must independently freshly pass its existing named Man Fuk/Man Oi identity. Every other actor remains foreign, and all collision, support, actual terrain, foundation, runtime and browser checks remain independent.
+
+Neon job 364dee598be592a32fd9810ac17879ef27abacdf375bda6c5f06d50719164d87 records a historical source-only proposal: current identity/physics/import approval remain false. Next step is the strict fresh current binding adapter after the atomic installation finishes.
+
+Primary named H plan: https://www.housingauthority.gov.hk/hdw/content/static/file/b5/residential/plans/chunmancourt_bH.pdf . Exact request/response bytes, PDF hash/render/text and provider query records are receipt-bound. No AI building geometry.

@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-sustained-final-acceptance-20261006-190440-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "The Jockey Club Jubilation Hall (Block B) original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-sustained-final-acceptance-20261006-190440-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-190440-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-sustained-final-acceptance-20261006-190440-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "a6aa4fb86981f983b56f37f6d125c58815579a3067eeba955e3558bb45ab21ab"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-190440-0.json": "4b17a180bb5736e209ad524b548b06633c63a2288832e386b84bdb5055eb1cd5",
+    "3d-viewer/city/data/official-models/government-xl-sustained-final-acceptance-20261006-190440-0-installed/catalogue.json": "95f88abd749a6926b4c1d4c2cf464154efec079d5e06fcca8f03e96fec5bc6bc",
+    "3d-viewer/city/data/manifest.json": "6fe7c9c47e63009c12dbe8224e0d26e7e322f96d3dd037281a9e426b418a9def"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "8964198dab2dd4a3134eb45aaf6a84c309fc80b3",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-190440-0.json",
+      "resolution": 5,
+      "area": "The Jockey Club Jubilation Hall (Block B) unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "310ba07ab9969c23eec01c887f9afb0725622a22bb427d13314b1bbd928c16eb",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-NW-21C",
+            "sourceETag": "\"3f15112-63dd05c0e91f7\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-190916-0/sheets/6-NW-21C/terrain/TERRAIN(TB)/T15000300000106E10/T15000300000106E10.bin",
+                "sha256": "acf87087f203d14db4980fcb13c5d1d3e9362e3c4bf734dd4b53fb6956bfebe3"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-190916-0/sheets/6-NW-21C/terrain/TERRAIN(TB)/T15000300000106E10/T15000300000106E10.gltf",
+                "sha256": "00b493ff4aed2f778d6b62e438255aa008584827cce7364d8b69dc6254337649"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "4b17a180bb5736e209ad524b548b06633c63a2288832e386b84bdb5055eb1cd5",
+      "bytes": 1946355
+    }
+  ],
+  "estimatedBases": []
+}

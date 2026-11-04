@@ -1,0 +1,5 @@
+# The Orchards Tower 1 — verified original installation
+
+Codex, 7 October 2026. The Orchards Tower 1 (landsd/254621:0) is installed with unchanged original government geometry. Verified Neon job `8f428b8578924f26bf26a6188ae641f3a0e48032d70afbcefa252505947190bf`, installed snapshot `0fd319fbd6c5fa73`, source hashes `{'landsd/254621:0': '7da323731cb425039e534f404f30ea162fd38e49238e6739f22784622ff650f8'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+47 new XL installations from44/308: **91 installed / 261 not installed**, 53 further installations required. Public counters: 346,108 total source forms, 4,444 enhanced, 4,430 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

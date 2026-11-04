@@ -1,0 +1,1 @@
+Refresh all 7,061 installed actors through the unchanged production source, form, entry and coordinate modules. Reuse only SHA-bound immutable provider POSITION proofs; capture every actual current runtime tuple afresh. Include unused vertices and all four coordinate representations. This is current bounds evidence, not model acceptance, optimisation or geometry editing.

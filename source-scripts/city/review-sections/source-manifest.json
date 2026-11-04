@@ -1,0 +1,37 @@
+{
+  "datasetId": "had_rcd_1634523272907_75218",
+  "title": "District Boundary",
+  "provider": "Home Affairs Department",
+  "landingPage": "https://data.gov.hk/en-data/dataset/hk-had-json1-hong-kong-administrative-boundaries/resource/855f034a-c330-435c-a911-1d63538a6d55",
+  "retrievedDate": "2026-09-07",
+  "crs": "EPSG:2326",
+  "sourceRecordCount": 18,
+  "licence": "Hong Kong Government open-data terms; district data via DATA.GOV.HK/CSDI",
+  "temporalNote": "Current response retrieved on the stated date. Source BEGIN_LIFESPAN is 2016-01-01; the service does not expose a later revision date. Retrieval date is not a claimed survey revision.",
+  "files": [
+    {
+      "path": "sources/service.json",
+      "url": "https://portal.csdi.gov.hk/server/rest/services/common/had_rcd_1634523272907_75218/MapServer?f=pjson",
+      "bytes": 3003,
+      "sha256": "4d9470679b0ec7556ddb9c4b57fbef60a4fb063b00de4656b6ce97a7c48588b5"
+    },
+    {
+      "path": "sources/layer.json",
+      "url": "https://portal.csdi.gov.hk/server/rest/services/common/had_rcd_1634523272907_75218/MapServer/0?f=pjson",
+      "bytes": 5612,
+      "sha256": "358db0484981e16401f3ef76fbae40a55c02c111d5a5f551def01533c0c871f7"
+    },
+    {
+      "path": "sources/districts.json",
+      "url": "https://portal.csdi.gov.hk/server/rest/services/common/had_rcd_1634523272907_75218/MapServer/0/query?f=json&where=1%3D1&outFields=%2A&outSR=2326&returnGeometry=true",
+      "bytes": 700515,
+      "sha256": "db78a66409449135e3e117a9cc037ed8f13313eefd86b6b1dff19e4ca4e5fc8a"
+    },
+    {
+      "path": "sources/ids.json",
+      "url": "https://portal.csdi.gov.hk/server/rest/services/common/had_rcd_1634523272907_75218/MapServer/0/query?f=json&where=1%3D1&returnIdsOnly=true",
+      "bytes": 91,
+      "sha256": "a9ed3eb33cd8a461791d72049d7f053f3a4a069cfde3a72392749350b41850ed"
+    }
+  ]
+}

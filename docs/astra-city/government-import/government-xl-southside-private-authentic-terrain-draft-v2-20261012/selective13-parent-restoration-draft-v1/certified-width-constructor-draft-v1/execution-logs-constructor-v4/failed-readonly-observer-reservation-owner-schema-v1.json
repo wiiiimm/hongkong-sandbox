@@ -1,0 +1,10 @@
+{
+  "actualExitCode": 1,
+  "errorType": "psycopg.errors.UndefinedColumn",
+  "actualToolChunk": "2a86fa",
+  "actualMessage": "column \"owner\" does not exist",
+  "failedSQL": "SELECT resource,token,owner,generation FROM astra_modelling.reservations WHERE resource=ANY(%s)",
+  "groupOwnerAlreadyVerifiedSeparately": true,
+  "noDBWrites": true,
+  "noWorkerChanges": true
+}

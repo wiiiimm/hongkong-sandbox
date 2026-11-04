@@ -1,0 +1,29 @@
+test_bounded_progress_reports_count_only (__main__.ContinuousSurfaceTests.test_bounded_progress_reports_count_only) ... ok
+test_closed_full_edge_touch_stays_in_retained_surface (__main__.ContinuousSurfaceTests.test_closed_full_edge_touch_stays_in_retained_surface) ... ok
+test_closed_point_touch_stays_in_retained_surface (__main__.ContinuousSurfaceTests.test_closed_point_touch_stays_in_retained_surface) ... ok
+test_deterministic_exact_union_oracle_cases (__main__.ContinuousSurfaceTests.test_deterministic_exact_union_oracle_cases) ... ok
+test_duplicates_keep_all_occurrences (__main__.ContinuousSurfaceTests.test_duplicates_keep_all_occurrences) ... ok
+test_flat_float32_plane_still_cannot_certify_closed_packed_coverage (__main__.ContinuousSurfaceTests.test_flat_float32_plane_still_cannot_certify_closed_packed_coverage) ... ok
+test_nested_masks_and_separate_interior_regions (__main__.ContinuousSurfaceTests.test_nested_masks_and_separate_interior_regions) ... ok
+test_non_dyadic_packing_remains_a_separate_obligation (__main__.ContinuousSurfaceTests.test_non_dyadic_packing_remains_a_separate_obligation) ... ok
+test_other_height_layer_never_donates_y (__main__.ContinuousSurfaceTests.test_other_height_layer_never_donates_y) ... ok
+test_partial_overlap_and_first_ownership_are_exact (__main__.ContinuousSurfaceTests.test_partial_overlap_and_first_ownership_are_exact) ... ok
+test_protected_literal_rejection_unchanged (__main__.ContinuousSurfaceTests.test_protected_literal_rejection_unchanged) ... ok
+test_strict_fragment_disjointness_retains_whole_polygon (__main__.ContinuousSurfaceTests.test_strict_fragment_disjointness_retains_whole_polygon) ... ok
+test_vertical_and_zero_are_uncredited_whole (__main__.ContinuousSurfaceTests.test_vertical_and_zero_are_uncredited_whole) ... ok
+test_whole_containment_has_no_outside (__main__.ContinuousSurfaceTests.test_whole_containment_has_no_outside) ... ok
+test_zero_hit_removes_incidental_outside_cuts_without_surface_loss (__main__.ContinuousSurfaceTests.test_zero_hit_removes_incidental_outside_cuts_without_surface_loss) ... FAIL
+
+======================================================================
+FAIL: test_zero_hit_removes_incidental_outside_cuts_without_surface_loss (__main__.ContinuousSurfaceTests.test_zero_hit_removes_incidental_outside_cuts_without_surface_loss)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_polyu_five_mask_positive_hit_partition_v3_draft_20261014.py", line 76, in test_zero_hit_removes_incidental_outside_cuts_without_surface_loss
+    self.assertGreater(len(old['outside']),len(new['outside']));self.assertEqual(1,len(new['outside']))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 not greater than 1
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.761s
+
+FAILED (failures=1)

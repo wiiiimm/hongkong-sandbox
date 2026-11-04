@@ -1,0 +1,40 @@
+{
+  "batch": "government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012",
+  "failedExecutionPTY": 93396,
+  "exitCode": 1,
+  "supervisorReportedReleased": true,
+  "reservationStillOwned": false,
+  "completedJobCreated": false,
+  "freshGeometryCompleted": false,
+  "failureClass": "stale-explicit-production-module-pin-before-geometry",
+  "originalPath": "3d-viewer/city/official-model-assets.js",
+  "expectedSHA256": "d7079fe7d677650f5e1c5038bccd261e084e073fe9180cba33255618197d67ae",
+  "actualSHA256": "414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d",
+  "manifestSHA256": "2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540",
+  "evidenceRefs": [
+    {
+      "path": "docs/astra-city/government-import/government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012/exact-prior-current-tuple-rebind.json",
+      "sha256": "a1fa1eda33b67fac845a6c9f7ead6a7e14649fb1a96a5712ba87eb837edb79d1"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012/input.json.gz",
+      "sha256": "df7d4cc7949760143d6f0b6a0338c83437f25d8f374282cc815dd15d81e6f61e"
+    },
+    {
+      "path": "source-scripts/city/government-import/xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.py",
+      "sha256": "af2a122dab76930d7979f9f130e2510f75aa5846282ace8e2e630d2f766b6a3f"
+    },
+    {
+      "path": "source-scripts/city/government-import/xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.mjs",
+      "sha256": "e45a341c6514af6188fef99dce993969546bc10ea04c0edafa88528445b87dd1"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012/reservation.json",
+      "sha256": "c54dcf836a2f6d6f429d109c77fb1f9bb83b3aace87c6abf04dd8af6f56ff553"
+    }
+  ],
+  "processMatches": "640375 /bin/bash -lc /tmp/astra-city-venv/bin/python - <<'PY' import sys,json,hashlib,subprocess from pathlib import Path base=Path.cwd();s=base/'source-scripts/city/government-import';sys.path.insert(0,str(s));from run import reservations,read b='government-xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012';d=base/'docs/astra-city/government-import'/b;l=s/'local'/b;lease=read(l/'reservation.json');owned=reservations.owns(lease) refs=[] for f in sorted(d.rglob('*')):  if f.is_file():refs.append({'path':str(f.relative_to(base)),'sha256':hashlib.sha256(f.read_bytes()).hexdigest()}) for f in [s/'xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.py',s/'xl-complete-native-actual-position-post-heya-delta-draft-v2-20261012.mjs',l/'reservation.json']:  refs.append({'path':str(f.relative_to(base)),'sha256':hashlib.sha256(f.read_bytes()).hexdigest()}) process=subprocess.run(['pgrep','-af','post-heya-delta-draft-v2'],capture_output=True,text=True) a={'batch':b,'failedExecutionPTY':93396,'exitCode':1,'supervisorReportedReleased':True,'reservationStillOwned':owned,'completedJobCreated':False,'freshGeometryCompleted':False,'failureClass':'stale-explicit-production-module-pin-before-geometry','originalPath':'3d-viewer/city/official-model-assets.js','expectedSHA256':'d7079fe7d677650f5e1c5038bccd261e084e073fe9180cba33255618197d67ae','actualSHA256':'414b69b637ceb8b5804176dc936f659137709618f9f5a44c0066105be979173d','manifestSHA256':hashlib.sha256((base/'3d-viewer/city/data/manifest.json').read_bytes()).hexdigest(),'evidenceRefs':refs,'processMatches':process.stdout,'physicalAccepted':False,'currentAll6649RuntimeBoundsProved':False,'retryExecuted':False} f=d/'failed-explicit-module-pin-audit-v1.json';f.write_text(json.dumps(a,indent=2)+'\\n');print(json.dumps({'audit':str(f.relative_to(base)),'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'reservationStillOwned':owned,'partialFiles':len(refs),'processMatches':process.stdout},indent=2));assert not owned PY\n",
+  "physicalAccepted": false,
+  "currentAll6649RuntimeBoundsProved": false,
+  "retryExecuted": false
+}

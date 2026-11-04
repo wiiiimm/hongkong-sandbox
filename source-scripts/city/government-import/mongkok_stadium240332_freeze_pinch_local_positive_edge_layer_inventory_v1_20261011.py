@@ -1,0 +1,19 @@
+"""DRAFT established immutable freezer for actual first pinch-local layer result."""
+import importlib.util,json
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest,connect
+BATCH='government-xl-mongkok-stadium240332-pinch-local-positive-edge-layer-inventory-v1-20261011'
+DOC=ROOT/'docs/astra-city/government-import'/BATCH
+PRODUCER=HERE/'mongkok_stadium240332_pinch_local_positive_edge_layer_inventory_v1_20261011.py'
+UIDS=['landsd/240332:0','landsd/240527:0']
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def state():
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');return c.execute('SELECT row_to_json(t) FROM astra_modelling.model_reviews t WHERE uid=ANY(%s) ORDER BY uid,snapshot_id',(UIDS,)).fetchall()
+def main():
+ before=state();d=read(DOC/'diagnostic.json.gz');assert not(DOC/'result.json').exists()and d['sourceOnly']and not d['currentAcceptance']and not d['terrainProposalCreated']and not d['apronTriangulationCreated'];assert d['additionalPositiveEdgeLayer']==1 and d['maximumAdditionalLayersPermittedByThisMethod']==2 and d['completeOriginalCoreRingFaces']==151;assert d['allExpandedActorRegressionsStillRequired'];assert len(d['allExpandedActualWholeFacets'])==d['completeExpandedDomainFaces']==151+len(d['allAddedWholeCurrentFacets']);assert len(d['exactPinchLocalSelection']['completeSelectedRetainedFaces'])==len(d['allAddedWholeCurrentFacets'])
+ spec=importlib.util.spec_from_file_location('reviewed_source_freezer',HERE/'parkview_block17_freeze_current_source_evidence_20261011.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);paths={DOC/'diagnostic.json.gz'};m.local_imports(PRODUCER,paths);m.local_imports(Path(__file__),paths);m.declared_refs(d,paths)
+ summary=dict(additionalLayer=1,maxAdditionalLayers=2,addedWholeFacets=len(d['allAddedWholeCurrentFacets']),expandedFaces=d['completeExpandedDomainFaces'],remainingCoincidentInnerOuterAnchors=len(d['allRemainingCoincidentSourceOuterAnchors']),remainingIncompatibleAnchors=len(d['incompatibleRemainingAnchors']),newOuterHeightConflicts=len(d['allNewOuterHeightConflicts']),projectedTopologyQualified=d['projectedTopologyQualifiedIgnoringPreservedExistingHeightCracks'],expandedNeighbourAndActorCaptureRequired=d['newExpandedNeighbourAndActorCaptureRequired'])
+ note='First deterministic pinch-local positive-edge layer: '+json.dumps(summary)+'. Exact whole original actual facets selected only across positive opposite boundary intervals containing proved incompatible authentic-inner/current-outer pinch nodes. Point-only/same-side/nonincident neighbours excluded. All source/current gaps and existing current internal layer cracks retained; generated replacement must prove own exact/F32 internal and outer seams. At most two additional local layers allowed by this method; expanded complete current neighbour/actor captures required beyond existing pinned bounds. No generated apron/candidate, original building/pose/source height changes, threshold waiver, current acceptance or installed credit. All original15456/14body/15zero, identity/foreign/current783/authenticordinaryPASS and protected240527 obligations remain.'
+ (DOC/'REVIEW.md').write_text('# Stadium first pinch-local layer source context\n\n'+note+'\n');save(DOC/'review.json',dict(uids=UIDS,sourceOnly=True,currentAcceptance=False,installationApproved=False,terrainProposalCreated=False,geometryChanges=0,summary=summary,finding=note,evidenceRefs=[ref(p)for p in sorted(paths)]));paths.update([DOC/'REVIEW.md',DOC/'review.json']);m.F.freeze(BATCH,'pinch-local-positive-edge-layer-source-context-no-apron-candidate',sorted(paths),dict(uids=UIDS,sourceOnly=True,currentAcceptance=False,installationApproved=False,sourceGeometryChanges=0,terrainGeometryChanges=0,qualification=note));assert state()==before;print(json.dumps(dict(jobId=read(DOC/'result.json')['jobId'],reviewStateUnchanged=True)))
+if __name__=='__main__':main()

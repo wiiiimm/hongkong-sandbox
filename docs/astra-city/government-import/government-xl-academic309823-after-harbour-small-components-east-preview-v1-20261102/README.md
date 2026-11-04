@@ -1,0 +1,2 @@
+Producer syntax error before execution or lease claim. Preserved as code failure, not government source corruption. V2 corrects the with-statement syntax; no geometry or acceptance changes.
+The exact failed producer is preserved in failed-producer.py.txt (original path source-scripts/city/government-import/hkust_small_component_east_preview_v1_20261102.py), SHA-256 8dc173d72c7f92eff147f7fd12add9bf88e863f454f24d27185fc2309ec4fa7e. It is archived outside executable Python discovery.

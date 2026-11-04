@@ -1,0 +1,13 @@
+{
+  "incident": "Initial individualised source-directory scan assumed classic ZIP offsets; 10-SW-22C uses ZIP64. The uint32 sentinel offset requested an unnecessary archive range before the format check failed.",
+  "sheet": "10-SW-22C",
+  "sourceArchiveBytes": 4559460616,
+  "failedRange": "4294967295-4559395079",
+  "unnecessaryRangeBytes": 264427785,
+  "failedAttemptTailBytes": 65536,
+  "discarded": true,
+  "assetsImportedFromFailedRange": false,
+  "retry": "One old-code retry was cancelled while awaiting response headers; no body was read. A separate 65,536-byte diagnostic tail was read.",
+  "fix": "Parse ZIP64 EOCD offsets before requesting any prefix. Both directory sizes and HTTP Content-Length are capped at 4 MiB before reads. Parse original directory records without rewriting source bytes.",
+  "trafficNote": "Successful range totals exclude this failed transfer; report the incident separately. No claim that only a couple of MB were transferred in the entire investigation."
+}

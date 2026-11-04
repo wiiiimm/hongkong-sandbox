@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/esplanade_exact_warning_applicability_review_v1_20261015.py", line 33, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/esplanade_exact_warning_applicability_review_v1_20261015.py", line 26, in main
+    p=BASE/name/(mode+'.json.gz');d=read(p);assert d['completeTowerFaces']==23998 and d['completePodiumFaces']==1476 and len(d['failures'])==21 and all(x['exactSharedEdgePathsToPositivePodiumContact']for x in d['failures']);assert all(x['dimension']>0 for x in d['rawExactContacts']['contacts']if x['sourceFaceA']in d['positiveContactRoots']);tower.append(dict(mode=mode,failures=d['failures'],positiveContactRoots=d['positiveContactRoots']));refs[str(p.relative_to(ROOT))]=digest(p.read_bytes())
+                                                                                                                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,23 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-two-TIN-clamp-lowrim-context-v1-20261014-proposal/before-matching-nan-comparison-fix/heritage165054_two_tin_clamp_lowrim_context_v1_20261014.py
++++ source-scripts/city/government-import/heritage165054_two_tin_clamp_lowrim_context_v1_20261014.py
+@@ -25,6 +25,11 @@
+             count=math.ceil(np.linalg.norm((a-b)[[0,2]]))
+             if count>1: tags += [dict(kind='existing-low-rim-edge-sample',originalFaceIDs=[f],edge=edge,edgeNumerator=i,edgeDenominator=count) for i in range(1,count)]
+     return tags
++
++def same_source_height_samples(left,right,np):
++    # Missing NaN entries can be compared without dropping their witness rows.
++    # Exact finite values and signed infinities retain NumPy equality semantics.
++    return np.array_equal(left,right,equal_nan=True)
+ 
+ def resources(actors):
+     from run import reservations
+@@ -72,7 +77,7 @@
+     old_low=points[:,1]<=bottom+.35; assert int(old_low.sum())==16875
+     def evaluate(triangles):
+         polys=shapely.polygons(triangles[:,:,[0,2]]); usable=shapely.area(polys)>1e-12; tri=triangles[usable]; return resolution.context.shared.samples(points[:,[0,2]],tri,shapely.STRtree(polys[usable]))
+-    nh=evaluate(nt); both=evaluate(whole); scoped=evaluate(whole[keep]); assert np.array_equal(both,scoped),'Whole-source projection is not equivalent to closed parent-domain facet selection'
++    nh=evaluate(nt); both=evaluate(whole); scoped=evaluate(whole[keep]); assert same_source_height_samples(both,scoped,np),'Whole-source projection is not equivalent to closed parent-domain facet selection'
+     ncovered=np.isfinite(nh); assert int(ncovered.sum())==29877 and float((points[ncovered,1]-nh[ncovered]).min())==read(north.DOC/'source-tin-point-diagnostic.json')['audit']['gapRange'][0]
+     covered=np.isfinite(both); gaps=np.where(covered,points[:,1]-both,np.inf); bad=covered&(gaps<-.5); missing=~covered
+     valid=shapely.area(shapely.polygons(whole[:,:,[0,2]]))>1e-12; supportIDs=np.flatnonzero(valid); supportTree=shapely.STRtree(shapely.polygons(whole[valid][:,:,[0,2]])); witnesses=[]

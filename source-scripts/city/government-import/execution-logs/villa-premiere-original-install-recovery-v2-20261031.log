@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py", line 315, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py", line 299, in main
+    return owned()
+           ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py", line 182, in owned
+    call(command + ['--apply'], 'publisher-apply')
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py", line 121, in call
+    assert process.returncode == 0, name + ' failed; see saved log'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: publisher-apply failed; see saved log
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py", line 315, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py", line 307, in main
+    subprocess.run([sys.executable, str(HERE / 'bounded_reserved_runner_v2_20261022.py'), str(LEASE),
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_reserved_runner_v2_20261022.py', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-villa-premiere89917-five-original-installed-v2-20261031/reservation.json', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_premiere_live_install_v2_20261031.py', '--owned']' returned non-zero exit status 1.

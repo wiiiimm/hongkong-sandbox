@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v3-20261013.py", line 120, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v3-20261013.py", line 116, in main
+    s=preflight()
+      ^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v3-20261013.py", line 52, in preflight
+    assert r['currentForm']==inp['currentAllNativeSourceForms'][u]and digest(json.dumps(r['currentForm'],sort_keys=True,separators=(',',':')).encode())==b['currentViewerFormSHA256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

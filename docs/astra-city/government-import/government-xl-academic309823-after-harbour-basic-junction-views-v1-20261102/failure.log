@@ -1,0 +1,20 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.086}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_basic_junction_views_v1_20261102.py", line 118, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_basic_junction_views_v1_20261102.py", line 76, in main
+    points = np.asarray([[float(v) for v in q] for c in raw['contacts'] for q in c['exactPoints']])
+                          ^^^^^^^^
+ValueError: could not convert string to float: '1359819/128'
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.103}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/north_pair_nonwall_topology_v1_20261027.py", line 28, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

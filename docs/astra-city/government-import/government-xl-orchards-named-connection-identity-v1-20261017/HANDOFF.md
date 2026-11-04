@@ -1,0 +1,9 @@
+# Orchards Tower 2 identity resolved; physical work pending
+
+Original source 132aa978… / 11,517 faces remains unchanged. Current exact ownership/whole-cell identity replay failed only the two 10m footprint-extent reasons. ROOT inspected the exact original lower-pair export and the architect's photographs. The long elevated connection on columns spans the two original towers; the measured closest endpoint vertex is about 1mm from the original Tower1 surface. This distance is diagnostic, not support credit.
+
+The source-specific interpreter gives only the 239 exact original faces responsible for the far extension a named connection role. Complete original world hash is fixed. Their entire projection is contained by the current same-parent podium and their heights remain below tower base. Every other face retains the unchanged 10m limit. Full original coverage, foreign-form and exact GeoRef proofs remain in the raw identity record. Five negative cases reject altered source hash, geometry, role IDs, parent and extra failure.
+
+Neon c6135328… records identity-only acceptance, not a model installation or publication approval. No catalogue flags changed. Next integrate this explicit identity adapter with the existing original-terrain continuation, ensuring every precheck/contact/publication recheck uses the same current-bound proof without recursive monkeypatching. Complete support, foundation, affected current actors across the entire changed coarse terrain extent, runtime and browser gates remain mandatory. Tower1 is already installed and must retain its source/terrain behaviour.
+
+The executed replay was in /tmp; the tracked replay file is a verified byte-identical copy, recorded separately in runner-provenance.json without altering the immutable Neon receipt. No worker remains running. FixedXL is still253 installed/268remaining/521. This advances one identity hold, not terminal disposition or install credit.

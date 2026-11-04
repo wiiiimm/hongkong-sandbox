@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py", line 279, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py", line 274, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py", line 134, in owned
+    core=protected_core(allbounds,DOMAIN);DOC.mkdir(parents=True);selection=read(PRIOR/'whole-current-facet-protection-nominations.json.gz');current_attribution=source_attribution(current,attribution['rows'][0]['completeAttributedSources']);native_selected,base_selected=native_whole_selection(selection,current_attribution,inp['retainedParent']['path']);assert len(native_selected)==69 and [q['currentFace']for q in base_selected]==[12,18]and not selection['wholeFacetOutsideCapturedDomainHolds'];selected={q['currentFace']:q for q in native_selected};errors=domain_errors(DOMAIN);protected=[];envelopes=[];masks=[];mask_keys={}
+                                                                                                                                                                                                                                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py", line 279, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py", line 278, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-upton-two-original-complete-mask-current-nam-enclosure-v5-20261013/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_two_original_complete_mask_current_nam_enclosure_draft_v5_20261013.py', '--owned']' returned non-zero exit status 1.

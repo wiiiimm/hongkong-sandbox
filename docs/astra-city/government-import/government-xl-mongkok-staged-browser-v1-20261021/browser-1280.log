@@ -1,0 +1,18 @@
+staged 1280 initialising
+staged 1280 map ready
+staged 1280 retained asset requested
+staged 1280 retained asset response 200
+staged 1280 landsd/240527:0 retained original bytes cached
+staged 1280 landsd/240527:0 retained original active through visit
+staged 1280 landsd/240332:0 selecting
+ILLUMINATION_DIAGNOSTIC {"at":40279,"selected":"landsd/240332:0","running":[],"loading":[],"decodedDrawCosts":["landsd/240527:0","landsd/240332:0"],"activating":[],"detailed":[{"uid":"landsd/240527:0","active":true},{"uid":"landsd/240332:0","active":true}],"stats":{"profile":"desktop","quality":"auto","catalogues":10,"available":2041,"cached":2,"visible":2,"pending":0,"loadingPaused":false,"retiring":0,"wanted":2,"supportHolds":[],"errors":[],"variantErrors":[],"geometryBytes":4081146,"residentBytes":15820248,"triangles":40051,"limits":{"count":48,"concurrency":1,"geometryBytes":100663296,"residentBytes":268435456,"triangles":900000,"landmarkDistance":2500,"detailDistance":500,"minPixels":18,"drawCalls":256},"warm":0,"compressed":{"bytes":1179058,"entries":2,"pending":0,"running":0,"hits":1,"requests":2,"maxBytes":33554432,"maxEntries":96},"drawCalls":2}}
+ILLUMINATION_DIAGNOSTIC {"at":132380.5,"selected":"landsd/240332:0","running":[],"loading":[],"decodedDrawCosts":["landsd/240527:0","landsd/240332:0"],"activating":[],"detailed":[{"uid":"landsd/240527:0","active":true},{"uid":"landsd/240332:0","active":true}],"stats":{"profile":"desktop","quality":"auto","catalogues":35,"available":2412,"cached":2,"visible":2,"pending":1,"loadingPaused":false,"retiring":0,"wanted":2,"supportHolds":[],"errors":[],"variantErrors":[],"geometryBytes":4081146,"residentBytes":15820248,"triangles":40051,"limits":{"count":48,"concurrency":1,"geometryBytes":100663296,"residentBytes":268435456,"triangles":900000,"landmarkDistance":2500,"detailDistance":500,"minPixels":18,"drawCalls":256},"warm":0,"compressed":{"bytes":1179058,"entries":2,"pending":0,"running":0,"hits":1,"requests":2,"maxBytes":33554432,"maxEntries":96},"drawCalls":2}}
+staged 1280 landsd/240332:0 active
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/illumination_mobile_base_ready_v1_20261021.mjs:64
+   for(const witness of joint){const expected=catalogue.models.find(m=>m.uid===witness.uid);assert(witness.active&&witness.visible);assert.equal(witness.sourceSHA256,expected.sha256);assert.equal(witness.originalTriangles,expected.triangles);assert.equal(witness.fallbackFaces,0);}
+                                                                                                                                                                               ^
+
+TypeError: Cannot read properties of undefined (reading 'sha256')
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/illumination_mobile_base_ready_v1_20261021.mjs:64:176
+
+Node.js v24.18.0

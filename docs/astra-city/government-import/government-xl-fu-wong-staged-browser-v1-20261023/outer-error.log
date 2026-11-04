@@ -1,0 +1,26 @@
+{"sourceFormAdapterPassed":true,"models":1,"dependencyFirstOrder":["landsd/50662:0"]}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_staged_browser_v3.py", line 135, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_staged_browser_v3.py", line 123, in main
+    assert proc.returncode == 0 and read(doc / str(width) / 'staged-browser.json')['passed']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_staged_browser_v3.py", line 135, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_staged_browser_v3.py", line 63, in main
+    subprocess.run([sys.executable, str(HERE / 'harbourfront_reserved_runner_v1_20261021.py'), str(leasepath), sys.executable, __file__, *sys.argv[1:], '--owned'], cwd=ROOT, check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/harbourfront_reserved_runner_v1_20261021.py', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-fu-wong-staged-browser-v1-20261023/reservation.json', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_staged_browser_v3.py', '--batch', 'government-xl-fu-wong-staged-browser-v1-20261023', '--runtime', 'government-xl-fu-wong-current-checks-v1-20261023-runtime', '--patch', 'government-xl-fu-wong-retained-current-v1-20261023', '--review', 'government-xl-fu-wong-retained-physical-review-v1-20261023', '--capture-direction', '-0.0', '1.8', '-1.0', '--retain-native', 'landsd/120158:0', '--retain-native', 'landsd/147589:0', '--retain-native', 'landsd/161931:0', '--retain-native', 'landsd/244683:0', '--retain-native', 'landsd/262871:0', '--retain-native', 'landsd/282088:0', '--retain-native', 'landsd/51275:0', '--retain-native', 'landsd/51764:0', '--owned']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '-u', 'source-scripts/city/government-import/selected_original_retained_staged_browser_v3.py', '--batch', 'government-xl-fu-wong-staged-browser-v1-20261023', '--runtime', 'government-xl-fu-wong-current-checks-v1-20261023-runtime', '--patch', 'government-xl-fu-wong-retained-current-v1-20261023', '--review', 'government-xl-fu-wong-retained-physical-review-v1-20261023', '--capture-direction', '-0.0', '1.8', '-1.0', '--retain-native', 'landsd/120158:0', '--retain-native', 'landsd/147589:0', '--retain-native', 'landsd/161931:0', '--retain-native', 'landsd/244683:0', '--retain-native', 'landsd/262871:0', '--retain-native', 'landsd/282088:0', '--retain-native', 'landsd/51275:0', '--retain-native', 'landsd/51764:0']' returned non-zero exit status 1.

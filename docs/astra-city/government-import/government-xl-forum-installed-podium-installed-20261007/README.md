@@ -1,0 +1,5 @@
+# The Forum — verified original installation
+
+Codex, 7 October 2026. The Forum (landsd/319459:0) is installed with unchanged original government geometry. Verified Neon job `6eb632a867997b9c596dcd4c920b235bcc1660dca0cde57211a9bdb8c9aee587`, installed snapshot `8c41b28fa2a15b00`, source hashes `{'landsd/319459:0': 'f09c39e8d357518c898110d6d9b737f98ec87020a87de336559d1c4cc0b83f8a'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+40 new XL installations from44/308: **84 installed / 268 not installed**, 60 further installations required. Public counters: 346,108 total source forms, 4,436 enhanced, 4,422 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

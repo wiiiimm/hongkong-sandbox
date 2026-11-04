@@ -1,0 +1,1 @@
+ROOT review blocked execution before any worker: float(rational-string) fails. Old preparation logs prove only read-only schema, not owned code execution. Corrected exact Fraction parsing and explicit missing protection-declaration context are required. No production worker/DB/lease ran. Superseded pins/logs are preserved here.

@@ -1,0 +1,3 @@
+# WEST9ZONE fresh complete physical proof
+
+Codex · HKS-203. Three unchanged native originals pass complete current identity, source/terrain contact, tower/podium foundation, runtime mobile budgets and all19 basic/native neighbour checks. Existing229310 is retained and fully checked with no newly buried faces. Numeric terrain-only gaps for the two towers resolve solely through actual complete original-support interfaces and compound foundations, with all raw diagnostics retained. No source/pose edits, threshold changes or publication here. Verified Neon `03037722b91a794f9ebda5bca5c59c307adfbd84a6dcbe930a7b3de2a277df3b`. Follow through to the adjacent installed receipt; do not rerun unchanged physical evidence.

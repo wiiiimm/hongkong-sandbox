@@ -1,0 +1,68 @@
+{
+  "batch": "government-xl-after-tung-on-qe311317-retained-regression-sequence-v1-20261026",
+  "uids": [
+    "landsd/311317:0"
+  ],
+  "resources": [
+    "building:landsd/311317:0",
+    "building:landsd/266063:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-266063-0.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_full_native_replacement_binding_v2_20261026.py",
+      "batch": "government-xl-after-tung-on-qe311317-retained-replacement-binding-v1-20261026",
+      "args": [
+        "--patch",
+        "government-xl-after-tung-on-qe311317-retained-original-inset-v2-20261026",
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-retained-runtime-v1-20261026",
+        "--scope",
+        "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_retained_native_neighbours_v8_20261024.py",
+      "batch": "government-xl-after-tung-on-qe311317-retained-neighbours-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026",
+        "--inventory",
+        "government-xl-after-tung-on-current-inventory-v1-20261026",
+        "--patch",
+        "government-xl-after-tung-on-qe311317-retained-replacement-binding-v1-20261026",
+        "--bindings",
+        "government-xl-after-tung-on-qe311317-retained-dependency-bindings-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-tung-on-qe311317-retained-foundations-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-retained-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-tung-on-qe311317-attributes-v1-20261026",
+        "--uid",
+        "landsd/311317:0"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v1_20261024.py",
+      "batch": "government-xl-after-tung-on-qe311317-retained-low-faces-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-retained-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-tung-on-qe311317-attributes-v1-20261026",
+        "--uid",
+        "landsd/311317:0"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    }
+  ]
+}

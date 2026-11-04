@@ -1,0 +1,29 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.113}
+{'batch': 'government-xl-one-peking-after-twin-three-member-retention-v1-20261101', 'jobId': '3aaca8ed01a5b2770270d6dd6dc28badefd95074f046376439cb36590ba894cd', 'neonVerified': True}
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.204}
+{
+  "ok": true,
+  "exitCode": 0,
+  "released": true
+}
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.127}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/one_peking_three_member_foundations_v1_20261101.py", line 26, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/one_peking_three_member_foundations_v1_20261101.py", line 18, in main
+    batch=P+'three-member-original-return-v2-20261101';summary=take(batch,BASE/batch/'summary.json');assert summary['allFiniteSeamsPassed'];ground=np.concatenate([drawn(take(batch,ROOT[m['candidate']['path']]))for m in summary['members'].values()]);selection=take(P+'runtime-v1-20261101',BASE/(P+'runtime-v1-20261101')/'selection.json.gz');attrs=take(P+'attributes-v1-20261101',BASE/(P+'attributes-v1-20261101')/'attributes.json.gz');assert attrs['startEndAllInputsVerified'];results=[];final=module('one_peking_private_foundation',HERE/'xl-final-script-pass.py')
+                                                                                                                                                                                    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'PosixPath' object is not subscriptable
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.199}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "<stdin>", line 12, in <module>
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/north_pair_nonwall_topology_v1_20261027.py", line 28, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

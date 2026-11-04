@@ -1,0 +1,5 @@
+# Draft narrow original stand-end identity interpretation
+
+The complete original geometry and independently viewed LCSD AnnexB provide a credible correspondence between the low southwest stand-end projection and the depicted projecting stepped feature at the west end of the South Stand. This supports reviewing a source-specific architectural identity interpretation for exactly62 original far facets inbody0. It does not determine stairs/ramp function, metric as-built position or elevation, support/grade, or all350.641m2 outside footprint. No geometry, placement, threshold or runtime decision is changed.
+
+All13 other sourcebody obligations and body3/lower11–13 outside surfaces remain independent. The proposal is not a typed acceptance certificate; root source review, original14body contacts, and full fresh physical/current fourstreams/actualground/foreign/native/runtime evidence are still required. If source/diagram correspondence is inadequate, a georeferenced owner/as-built stand-end survey or uniquely bound feature drawing is the specific missing input; no generic footprint expansion or repeat failed section method is proposed.

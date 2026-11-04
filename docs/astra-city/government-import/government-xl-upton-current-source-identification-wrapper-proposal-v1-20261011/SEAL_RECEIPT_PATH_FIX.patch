@@ -1,0 +1,13 @@
+--- source-scripts/city/government-import/upton_primary_source_identification_exact_seal_draft_v1_20261011.py
++++ source-scripts/city/government-import/upton_primary_source_identification_exact_seal_draft_v1_20261011.py
+@@ -17,7 +17,9 @@
+  target=B/BATCH/'primary-source-identification-exact-seal.json';assert not target.exists()
+  jobs=[];bindings={}
+  for batch in PRIOR+[BATCH]:
+-  file=B/batch/'result.json';r=read(file)
++  file=(B/'government-xl-upton-podium12728-12662-frozen-json-key-readback-recovery-v1-20261011/original-completed-neon-result.json') if batch=='government-xl-upton-podium12728-12662-complete-original-foreign-conflict-attribution-v1-20261011' else B/batch/'result.json'
++  if batch=='government-xl-upton-podium12728-12662-complete-original-foreign-conflict-attribution-v1-20261011':assert digest(file.read_bytes())=='1196afcc96fa85da9fca857bcf19d9335966d34c15541d5194f36a1dc4460604'
++  r=read(file)
+   with connect()as c:
+    c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+   for e in r['evidenceRefs']:

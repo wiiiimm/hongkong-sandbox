@@ -1,0 +1,43 @@
+{
+  "batch": "government-xl-parkview256319-compound-context-v1-20261104",
+  "workers": 2,
+  "uids": [
+    "landsd/256319:0"
+  ],
+  "runtime": "government-xl-parkview256319-after-tung-cheong-v1-20261104-runtime",
+  "attributes": "government-xl-parkview256319-after-tung-cheong-v1-20261104-attributes",
+  "supportChecks": "government-xl-parkview256319-installed-support-sequence-v1-20261104-strict-support",
+  "resources": [
+    "building:landsd/256319:0",
+    "building:landsd/254491:0",
+    "building:landsd/256116:0",
+    "terrain:city/data/terrain.json",
+    "immutable-source-proof:government-xl-parkview256319-compound-context-v1-20261104"
+  ],
+  "phases": [
+    {
+      "batch": "government-xl-parkview256319-compound-context-v1-20261104-clearance",
+      "script": "installed_support_complete_compound_clearance_v1_20261024.py",
+      "args": [
+        "--runtime",
+        "government-xl-parkview256319-after-tung-cheong-v1-20261104-runtime",
+        "--attributes",
+        "government-xl-parkview256319-after-tung-cheong-v1-20261104-attributes",
+        "--uid",
+        "landsd/256319:0",
+        "--support-checks",
+        "government-xl-parkview256319-installed-support-sequence-v1-20261104-strict-support"
+      ]
+    },
+    {
+      "batch": "government-xl-parkview256319-compound-context-v1-20261104-buried",
+      "script": "installed_support_buried_face_context_v1_20261024.py",
+      "args": [
+        "--runtime",
+        "government-xl-parkview256319-after-tung-cheong-v1-20261104-runtime",
+        "--support-checks",
+        "government-xl-parkview256319-installed-support-sequence-v1-20261104-strict-support"
+      ]
+    }
+  ]
+}

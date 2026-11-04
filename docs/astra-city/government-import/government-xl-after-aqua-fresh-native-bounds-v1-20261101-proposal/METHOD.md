@@ -1,0 +1,1 @@
+Fresh production-loader bounds for all7068current actors after verified Aqua installation. Reuse only identical immutable provider POSITION proofs. No scene mutation, support approval, geometry edits or optimisation. Bind current manifest/modules/catalogues/forms/source bytes.

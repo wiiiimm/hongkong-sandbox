@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/depot120104_land_inset_construction_v1_20261029.py", line 122, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/depot120104_land_inset_construction_v1_20261029.py", line 74, in main
+    low = bind(baseline, outer)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/unchanged_low_parent_faces_v1_20261024.py", line 16, in bind
+    assert shapely.MultiPoint(values[i][:, [0, 2]]).convex_hull.disjoint(edit), 'Existing below-clamp face touches the proposed edit region'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Existing below-clamp face touches the proposed edit region

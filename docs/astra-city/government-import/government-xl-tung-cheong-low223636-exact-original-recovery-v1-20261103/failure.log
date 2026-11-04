@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tung_cheong_low_component_original_recovery_v1_20261103.py", line 55, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tung_cheong_low_component_original_recovery_v1_20261103.py", line 39, in main
+    info=z.getinfo(model['sourceEntry'])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1545, in getinfo
+    raise KeyError(
+KeyError: "There is no item named 'BUILDING/B339081144201063C0/B339081144201063C0.gltf' in the archive"
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": false, "exitCode": 1, "released": true}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tung_cheong_low_component_original_recovery_v1_20261103.py", line 55, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tung_cheong_low_component_original_recovery_v1_20261103.py", line 24, in main
+    return execute_reserved(c['reservation'],lp,[sys.executable,__file__,'--owned'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v4_20261103.py", line 55, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

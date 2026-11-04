@@ -1,0 +1,5 @@
+Root independently verified 9,014 frozen reference versions, 668 paths and 193,990,568 bytes. Numerical/source/terrain/kernel dependencies are recursive; inherited previously reviewed metadata leaves remain metadata only. One exact historical manifest supplies old source evidence, never current physical approval.
+
+Root fully read the current four-stream bounded carrier route and role adapters v1/v2, source-bound roof-unit kernel and all relevant source/foundation/foreign/native checks. Root independently passed the roof-unit16 actual/adverse tests and actual model-matrix6 arithmetic tests. Current support uses only wall60989→exposed edge→clearcap57951→ownedface0, followed by80 independently supported owned bodies; unit324 is visual only, with unchanged open/nonmanifold negatives. No entire native170 body or unsafe legacy face is credited.
+
+Root staging replays all numerical predicates against the frozen current manifest and original bytes. Stage/live browsers and final installed receipt remain required. Source geometry, source pose and four existing native acceptance flags remain unchanged. Author: Codex; HKS-203.

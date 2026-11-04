@@ -1,0 +1,62 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-apex227942-qualified-stage-v1-20261018/plan.json",
+  "areas": [
+    {
+      "area": "The Apex unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-apex227942-qualified-stage-v1-20261018/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-regional-apex-original-v1-20261018.json": null,
+    "3d-viewer/city/data/official-models/government-xl-apex227942-qualified-stage-v1-20261018/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "771d8fcf9c3ba8533b6b2ec05abaf372c4c9abb27f7774563f3b1b6fe4ef112c"
+  },
+  "after": {
+    "3d-viewer/city/data/government-regional-apex-original-v1-20261018.json": "6f78e5caa90f2df2195fd1f5a07f7633e89bb24f86d51e8472d164cb84b97491",
+    "3d-viewer/city/data/official-models/government-xl-apex227942-qualified-stage-v1-20261018/catalogue.json": "9d791fbcaccb39a564fe34009c3184d6d1dd15ffa6c1c115b95904af45b08a1c",
+    "3d-viewer/city/data/manifest.json": "dcc4a6b6c6bf931861e1f1bea346ed237f5706cbc833623fad3a87811f363f7e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "029140f6816fcbb8ba7a249eb02f7bbd6b518a6e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-regional-ets-original-v1-20261015.json",
+      "sha256": "dffd0f49d426676a7e7d0dee4efab7895838a21149910a68fe1d1948327ab78b",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-regional-apex-original-v1-20261018.json",
+      "resolution": 5,
+      "area": "The Apex original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "nativeCellSize": 5,
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ.",
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6f78e5caa90f2df2195fd1f5a07f7633e89bb24f86d51e8472d164cb84b97491",
+      "bytes": 24825354
+    }
+  ],
+  "estimatedBases": []
+}

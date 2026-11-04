@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-04",
+  "executor": "Astra, medium reasoning",
+  "base": "4bf9293b2c20daffe3568e99a60cc737b29e483d",
+  "runtimeHead": "fe8165b93d053ea738d867f629570a855f99c846",
+  "branch": "codex/hks-229-canvas-streaming",
+  "unitTests": {
+    "command": "node --test 3d-viewer/city/tests/*.test.js",
+    "passed": 303,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "durationMs": 37862.937223
+  },
+  "syntax": {
+    "command": "node --check for all changed JS/MJS files",
+    "files": 23,
+    "result": "pass"
+  },
+  "whitespace": {
+    "command": "git diff --check 4bf9293b",
+    "result": "pass"
+  },
+  "lintAndTypes": "No ESLint/TypeScript configuration or lint/type-check scripts exist in this static JS city package. No type-check claim.",
+  "publication": "Local commits only; no push/PR/deploy due automatic Vercel preview integration.",
+  "performanceAcceptance": "NOT PASSED / UNVERIFIED: corrected AB/BA cloud frame differences change sign; no general speedup established. Full-scene SwiftShader routes timed out; physical phone/integrated-laptop/desktop gates unverified.",
+  "browser": {
+    "correctedSerialRuns": [
+      "browser-fixture-baseline-ab.json",
+      "browser-correctness-ab.json",
+      "browser-correctness-ba.json",
+      "browser-fixture-baseline-ba.json"
+    ],
+    "viewportsPerRun": 8,
+    "dprActuallyAsserted": true,
+    "errors": 0,
+    "sourceTransfersPerRun": 2,
+    "workerBufferParity": true,
+    "pickingCollisionSupport": true,
+    "highQualityBuffer": [
+      6720,
+      3780
+    ],
+    "embedded": [
+      480,
+      320
+    ]
+  }
+}

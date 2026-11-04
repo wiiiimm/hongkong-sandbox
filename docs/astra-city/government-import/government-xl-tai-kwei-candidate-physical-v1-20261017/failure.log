@@ -1,0 +1,11 @@
+{"models":1,"errors":0,"groundContact":1}
+{"forms":66,"flagged":0,"clearPatches":1,"clearModels":1}
+{"blocked":2,"resolved":2,"rows":[{"uid":"landsd/160193:0","passed":true,"newlyBuried":0,"support":0},{"uid":"landsd/147024:0","passed":true,"newlyBuried":0,"support":0}]}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tai_kwei_candidate_physical_v1_20261017.py", line 33, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tai_kwei_candidate_physical_v1_20261017.py", line 24, in main
+    native=read(DOC/'native-neighbour-checks.json');scope=BASE/'government-xl-tai-kwei-current-native-scope-v1-20261017/scope.json';assert sorted(r['uid']for r in native['rows'])==read(scope)['touchingNativeUids'];assert read(scope)['changedParentExtent']==candidates[0]['bounds'];refs.append(scope)
+                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

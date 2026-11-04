@@ -1,0 +1,3 @@
+# Completed 196 exact recorded-height diagnostics
+
+All 196 geometry records are complete. The original final DB sync failed after computation because tuple-based conversion was called with dict rows. The verified recovery is ../government-xl-source-sections-196-sync-20261006/result.json and job `4c643c711032f039678a2dbec2ac87faceab58af1e571cd8ea50f32ba72a48fa`; the failed original job and its exact evidence remain auditable. No source geometry was recomputed. The dated original runner is retained unchanged for evidence hashes; use the explicit recovery runner for this failure, not a repeated diagnostic run. A section fitting never clears the full-source identity/terrain/runtime gates.

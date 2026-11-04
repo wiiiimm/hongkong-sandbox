@@ -1,0 +1,62 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-south-hillcrest-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "South Hillcrest Garden original government assembly",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-south-hillcrest-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-south-hillcrest-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-south-hillcrest-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "2e543adba825fd27a98976413706d12b6a2b3c386201829a86056532ff60f9be"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-south-hillcrest-original-v1-20261022.json": "f7bf66d8bd5e6b3adbb60fa3fdf5fe1780a973bdf636011d729dced72d3ba1c4",
+    "3d-viewer/city/data/official-models/government-xl-south-hillcrest-qualified-stage-v1-20261022/catalogue.json": "66125f5b65f41c9c9c6cfe8695c1d4d3ffbc3ff9d851ad37c86eb880138a3299",
+    "3d-viewer/city/data/manifest.json": "9572057ecec59fd182f4a9b1cc24297a034f9aa45ff223ab6e479ad2ac21b262"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "3db37cc885457572bc4dcc430a624d3a3d257307",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-south-hillcrest-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "South Hillcrest Garden original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-siu-hong-adjoining-ground-v1-20261021/sheets/6-NW-21D/terrain/TERRAIN(TB)/T15750300000106E10/T15750300000106E10.gltf",
+            "sha256": "66dc69aee69e98f406a572fb473c3123485a3322566e07ac60d57c04a6a3d24b"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "f7bf66d8bd5e6b3adbb60fa3fdf5fe1780a973bdf636011d729dced72d3ba1c4",
+      "bytes": 1718504
+    }
+  ],
+  "estimatedBases": []
+}

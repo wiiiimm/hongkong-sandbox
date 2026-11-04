@@ -1,0 +1,32 @@
+"""DRAFT local complete actual-source-edge topology; no mesh, route or acceptance."""
+import json,numpy as np
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest,connect
+from exact_resumable_projected_inventory_v1_20261011 import decoded,encoded
+from exact_original_projection_coverage_v2_20261010 import signed_area
+from exact_faithful_source_step_junction_feasibility_v2_20261011 import native_footprints,bounded_outer_corner_ray
+from exact_actual_source_edge_band_local_topology_v1_20261011 import complete_actual_edge_atoms,complete_outer_edge_candidates,directed_boundary_cycles,complete_edge_band_coverage
+P='government-xl-mongkok-stadium240332-';B=ROOT/'docs/astra-city/government-import';PRIOR=B/(P+'actual-f32-source-step-junction-feasibility-v2-20261011');ATTR=B/(P+'first-upper-boundary-discontinuity-attribution-v1-20261011');OLD=B/(P+'faithful-multisurface-transition-candidate-v2-20261011');ATOMS=B/(P+'complete-bounded-source3d-atoms-three-join-integration-v1-20261011');DOC=B/(P+'actual-edge-band-local-topology-v1-20261011')
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+VALIDATION=B/(P+'actual-edge-band-local-topology-v1-20261011-validation')
+VALIDATED_CODE_NAMES=['exact_actual_source_edge_band_local_topology_v1_20261011.py', 'test_exact_actual_source_edge_band_local_topology_v1_20261011.py', 'mongkok_stadium240332_actual_edge_band_local_topology_v1_20261011.py', 'mongkok_stadium240332_freeze_actual_edge_band_local_topology_v1_20261011.py']
+def validation_gate():
+ v=read(VALIDATION/'validation.json');assert v['testsRun']==14 and v['failures']==v['errors']==0 and v['exitCode']==0 and v['passed']is True
+ assert v['testModule']=='test_exact_actual_source_edge_band_local_topology_v1_20261011';assert v['log']==ref(VALIDATION/'tests.log')and v['codeRefs']==[ref(HERE/n)for n in VALIDATED_CODE_NAMES]
+ log=(VALIDATION/'tests.log').read_text();assert 'Ran 14 tests'in log and log.rstrip().endswith('OK')
+ return [ref(VALIDATION/'validation.json'),v['log']]+v['codeRefs']
+def main():
+ validation_refs=validation_gate();assert not DOC.exists();r=read(PRIOR/'result.json')
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+ assert all(ref(ROOT/e['path'])==e for e in r['evidenceRefs']);d=decoded(read(PRIOR/'diagnostic.json.gz'));assert d['completeOriginalAndJoinFaces']==14801 and d['noCandidate']and d['sourceGeometryChanges']==0;manifest=d['currentManifest'];assert ref(ROOT/manifest['path'])==manifest;inputs=read(ATTR/'runtime-inputs.json.gz');runtime=read(ATTR/'runtime-result.json.gz');a=decoded(read(ATTR/'exact-attribution.json.gz'));atoms=decoded(read(ATOMS/'diagnostic.json.gz'));domain=decoded(read(OLD/'exact-source-bound-domain.json.gz'));raw=inputs['literalOriginalSourceAndThreeJoins'];assert raw['index']==list(range(14801*3));literal=np.asarray(raw['position'],dtype='<f8').reshape(14801,3,3);native=native_footprints(literal);assert digest(native['actual'].astype('<f4').tobytes())==runtime['actualSourceFloat32PositionSHA256']and sum(native['indexed'])==runtime['actualSourceHeightIndexedFaces'];selected=sorted({x['upperOwner']['selectedSourceFace']for x in a['allPositiveLengthIncidentBoundaryIntervals']});assert len(selected)==2;edgeproofs=[]
+ for i in selected:
+  for edge in range(3):
+   proof=complete_actual_edge_atoms(native,i,edge);proof['originalSheetAndFacet']=atoms['completeOriginalSourceFacetBindings'][i]
+   for atom in proof.get('allCompletePositiveEdgeAtoms',[]):
+    atom['completeWholeProjectedAtomBandCoverage']=complete_edge_band_coverage(*atom['exactXZEndpoints'],domain['computeBandPolygons'])
+    for owner in atom['allCompleteClosedSourceOwners']:
+     j=owner['sourceFace'];owner['originalSheetAndFacetOrPriorJoin']=atoms['completeOriginalSourceFacetBindings'][j]if j<14798 else ['prior-compute-only-join',j-14798]
+   edgeproofs.append(proof)
+ point=a['allFailingClosedEndpoints'][0]['exactPointXZ'];outer=complete_outer_edge_candidates(point,domain['completeOuterBoundarySegments']);candidate_nodes=[dict(start=n['exactPointXZ'],end=n['exactPointXZ'])for row in outer for n in row['allFiniteBreakpointNominations']];ray=bounded_outer_corner_ray(point,candidate_nodes,[q for q in native['polys']if signed_area(q)],domain['computeBandPolygons']);sourcecycles=directed_boundary_cycles(domain['sourceUnionBoundarySegments']);outercycles=directed_boundary_cycles(domain['completeOuterBoundarySegments']);incident=set(x['sourceBoundarySegment']for x in a['allPositiveLengthIncidentBoundaryIntervals']);cycles=[dict(cycle=i,classification='source-union-hole-boundary'if c['orientedPositiveUnionHole']else 'source-union-exterior-boundary',sourceCycle=c,filledBandPocketNotYetAreaQualified=True)for i,c in enumerate(sourcecycles['completeDirectedCycles'])if incident.intersection(c['edgeIDs'])];refs=validation_refs+[ref(Path(__file__)),ref(PRIOR/'result.json'),ref(PRIOR/'diagnostic.json.gz'),ref(ATTR/'runtime-inputs.json.gz'),ref(ATTR/'runtime-result.json.gz'),ref(ATTR/'exact-attribution.json.gz'),ref(OLD/'exact-source-bound-domain.json.gz'),ref(ATOMS/'diagnostic.json.gz')]+r['evidenceRefs'];out=dict(completeActualSourceAndJoinFaces=14801,exactPriorActualPositionSHA256=runtime['actualSourceFloat32PositionSHA256'],selectedOriginalSourceFaces=selected,allSixUnchangedActualOriginalEdgeProofs=edgeproofs,completeLiteralSourceBoundaryCycles=sourcecycles,completeLiteralOuterBoundaryCycles=outercycles,allIncidentLiteralCycleClassifications=cycles,completeEveryOuterEdgeDistanceAndFiniteInteriorNominations=outer,firstBoundedActualSourceBandRay=ray,priorIdealLiteralActualOwnershipEvidence=ref(PRIOR/'diagnostic.json.gz'),allOriginalSourceHeightsAndBytesPreserved=True,filledBandPocketAreaUnqualified=True,noRouteCredit=True,noCandidate=True,noMeshOutput=True,sourceOnly=True,currentAcceptance=False,installationApproved=False,sourceGeometryChanges=0,liveTerrainChanges=0,original91CrossingsPreserved=True,allIntroducedSeamsAndFullRouting6645ActorsStillRequired=True,currentManifest=manifest,evidenceRefs=refs);assert all(ref(ROOT/e['path'])==e for e in refs)and ref(ROOT/manifest['path'])==manifest;save(DOC/'diagnostic.json.gz',encoded(out));print(json.dumps(dict(actualEdges=len(edgeproofs),outerEdges=len(outer),within10mEdges=sum(x['withinTenMetresSomewhere']for x in outer),noCandidate=True,noRouteCredit=True)))
+if __name__=='__main__':main()

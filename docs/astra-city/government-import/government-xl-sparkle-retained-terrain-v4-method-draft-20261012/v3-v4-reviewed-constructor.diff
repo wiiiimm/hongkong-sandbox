@@ -1,0 +1,133 @@
+--- source-scripts/city/government-import/xl-terrain-recovery-20261011-sparkle-authentic-retained-market-terrain-candidate-v3.py
++++ source-scripts/city/government-import/xl-terrain-recovery-20261012-sparkle-authentic-retained-market-terrain-candidate-v4.py
+@@ -3,8 +3,9 @@
+ No viewer write, native reapproval, source edit or physical acceptance. Preserve
+ whole current literal terrain facets beneath all four market worlds; retain the
+ complete aligned old scalar grid. Construction overlays are not finite proofs.
+-Distinct v3 preserves both failed constructions, records packed XYZ before the
+-finite guard and requires an honest post-Heya sole-append current rebind.
++DRAFT METHOD ONLY. Distinct v4 preserves all three failed constructions and
++expands protection around WHOLE retained faces before clipping. ROOT must
++review/authorise this exact draft before any constructor execution.
+ ROOT must review this executable before its candidate-only CLI is run.
+ """
+ from pathlib import Path
+@@ -20,8 +21,11 @@
+  strictly_separate_boxes_from_owned,merge_literal_ground_snapshots,
+  whole_ground_faces_touching_boxes,copy_complete_aligned_old_grid,clip_new_planes_outside)
+ BASE=ROOT/'docs/astra-city/government-import'
+-BATCH='xl-terrain-recovery-20261011-sparkle-authentic-retained-market-terrain-candidate-v3'
++BATCH='xl-terrain-recovery-20261012-sparkle-authentic-retained-market-terrain-candidate-v4'
+ DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
++V3=BASE/'xl-terrain-recovery-20261011-sparkle-authentic-retained-market-terrain-candidate-v3'
++FINITE_VALIDATED=HERE/'local'/V3.name
++from sparkle_packed_closed_projection_protection_20261011 import closed_pair
+ PREVIOUS=BASE/'xl-terrain-recovery-20261011-sparkle-authentic-retained-market-terrain-candidate-v2'
+ HISTORY=BASE/'government-xl-heya-before-installation-current-history-v1-20261011/root-actual-historical-input-contract.json'
+ HISTORY_SHA='27e12065a1de099b3d9d6530dc05d5e73462655d16622a309bb050292dae2589'
+@@ -109,11 +113,14 @@
+  lease=read(LEASE);assert reservations.owns(lease)and not DOC.exists()
+  manifest=ROOT/'3d-viewer/city/data/manifest.json';current_refs=[]
+  start,current,rebind=current_rebind(manifest,current_refs)
+- fv=read(LOCAL/'finite-validation.json');assert fv['executedCode']==[ref(FINITE_HELPER),ref(FINITE_TEST)]and fv['exitCode']==0 and fv['passed']==13
++ fv=read(FINITE_VALIDATED/'finite-validation.json');assert fv['executedCode']==[ref(FINITE_HELPER),ref(FINITE_TEST)]and fv['exitCode']==0 and fv['passed']==13
+  finite_log=verify(fv['actualLog']);assert 'Ran 13 tests'in finite_log.read_text()and '\nOK\n'in finite_log.read_text()
+  v=read(VALIDATED/'helper-validation.json');assert v['executedCode']==[ref(HELPER),ref(TEST)]and v['exitCode']==0 and v['passed']==18
+  log=verify(v['actualLog']);assert 'Ran 18 tests'in log.read_text()and '\nOK\n'in log.read_text()
+- refs=[*current_refs,ref(FINITE_HELPER),ref(FINITE_TEST),ref(LOCAL/'finite-validation.json'),ref(finite_log),ref(HERE/'exact_original_closed_projection_intersection_20261010.py'),ref(HERE/'exact_original_projection_coverage_20261009.py'),ref(Path(__file__)),ref(HELPER),ref(TEST),ref(VALIDATED/'helper-validation.json'),ref(log),*[ref(HERE/n)for n in CODE],ref(ERRATUM)]
++ refs=[*current_refs,ref(FINITE_HELPER),ref(FINITE_TEST),ref(FINITE_VALIDATED/'finite-validation.json'),ref(finite_log),ref(HERE/'exact_original_closed_projection_intersection_20261010.py'),ref(HERE/'exact_original_projection_coverage_20261009.py'),ref(Path(__file__)),ref(HELPER),ref(TEST),ref(VALIDATED/'helper-validation.json'),ref(log),*[ref(HERE/n)for n in CODE],ref(ERRATUM)]
++ completed(V3,'5af889d91d4c1dd611d5262f4e946b462dcc99035e75785c083be7314ece3544',refs)
++ for name,sha in [('packed-protection-inputs.json.gz','f6d81c6f5d625c81d0cea7bd66132d34a03f4b828c9781edd2f4acb108726b78'),('packed-protection-exact-finite.json.gz','05b29fc9bf719d6af78c8af31e8470caa1e1752f1ad38da8ca515943800a5bca')]:
++  assert ref(V3/name)['sha256']==sha
+  completed(PREVIOUS,'4d9f787d1dc6454d25a950fe109ec40ec6ead2fc46a38664be6041ee5d8f985c',refs)
+  completed(OWNED,'80b48d4b97a689b19e34ace263ab907be1f5ebaa7b7a7be57dda9892d656487c',refs)
+  completed(RETAINED,'4832a8e05527b49eca61ff04478d7ce4d9a3a8dcc315fdf1756171293ab144b9',refs)
+@@ -186,7 +193,40 @@
+   omitted=np.delete(old_faces,old_ids,axis=0)
+   lo=omitted[:,:,[0,2]].min(axis=1);hi=omitted[:,:,[0,2]].max(axis=1)
+   for b in inner:assert not(np.all(lo<=b[2:],axis=1)&np.all(hi>=b[:2],axis=1)).any()
+-  rectangles=[old['coarseCells']]
++  # Keep the actual v3 failed arrays unchanged. These are the retained inputs
++  # from that distinct execution, not alleged witnesses from v2.
++  previous_inputs=read(V3/'packed-protection-inputs.json.gz')
++  assert np.asarray(previous_inputs['wholeRetainedLiteralXYZ'],float).tobytes()==retained_faces.tobytes()
++  assert np.asarray(previous_inputs['completeInnerClosedRectangles'],float).tobytes()==inner.tobytes()
++  # Outward 1/1024m lattice collar encloses EVERY whole retained ground facet,
++  # rather than shortening old retention or selecting only failing fragments.
++  collars=dyadic_facet_boxes([retained_faces],collar_cells=1)
++  assert np.array_equal(collars,collars.astype(np.float32).astype(float)),'Collar coordinates not exactly Float32 representable'
++  save(DOC/'whole-retained-collar-inputs.json.gz',dict(wholeRetainedLiteralXYZ=retained_faces.tolist(),
++   completeOutwardDyadicCollars=collars.tolist(),dyadicScale=1024,outwardCollarCells=1,
++   allRetainedFacesPreserved=True,previousActualPackingInputs=ref(V3/'packed-protection-inputs.json.gz'),
++   previousActualPackingFailures=ref(V3/'packed-protection-exact-finite.json.gz'),
++   actualCurrentManifest=start,allFourOwnedWorldBindings=[r for r in bindings if r['uid']in UIDS[:2]]))
++  collar_rows=[];total_pairs=0;omitted_pairs=0
++  for uid in UIDS[:2]:
++   for mode,world in zip(MODES,worlds[uid]):
++    xz=world[:,:,[0,2]];lo=xz.min(axis=1);hi=xz.max(axis=1)
++    for collar_id,box in enumerate(collars):
++     x,z,X,Z=box;rectangle=[[x,z],[X,z],[X,Z],[x,Z]]
++     nominations=np.flatnonzero(np.all(lo<=box[2:],axis=1)&np.all(hi>=box[:2],axis=1))
++     total_pairs+=len(world);omitted_pairs+=len(world)-len(nominations)
++     for face_id in nominations:
++      collar_rows.append(dict(uid=uid,mode=mode,completeOriginalFaceID=int(face_id),
++       collarID=collar_id,**closed_pair(xz[face_id],rectangle)))
++  collar_failures=[r for r in collar_rows if not r['strictlySeparated']]
++  collar_proof=dict(completeWorldRows=8,completePairs=total_pairs,
++   completeInclusiveAABBNominations=len(collar_rows),strictAABBSeparatedPairs=omitted_pairs,
++   nominations=collar_rows,actualClosedIntersectionPairs=len(collar_failures),
++   allFourWorldsStrictlySeparated=not collar_failures,noTolerance=True,
++   pointAndEdgeTouchesFail=True,sourceGeometryChanges=0,currentAcceptance=False)
++  save(DOC/'whole-retained-collar-exact-owned-separation.json.gz',collar_proof)
++  assert not collar_failures,'Expanded whole retained-face collar actually intersects owned source projection'
++  rectangles=[old['coarseCells'],second.resolution.rectangle_for([[float(collars[:,0].min()),0,float(collars[:,1].min())],[float(collars[:,2].max()),0,float(collars[:,3].max())]],parent)]
+   for uid,positions in whole_positions:
+    if uid in UIDS[:2]:rectangles.append(second.resolution.rectangle_for([positions.min(axis=0).tolist(),positions.max(axis=0).tolist()],parent))
+   # Whole copied facets may extend beyond the retained model; contain all of them.
+@@ -218,7 +258,7 @@
+   try:patch=second.resolution.make_patch(dict(uids=UIDS,cells=cells),parent,native,sources,native_core=core,parent_url=old['meta']['parentTerrain'],parent_sha256=ref(parentpath)['sha256'],allow_native_below_clamp=bool(np.any(native[:,:,1]<1.2)),terrain_triangle_budget=100000)
+   finally:second.resolution.validate_patch=validator
+   outer_region=shapely.union_all([shapely.box(*b)for b in outer])
+-  literal_region=shapely.union_all(shapely.polygons(retained_faces[:,:,[0,2]]));protected=shapely.union_all([outer_region,literal_region])
++  literal_region=shapely.union_all(shapely.polygons(retained_faces[:,:,[0,2]]));protected=shapely.union_all([outer_region,literal_region,shapely.union_all([shapely.box(*b)for b in collars])])
+   fresh=clip_new_planes_outside(patches._faces(patch),protected);set_faces(patch,fresh)
+   sampler=second.resolution.terrain.fine.DemSampler(parent,rendered=True)
+   # Snap NEW triangles before appending old ones. Never mutate copied old XYZ.
+@@ -235,7 +275,7 @@
+   # the finite guard. No v2 witness array existed and none is fabricated here.
+   save(DOC/'packed-protection-inputs.json.gz',dict(newPackedXYZ=new.tolist(),
+    completeInnerClosedRectangles=inner.tolist(),wholeRetainedLiteralXYZ=retained_faces.tolist(),
+-   reconstructedByDistinctV3=True,previousV2WitnessArraysWereNotPersisted=True,
++   reconstructedByDistinctV4=True,previousV2WitnessArraysWereNotPersisted=True,
+    actualCurrentManifest=start,newPackedFacets=len(new),retainedFacets=len(retained_faces)))
+   finite=audit(new,inner,retained_faces)
+   save(DOC/'packed-protection-exact-finite.json.gz',finite)
+@@ -272,9 +312,9 @@
+   validator(patch,parent);save(path,patch)
+   assert patches._faces(patch)[len(new):].tobytes()==retained_faces.tobytes()
+   rendered_candidate,_=drawn_native_faces(patch['nativeMesh']);assert rendered_candidate[len(new):].tobytes()==retained_drawn.tobytes()
+-  save(DOC/'literal-retention-construction.json.gz',dict(uids=UIDS,currentManifest=start,allFourWorldBindings=bindings,innerDyadicFacetRectangles=inner.tolist(),outerDyadicFacetRectangles=outer.tolist(),strictOwnedSeparation=separation,completeOldNativeFaces=len(old_faces),wholeOldProtectedFaceIDs=old_ids.tolist(),wholeOldProtectedLiteralXYZSHA256=digest(retained_faces.tobytes()),wholeOldProtectedDrawnXYZSHA256=digest(retained_drawn.tobytes()),rawSamplerTripletOrderPreserved=True,exactCurrentRendererWindingBijection=winding,retainedAppearance=appearance,completeCapturedProtectedFaceIDs=captured_ids.tolist(),oldOmittedFacetsClosedBoxSeparated=True,newPackedFacetsExactFiniteProjectionSeparated=True,newPackedFiniteProof=ref(DOC/'packed-protection-exact-finite.json.gz'),highestNativeSurfaceFunctionIdenticalOnProtectedRectangles=True,oldScalarFallbackGrid=gridproof,oldFallbackEnablementPreserved=True,arbitraryIEEEQueryBitIdentityNotClaimed=True,currentTerrainChangedOnlyInCandidate=True,sourceGeometryChanges=0,currentAcceptance=False,nativeReacceptance=False,completeCoverageAndSeamAcceptanceStillRequired=True))
++  save(DOC/'literal-retention-construction.json.gz',dict(uids=UIDS,currentManifest=start,allFourWorldBindings=bindings,innerDyadicFacetRectangles=inner.tolist(),outerDyadicFacetRectangles=outer.tolist(),strictOwnedSeparation=separation,completeOldNativeFaces=len(old_faces),wholeOldProtectedFaceIDs=old_ids.tolist(),wholeOldProtectedLiteralXYZSHA256=digest(retained_faces.tobytes()),wholeOldProtectedDrawnXYZSHA256=digest(retained_drawn.tobytes()),rawSamplerTripletOrderPreserved=True,exactCurrentRendererWindingBijection=winding,retainedAppearance=appearance,completeCapturedProtectedFaceIDs=captured_ids.tolist(),oldOmittedFacetsClosedBoxSeparated=True,newPackedFacetsExactFiniteProjectionSeparated=True,wholeRetainedCollarProof=ref(DOC/'whole-retained-collar-exact-owned-separation.json.gz'),newPackedFiniteProof=ref(DOC/'packed-protection-exact-finite.json.gz'),highestNativeSurfaceFunctionIdenticalOnProtectedRectangles=True,oldScalarFallbackGrid=gridproof,oldFallbackEnablementPreserved=True,arbitraryIEEEQueryBitIdentityNotClaimed=True,currentTerrainChangedOnlyInCandidate=True,sourceGeometryChanges=0,currentAcceptance=False,nativeReacceptance=False,completeCoverageAndSeamAcceptanceStillRequired=True,genuineWholeOwnedGroundCoverageStillRequired=True,exactSeamCertificateStillRequired=True))
+   save(DOC/'terrain-candidates.json',dict(batch=BATCH,patches=[dict(path=ref(path)['path'],sha256=ref(path)['sha256'],uids=UIDS[:2],bounds=bounds,triangles=len(patch['nativeMesh']['index'])//3,replaces=dict(url=OLD_URL,sha256=OLD_SHA,retainedUids=UIDS[2:]))]))
+-  summary=dict(uids=UIDS,terrainProposalCreated=True,candidateFilesProduced=True,candidateValidatorPassed=True,terrainProposalGeometryChanged=True,mixedAuthenticatedAndLiteralCurrentTerrain=True,sourceGeometryChanges=0,deployedTerrainChanges=0,currentAcceptance=False,nativeReacceptance=False,allOwnedForeignNativePhysicalGatesStillRequired=True,completeCurrent6649ChangedDomainCheckStillRequired=True,completeCoverageAndSeamAcceptanceStillRequired=True,newlyInstalled=0)
++  summary=dict(uids=UIDS,terrainProposalCreated=True,candidateFilesProduced=True,candidateValidatorPassed=True,terrainProposalGeometryChanged=True,mixedAuthenticatedAndLiteralCurrentTerrain=True,sourceGeometryChanges=0,deployedTerrainChanges=0,currentAcceptance=False,nativeReacceptance=False,allOwnedForeignNativePhysicalGatesStillRequired=True,completeCurrent6649ChangedDomainCheckStillRequired=True,completeCoverageAndSeamAcceptanceStillRequired=True,genuineWholeOwnedGroundCoverageStillRequired=True,exactSeamCertificateStillRequired=True,newlyInstalled=0)
+  except AssertionError as e:
+   save(DOC/'construction-guard-failure.json',dict(error=str(e),traceback=traceback.format_exc(),candidateAcceptance=False,noGuardWaiver=True))
+   created=(LOCAL/'sparkle-authentic-with-literal-retained-market.json').is_file()
+@@ -284,15 +324,8 @@
+  save(DOC/'construction-summary.json',summary)
+  freeze=module('sparkle_retained_candidate_freeze','xl-popcorn-source-investigations-checkpoints-20261009.py')
+  paths=[verify(p)for p in {p['path']:p for p in refs}.values()]+[p for p in LOCAL.rglob('*')if p.is_file()and p.name!='reservation.json']
+- freeze.freeze(BATCH,'sparkle-authentic-retained-literal-market-candidate-construction-v3',paths,summary)
++ freeze.freeze(BATCH,'sparkle-authentic-retained-literal-market-candidate-construction-v4',paths,summary)
+ def main():
+- if '--validate-finite-helper'in sys.argv:
+-  assert not DOC.exists()and not (LOCAL/'finite-validation.json').exists()
+-  LOCAL.mkdir(parents=True,exist_ok=True);executed=[ref(FINITE_HELPER),ref(FINITE_TEST)];log=LOCAL/'finite-adverse-tests.log'
+-  with log.open('w')as stream:out=subprocess.run([sys.executable,str(FINITE_TEST)],cwd=ROOT,stdout=stream,stderr=stream)
+-  assert [ref(FINITE_HELPER),ref(FINITE_TEST)]==executed
+-  assert out.returncode==0 and 'Ran 13 tests'in log.read_text()and '\nOK\n'in log.read_text()
+-  save(LOCAL/'finite-validation.json',dict(executedCode=executed,exitCode=0,passed=13,actualLog=ref(log)));return
+  if '--owned'in sys.argv:return owned()
+  assert '--generate-candidate-only'in sys.argv and not DOC.exists()and not LEASE.exists()
+  claim=reservations.claim('sparkle-retained-literal-candidate-'+str(uuid.uuid4()),['building:'+u for u in FORM_UIDS]+['terrain-patch:'+u for u in UIDS]+['immutable-source-proof:'+BATCH],batch=BATCH,ttl=3600);assert claim['ok']

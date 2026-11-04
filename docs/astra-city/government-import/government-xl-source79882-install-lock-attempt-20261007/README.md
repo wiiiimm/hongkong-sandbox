@@ -1,0 +1,1 @@
+Installer launch wrapped its own cooperative publication lock in an external flock, blocking before owned staging. Coordinator terminated only the waiting child; reservation runner reports released:true and exit143. No stage, review, publication or installation job was created. Original physical job remains complete. Retry uses a fresh batch and only the installer internal lock.

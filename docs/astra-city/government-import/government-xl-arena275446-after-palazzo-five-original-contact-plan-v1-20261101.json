@@ -1,0 +1,57 @@
+{
+  "batch": "government-xl-arena275446-after-palazzo-five-original-contact-sequence-v1-20261101",
+  "uids": [
+    "landsd/275446:0",
+    "landsd/318697:0",
+    "landsd/318701:0",
+    "landsd/318704:0",
+    "landsd/318722:0"
+  ],
+  "resources": [
+    "building:landsd/275446:0",
+    "building:landsd/318697:0",
+    "building:landsd/318701:0",
+    "building:landsd/318704:0",
+    "building:landsd/318722:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-arena275446-after-palazzo-318697-foundations-v1-20261101",
+      "scopeResources": "government-xl-arena275446-after-palazzo-five-original-terrain-scope-v1-20261101",
+      "args": [
+        "--runtime",
+        "government-xl-arena275446-after-palazzo-five-original-terrain-runtime-v1-20261101",
+        "--attributes",
+        "government-xl-arena275446-after-palazzo-five-original-attributes-v1-20261101",
+        "--uid",
+        "landsd/318697:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-arena275446-after-palazzo-318701-foundations-v1-20261101",
+      "scopeResources": "government-xl-arena275446-after-palazzo-five-original-terrain-scope-v1-20261101",
+      "args": [
+        "--runtime",
+        "government-xl-arena275446-after-palazzo-five-original-terrain-runtime-v1-20261101",
+        "--attributes",
+        "government-xl-arena275446-after-palazzo-five-original-attributes-v1-20261101",
+        "--uid",
+        "landsd/318701:0"
+      ]
+    },
+    {
+      "script": "original_assembly_four_world_pair_context_v2_20261024.py",
+      "batch": "government-xl-arena275446-after-palazzo-five-original-all-pairs-v1-20261101",
+      "scopeResources": "government-xl-arena275446-after-palazzo-five-original-terrain-scope-v1-20261101",
+      "args": [
+        "--runtime",
+        "government-xl-arena275446-after-palazzo-five-original-terrain-runtime-v1-20261101",
+        "--attributes",
+        "government-xl-arena275446-after-palazzo-five-original-attributes-v1-20261101"
+      ]
+    }
+  ]
+}

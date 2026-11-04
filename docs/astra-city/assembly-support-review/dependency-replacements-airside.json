@@ -1,0 +1,53 @@
+{
+  "issue": "HKS-214",
+  "version": 1,
+  "published": false,
+  "scope": "Only migrate proven native supportDependencies; every other model field and source asset remains unchanged.",
+  "catalogues": [
+    {
+      "url": "city/data/official-models/support-review-20260909/catalogue.json",
+      "source": "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json",
+      "oldSHA256": "5627d81043e782260a81c9f99155b6e2764fd63b0b75087186b34a289b6db10e",
+      "models": [
+        "landsd/335196:0"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "uid": "landsd/335196:0",
+      "modelSHA256": "c383da15d41c9f15ce0ba2276033a3bdfbe81429da6f8f22de5ec13d9fd0b1f7",
+      "modelId": "B384812130701063C0",
+      "buildingCSUID": "3848121307T20230601",
+      "catalogue": "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json",
+      "oldSupportDependencies": [
+        {
+          "uid": "landsd/335194:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3844921306P20230601",
+          "distance": 0.20771408081055398
+        }
+      ],
+      "supportDependencies": [
+        {
+          "uid": "landsd/335194:0",
+          "state": "installed",
+          "csuid": "3844921306P20230601",
+          "distance": 0.04200487222881095
+        }
+      ],
+      "contactEvidenceSHA256": "65edf9d78039e9e2f2aa4e41b90491cd24f7a91d92fb37313561fc701f89d591"
+    }
+  ],
+  "contactReport": "docs/astra-city/assembly-support-review/airside-native-support.json",
+  "contactReportSHA256": "65edf9d78039e9e2f2aa4e41b90491cd24f7a91d92fb37313561fc701f89d591",
+  "requiresNewNativeUids": [
+    "landsd/335194:0"
+  ],
+  "requiresVisualApproval": true,
+  "visualApproval": {
+    "status": "approved-for-integration",
+    "evidence": "docs/astra-city/assembly-support-review/visual-acceptance-foundation.json",
+    "scope": "Native supporting source model inspected in normal and isolated exported views; installed dependant geometry unchanged and every actual lowest-rim vertex contacts native support within0.5m."
+  }
+}

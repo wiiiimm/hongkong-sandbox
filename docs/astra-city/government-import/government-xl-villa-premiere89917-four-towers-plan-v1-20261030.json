@@ -1,0 +1,60 @@
+{
+  "batch": "government-xl-villa-premiere89917-four-towers-recovery-v1-20261030",
+  "uids": [
+    "landsd/89917:0",
+    "landsd/58497:0",
+    "landsd/63823:0",
+    "landsd/121309:0",
+    "landsd/148052:0"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-villa-premiere89917-owner-selection-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030",
+        "--capture",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "lookup_explicit_adjacent_originals_v1_20261023.py",
+      "batch": "government-xl-villa-premiere89917-four-towers-lookup-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-villa-premiere89917-owner-selection-v1-20261030",
+        "--uid",
+        "landsd/58497:0",
+        "--uid",
+        "landsd/63823:0",
+        "--uid",
+        "landsd/121309:0",
+        "--uid",
+        "landsd/148052:0"
+      ]
+    },
+    {
+      "script": "raw_adjacent_cached_nomination_v1_20261029.py",
+      "batch": "government-xl-villa-premiere89917-four-towers-nomination-v1-20261030",
+      "args": [
+        "--lookup",
+        "government-xl-villa-premiere89917-four-towers-lookup-v1-20261030",
+        "--scope",
+        "government-xl-after-disneyland-piers-next-five-source-scope-v1-20261030",
+        "--owner",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "cached_nominated_original_selection_v1_20261029.py",
+      "batch": "government-xl-villa-premiere89917-four-towers-cached-v1-20261030",
+      "args": [
+        "--lookup",
+        "government-xl-villa-premiere89917-four-towers-nomination-v1-20261030"
+      ]
+    }
+  ]
+}

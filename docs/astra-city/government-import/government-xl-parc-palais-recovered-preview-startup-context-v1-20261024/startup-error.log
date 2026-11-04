@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/parc_palais_three_recovered_assembly_preview_v2_20261024.py", line 56, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/parc_palais_three_recovered_assembly_preview_v2_20261024.py", line 15, in main
+    prior_name=P+'unapproved-supported-preview-v1-20261024';prior=take(prior_name,BASE/prior_name/'result.json');assert prior['previewOnly']and prior['sourceSHA256ByUid']==SOURCES and not prior['installationApproved']
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/parc_palais_three_recovered_assembly_preview_v2_20261024.py", line 14, in take
+    assert digest(path.read_bytes())==pins[batch][str(path.relative_to(ROOT))];refs.append(path);return read(path)
+                                      ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'docs/astra-city/government-import/government-xl-parc-palais-three-unapproved-supported-preview-v1-20261024/result.json'

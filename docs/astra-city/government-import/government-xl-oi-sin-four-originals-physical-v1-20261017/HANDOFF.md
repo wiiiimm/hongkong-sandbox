@@ -1,0 +1,9 @@
+Oi Sin complete four-original assembly — 17 October 2026
+
+Two exact government car-park originals recovered using the official provider and pinned source hashes: 254867, B413591577401063C0, 24 triangles, SHA 30df74c1606b660cee8f3be30edebf59ed23b341401e1671e9642ec644a21a65; 256457, B413671579101063C0, 175 triangles, SHA 52d7410ebda7c824660abbf32996b04bce07fa59fbbbddf046d10c62d47c19aa. No AI geometry modelling. Neither is installed. Fresh four-source capture uses the private Oi Yuk-preserving terrain candidate.
+
+Results: podium 91128 identity and strict foundation pass. Tower 256280 foundation passes, target-coverage identity remains held, and 69/2034 rim samples remain unresolved (all affected 92 whole low edges separately certified within unchanged 0.1 m distance band, without contact credit). Car-park part 254867 has 30/30 strict contacts and clear foundation, but target-coverage identity remains held. Car-park part 256457 identity passes, but has 19/113 unresolved contacts and two non-upward faces below the highest podium surface (0.5939775 m²).
+
+Existing inspectSupportLayers diagnostic finds a lower contact-height surface for only 3 of the 19 car-park failures and none of the tower failures. This disproves a blanket lower-floor explanation. No canonical rule, source geometry, identity flag or publication state changed.
+
+Next: inspect/render the precise original wall/roof interfaces and missing target-coverage areas for the complete four-source assembly. Keep confirmed terrain recovery and full 6,672-actor disjoint scope; do not rerun them unchanged. Resolve source-specific semantics or demonstrate a real source incompatibility before acceptance. Whole-assembly current neighbour/browser/fallback/publication requirements remain. XL remains 250 installed / 271 remaining of 521.

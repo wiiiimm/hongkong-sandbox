@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_qualified_stage_v1_20261022.py", line 22, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_qualified_stage_v1_20261022.py", line 21, in main
+    pub=module('aquarium_stage_publisher',HERE.parent/'island-detail-integration/publish.py');pub.DOC=doc/'publisher-dry-run';sys.argv=['publish.py',str((stage/'plan.json').relative_to(ROOT))];pub.main();assert not read(pub.DOC/'publication-plan.json')['published'];refs.extend([HERE.parent/'island-detail-integration/publish.py',HERE/'upton_staged_image_review_binding_v1_20261014.py',*[p for p in stage.rglob('*')if p.is_file()]]);summary=dict(uids=[UID],qualifiedForLiveVerification=True,sourceSHA256ByUid=sources,newVisibleModels=1,newRuntimeCount=6842,delta=delta,previousXLCount=ref(previous),sourceReview=ref(doc/'ROOT-SOURCE-REVIEW.json'),currentManifest=ref(manifest),existingModelReverification=review['checkedNativeUids'],terrainReplacement=t['replaces'],terrainDestination=t['destination'],publication=False,installationApproved=False,newlyInstalled=0);save(doc/'summary.json',summary);module('aquarium_qualified_stage_freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH,'qualified-original-native-terrain-replacement-publication-plan',refs,summary);print(summary,flush=True)
+                                                                                                                                                                                                 ^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 160, in main
+    stage_top_level_terrain(plan,original,manifest,edits,report)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 93, in stage_top_level_terrain
+    review_top_level_surface_change(entry,old,new)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 79, in review_top_level_surface_change
+    return review_native_top_level_replacement(entry,old,new) if old_native or new_native else None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 73, in review_native_top_level_replacement
+    row=rows.get(uid);assert row and row['passed'],'Retained native model failed full-mesh terrain check'
+                             ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Retained native model failed full-mesh terrain check

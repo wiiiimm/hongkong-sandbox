@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v1_20261013.py", line 154, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v1_20261013.py", line 149, in main
+    if '--schema-only'in sys.argv:print(json.dumps(schema_only(),sort_keys=True));return
+                                                   ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v1_20261013.py", line 70, in schema_only
+    pins,replay,ground,prior_ground,old,attrs,scope,actors=inputs()
+                                                           ^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v1_20261013.py", line 60, in inputs
+    assert uid==NATIVE and sha(worlds['literal'])==row['completeOriginalPOSITIONProof']['worldTrianglesSHA256'],'Saved native original array obligation unresolved'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Saved native original array obligation unresolved

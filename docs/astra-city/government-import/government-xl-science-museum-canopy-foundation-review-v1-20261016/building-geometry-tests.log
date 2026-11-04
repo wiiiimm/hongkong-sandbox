@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: async geometry validation agrees with synchronous fallback validation across chunks
+ok 1 - async geometry validation agrees with synchronous fallback validation across chunks
+  ---
+  duration_ms: 17.254119
+  type: 'test'
+  ...
+# Subtest: aborting asynchronous validation does not cache a partially checked source
+ok 2 - aborting asynchronous validation does not cache a partially checked source
+  ---
+  duration_ms: 2.57366
+  type: 'test'
+  ...
+# Subtest: open-sided roofs keep source top and omit walls/windows
+ok 3 - open-sided roofs keep source top and omit walls/windows
+  ---
+  duration_ms: 8.89098
+  type: 'test'
+  ...
+# Subtest: source courtyard remains open through roof and supports
+ok 4 - source courtyard remains open through roof and supports
+  ---
+  duration_ms: 2.25262
+  type: 'test'
+  ...
+# Subtest: explicit foundation skirt does not move the source roof or acquire windows
+ok 5 - explicit foundation skirt does not move the source roof or acquire windows
+  ---
+  duration_ms: 0.48568
+  type: 'test'
+  ...
+# Subtest: open supports use explicit foundation while leaving air unsealed
+ok 6 - open supports use explicit foundation while leaving air unsealed
+  ---
+  duration_ms: 0.27757
+  type: 'test'
+  ...
+# Subtest: ordinary buildings preserve single volume and window attributes
+ok 7 - ordinary buildings preserve single volume and window attributes
+  ---
+  duration_ms: 0.31707
+  type: 'test'
+  ...
+# Subtest: cached layout updates if explicitly supplied foundation changes
+ok 8 - cached layout updates if explicitly supplied foundation changes
+  ---
+  duration_ms: 0.64958
+  type: 'test'
+  ...
+# Subtest: BuildingIndex shares open roof and support geometry
+ok 9 - BuildingIndex shares open roof and support geometry
+  ---
+  duration_ms: 3.53368
+  type: 'test'
+  ...
+# Subtest: terrain exact grid edges preserve source vertex elevations
+ok 10 - terrain exact grid edges preserve source vertex elevations
+  ---
+  duration_ms: 0.93434
+  type: 'test'
+  ...
+# Subtest: validated detailed model geometry replaces the simple extrusion
+ok 11 - validated detailed model geometry replaces the simple extrusion
+  ---
+  duration_ms: 0.39001
+  type: 'test'
+  ...
+# Subtest: invalid or misplaced detailed arrays retain source extrusion fallback
+ok 12 - invalid or misplaced detailed arrays retain source extrusion fallback
+  ---
+  duration_ms: 1.82843
+  type: 'test'
+  ...
+# Subtest: indexed detailed geometry joins the non-indexed shared palette batches
+ok 13 - indexed detailed geometry joins the non-indexed shared palette batches
+  ---
+  duration_ms: 0.52447
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 165.203976

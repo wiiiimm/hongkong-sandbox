@@ -1,0 +1,104 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-china-ferry-five-private-stage-v1-20261020/plan.json",
+  "areas": [
+    {
+      "area": "China Ferry five original sources",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-china-ferry-five-private-stage-v1-20261020/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-china-ferry-podium285642-v1-20261020.json": null,
+    "3d-viewer/city/data/official-models/government-xl-china-ferry-five-private-stage-v1-20261020/catalogue.json": null,
+    "3d-viewer/city/data/tiles/0_-1.json": "437b60a60b1f624adf6921eab4baff72484e1f6950bc8e404ef611b76c73495a",
+    "3d-viewer/city/data/manifest.json": "e26511add22694e241b9c2e43b369dfa36a560b92689162273ed8419306af640",
+    "3d-viewer/city/data/catalogue.json": "784013b5f9c60c53bb649293a45dbd69f4a4fcfef3d4d2480957a2bd5bf6e97d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-china-ferry-podium285642-v1-20261020.json": "25238d3aab1a5085bcaf11f4cf70dd2da983b19970c4a8666117008cc27e2002",
+    "3d-viewer/city/data/official-models/government-xl-china-ferry-five-private-stage-v1-20261020/catalogue.json": "c4629e72da9de2de3f85b2e475c79467c24b3f9485b32d1a94167d060c27d911",
+    "3d-viewer/city/data/tiles/0_-1.json": "4707eb03803e99700dadccb86c2062ce4333f81acee4b0448f8c116efbd90810",
+    "3d-viewer/city/data/manifest.json": "7600b96ad6c5f879d13e3553e0050f54ff58e9a897ad56a231e2d0546f161b53",
+    "3d-viewer/city/data/catalogue.json": "8648b108c728475ea3ce331155bbe903e335520f5dfabe1b8d3c6f98aca68fc8"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "6a5d72f44c6341857fb0bd5b9f699e02df9485de",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-china-ferry-podium285642-v1-20261020.json",
+      "resolution": 5,
+      "area": "Five-part China Ferry original assembly",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "7384f1b28c0ffff15f7a5ba2a37b36d8e3be07ac304a9191403151b3f60289a3",
+            "etag": "\"34bf90d-63dcdeecb05ab\"",
+            "sheet": "11-NW-24C",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-china-ferry-adjoining-ground-v1-20261020/sheets/11-NW-24C/terrain/TERRAIN(TB)/T34500180000106E11/T34500180000106E11.gltf"
+            ],
+            "triangles": 146580
+          },
+          {
+            "directorySHA256": "67b1c97ebf94d9c8161ab792d2da3850c68a937c1b7e31fdb66ecb348cf700b7",
+            "etag": "\"3680009-655feeb2133cc\"",
+            "sheet": "11-NW-24D",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-china-ferry-adjoining-ground-v1-20261020/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf"
+            ],
+            "triangles": 158964
+          },
+          {
+            "directorySHA256": "856a82c18281ac6640856f6d1250aa120b999e8729dcf87ca917873b769ead4a",
+            "etag": "\"26651cf-63dce6700393f\"",
+            "sheet": "11-SW-4A",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-china-ferry-adjoining-ground-v1-20261020/sheets/11-SW-4A/terrain/TERRAIN(TB)/T34500174000106E11/T34500174000106E11.gltf"
+            ],
+            "triangles": 33859
+          },
+          {
+            "directorySHA256": "0aa987acdc36613cb75f8b901cf433861436ad2a46fd7ed2c0f46f251612ce47",
+            "etag": "\"39b0ac6-655fefd1295be\"",
+            "sheet": "11-SW-4B",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-china-ferry-adjoining-ground-v1-20261020/sheets/11-SW-4B/terrain/TERRAIN(TB)/T35250174000106E11/T35250174000106E11.gltf"
+            ],
+            "triangles": 139212
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 6208,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 821
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "25238d3aab1a5085bcaf11f4cf70dd2da983b19970c4a8666117008cc27e2002",
+      "bytes": 851849
+    }
+  ],
+  "estimatedBases": [
+    {
+      "uid": "landsd/81118:0",
+      "before": 6.197,
+      "after": 4.543061512595356
+    }
+  ]
+}

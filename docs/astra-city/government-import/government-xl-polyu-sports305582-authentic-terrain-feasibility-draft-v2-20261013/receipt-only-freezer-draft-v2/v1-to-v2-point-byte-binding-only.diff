@@ -1,0 +1,43 @@
+--- source-scripts/city/government-import/xl-polyu-sports305582-authentic-terrain-feasibility-readonly-terminal-audit-v1-20261013.py
++++ source-scripts/city/government-import/xl-polyu-sports305582-authentic-terrain-feasibility-readonly-terminal-audit-v2-20261013.py
+@@ -1,6 +1,7 @@
+ """Read-only actual saved-schema audit; no project imports, decode or predicates."""
+ from pathlib import Path
+ import hashlib,json,gzip,struct
++from fractions import Fraction as F
+ ROOT=Path(__file__).resolve().parents[3];BASE=ROOT/'docs/astra-city/government-import';D=BASE/'government-xl-polyu-sports305582-authentic-terrain-feasibility-draft-v2-20261013'
+ CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';RESULT=D/'calculation-v1/feasibility.json.gz'
+ EXPECTED={RESULT:'ae1a457b2fa085377671232034f7cdb52c2588e88ed6b2b6a6bf5b74037a5a52',D/'actual-readonly-preparation-v1/validation.json':'980ae40818f142fd33101de817c43a0c03acbecbe26c755af685f1dea1ce2cea',D/'execution-logs-feasibility-v1/terminal.json':'5761888488e833b69e0c705e71a047b83d370e749293027fe6c3d7e2280cdd87',D/'execution-logs-feasibility-v1/actual-end-input-pins.json':'05427b3afcd04c32e90bcea20aa86de06a3fb06389b86bcf59bcf74215e7ed42'}
+@@ -32,7 +33,8 @@
+   for o,z in zip(original,actual):
+    for k,val in o.items():assert z[k]==val
+    q=z['authenticSourcePointContext'];assert q['exactSavedPointRetained']==o['actualCurrentViolationVerbatim']['savedExactWitnessVerbatim']['exactOriginalSourcePoint']and q['queryUsesNearestFloat64NotRationalUniversalCertificate']is True and q['existingPointOrdinaryBoundProved']is True and z['noWholeFacetOrPhysicalAcceptance']is True
+-   c=q['coarse'];assert c['completeCurrentGroundSHA256']==gsha and c['sourceFaceSHA256']==q['pointDoubleQuerySHA256']and c['fullAcceptance']is False and c['installationApproved']is False
++   pointbytes=b''.join(struct.pack('<d',float(F(v)))for repeat in range(3)for v in o['actualCurrentViolationVerbatim']['savedExactWitnessVerbatim']['exactOriginalSourcePoint']);pointsha=hashlib.sha256(pointbytes).hexdigest()
++   c=q['coarse'];assert c['completeCurrentGroundSHA256']==gsha and c['sourceFaceSHA256']==q['pointDoubleQuerySHA256']==pointsha and c['fullAcceptance']is False and c['installationApproved']is False
+    assert c['existingOrdinaryClearanceBoundProved']or(q['paired']is not None and q['paired']['existingOrdinaryClearanceBoundProved']);points.add(tuple(q['exactSavedPointRetained']))
+   rows.append(dict(arithmetic=row['arithmetic'],rawFailureFacetsRetained=752,nearestFloat64SavedPointContexts=1410,allPointBoundPositive=True,noWholeFacetAcceptance=True))
+  assert len(points)==611 and len(x['fullCurrentProtectedForms'])==25 and len({p['form']['uid']for p in x['fullCurrentProtectedForms']})==25
+--- source-scripts/city/government-import/xl-polyu-sports305582-authentic-terrain-feasibility-receipt-only-freeze-draft-v1-20261013.py
++++ source-scripts/city/government-import/xl-polyu-sports305582-authentic-terrain-feasibility-receipt-only-freeze-draft-v2-20261013.py
+@@ -2,9 +2,9 @@
+ import importlib.util,json,sys
+ from pathlib import Path
+ from run import ROOT,HERE,read,digest,connect
+-BASE=ROOT/'docs/astra-city/government-import';D=BASE/'government-xl-polyu-sports305582-authentic-terrain-feasibility-draft-v2-20261013';F=D/'receipt-only-freezer-draft-v1'
+-BATCH='government-xl-polyu-sports305582-authentic-terrain-feasibility-source-context-v1-20261013';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
+-AUDITOR=HERE/'xl-polyu-sports305582-authentic-terrain-feasibility-readonly-terminal-audit-v1-20261013.py'
++BASE=ROOT/'docs/astra-city/government-import';D=BASE/'government-xl-polyu-sports305582-authentic-terrain-feasibility-draft-v2-20261013';F=D/'receipt-only-freezer-draft-v2'
++BATCH='government-xl-polyu-sports305582-authentic-terrain-feasibility-source-context-v2-20261013';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
++AUDITOR=HERE/'xl-polyu-sports305582-authentic-terrain-feasibility-readonly-terminal-audit-v2-20261013.py'
+ def module(name,p):
+  s=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+ def sha(p):return digest(p.read_bytes())
+--- docs/astra-city/government-import/government-xl-polyu-sports305582-authentic-terrain-feasibility-draft-v2-20261013/receipt-only-freezer-draft-v1/METHOD.md
++++ docs/astra-city/government-import/government-xl-polyu-sports305582-authentic-terrain-feasibility-draft-v2-20261013/receipt-only-freezer-draft-v2/METHOD.md
+@@ -7,3 +7,5 @@
+ Commands proposed after ROOT FULLREAD: isolated standalone auditor, freezer import and --preflight-only under exclusive logs, all literal review/input pins before/end. Preflight has no DB/lease. Only after actual audit/preparation review, one normal freezer execution verifies the exact prior COMPLETE74fc/1c3dd/d451Neon rows read-only, then uses unchanged xl-popcorn-source-investigations-checkpoints.freeze. Its distinct source-context:government-xl-polyu-sports305582-authentic-terrain-feasibility-source-context-v1-20261013 reservation/job is maintained by the existing workflow and released finally. No original review/event/catalogue/acceptance mutation, no numerical replay/new decode/candidate. Terminal external stdout, exact new COMPLETEresult/allrefs and source-context release/PID audit required. Existing actual calculation had no lease/DB; do not fabricate a release.
+ 
+ Receipt binds all immutable7555source/current/production/artifact refs,31imported local closure (deduplicated), exact completed output/actual external execution/actual import+preflight and invocation-only v1history, plus this auditor/freezer/METHOD/sharedworkflow bytes. Mutable live stdout stays outside directories freezer recursively collects; no running calculation files or future terrain paths. Original7690selectedarray is unchanged and no source layer/facet deletion occurs. New receipt currentAcceptance/physical/identity/source-roleAccepted=false. Future terrain constructor is separate and requires ROOT full review.
++
++Version 2 preserves all unexecuted v1 auditor/freezer/METHOD/pin bytes. The only audit change independently reconstructs each exact saved rational point as its nearest Float64 repeated-three-vertex byte array using standard-library Fraction→float and struct.pack('<d'), then requires its SHA to equal both saved producer point SHA and coarse sourceFaceSHA. This is representation binding only, with no clearance, contact, projection or terrain computation. Freezer auditor/METHOD/review paths and distinct source-context batch are versioned; source/result/current/ref scope unchanged.

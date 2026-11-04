@@ -1,0 +1,73 @@
+{
+  "batch": "government-xl-disneyland-piers-after-passenger-joint-coast-sequence-v1-20261030",
+  "uids": [
+    "landsd/75642:0",
+    "landsd/75643:0"
+  ],
+  "resources": [
+    "building:landsd/75642:0",
+    "building:landsd/75643:0",
+    "source-form:way/334029318:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-selection-v3-20261030",
+        "--uid",
+        "landsd/75642:0",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    },
+    {
+      "script": "merge_exact_render_attributes_v1_20261028.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-attributes-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-75642-attributes-v3-20261030",
+        "--attributes",
+        "government-xl-disneyland-piers-after-passenger-75643-attributes-v3-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_source_terrain_check_v1_20261023.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-government-ground-v1-20261030",
+      "args": [
+        "--terrain-check",
+        "government-xl-disneyland-piers-after-passenger-75642-government-ground-v1-20261030",
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-buried-context-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_clamped_coast_partition_inset_v2_20261030.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-joint-coast-inset-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030",
+        "--terrain-check",
+        "government-xl-disneyland-piers-after-passenger-joint-government-ground-v1-20261030",
+        "--context",
+        "government-xl-disneyland-piers-after-passenger-joint-buried-context-v1-20261030",
+        "--uid",
+        "landsd/75642:0",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    }
+  ]
+}

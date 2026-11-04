@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 85, in <module>
+    try:walk(data)
+        ^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 74, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 74, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 74, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 76, in walk
+    for i,c in enumerate(v):walk(c,pointer+"/"+str(i))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 74, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 69, in walk
+    if isinstance(v.get('path'),str) and isinstance(v.get('sha256'),str) and len(v['sha256'])==64:check(v['path'],v['sha256'])
+                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py", line 58, in check
+    else:raise AssertionError((rel,pin,'changed frozen evidence'))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('3d-viewer/city/data/tiles/-9_1.json', 'c6e20cb0513fea0358b2a2251c48c5a83f157b234935021555a00e917418f949', 'changed frozen evidence')
+Traceback (most recent call last):
+  File "/tmp/root-close-lippo-exact-pending-resume-20261011.py", line 14, in <module>
+    subprocess.run([sys.executable,'/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py',str(payload),str(out)],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/tmp/verify-closed-model-checkpoint-pointer-v5-all-input-hashmaps.py', '/tmp/xl-lippo-exact-pending-additive-resume-root-verification-input-v1-20261011.json', '/tmp/xl-lippo-exact-pending-additive-resume-root-verified-20261011.json']' returned non-zero exit status 1.

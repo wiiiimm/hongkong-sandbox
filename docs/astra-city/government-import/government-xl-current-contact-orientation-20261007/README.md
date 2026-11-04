@@ -1,0 +1,7 @@
+# Current clearance-face orientation diagnostic
+
+Codex, 7 October 2026. Verified Neon job `224842875e9dcb44e036404de806d865cf37e4d8ad470482b46f0f624bc8267b` binds ten exact current source/runtime/contact classifications. Two sources have only vertical faces incident to failing samples: Hoi Tai House Block D (229881) and Park Haven upper podium (246467). Eight others include upward, downward or degenerate faces. The orientation tool rejects changed runtime inputs, mismatched runtime/contact receipts and changed failed vertex coordinates.
+
+A wall-only pattern does not prove intentional underground foundations. No clearance, foundation, support or identity exception is introduced, and no source is installed by this diagnostic. Model geometry and source elevations are unchanged; no modelling AI calls. Original runtime and contact payloads are local-only caches; their hashes and paths are recorded. No historical map imagery used.
+
+South Hillcrest's fresh physical recheck `ade260c85e6655c1a2ad52b8ffd1428297c4ad3bf95ecfa3c89b6efd107ac9e4` and lower-original-parent pass `364c9a119b8c9048de350183e6d470b1c7e499e79942b903ed5f5d20fef83f72` remain held for terrain clearance and neighbour198440. The separate current inputs for Green18, WEST9ZONE and Reserved Carpark are frozen under Neon job `d6176862a11e59eaf6f87be91bec1c1f5e61aa17b6987d92f68895dae4c4a5e2`; that physical worker continues. XL goal remains42 new installations /58 further required.

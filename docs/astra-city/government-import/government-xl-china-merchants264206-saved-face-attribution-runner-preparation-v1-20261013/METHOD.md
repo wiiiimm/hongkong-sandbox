@@ -1,0 +1,24 @@
+# China Merchants: historical source-face attribution runner preparation
+
+Code preparation only. The original government model remains unchanged. No actual source decode, numerical model calculation, database query/write, job, reservation, installation or optimisation ran in this packet. The 21 final tests construct tiny glTF inputs and mock lifecycle calls; the actual preflight checks hashes, source/form/census metadata and imported code only. All 102 final input hashes were independently verified and frozen in `runner-input-pins.json`.
+
+The saved 19,551-face runtime capture and 144-component census are historical inputs. **Correction:** `sol-source-components-20261003.py` groups the complete source with the canonical shared-vertex graph rounded to four decimals, then reports edge counts and sorts groups by face count. It does not create true-edge components or certify 144 architectural bodies. Earlier notes calling this a true-edge census are unsupported. The original census, prior notes, v1 code and receipts remain intact; the v2 adapter corrects diagnostic labels without changing the canonical numerical calculation or source-face IDs.
+
+The prepared runner binds exact source bytes, explicit UID/model/CSUID, every source face and every unused POSITION slot. It derives the original integer index stream in active-scene root order, pre-order node traversal, primitive order and original accessor order. Cumulative vertex offsets and occurrence paths distinguish mesh reuse under distinct nodes. The entire saved runtime index stream and POSITION count must match exactly. The historical producer's separate 2 mm coordinate guard remains unchanged; that tolerance cannot establish face order. Source coordinates are decoded internally from the pinned bytes, never accepted as an independently reordered caller array.
+
+`historical-runtime-order-contract.json` binds the actual saved loader SHA `066f62512874494e44191f443fe450fb34494407a8d2165a9b50eff59962e45a`, archived from read-only Git commit `aa7eb0d9cef8cc23acab5b1e75d1bff1fe4833ca`. The matching vendor loader/Three.js and original census decoder establish the traversal contract. Current loader bytes differ and are not substituted for that historical capture. ROOT read the relevant primitive, child, root and index-packing implementations and confirmed the saved capture's declared loader hash matches the archive.
+
+The canonical foundation function is cloned unchanged by the reviewed adapter. Its complete result must reproduce the saved foundation exactly. Journal-order face IDs remain separate from area-sorted aggregate rows. Each failed subset intersects every complete saved diagnostic component; none becomes an architectural-body, basement, root or support claim. Float64 cross/norm zeros are labelled arithmetic observations only and are not passed as exact nonrendering certificates. All original and runtime coordinates remain available in the diagnostic output.
+
+Future execution requires the pending original-worker restart approval. The runner requires an explicit mode and checks the exact preparation-time recipe/input map before claiming, then checks that map again in the owned child. The existing renewable reservation supervisor protects only `building:landsd/264206:0` and this source-context batch. Both prior completed Neon receipts are checked before computation. The job is claimed before the source calculation, heartbeat and ownership checks fence completion, and unexpected claimed job identities return through retry handling without computing. Database completion and local receipt recovery remain separate. Explicit recovery uses a new supervised lease, reads only an exactly completed job, verifies its exact payload and every output reference, and restores receipts without recalculation or overwriting a different result. Changed references fail closed and need an explicit historical-reference recovery; they are not waived.
+
+Actual-source index correspondence, metrics reproduction and database lifecycle execution remain **unverified**. A passing synthetic/preflight result cannot approve China Merchants placement. All historical 582 buried / 102 upward failures, absent exact registered IL8517 basement/GF plan and datum correspondence, and full-current terrain/native-neighbour/physical/runtime/browser gates remain unresolved. No permanent rejection or installation credit is granted.
+
+Verified commands from the repository root:
+
+```sh
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/test_china_merchants264206_saved_face_attribution_recipe_v1_20261013.py
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/china_merchants264206_saved_face_attribution_recipe_v1_20261013.py --preflight-only
+```
+
+The `--execute` and `--recover-receipt` modes have not been run. Do not infer worker approval from this code packet, an automatic goal continuation or elapsed time.

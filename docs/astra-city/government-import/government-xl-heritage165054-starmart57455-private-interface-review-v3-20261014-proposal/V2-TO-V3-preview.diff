@@ -1,0 +1,28 @@
+--- heritage165054_starmart57455_private_interface_preview_v2
++++ heritage165054_starmart57455_private_interface_preview_v3
+@@ -5,6 +5,7 @@
+ import {createRequire} from 'node:module';
+ import {createHash} from 'node:crypto';
+ import assert from 'node:assert/strict';
++import {makePrivateInterfaceCatalogue} from './heritage_private_interface_catalogue_v1_20261014.mjs';
+ import {installPrivateSourceScheduler} from './heritage_private_source_scheduler_v1_20261014.mjs';
+ import {fitIndexedSourceBox} from './upton_private_indexed_source_framing_v1_20261014.mjs';
+ import {browserExecutable} from '../landmark-preflight/browser-runtime.mjs';
+@@ -42,14 +43,14 @@
+   report.loadingDiagnostics??=[];report.assetRequests??=[];
+   page.on('requestfailed',q=>report.assetRequests.push({scenario,url:q.url(),failure:q.failure()}));
+   page.on('response',q=>{if(q.status()>=400)report.assetRequests.push({scenario,url:q.url(),status:q.status()});});
+-  async function status(phase,uid){const row=await page.evaluate(({phase,uid})=>{const r=window.__heritageSource,b=r.stream.getLoadedBuilding(uid),m=r.officialModels.models.get(uid),d=r.stream.detailedModels.get(uid);return{phase,uid,modelKnown:!!m,modelSourceSHA256:m?.sha256,buildingLoaded:!!b,buildingTile:b?.tile,selected:window.__city.state.selectedId,state:window.__city.state,official:r.officialModels.stats,stream:r.stream.stats,cacheError:r.officialModels.cache.errors.get(uid)?.stack??String(r.officialModels.cache.errors.get(uid)||''),wanted:r.officialModels.cache.wanted.slice(),detailedActive:!!d?.active,schedulerError:window.__heritageScheduler?.lastError??null};},{phase,uid});report.loadingDiagnostics.push({scenario,...row});return row;}
+-  const models=input.sources.filter(s=>scenario==='original-Star'||s.uid==='landsd/165054:0').map(s=>s.entry),catalogue={models},url='city/data/private-source-review/'+input.batch+'/'+scenario+'/catalogue.json',base=url.slice(0,url.lastIndexOf('/')+1);
++  async function status(phase,uid){const row=await page.evaluate(({phase,uid})=>{const r=window.__heritageSource,b=r.stream.getLoadedBuilding(uid),m=r.officialModels.models.get(uid),d=r.stream.detailedModels.get(uid);return{phase,uid,modelKnown:!!m,modelSourceSHA256:m?.sha256,buildingLoaded:!!b,buildingTile:b?.tile,selected:window.__city.state.selectedId,state:window.__city.state,official:r.officialModels.stats,stream:r.stream.stats,catalogueErrors:[...r.officialModels.catalogueErrors.entries()],cacheError:r.officialModels.cache.errors.get(uid)?.stack??String(r.officialModels.cache.errors.get(uid)||''),wanted:r.officialModels.cache.wanted.slice(),detailedActive:!!d?.active,schedulerError:window.__heritageScheduler?.lastError??null};},{phase,uid});report.loadingDiagnostics.push({scenario,...row});return row;}
++  const catalogue=makePrivateInterfaceCatalogue(input.sources,scenario),models=catalogue.models,url='city/data/private-source-review/'+input.batch+'/'+scenario+'/catalogue.json',base=url.slice(0,url.lastIndexOf('/')+1);
+   await page.route('**/city/app.js*',async r=>{const response=await r.fetch(),text=await response.text();assert.equal(sha(Buffer.from(text)),input.executionRefs.find(q=>q.path==='3d-viewer/city/app.js').sha256);await r.fulfill({response,body:text+'\nObject.defineProperty(window,"__heritageSource",{get:()=>({scene,terrain,officialModels,stream,camera,controls,renderer,THREE,visitBuilding,controlSheet,environment,closeSelection})});window.__heritageRender=renderer.render.bind(renderer);renderer.render=()=>{};'});});
+   await page.route('**/'+url,r=>r.fulfill({json:catalogue}));
+   for(const m of models){const s=input.sources.find(s=>s.uid===m.uid),b=await readFile(new URL(s.asset.path,root));assert.equal(sha(b),m.sha256);await page.route('**/'+base+m.asset+'*',r=>r.fulfill({body:b}));}
+   await page.route('**/city/data/manifest.json',async r=>{const response=await r.fetch(),text=await response.text();assert.equal(sha(Buffer.from(text)),input.currentManifest.sha256);const m=JSON.parse(text);assert(!m.officialModelCatalogues.includes(url));m.officialModelCatalogues.push(url);await r.fulfill({response,json:m});});
+   await page.goto('http://127.0.0.1:4176/city.html');await page.waitForFunction(()=>window.__city?.ready&&window.__heritageSource?.stream,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden',timeout:120000});
+-  await page.evaluate(()=>window.__heritageSource.environment.setHour(12));await page.evaluate(url=>window.__heritageSource.officialModels.loadCatalogue(url),url);
++  await page.evaluate(()=>window.__heritageSource.environment.setHour(12));const catalogueLoaded=await page.evaluate(url=>window.__heritageSource.officialModels.loadCatalogue(url),url);for(const m of models){const d=await status('after-catalogue-before-travel',m.uid);assert(catalogueLoaded&&d.modelKnown,'Private compact catalogue rejected: '+JSON.stringify(d.catalogueErrors));}
+   for(const s of input.sources){await page.evaluate(async b=>window.__heritageSource.visitBuilding(b),s.currentForm);await page.waitForFunction(()=>!window.__city.state.loadingTravel&&!window.__city.state.travelling,null,{timeout:90000});}
+   // Frame complete unchanged indexed sources before scheduling, so the tiny
+   // neighbouring Star visit cannot leave the Museum outside the fixture camera.

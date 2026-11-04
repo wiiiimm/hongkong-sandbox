@@ -1,0 +1,89 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-tai-kwei-qualified-stage-v1-20261017/plan.json",
+  "areas": [
+    {
+      "area": "Tai Kwei unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-tai-kwei-qualified-stage-v1-20261017/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-tai-kwei-original-v1-20261017.json": null,
+    "3d-viewer/city/data/official-models/government-xl-tai-kwei-qualified-stage-v1-20261017/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "283d424f9507d498ea6f75dd0afa1104f497ca7c8679de194813d589e8872bbe"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-tai-kwei-original-v1-20261017.json": "6a27f23b40cfd79aa9333cc34f314254a1c59e981f34a6c56338791429394240",
+    "3d-viewer/city/data/official-models/government-xl-tai-kwei-qualified-stage-v1-20261017/catalogue.json": "f13bb6dc2513a327cff4119a3888fc036c7a68b98dd696d8eb5e1dd0d3807e33",
+    "3d-viewer/city/data/manifest.json": "b459768ef2c728cb61684b44e5344929127c4e428c994eefbf2a9f67bc102570"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "fc20683db024c7ac5e723663f66cc1a70495bb70",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-160193-0.json",
+      "sha256": "f405bc0dd379385ce97ec0aaa64986ad3f2761121f81b17e1f86d233448ec19c",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-tai-kwei-original-v1-20261017.json",
+      "resolution": 5,
+      "area": "Tai Kwei original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "24525aae8aea614251fb40cbdb5bacff405e8a8adf34470491ff082b68f784ef",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-19A",
+            "sourceETag": "\"3f39f9d-655fee2e7510c\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.bin",
+                "sha256": "b4adb63936fb7e8ed3a055285b8ba8255db5f1d2e529f6fc9a9b17c766fbd537"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.gltf",
+                "sha256": "8e8f5e51b38964631693796eff1449c9fd100cbe447326e2ea60f057e05c4051"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.bin",
+                "sha256": "ce8c13bd90c2f911f43525059fdf63d4634f4ef9ddffd7807faee5c5603063a7"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.gltf",
+                "sha256": "cbc41e8a0c28e2f60925e15f4dc662f9e9061a674337ffc4e986ddf86d0e631e"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6a27f23b40cfd79aa9333cc34f314254a1c59e981f34a6c56338791429394240",
+      "bytes": 910392
+    }
+  ],
+  "estimatedBases": []
+}

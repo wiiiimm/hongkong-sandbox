@@ -1,0 +1,457 @@
+{
+  "issue": "HKS-208",
+  "stagedOnly": true,
+  "parentSha256": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+  "refinementSha256": "2420b53cab15f0bb6d5699b1bcd5273418b4170502cb5d3851841ead3b24e2c7",
+  "source": [
+    {
+      "manifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+      "manifestSha256": "f7db76552f9bb10904d9629d968041c5e2a2be6ea15386db0d2fcb5693803b89",
+      "tile": "11-SW-8D",
+      "revision": "2026-08-27T16:00:00+00:00",
+      "sourceHashes": {
+        "TERRAIN(TB)/T33750156000106E12/T33750156000106E12.gltf": "a1b30527719c4e397138c473104b3601716b35a0eb7cdcc06bace0c3ad3608aa",
+        "TERRAIN(TB)/T33750156000106E12/T33750156000106E12.bin": "8fdba2d721f7832a98be30e82756ceb5ba4403bf4df650bbed33197438ba4c0d"
+      }
+    }
+  ],
+  "coarseCells": [
+    223,
+    361,
+    235,
+    373
+  ],
+  "bounds": [
+    -592.5,
+    717.5,
+    -532.5,
+    777.5
+  ],
+  "vertices": 58081,
+  "sourceCoveredVertices": 58081,
+  "preservedWaterNodes": 0,
+  "boundaryChecks": 484,
+  "maximumBoundaryErrorMetres": 1.1368683772161603e-13,
+  "sourceTileHashes": [
+    {
+      "path": "3d-viewer/city/data/tiles/-1_0.json",
+      "sha256": "8a4440cd1f5a9bf927a9fd2db38ae4af7bb63901d03c6c6f045b62c0c46f5c94"
+    }
+  ],
+  "screenedForms": 8,
+  "regressions": [],
+  "targets": [
+    {
+      "uid": "landsd/114964:0",
+      "label": "E Hall",
+      "target": true,
+      "candidate": true,
+      "detailedGeometry": true,
+      "sourceBaseTop": [
+        55.4,
+        69
+      ],
+      "modelOrFallbackBase": 50.18899917602539,
+      "roof": 69.52100372314453,
+      "before": {
+        "min": 50.059,
+        "max": 54.022
+      },
+      "after": {
+        "min": 50.018,
+        "max": 52.059
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "bottomVertexReview": {
+        "vertices": 4,
+        "beforeClearanceQuantiles": [
+          -3.6343504333496384,
+          -2.8835022888183595,
+          -1.7266726989746282,
+          -0.5837176208496455,
+          0.12550698852538744
+        ],
+        "afterClearanceQuantiles": [
+          -0.6052690310058608,
+          -0.2317854929199239,
+          -0.06451739428711178,
+          -0.007360060302737281,
+          0.03579118383788682
+        ],
+        "nativeClearanceQuantiles": [
+          -0.06705074161291691,
+          -0.04627782505430744,
+          -0.019676759767385477,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "uid": "landsd/330467:0",
+      "label": "JC Cube",
+      "target": true,
+      "candidate": true,
+      "detailedGeometry": true,
+      "sourceBaseTop": [
+        58.1,
+        81
+      ],
+      "modelOrFallbackBase": 53.63999938964844,
+      "roof": 80.91200256347656,
+      "before": {
+        "min": 48.395,
+        "max": 55.79
+      },
+      "after": {
+        "min": 47.06,
+        "max": 55.842
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "bottomVertexReview": {
+        "vertices": 2,
+        "beforeClearanceQuantiles": [
+          3.298671264648455,
+          3.5328533935547046,
+          3.7670355224609544,
+          4.001217651367204,
+          4.235399780273454
+        ],
+        "afterClearanceQuantiles": [
+          0.9642128349609393,
+          0.9831184970703131,
+          1.0020241591796868,
+          1.0209298212890605,
+          1.0398354833984342
+        ],
+        "nativeClearanceQuantiles": [
+          0.3078308683984403,
+          0.35708915077916714,
+          0.40634743315989397,
+          0.4556057155406208,
+          0.5048639979213476
+        ]
+      }
+    }
+  ],
+  "rows": [
+    {
+      "uid": "landsd/92386:0",
+      "label": "THE CENTRIUM",
+      "target": false,
+      "candidate": false,
+      "detailedGeometry": false,
+      "sourceBaseTop": [
+        null,
+        null
+      ],
+      "modelOrFallbackBase": 36.66,
+      "roof": 39.66,
+      "before": {
+        "min": 36.469,
+        "max": 49.352
+      },
+      "after": {
+        "min": 36.469,
+        "max": 49.359
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/105155:0",
+      "label": "D Hall",
+      "target": false,
+      "candidate": true,
+      "detailedGeometry": true,
+      "sourceBaseTop": [
+        49.3,
+        70.3
+      ],
+      "modelOrFallbackBase": 49.7869987487793,
+      "roof": 70.44400024414062,
+      "before": {
+        "min": 49.158,
+        "max": 55.773
+      },
+      "after": {
+        "min": 49.12,
+        "max": 55.773
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/114964:0",
+      "label": "E Hall",
+      "target": true,
+      "candidate": true,
+      "detailedGeometry": true,
+      "sourceBaseTop": [
+        55.4,
+        69
+      ],
+      "modelOrFallbackBase": 50.18899917602539,
+      "roof": 69.52100372314453,
+      "before": {
+        "min": 50.059,
+        "max": 54.022
+      },
+      "after": {
+        "min": 50.018,
+        "max": 52.059
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "bottomVertexReview": {
+        "vertices": 4,
+        "beforeClearanceQuantiles": [
+          -3.6343504333496384,
+          -2.8835022888183595,
+          -1.7266726989746282,
+          -0.5837176208496455,
+          0.12550698852538744
+        ],
+        "afterClearanceQuantiles": [
+          -0.6052690310058608,
+          -0.2317854929199239,
+          -0.06451739428711178,
+          -0.007360060302737281,
+          0.03579118383788682
+        ],
+        "nativeClearanceQuantiles": [
+          -0.06705074161291691,
+          -0.04627782505430744,
+          -0.019676759767385477,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "uid": "landsd/213822:0",
+      "label": "THE CENTRIUM",
+      "target": false,
+      "candidate": false,
+      "detailedGeometry": false,
+      "sourceBaseTop": [
+        36.1,
+        58.3
+      ],
+      "modelOrFallbackBase": 36.1,
+      "roof": 58.3,
+      "before": {
+        "min": 36.211,
+        "max": 49.509
+      },
+      "after": {
+        "min": 36.211,
+        "max": 49.512
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/236586:0",
+      "label": "UNIVERSAL TRADE CENTRE",
+      "target": false,
+      "candidate": false,
+      "detailedGeometry": false,
+      "sourceBaseTop": [
+        49.7,
+        67.2
+      ],
+      "modelOrFallbackBase": 49.7,
+      "roof": 67.2,
+      "before": {
+        "min": 49.85,
+        "max": 68.307
+      },
+      "after": {
+        "min": 49.85,
+        "max": 68.307
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": true,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/255018:0",
+      "label": "The Centrium",
+      "target": false,
+      "candidate": false,
+      "detailedGeometry": false,
+      "sourceBaseTop": [
+        58.3,
+        180.1
+      ],
+      "modelOrFallbackBase": 58.3,
+      "roof": 180.1,
+      "before": {
+        "min": 36.212,
+        "max": 49.509
+      },
+      "after": {
+        "min": 36.212,
+        "max": 49.512
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": true
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": true
+      }
+    },
+    {
+      "uid": "landsd/262589:0",
+      "label": "Bauhinia House",
+      "target": false,
+      "candidate": true,
+      "detailedGeometry": true,
+      "sourceBaseTop": [
+        49.7,
+        58.3
+      ],
+      "modelOrFallbackBase": 48.54600143432617,
+      "roof": 58.724998474121094,
+      "before": {
+        "min": 48.96,
+        "max": 50.575
+      },
+      "after": {
+        "min": 48.929,
+        "max": 49.25
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      }
+    },
+    {
+      "uid": "landsd/330467:0",
+      "label": "JC Cube",
+      "target": true,
+      "candidate": true,
+      "detailedGeometry": true,
+      "sourceBaseTop": [
+        58.1,
+        81
+      ],
+      "modelOrFallbackBase": 53.63999938964844,
+      "roof": 80.91200256347656,
+      "before": {
+        "min": 48.395,
+        "max": 55.79
+      },
+      "after": {
+        "min": 47.06,
+        "max": 55.842
+      },
+      "beforeFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "afterFlags": {
+        "roofWhollyBelowTerrain": false,
+        "roofPartlyBelowTerrain": false,
+        "baseWhollyAboveTerrain": false
+      },
+      "bottomVertexReview": {
+        "vertices": 2,
+        "beforeClearanceQuantiles": [
+          3.298671264648455,
+          3.5328533935547046,
+          3.7670355224609544,
+          4.001217651367204,
+          4.235399780273454
+        ],
+        "afterClearanceQuantiles": [
+          0.9642128349609393,
+          0.9831184970703131,
+          1.0020241591796868,
+          1.0209298212890605,
+          1.0398354833984342
+        ],
+        "nativeClearanceQuantiles": [
+          0.3078308683984403,
+          0.35708915077916714,
+          0.40634743315989397,
+          0.4556057155406208,
+          0.5048639979213476
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "Terrain trial only; current renderer/browser must verify exposed wall and foundation appearance.",
+    "Source surveyed/model heights stay unchanged at 1x. No buildings receive estimated base shifts in this proposal."
+  ]
+}

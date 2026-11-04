@@ -1,0 +1,132 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-tuen-mun-twelve-original-qualified-stage-v2-20261026/plan.json",
+  "areas": [
+    {
+      "area": "Tuen Mun Hospital twelve original government sources",
+      "models": 12,
+      "catalogue": "city/data/official-models/government-xl-tuen-mun-twelve-original-qualified-stage-v2-20261026/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-tuen-mun-twelve-original-20261026.json": null,
+    "3d-viewer/city/data/official-models/government-xl-tuen-mun-twelve-original-qualified-stage-v2-20261026/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "12b49f503dba882ae2e4e3db7e8e630a322392699b6b8e1e8e7c22bc0f05fccd"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-tuen-mun-twelve-original-20261026.json": "72056fcad23438e4cc445f400176fc46456cfba96ec6621561862c5bd9970e8d",
+    "3d-viewer/city/data/official-models/government-xl-tuen-mun-twelve-original-qualified-stage-v2-20261026/catalogue.json": "1af7e44c2ec310b3ec2b37be264507036490dcd9f7448bf420af145db33469ab",
+    "3d-viewer/city/data/manifest.json": "c21eb863d74b7d54195a58bc5c88e8d3ea424da89baa8cb6fde941b08cc784c2"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "e4e6836462073875341baf865d118d87f25f339e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-191896-0.json",
+      "sha256": "5b7012db653c433cb43bb94a4f5456f3b1eb8e12ca0e894fa1b9905e2ba4e76f",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-tuen-mun-twelve-original-20261026.json",
+      "resolution": 5,
+      "area": "Tuen Mun Hospital twelve original government sources",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -18966.9832753,
+            -13414.4845909,
+            -18822.1528204,
+            -13150.056602
+          ],
+          "outerBounds": [
+            -18971.078608725482,
+            -13418.575082332367,
+            -18818.465773731055,
+            -13146.833829835785
+          ],
+          "policy": "Original highest source terrain, complete original-TIN replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-tuen-mun-main-block-source-collection-20261010/sheets/6-SW-1A/terrain/TERRAIN(TB)/T15000294000106E10/T15000294000106E10.gltf",
+            "sha256": "748604cd34ec9e5016496af25fa87e90e65c6e119a33bb07a8a712433547ca20"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 19503,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "72056fcad23438e4cc445f400176fc46456cfba96ec6621561862c5bd9970e8d",
+      "bytes": 11466039
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

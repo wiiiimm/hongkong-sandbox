@@ -1,0 +1,154 @@
+{
+  "batch": "government-xl-after-disneyland-piers-next-five-fresh-sequence-v1-20261030",
+  "uids": [
+    "landsd/235568:0",
+    "landsd/43101:0",
+    "landsd/76610:0",
+    "landsd/89917:0",
+    "landsd/275446:0"
+  ],
+  "resources": [
+    "building:landsd/235568:0",
+    "building:landsd/43101:0",
+    "building:landsd/76610:0",
+    "building:landsd/89917:0",
+    "building:landsd/275446:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-selection-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030",
+        "--capture",
+        "government-xl-remaining-178-v3-current-scene-v1-20261023-chunk-01-runtime",
+        "--uid",
+        "landsd/235568:0",
+        "--uid",
+        "landsd/43101:0",
+        "--uid",
+        "landsd/76610:0",
+        "--uid",
+        "landsd/89917:0",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-after-disneyland-piers-next-five-selection-v1-20261030",
+        "--uid",
+        "landsd/235568:0",
+        "--uid",
+        "landsd/43101:0",
+        "--uid",
+        "landsd/76610:0",
+        "--uid",
+        "landsd/89917:0",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-identity-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-source-scope-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+        "--inventory",
+        "government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-235568-0-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+        "--uid",
+        "landsd/235568:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-43101-0-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+        "--uid",
+        "landsd/43101:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-76610-0-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+        "--uid",
+        "landsd/76610:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-89917-0-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-275446-0-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-five-attributes-v1-20261030",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    },
+    {
+      "script": "selected_cached_original_terrain_v1_20261030.py",
+      "batch": "government-xl-after-disneyland-piers-next-five-original-terrain-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-after-disneyland-piers-next-five-current-ground-v1-20261030"
+      ]
+    }
+  ]
+}

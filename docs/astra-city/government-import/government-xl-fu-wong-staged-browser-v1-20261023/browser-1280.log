@@ -1,0 +1,29 @@
+staged 1280 initialising
+staged 1280 map ready
+staged 1280 retained asset requested
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+route.fetch: read ETIMEDOUT
+Call log:
+[2m  - → GET http://127.0.0.1:4176/city/data/official-models/government-xxl-v-walk-20260913/assets/e98936729981df7e618478258f486ff5faaa98fcfa57937b2d3f5a11dc2277f8.glb.gz?v=e98936729981df7e618478258f486ff5faaa98fcfa57937b2d3f5a11dc2277f8[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - referer: http://127.0.0.1:4176/city.html?district=central[22m
+[2m    - sec-ch-ua: "Chromium";v="152", "Not?A_Brand";v="24", "Google Chrome";v="152"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+[2m  - ← 200 OK[22m
+[2m    - server: SimpleHTTP/0.6 Python/3.12.3[22m
+[2m    - date: Thu, 22 Oct 2026 17:00:48 GMT[22m
+[2m    - content-type: application/gzip[22m
+[2m    - content-length: 2627590[22m
+[2m    - last-modified: Sat, 12 Sep 2026 19:42:01 GMT[22m
+
+    at /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ronsdale_three_live_browser_v4_20261022.mjs:28:331 {
+  name: 'Error'
+}
+
+Node.js v24.18.0

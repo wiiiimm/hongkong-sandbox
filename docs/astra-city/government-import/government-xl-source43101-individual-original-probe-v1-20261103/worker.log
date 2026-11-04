@@ -1,0 +1,38 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.16}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_individual_original_probe_v1_20261103.py", line 67, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_individual_original_probe_v1_20261103.py", line 56, in main
+    roots=source['scenes'][source.get('scene',0)]['nodes'];whole=decode_original_world_triangles(glb(source,binary));rows=[]
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_packed_world_geometry_20261009.py", line 31, in decode_original_world_triangles
+    for root in doc['scenes'][doc.get('scene',0)]['nodes']:visit(root,np.eye(4),set())
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_packed_world_geometry_20261009.py", line 30, in visit
+    for child in node.get('children',[]):visit(child,transform,ancestors|{index})
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_packed_world_geometry_20261009.py", line 26, in visit
+    v=access(primitive['attributes']['POSITION']).astype(float);ids=access(primitive['indices']).reshape(-1)
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_packed_world_geometry_20261009.py", line 14, in access
+    width={'VEC3':3,'SCALAR':1}[a['type']];dtype=np.dtype({5126:'<f4',5123:'<u2',5125:'<u4'}[a['componentType']]);stride=v.get('byteStride',width*dtype.itemsize)
+                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+KeyError: 5121
+{"reservationAction": "release", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.244}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_individual_original_probe_v1_20261103.py", line 67, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_individual_original_probe_v1_20261103.py", line 29, in main
+    return execute_reserved(claim['reservation'],lp,[sys.executable,__file__,'--owned'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v2_20261103.py", line 32, in execute_reserved
+    assert result.returncode==0,'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval

@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-st-andrews-church-20260925/plan.json",
+  "areas": [
+    {
+      "area": "St. Andrew's Church original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-st-andrews-church-20260925/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-148948-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-st-andrews-church-20260925/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "a0ef8ecf642a63bc7651678920d7d22fff0e9a8a1eb73dafcbf820faa79d3c38"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-148948-0.json": "568f7475bec8532606629c2cc2fa342dc6f0b01a6b88f671838dfa75ef12c2eb",
+    "3d-viewer/city/data/official-models/government-xl-st-andrews-church-20260925/catalogue.json": "25229843c36b6a42d60b4a4414d916c0d08241a09287ee8cfee37f755c7b75a9",
+    "3d-viewer/city/data/manifest.json": "19ba49bdf29f730236cd8de7365b18a2337e811e6546dcd27f1520b3045dacef"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "dc811320618dac493600eea835c85783e1a4cad1",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-148948-0.json",
+      "resolution": 5,
+      "area": "St. Andrew's Church exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "67b1c97ebf94d9c8161ab792d2da3850c68a937c1b7e31fdb66ecb348cf700b7",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-24D",
+            "sourceETag": "\"3680009-655feeb2133cc\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.bin",
+                "sha256": "14d8f6360cbcbad50110db738e3db26deb67aca50e879ebc253f318daf9b0b7a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf",
+                "sha256": "ee7ec5e5a762ed2078444679ac7b4328bf0db852a80f8210211d9c241a1c993f"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "568f7475bec8532606629c2cc2fa342dc6f0b01a6b88f671838dfa75ef12c2eb",
+      "bytes": 3137538
+    }
+  ],
+  "estimatedBases": []
+}

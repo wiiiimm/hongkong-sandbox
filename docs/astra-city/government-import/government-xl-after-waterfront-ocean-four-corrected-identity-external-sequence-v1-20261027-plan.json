@@ -1,0 +1,113 @@
+{
+  "batch": "government-xl-after-waterfront-ocean-four-corrected-identity-external-sequence-v1-20261027",
+  "phases": [
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-identity-v1-20261027",
+      "args": [
+        "--capture",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-model-scope-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--inventory",
+        "government-xl-after-waterfront203730-current-inventory-v1-20261027"
+      ]
+    },
+    {
+      "script": "selected_original_overlapping_native_contacts_v3_20261024.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-native-contacts-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--scope",
+        "government-xl-after-waterfront-ocean-four-corrected-model-scope-v1-20261027",
+        "--inventory",
+        "government-xl-after-waterfront203730-current-inventory-v1-20261027"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-foreign-contacts-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--scope",
+        "government-xl-after-waterfront-ocean-four-corrected-model-scope-v1-20261027",
+        "--native-contacts",
+        "government-xl-after-waterfront-ocean-four-corrected-native-contacts-v1-20261027"
+      ]
+    },
+    {
+      "script": "original_pair_visual_diagnostic_v1_20261027.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-original-visual-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--main",
+        "landsd/234188:0"
+      ]
+    },
+    {
+      "script": "original_negative_face_component_context_v2_20261027.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-sloping-components-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--clearance",
+        "government-xl-after-waterfront-ocean-four-corrected-234188-low-faces-v1-20261027",
+        "--uid",
+        "landsd/234188:0",
+        "--face",
+        "225",
+        "--face",
+        "226",
+        "--face",
+        "227",
+        "--face",
+        "1436",
+        "--face",
+        "1437"
+      ]
+    },
+    {
+      "script": "original_low_face_group_views_v2_20261026.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-low-group-views-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--low-faces",
+        "government-xl-after-waterfront-ocean-four-corrected-234188-low-faces-v1-20261027",
+        "--uid",
+        "landsd/234188:0"
+      ]
+    }
+  ],
+  "resources": [
+    "building:landsd/234188:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-xl-after-marco-next-five-ferry-hierarchical-qualified-stage-v1-20261026-terrain.json",
+    "building:landsd/156599:0",
+    "building:landsd/210743:0",
+    "building:landsd/231469:0"
+  ],
+  "uids": [
+    "landsd/234188:0",
+    "landsd/156599:0",
+    "landsd/210743:0",
+    "landsd/231469:0"
+  ]
+}

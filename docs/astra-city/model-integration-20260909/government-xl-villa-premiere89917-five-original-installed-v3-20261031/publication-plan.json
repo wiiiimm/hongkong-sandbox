@@ -1,0 +1,171 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-villa-premiere89917-qualified-stage-v3-20261031/plan.json",
+  "areas": [
+    {
+      "area": "Villa Premiere five unchanged government original components",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-villa-premiere89917-qualified-stage-v3-20261031/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-villa-premiere-five-original-v1-20261031.json": null,
+    "3d-viewer/city/data/official-models/government-xl-villa-premiere89917-qualified-stage-v3-20261031/catalogue.json": null,
+    "3d-viewer/city/data/tiles/-7_-9.json": "7df2cf7b6de4a42c23781e6a9b20658a63e0aae2363be9fc10441f3b2bd2a182",
+    "3d-viewer/city/data/manifest.json": "87f4ea2c9621263e77e55745198159614b63f55cd5e4cb0bb47ae1d5494b2bf7"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-villa-premiere-five-original-v1-20261031.json": "3696f6d45c55904d531e9ba849cbaff42b928eb050a35c9eedfea30a53fbef9b",
+    "3d-viewer/city/data/official-models/government-xl-villa-premiere89917-qualified-stage-v3-20261031/catalogue.json": "9ea593fcbac6252efb807a2b8b6196b3479f12b416c2e6a3c1b4bc47f24136b4",
+    "3d-viewer/city/data/tiles/-7_-9.json": "5144f43ceac6f7375e593cca27bcdccccfdde218979c2af2fd2ccba3501b7652",
+    "3d-viewer/city/data/manifest.json": "c9dbf5f0ac3cad399de48a5403ac341d2ebf09a62ac3fb354119db7e9fb819b7"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "5e8d9c9267b5c3354c5782c78099ea7686428040",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-villa-premiere-five-original-v1-20261031.json",
+      "resolution": 5,
+      "area": "Villa Premiere source-derived ramp ground",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-villa-premiere89917-original-inset-v1-20261030/candidate-terrain.json",
+            "sha256": "c5dba11fa3b3ca2753b19633637fb31d8a693898b626361a8e75ea2f606602d0"
+          },
+          "policy": "Lower-only source-floor-bounded0.25m-clearance return, independently per disconnected domain. Existing1m core/3m return, area/height/25k guards retained. No source edit or acceptance.",
+          "sha256": "4407cbd52574f50e6b6bdddc6e581c96bbd0653426f89df0e490ae0b2096935d",
+          "sourceFaceIndices": [
+            7915,
+            7916,
+            7917,
+            7918,
+            7919
+          ],
+          "sourceFaceSHA256": "be708e600638d478ace38b0a58492be3301cf6416f938eeb8da2dbf1d027c6f2",
+          "uid": "landsd/89917:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -12936.488566191056,
+            -16953.35232322192,
+            -12853.880011485257,
+            -16834.682091891893
+          ],
+          "outerBounds": [
+            -12940.590983514228,
+            -16956.49523038768,
+            -12850.877467816028,
+            -16831.26743006757
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-15A/terrain/TERRAIN(TB)/T21000330000106E10/T21000330000106E10.gltf",
+            "sha256": "8d475ade330a9cf3ad115a028944d4221425543accb202d9a1ad7354525dd353"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "3696f6d45c55904d531e9ba849cbaff42b928eb050a35c9eedfea30a53fbef9b",
+      "bytes": 716897
+    }
+  ],
+  "illustrativeFoundations": [
+    {
+      "uid": "landsd/325786:0",
+      "foundationBase": 4.590000152587891,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-villa-premiere89917-qualified-stage-v3-20261031/325786-0-qualified-canopy-review.json",
+        "sha256": "711c564caf837a6bd3c3a644f38d6fff97bab2d0b3ae719b86ddf7d1e7e8ab98"
+      }
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

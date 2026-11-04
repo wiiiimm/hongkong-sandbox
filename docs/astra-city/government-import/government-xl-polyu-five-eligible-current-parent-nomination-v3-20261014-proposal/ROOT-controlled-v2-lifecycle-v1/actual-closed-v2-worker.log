@@ -1,0 +1,25 @@
+{"stage": "saved-prefix-reconstructed", "oldPrivateProcessed": 832, "candidateFaces": 1485}
+{
+  "ok": false,
+  "exitCode": 143,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_five_eligible_current_parent_nomination_v2_20261014.py", line 193, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_five_eligible_current_parent_nomination_v2_20261014.py", line 190, in main
+    save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-polyu-five-eligible-current-parent-nomination-v2-20261014/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_five_eligible_current_parent_nomination_v2_20261014.py', '--owned']' returned non-zero exit status 143.
+{"actualWorkerExitCode": 1, "newlyInstalled": 0, "currentAcceptance": false, "rootVerificationFailure": {"type": "AssertionError", "message": "", "traceback": "Traceback (most recent call last):\n  File \"/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-polyu-five-eligible-current-parent-nomination-v2-20261014-proposal/root-supervisor-proposal.py\", line 17, in main\n    assert completed.returncode==0\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-polyu-five-eligible-current-parent-nomination-v2-20261014-proposal/root-supervisor-proposal.py", line 42, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-polyu-five-eligible-current-parent-nomination-v2-20261014-proposal/root-supervisor-proposal.py", line 17, in main
+    assert completed.returncode==0
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

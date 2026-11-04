@@ -1,0 +1,8 @@
+--- reviewed-B-only-prefix
++++ approved-exact-all-class-georef
+@@
+-import concurrent.futures,importlib.util,json,struct,sys
++import concurrent.futures,importlib.util,json,re,struct,sys
+@@
+-matches=[m for m in members if PREFIX in Path(m['name']).parts or any(part.startswith(PREFIX)for part in Path(m['name']).parts)]
++matches=[m for m in members if any(re.fullmatch(r'[A-Za-z]+'+GEOREF+r'(01|02)06[0-9A-Z]{3}(?:\.[^/]+)?',part,re.I)for part in Path(m['name']).parts)]

@@ -1,0 +1,100 @@
+{
+  "batch": "government-xl-sha-tin-civic-five-diagnostics-v1-20261029",
+  "uids": [
+    "landsd/231013:0",
+    "landsd/23220:0",
+    "landsd/23759:0",
+    "landsd/23761:0",
+    "landsd/271344:0"
+  ],
+  "resources": [
+    "building:landsd/231013:0",
+    "building:landsd/23220:0",
+    "building:landsd/23759:0",
+    "building:landsd/23761:0",
+    "building:landsd/271344:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-sha-tin-civic-five-selection-v1-20261029",
+      "args": [
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029",
+        "--capture",
+        "government-xl-civic-seven-current-ground-v1-20261029",
+        "--capture",
+        "government-xl-civic-two-neighbours-current-ground-v1-20261029",
+        "--uid",
+        "landsd/231013:0",
+        "--uid",
+        "landsd/23220:0",
+        "--uid",
+        "landsd/23759:0",
+        "--uid",
+        "landsd/23761:0",
+        "--uid",
+        "landsd/271344:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-sha-tin-civic-five-current-ground-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-sha-tin-civic-five-selection-v1-20261029",
+        "--uid",
+        "landsd/231013:0",
+        "--uid",
+        "landsd/23220:0",
+        "--uid",
+        "landsd/23759:0",
+        "--uid",
+        "landsd/23761:0",
+        "--uid",
+        "landsd/271344:0"
+      ]
+    },
+    {
+      "script": "selected_original_local_inset_v13_20261024.py",
+      "batch": "government-xl-sha-tin-civic-five-original-inset-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-sha-tin-civic-five-current-ground-v1-20261029",
+        "--terrain-check",
+        "government-xl-sha-tin-civic-bus-authentic-ground-v1-20261029",
+        "--uid",
+        "landsd/271344:0",
+        "--companion",
+        "landsd/231013:0",
+        "--companion",
+        "landsd/23220:0",
+        "--companion",
+        "landsd/23759:0",
+        "--companion",
+        "landsd/23761:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-sha-tin-civic-five-proposed-ground-v1-20261029",
+      "args": [
+        "--patch",
+        "government-xl-sha-tin-civic-five-original-inset-v1-20261029",
+        "--capture",
+        "government-xl-sha-tin-civic-five-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-sha-tin-civic-five-terrain-scope-v1-20261029",
+      "args": [
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029",
+        "--patch",
+        "government-xl-sha-tin-civic-five-original-inset-v1-20261029"
+      ]
+    }
+  ]
+}

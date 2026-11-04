@@ -1,0 +1,76 @@
+{
+  "batch": "government-xl-after-waterfront-ocean-four-corrected-junction-review-sequence-v1-20261027",
+  "phases": [
+    {
+      "script": "selected_original_native_contact_roles_v1_20261025.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-native-roles-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-after-waterfront-ocean-four-corrected-native-contacts-v1-20261027"
+      ]
+    },
+    {
+      "script": "original_native_contact_lineage_v2_20261027.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-native-lineage-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-after-waterfront-ocean-four-corrected-native-contacts-v1-20261027",
+        "--roles",
+        "government-xl-after-waterfront-ocean-four-corrected-native-roles-v1-20261027"
+      ]
+    },
+    {
+      "script": "original_pair_contact_lineage_v1_20261027.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-234188-210743-lineage-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-after-waterfront-ocean-four-junction-234188-210743-contacts-v1-20261027",
+        "--roles",
+        "government-xl-after-waterfront-ocean-four-junction-234188-210743-roles-v1-20261027"
+      ]
+    },
+    {
+      "script": "original_pair_contact_lineage_v1_20261027.py",
+      "batch": "government-xl-after-waterfront-ocean-four-corrected-234188-231469-lineage-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-after-waterfront-ocean-four-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-after-waterfront-ocean-four-junction-234188-231469-contacts-v1-20261027",
+        "--roles",
+        "government-xl-after-waterfront-ocean-four-junction-234188-231469-roles-v1-20261027"
+      ]
+    }
+  ],
+  "resources": [
+    "building:landsd/234188:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-xl-after-marco-next-five-ferry-hierarchical-qualified-stage-v1-20261026-terrain.json",
+    "building:landsd/156599:0",
+    "building:landsd/210743:0",
+    "building:landsd/231469:0",
+    "building:landsd/21915:0",
+    "building:landsd/205767:0",
+    "building:landsd/215934:0"
+  ],
+  "uids": [
+    "landsd/234188:0",
+    "landsd/156599:0",
+    "landsd/210743:0",
+    "landsd/231469:0"
+  ]
+}

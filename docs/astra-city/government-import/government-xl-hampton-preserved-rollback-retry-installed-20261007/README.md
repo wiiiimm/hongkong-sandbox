@@ -1,0 +1,5 @@
+# Hampton Loft — verified original installation
+
+Codex, 6 October 2026. Hampton Loft (landsd/284938:0) is installed with unchanged original government geometry. Verified Neon job `53307d5be3fe21c96c1f19c163160650302af43121f378133bf6588af5696ae0`, installed snapshot `8823e33326a09623`, source hashes `{'landsd/284938:0': 'd4f4f75b682f3499a7283141cfe554f5b941626297b87f7877ef2586ef39a4bf'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+29 new XL installations from44/308: **73 installed / 279 not installed**, 71 further installations required. Public counters: 346,108 total source forms, 4,422 enhanced, 4,408 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

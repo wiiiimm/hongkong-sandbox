@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_four_parent_current_production_caller_v1_draft_20261014.py", line 116, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_four_parent_current_production_caller_v1_draft_20261014.py", line 107, in main
+    if '--schema-only'in sys.argv:print(json.dumps(schema_only()));return
+                                                   ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_four_parent_current_production_caller_v1_draft_20261014.py", line 51, in schema_only
+    p,r,n,o,c,i,f,g,d,resources=load()
+                                ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_four_parent_current_production_caller_v1_draft_20261014.py", line 26, in load
+    current=read(check(manifest_ref));delta=binding.scene_delta(historical,current);domain=binding.grid_domain(old)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_four_parent_current_capture_binding_v1_draft_20261014.py", line 18, in scene_delta
+    assert current==expected,'unexpected current field/catalogue/terrain/order delta'
+           ^^^^^^^^^^^^^^^^^
+AssertionError: unexpected current field/catalogue/terrain/order delta

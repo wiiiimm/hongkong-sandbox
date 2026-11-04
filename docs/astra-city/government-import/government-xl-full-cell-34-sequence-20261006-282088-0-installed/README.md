@@ -1,0 +1,5 @@
+# Fu Sing House — verified original installation
+
+Codex, 6 October 2026. Original landsd/282088:0 is installed unchanged. Verified Neon job `4ba1a716a31e8c0b1878d4f0a2752db5f1dd4217c637321846984236e43437ff`, installed review snapshot `8fda2c228a8d16ff`, source SHA `abee3406c7da010ddc6d69ee10e650075a1e03e20f5c78263282caee4b5b0c08`. Explicit whole geographic-cell identity, full original source/contact/foundation/basic/native neighbours, runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected. Zero source geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+Fifteenth new verified XL install from the 44/308 baseline: **59 installed / 293 not installed**, with 85 further new installations required by the active goal. Public counters: 346,108 total source forms, 4,407 enhanced; 4,393 / 212,669 government matches installed. Queued/running rows remain In process; this checkpoint does not stop the run.

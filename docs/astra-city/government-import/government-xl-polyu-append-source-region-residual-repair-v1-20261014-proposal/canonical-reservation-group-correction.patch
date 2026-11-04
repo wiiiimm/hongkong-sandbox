@@ -1,0 +1,94 @@
+--- docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/preserved-before-canonical-reservation-group-correction/polyu_append_source_region_residual_repair_caller_v1_draft_20261014.py
++++ source-scripts/city/government-import/polyu_append_source_region_residual_repair_caller_v1_draft_20261014.py
+@@ -102,8 +102,9 @@
+     if '--owned'in sys.argv:owned();return
+     assert '--nominate-append-only-source-regions'in sys.argv and not DOC.exists()and not LOCAL.exists()
+     load();LOCAL.mkdir(parents=True);claim=reservations.claim('polyu-source-append-'+str(uuid.uuid4()),['immutable-source-proof:'+BATCH],batch=BATCH,ttl=3600)
+-    assert claim['ok'];lease={k:claim[k]for k in ['ok','owner','claimToken','batch','resources','generations']};save(LEASE,lease)
++    assert claim['ok'];lease=claim['reservation']
+     try:
++        save(LEASE,json.loads(json.dumps(lease,default=str)))
+         p=subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,str(Path(__file__)),'--owned']);assert p.returncode==0,p.returncode
+     finally:
+         if reservations.owns(lease):reservations.release(lease)
+--- docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/preserved-before-canonical-reservation-group-correction/METHOD.md
++++ docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/METHOD.md
+@@ -34,6 +34,8 @@
+ 
+ Eight synthetic adverse fixtures cover complete-source versus locator geometry, deduplication with lineage, covered contradictions/already-enclosed families, exact domain clip on the own plane, full old slots/index/signed-zero preservation, exact byte-identical representation accounting, distinct same-XZ layers and disjoint/zero projections. They are unexecuted. The preparation driver runs them once, closed immutable logs, isolated import and schema-only, exact declared pins before/end and strict local transitive Python import pins. Schema performs saved mesh/schema/hash checks, not packing/union/finite/source decoding, DB, lease or worker calls. Distinct path/SHA declarations are hashed once per phase; conflicts fail. Mutable supervisor stdout must stay outside proposal/DOC freezer directories.
+ 
++The initial unexecuted caller incorrectly expected a flat claim result. Its bytes and pins/preparation/METHOD are preserved in `preserved-before-canonical-reservation-group-correction`. The corrected main uses the actual shared API's `claim['reservation']`, serializes UUID/datetime values through `json.dumps(default=str)` and saves the lease inside protected `try/finally`. One additional synthetic orchestration fixture extracts the exact `main` AST without importing source helpers, with mock claim/save/worker/owns/release APIs. Four subcases check the nested canonical group, serialization, save failure cleanup, worker failure cleanup and ownership already ended. No shared API/guard is modified and no actual lease is claimed by the fixture. Preparation records its separate one-test validation and immutable log; the original eight source-geometry fixtures remain byte-identical.
++
+ Preparation after ROOT full read:
+ 
+ ```sh
+--- docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/preserved-before-canonical-reservation-group-correction/prepare-readonly.py
++++ docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/prepare-readonly.py
+@@ -1,4 +1,4 @@
+-"""UNEXECUTED preparation: eight fixtures, imports/schema; no source packing."""
++"""UNEXECUTED eight geometry/one lease fixtures, imports/schema; no source packing."""
+ from pathlib import Path
+ import ast,hashlib,json,os,re,subprocess,sys
+ PROPOSAL=Path(__file__).resolve().parent;ROOT=PROPOSAL.parents[3]
+@@ -6,6 +6,7 @@
+ CALLER=HERE/'polyu_append_source_region_residual_repair_caller_v1_draft_20261014.py'
+ HELPER=HERE/'polyu_append_source_region_residual_repair_v1_draft_20261014.py'
+ TEST=HERE/'test_polyu_append_source_region_residual_repair_v1_draft_20261014.py'
++LEASE_TEST=HERE/'test_polyu_append_source_region_canonical_lease_v1_draft_20261014.py'
+ sys.path.insert(0,str(HERE))
+ from exact_distinct_evidence_refs_v1_20261014 import distinct_refs
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest())
+@@ -21,13 +22,17 @@
+         with log.open('xb')as f:p=subprocess.run(cmd,cwd=ROOT,env=env,stdout=f,stderr=subprocess.STDOUT)
+         commands.append(dict(command=cmd,exitCode=p.returncode,log=ref(log)));return p.returncode,log
+     try:
++        rc,lease_log=run('one-canonical-lease-receipt-fixture',[PY,str(LEASE_TEST)]);fence()
++        assert rc==0 and re.search(r'Ran 1 test\b',lease_log.read_text()),'preserve actual lifecycle fixture failure; do not proceed'
++        lease_validation=PROPOSAL/'canonical-lease-validation.json'
++        write(lease_validation,dict(passedTests=1,failedTests=0,exitCode=rc,executedCodeRefs=[ref(CALLER),ref(LEASE_TEST)],evidenceRefs=[ref(CALLER),ref(LEASE_TEST),ref(lease_log)],onlyExtractedMainWithMockedAPIs=True,noDBOrLeaseClaimed=True))
+         rc,log=run('eight-source-region-append-fixtures',[PY,str(TEST)]);fence()
+         assert rc==0 and re.search(r'Ran 8 tests\b',log.read_text()),'preserve actual fixture failure; do not proceed'
+         validation=PROPOSAL/'helper-validation.json'
+         write(validation,dict(passedTests=8,failedTests=0,exitCode=rc,executedCodeRefs=[ref(HELPER),ref(TEST)],evidenceRefs=[ref(HELPER),ref(TEST),ref(log)]))
+         rc,_=run('isolated-import',[PY,'-c',"import sys,importlib.util;sys.path.insert(0,sys.argv[1]);s=importlib.util.spec_from_file_location('append_source_region_draft',sys.argv[2]);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);print('isolated import PASS; no owned/main call')",str(HERE),str(CALLER)]);fence();assert rc==0
+         rc,_=run('schema-only',[PY,str(CALLER),'--schema-only']);fence();assert rc==0
+-        declared={q['path']:q['sha256']for q in pins['codeRefs']};pending=[CALLER,HELPER,TEST,HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'];seen=set();imports=[]
++        declared={q['path']:q['sha256']for q in pins['codeRefs']};pending=[CALLER,HELPER,TEST,LEASE_TEST,HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'];seen=set();imports=[]
+         while pending:
+             p=pending.pop()
+             if p in seen:continue
+@@ -39,10 +44,10 @@
+                     for parent in [HERE,SHARED]:
+                         local=parent/(name.split('.')[0]+'.py')
+                         if local.is_file():pending.append(local);break
+-        fence();write(PROPOSAL/'actual-readonly-preparation.json',dict(passed=True,caller=ref(CALLER),helperValidationRef=ref(validation),commands=commands,
++        fence();write(PROPOSAL/'actual-readonly-preparation.json',dict(passed=True,caller=ref(CALLER),helperValidationRef=ref(validation),canonicalLeaseValidationRef=ref(lease_validation),commands=commands,
+             transitiveLiteralPythonRefs=sorted(imports,key=lambda q:q['path']),historicalCapturedManifestSHA256=pins['historicalCapturedManifestSHA256'],beforeEndAllDeclaredPinsVerified=True,
+-            noSourcePackingUnionFiniteDBLeaseWorkerOrProductionImport=True,evidenceRefs=distinct_refs([ref(Path(__file__)),ref(validation)]+[q['log']for q in commands]+imports)))
+-        print(json.dumps(dict(passed=True,preparation=ref(PROPOSAL/'actual-readonly-preparation.json'),fixturesPassed=8,actualCommands=len(commands))))
++            noSourcePackingUnionFiniteDBLeaseWorkerOrProductionImport=True,evidenceRefs=distinct_refs([ref(Path(__file__)),ref(validation),ref(lease_validation)]+[q['log']for q in commands]+imports)))
++        print(json.dumps(dict(passed=True,preparation=ref(PROPOSAL/'actual-readonly-preparation.json'),sourceFixturesPassed=8,canonicalLeaseFixturesPassed=1,actualCommands=len(commands))))
+     except BaseException as e:
+         fence();write(PROPOSAL/'actual-preparation-failure.json',dict(passed=False,errorType=type(e).__name__,message=str(e),commands=commands,beforeEndAllDeclaredPinsVerified=True,noWorkerOrLeaseClaimed=True));raise
+ if __name__=='__main__':main()
+--- docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/preserved-before-canonical-reservation-group-correction/build-draft-pins.py
++++ docs/astra-city/government-import/government-xl-polyu-append-source-region-residual-repair-v1-20261014-proposal/build-draft-pins.py
+@@ -8,7 +8,7 @@
+     data=p.read_bytes();return json.loads(gzip.decompress(data)if str(p).endswith('.gz')else data)
+ def main():
+     caller=HERE/'polyu_append_source_region_residual_repair_caller_v1_draft_20261014.py'
+-    pending=[caller,HERE/'polyu_append_source_region_residual_repair_v1_draft_20261014.py',HERE/'test_polyu_append_source_region_residual_repair_v1_draft_20261014.py',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'];seen=set()
++    pending=[caller,HERE/'polyu_append_source_region_residual_repair_v1_draft_20261014.py',HERE/'test_polyu_append_source_region_residual_repair_v1_draft_20261014.py',HERE/'test_polyu_append_source_region_canonical_lease_v1_draft_20261014.py',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'];seen=set()
+     while pending:
+         p=pending.pop()
+         if p in seen:continue
+@@ -25,7 +25,9 @@
+     inputs += [cap/q for q in ['result.json','ROOT-VERIFIED.json','input.json.gz','real-validator-outcome.json','all25-original-production-guard-site-replay.json.gz']]
+     nref=read(cap/'input.json.gz')['newNomination'];assert ref(ROOT/nref['path'])==nref;inputs.append(ROOT/nref['path'])
+     inputs.append(PROPOSAL/'saved-gap-source-family-summary.json')
++    inputs.append(PROPOSAL/'canonical-reservation-group-correction.patch')
+     inputs.extend(p for p in (PROPOSAL/'preserved-before-static-serialization-export-correction').iterdir()if p.is_file())
++    inputs.extend(p for p in (PROPOSAL/'preserved-before-canonical-reservation-group-correction').iterdir()if p.is_file())
+     out=dict(caller=ref(caller),codeRefs=[ref(p)for p in sorted(seen)],inputRefs=[ref(p)for p in sorted(set(inputs))],
+         historicalCapturedManifestSHA256='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7',
+         noTestsImportSourcePackingOrWorkerExecuted=True,oldReceiptReferencesRemainHistoricalNotLiveAliases=True,

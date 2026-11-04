@@ -1,0 +1,44 @@
+{
+  "published": false,
+  "areas": [
+    {
+      "area": "government-xl-lippo-tower-only-current-complete-role-acceptance-v3-20261011",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-lippo-tower-current-basic-unchanged-stage-v2-20261011/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "estimatedBases": []
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-live-install-v1-20261011.py", line 188, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-live-install-v1-20261011.py", line 178, in main
+    with locked_publication(ROOT):return owned(args,stage)
+                                         ^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-live-install-v1-20261011.py", line 128, in owned
+    call(publication);replayed,replayed_entry=stage.recheck(LOCAL/'before-apply');assert replayed==role and replayed_entry==entry and manifest.read_bytes()==before
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-stage-v2-20261011.py", line 19, in recheck
+    role,entry=bound.verify_files(local)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/lippo_tower_current_basic_complete_role_current_bound_v3_20261011.py", line 71, in verify_files
+    assert not c.execute('SELECT uid FROM astra_modelling.model_reviews WHERE uid=%s',(TOWER,)).fetchone()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-live-install-v1-20261011.py", line 188, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-live-install-v1-20261011.py", line 187, in main
+    subprocess.run(cmd,cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-lippo-tower-current-basic-unchanged-installed-v1-20261011/install-reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-live-install-v1-20261011.py', '--stage-script', 'source-scripts/city/government-import/xl-lippo-tower-current-basic-unchanged-stage-v2-20261011.py', '--previous-count', 'docs/astra-city/government-import/government-xl-parkview-block17-unchanged-installed-v1-20261011/full-xl-current-count.json', '--owned', '--closure', 'docs/astra-city/government-import/government-xl-lippo-post17-current-source-root-closure-v1-20261011/root-closed-scope.json', '--closure', 'docs/astra-city/government-import/government-xl-lippo-post17-stage-root-closure-v1-20261011/root-closed-scope.json']' returned non-zero exit status 1.

@@ -1,0 +1,61 @@
+{
+  "issue": "HKS-196",
+  "status": "staged-only-incomplete",
+  "createdAt": "2026-09-06T21:08:20.669213+00:00",
+  "livePublished": false,
+  "terrainReadyToPublish": false,
+  "sourceModels": 3,
+  "sourceTriangles": 23634,
+  "sourceEntryHashesVerified": true,
+  "modelCaches": 21,
+  "pythonTests": {
+    "passed": 7,
+    "command": "/tmp/astra-city-venv/bin/python source-scripts/city/stonecutters/test_stonecutters.py"
+  },
+  "runtimeAdapters": "passed; runtime-helper-verification.json",
+  "individualisedComparison": {
+    "originalId": "I296272022407063C0",
+    "individualisedId": "I296272022407063A0",
+    "sameBoundsAndTriangleCount": true,
+    "triangles": 23168,
+    "completeCableGeometryFound": false
+  },
+  "files": [
+    {
+      "path": "source-scripts/city/stonecutters/bridges-stonecutters.json",
+      "sha256": "e6ecf059de83c9f232bf58445c4b7f811b138a6405d9e4a6f0672e808e856267",
+      "bytes": 10075735
+    },
+    {
+      "path": "source-scripts/city/stonecutters/terrain-stonecutters.json",
+      "sha256": "00382dcb4d13cc24a32dbf4ba4c8dfee07cd94f4dea8e3fd055d928304f7cec5",
+      "bytes": 1657772
+    },
+    {
+      "path": "source-scripts/city/stonecutters/hydro-stonecutters.json",
+      "sha256": "48c7f19036d2d5549b3ac2f189fb0d666cacc5f3ba2c4ff26bab5c73b434e581",
+      "bytes": 791160
+    }
+  ],
+  "primaryFactsheet": {
+    "url": "https://www.hyd.gov.hk/en/information_corner/hyd_factsheets/doc/e_Stonecutters_Bridge.pdf",
+    "path": "source-scripts/city/stonecutters/hyd-stonecutters-factsheet.pdf",
+    "sha256": "c118fd0eeb98ae501679cc5a3760cfc8d0e94d73cad2a2f16e297de15d39c7ee",
+    "visuallyInspected": true
+  },
+  "sourceFigure": {
+    "path": "docs/astra-city/stonecutters/original-components-2520x1260.png",
+    "dimensions": [
+      2520,
+      1260
+    ],
+    "sha256": "59d301af37e1620b9af9fb333328e096068083e4e679a94eaa5404db63f1dbb6",
+    "visuallyInspected": true
+  },
+  "remaining": [
+    "Repair/review1211 original-mask/blend disagreements across mapped port shore and explicitly handle source heights near1m vs renderer1.2m clamp.",
+    "Generate and validate separately labelled Stonecutters cable illustration; no cable packet currently exists.",
+    "Root runtime/live integration, actual-city AFTER browser acceptance and final review."
+  ],
+  "scope": "Source checkpoint for the milestone draft PR. No shared runtime, manifest, live geometry, terrain or tracker edits."
+}

@@ -1,0 +1,30 @@
+test_01_full_scope_strict_disjoint (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_01_full_scope_strict_disjoint) ... ok
+test_02_touch_any_mode_remains (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_02_touch_any_mode_remains) ... ok
+test_03_next_float32_gap_is_not_touch (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_03_next_float32_gap_is_not_touch) ... ok
+test_04_empty_geometry_retained (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_04_empty_geometry_retained) ... ok
+test_05_scope_or_pose_tampering_rejected (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_05_scope_or_pose_tampering_rejected) ... 
+  test_05_scope_or_pose_tampering_rejected (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_05_scope_or_pose_tampering_rejected) (defect='missingmode') ... ERROR
+test_06_native_only_exact_bound_scope (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_06_native_only_exact_bound_scope) ... ok
+test_07_affected_and_original46_keys_preserved (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_07_affected_and_original46_keys_preserved) ... ok
+test_08_guard_not_enlarged (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_08_guard_not_enlarged) ... ok
+
+======================================================================
+ERROR: test_05_scope_or_pose_tampering_rejected (test_southside_actual_basic_extent_gate_v1_20261012.Tests.test_05_scope_or_pose_tampering_rejected) (defect='missingmode')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_southside_actual_basic_extent_gate_v1_20261012.py", line 38, in test_05_scope_or_pose_tampering_rejected
+    self.assertRaises(AssertionError,h.validate,*x)
+  File "/usr/lib/python3.12/unittest/case.py", line 778, in assertRaises
+    return context.handle('assertRaises', args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/case.py", line 238, in handle
+    callable_obj(*args, **kwargs)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_actual_basic_extent_gate_v1_20261012.py", line 42, in validate
+    assert row['boundsByArithmetic'][mode]==actual_bounds
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'productionPositionAttribute'
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.053s
+
+FAILED (errors=1)

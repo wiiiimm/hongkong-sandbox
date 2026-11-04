@@ -1,0 +1,5 @@
+# Tung Hing House — verified original installation
+
+Codex, 7 October 2026. Tung Hing House (landsd/12852:0) is installed with unchanged original government geometry. Verified Neon job `f316fa6efaeb77533abe77b72a442c14cb1e964eef551ccdc882e087962bbff5`, installed snapshot `e4676d40fe2d4cea`, source hashes `{'landsd/12852:0': 'a9126b141c0e9ec436faabdd2e0e5a005f822797a6cb6aec73d5b0ee2015fdb9'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+37 new XL installations from44/308: **81 installed / 271 not installed**, 63 further installations required. Public counters: 346,108 total source forms, 4,432 enhanced, 4,418 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

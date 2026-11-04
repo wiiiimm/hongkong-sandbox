@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-kowloon-motor-bus-depot-20260927/plan.json",
+  "areas": [
+    {
+      "area": "Kowloon Motor Bus Depot original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-kowloon-motor-bus-depot-20260927/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-207445-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-kowloon-motor-bus-depot-20260927/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "7fe4c3590cc685ccac9f9b0cbc298c53fedf25ee09f9d7de638c8036743abe22"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-207445-0.json": "61a4e3f1bf02989d5e7e01db81b13a626d920052badbf8bd41530d86b5ba8c56",
+    "3d-viewer/city/data/official-models/government-xl-kowloon-motor-bus-depot-20260927/catalogue.json": "c267d63eb855b1fd8f89adfab4e2e8cbfe6ca74733ca41e03ea7db7fd5dc4fdb",
+    "3d-viewer/city/data/manifest.json": "ae70aebe6550098d6c92e599a51e8f46fc45422e73d7d2ed9be4baf70019cc3b"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "1e760e6e27e7a59ab0f9f15331b3dc6f4a5f3eb6",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-207445-0.json",
+      "resolution": 5,
+      "area": "Kowloon Motor Bus Depot exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "3749fb4a161498aa9c1eacddbed078aeda69c92bd5e517b37d3582b38b47728c",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "11-NW-12B",
+            "sourceETag": "\"2cc4735-64e62e92dce6b\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-12B/terrain/TERRAIN(TB)/T32250210000106E11/T32250210000106E11.bin",
+                "sha256": "e0fa89ed9b991034f1ca097ba732584b65a5c913a953b4a42a24fa9be5d657a0"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-12B/terrain/TERRAIN(TB)/T32250210000106E11/T32250210000106E11.gltf",
+                "sha256": "2cab02532aec190025d575ba275fa7e1b24b479456e4c2e2ac9281bcd1becf07"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4047,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "61a4e3f1bf02989d5e7e01db81b13a626d920052badbf8bd41530d86b5ba8c56",
+      "bytes": 413185
+    }
+  ],
+  "estimatedBases": []
+}

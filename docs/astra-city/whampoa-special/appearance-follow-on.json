@@ -1,0 +1,45 @@
+{
+  "issue": "HKS-219",
+  "scope": "Source-backed appearance refinement after native geometry installation",
+  "status": "pending-source-segmentation-and-daylight-validation",
+  "geometryChanges": false,
+  "sourceReferences": [
+    {
+      "page": "https://www.thewhampoa.com/en/contact.html",
+      "image": "https://www.thewhampoa.com/uploads/69501536134597Whampoa%20Garden-night.jpg",
+      "owner": "Hutchison Estate Agents Limited / The Whampoa",
+      "inspected": "2026-09-09 Asia/Hong_Kong; live page screenshot inspected, not bundled as an app texture",
+      "observations": [
+        "Pale hull and upper decks under warm external illumination.",
+        "Continuous blue/cyan glazing band around the front upper superstructure, not a rectangular apartment window grid.",
+        "Thin dark horizontal bow stripes and name lettering.",
+        "Warm point lights and mast/rigging string-light lines at night."
+      ],
+      "limits": "Night lighting and photographic white balance do not establish an exact daytime paint RGB, current repaint date, lettering layout dimensions or a lighting operating schedule."
+    },
+    {
+      "page": "https://www.gohk.gov.hk/en/spots/spot_detail.php?spot=The+Whampoa",
+      "observation": "Official text confirms the cruise-liner landmark. Two referenced photographs failed to load in the browser; no visual claims taken from those unavailable images."
+    }
+  ],
+  "nativeMaterialInspection": {
+    "models": ["B376051834301063C0", "B376111834002063C0"],
+    "materialsPerModel": 1,
+    "materialName": "default_material",
+    "baseColorFactor": [1, 1, 1, 1],
+    "roughnessFactor": 0.30000000000000004,
+    "metallicFactor": 0.5,
+    "sourceAttributes": ["NORMAL", "POSITION", "COLOR_0"],
+    "semanticGlassOrSignageGroups": false,
+    "existingViewerMechanism": "Source material clone plus lighting hook and proceduralWindows switch; no verified per-face appearance mask or Whampoa-specific source material tags."
+  },
+  "decision": "Do not apply a whole-model cream or cyan tint: the same native material spans hull/decks/glazing and would miscolour unrelated surfaces. Preserve source assets and disabled generic window grids. Build an explicitly derived, SHA-bound material-mask sidecar after matching source faces to clear daylight references; keep original model bytes intact.",
+  "nextTasks": [
+    "Obtain at least two clear dated/source-attributed daylight bow and side views; verify current hull/deck paint, glazing boundaries and legible name/stripes.",
+    "Map only confirmed source face groups to hull, glazing and trim. Store model SHA, triangle membership and evidence URLs; unmatched faces retain native material.",
+    "Apply derived material overrides without changing vertices, bounds, collision, source IDs, elevations or fallback behaviour. Do not project a third-party photograph as a texture without a suitable reuse licence.",
+    "Model mast and rigging lights only where their source geometry/positions support it, with a separately documented approximate lighting schedule rather than claiming live operation.",
+    "Capture the same unobstructed normal-scene desktop/mobile day/night views and measure incremental draw calls, texture bytes and frame cost before acceptance."
+  ],
+  "wholeLandmarkAppearanceComplete": false
+}

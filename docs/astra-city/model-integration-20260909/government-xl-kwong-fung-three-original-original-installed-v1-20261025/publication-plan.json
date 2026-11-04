@@ -1,0 +1,91 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-kwong-fung-three-original-qualified-stage-v4-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Kwong Fung Terrace original podium and two original towers",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-kwong-fung-three-original-qualified-stage-v4-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-kwong-fung-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-kwong-fung-three-original-qualified-stage-v4-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "2d5708396475ac75588ae67bd77fa414ae911a83cab0fe95a37097bb4831cc4e"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-kwong-fung-original-v1-20261025.json": "c050f97be0f1b6124a14bfa8039184adee99bdd26eb3dda5ffd4d20348d6d2e2",
+    "3d-viewer/city/data/official-models/government-xl-kwong-fung-three-original-qualified-stage-v4-20261025/catalogue.json": "6ab169e7fdf3abd5a464c5987f8fc9bbb023744cb3fe47eff48951e1ef9ed915",
+    "3d-viewer/city/data/manifest.json": "c085c97e790a2d4a599c1e950b5caeb1218f98c856a499a034cf16cd61875a07"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "7665f9a328701084e877cbf3b8d00e560ba700c7",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-kwong-fung-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Kwong Fung Terrace original podium and two original towers",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -2204.116300538531,
+            129.622418222379,
+            -2138.555760226394,
+            168.01252984990919
+          ],
+          "outerBounds": [
+            -2208.8739208897437,
+            126.22209476451611,
+            -2134.351947155575,
+            171.3255100246371
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-kwong-fung-three-original-pinned-terrain-v1-20261025/sheets/11-SW-7B/terrain/TERRAIN(TB)/T32250162000106E11/T32250162000106E11.gltf",
+            "sha256": "5df4388fd5de8b3d4a01deba42cd75e99c22af6ec1d6b1d96bd6884e154c6dab"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 435,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "c050f97be0f1b6124a14bfa8039184adee99bdd26eb3dda5ffd4d20348d6d2e2",
+      "bytes": 422162
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}

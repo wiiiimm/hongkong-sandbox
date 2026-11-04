@@ -1,0 +1,4231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>1:1000 Basic Mapping System</title>
+  <link rel="schema.dc" href="http://purl.org/metadata/dublin_core"/>
+  <meta name="dc.title" content="1:1000 Basic Mapping System "/>
+  <meta name="dc.creator" content="Land Information Centre, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region (HKSAR) "/>
+  <meta name="dc.subject" content="Basemap Topolographical Boundary Feature Bench Mark Building Polygon Contour General Annotation Geodetic Control Station Miscellaneous Line Miscellaneous Point Sand Podium Polygon Railway Relief and Hydrology Road Artificial Slope Spot Height Utility Point Building Related Feature Demolished Building Polygon Demolished Podium Polygon Proposed Building Polygon Proposed Podium Polygon Proposed Infra Proposed Road Proposed Site Proposed Spot Height "/>
+  <meta name="dc.description" content="The Survey and Mapping Office of the Lands Department, Hong Kong Special Administrative Region began to set up its Land Information System (LIS) in 1989. The system now comprises three subsystems namely Basic Mapping System (BMS), Cadastral Information System (CIS) and Geographic Information Retrieval System (GIRS). These mapping information was converted from the original 1:1000 scale survey sheets and is being continuously up-dated. The digital map features are separately coded thereby enabling selective retrieval and display. "/>
+  <meta name="dc.publisher" content="Land Information Centre, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region"/>
+  <meta name="dc.date" content="201603"/>
+  <meta name="dc.type" content="data.Vector digital data"/>
+  <meta name="dc.format" content="ARCE"/>
+  <meta name="dc.format" content="DGN"/>
+  <meta name="dc.format" content="DWG"/>
+  <meta name="dc.format" content="DXF"/>
+  <meta name="dc.lang" content="en"/>
+  <meta name="dc.coverage.x.min" scheme="DD" content="113.825"/>
+  <meta name="dc.coverage.x.max" scheme="DD" content="114.408"/>
+  <meta name="dc.coverage.y.min" scheme="DD" content="22.138"/>
+  <meta name="dc.coverage.y.max" scheme="DD" content="22.572"/>
+  <meta name="dc.coverage.placeName" content="Hong Kong Special Administrative Region"/>
+  <meta name="dc.coverage.placeName" content="Hong Kong"/>
+  <meta name="dc.coverage.placeName" content="Kowloon"/>
+  <meta name="dc.coverage.placeName" content="New Territories"/>
+  <meta name="dc.coverage.placeName" content="Tsuen Wan"/>
+  <meta name="dc.coverage.placeName" content="Kwai Tsing"/>
+  <meta name="dc.coverage.placeName" content="Tuen Mun"/>
+  <meta name="dc.coverage.placeName" content="Yuen Long"/>
+  <meta name="dc.coverage.placeName" content="Sheung Shui"/>
+  <meta name="dc.coverage.placeName" content="Fanling"/>
+  <meta name="dc.coverage.placeName" content="Tai Po"/>
+  <meta name="dc.coverage.placeName" content="Shatin"/>
+  <meta name="dc.coverage.placeName" content="Sai Kung"/>
+  <meta name="dc.coverage.placeName" content="Islands"/>
+  <meta name="dc.coverage.t.min" content="1990"/>
+  <meta name="dc.coverage.t.max" content="200704"/>
+  <meta name="dc.rights" content="Access constraints: The Government of the HKSAR is the copyright owner of the digital data, which is available for sale to the public at prescribed charges. The Government will issue a non-exclusive and non-transferable licence to the customer after he/she has purchased the data. The licensee is permitted to use the data from the date as set out in the Licence. The licensee must have obtained written consent from the Government and paid the necessary royalty charges before he/she can incorporate the digital data in any product for distribution to any third party. If the licensee ceases using the digital data, the licensee should confirm to the Government in writting that the data has been erased from his/her computer system. Sample data for testing computer system is availabe free of charge. Sample data for academics for teaching purpose are available on request at a nominal administrative fee.; Use constraints: The use of the data supplied under the licence shall be subject to the computer configuration, for the purposes and at the location as specified in the Licence Agreement."/>
+  <meta name="generated-from" content="b1000.xml"/>
+</head>
+<body>
+<h1>1:1000 Basic Mapping System</h1>
+Other Metadata formats: - [<a href="b1000.html">Traditional FGDC Format</a>]<p>
+<h4>Frequently anticipated questions:</h4>
+<ul>
+  <li><a href="#what">What does this data set describe?</a>
+    <ol>
+      <li><a href="#what.1">How should this data set be cited?</a></li>
+      <li><a href="#what.2">What geographic area does the data set cover?</a></li>
+      <li><a href="#what.3">What does it look like?</a></li>
+      <li><a href="#what.4">Does the data set describe conditions during a particular time period?</a></li>
+      <li><a href="#what.5">What is the general form of this data set?</a></li>
+      <li><a href="#what.6">How does the data set represent geographic features?</a></li>
+      <li><a href="#what.7">How does the data set describe geographic features?</a></li>
+    </ol>
+  </li>
+  <li><a href="#who">Who produced the data set?</a>
+    <ol>
+      <li><a href="#who.1">Who are the originators of the data set?</a></li>
+      <li><a href="#who.2">Who also contributed to the data set?</a></li>
+      <li><a href="#who.3">To whom should users address questions about the data?</a></li>
+    </ol>
+  </li>
+  <li><a href="#why">Why was the data set created?</a></li>
+  <li><a href="#how">How was the data set created?</a>
+    <ol>
+      <li><a href="#how.1">From what previous works were the data drawn?</a></li>
+      <li><a href="#how.2">How were the data generated, processed, and modified?</a></li>
+      <li><a href="#how.3">What similar or related data should the user be aware of?</a></li>
+    </ol>
+  </li>
+  <li><a href="#quality">How reliable are the data; what problems remain in the data set?</a>
+    <ol>
+      <li><a href="#quality.1">How well have the observations been checked?</a></li>
+      <li><a href="#quality.2">How accurate are the geographic locations?</a></li>
+      <li><a href="#quality.3">How accurate are the heights or depths?</a></li>
+      <li><a href="#quality.4">Where are the gaps in the data?  What is missing?</a></li>
+      <li><a href="#quality.5">How consistent are the relationships among the data, including topology?</a></li>
+    </ol>
+  </li>
+  <li><a href="#getacopy">How can someone get a copy of the data set?</a>
+    <ol>
+      <li><a href="#getacopy.0">Are there legal restrictions on access or use of the data?</a></li>
+      <li><a href="#getacopy.1">Who distributes the data?</a></li>
+      <li><a href="#getacopy.2">What's the catalog number I need to order this data set?</a></li>
+      <li><a href="#getacopy.3">What legal disclaimers am I supposed to read?</a></li>
+      <li><a href="#getacopy.4">How can I download or order the data?</a></li>
+    </ol>
+  </li>
+  <li><a href="#metaref">Who wrote the metadata?</a></li>
+</ul>
+<hr/>
+<h3><a name="what">What does this data set describe?</a></h3>
+<div style="margin-left: 2em">
+<dl>
+<dt><em>Title:</em>  1:1000 Basic Mapping System</dt>
+<dt><em>Abstract:</em>  
+<dd>
+
+The Survey and Mapping Office of the Lands Department, Hong Kong Special Administrative Region began to set up its Land Information System (LIS) in 1989. The system now comprises three subsystems namely Basic Mapping System (BMS), Cadastral Information System (CIS) and Geographic Information Retrieval System (GIRS). These mapping information was converted from the original 1:1000 scale survey sheets and is being continuously up-dated. The digital map features are separately coded thereby enabling selective retrieval and display.
+
+</dd>
+</dl>
+</div>
+<ol>
+<li><a name="what.1"><strong>How should this data set be cited?</strong></a><p>
+<blockquote>
+Land Information Centre, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region (HKSAR), 201603, 1:1000 Basic Mapping System: B1000 B1000, Survey and Mapping Office, Lands Department, the Government of the HKSAR, Hong Kong Special Administrative Region.<p>
+</blockquote>
+<p>
+</li>
+<li><a name="what.2"><strong>What geographic area does the data set cover?</strong></a><p>
+<dl>
+<dt><em>West_Bounding_Coordinate:</em>  113.825</dt>
+<dt><em>East_Bounding_Coordinate:</em>  114.408</dt>
+<dt><em>North_Bounding_Coordinate:</em>  22.572</dt>
+<dt><em>South_Bounding_Coordinate:</em>  22.138</dt>
+</dl>
+<p>
+</li>
+<li><a name="what.3"><strong>What does it look like?</strong></a><p>
+<p>
+</li>
+<li><a name="what.4"><strong>Does the data set describe conditions during a particular time period?</strong></a><p>
+<dl>
+<dt>Beginning_Date: 1990<dt>Ending_Date: Apr-2007<dt><em>Currentness_Reference:</em>  Revision date</dt>
+</dl>
+<p>
+</li>
+<li><a name="what.5"><strong>What is the general form of this data set?</strong></a><p>
+<dl>
+<dt><em>Geospatial_Data_Presentation_Form:</em>  Vector digital data</dt>
+</dl>
+<p>
+</li>
+<li><a name="what.6"><strong>How does the data set represent geographic features?</strong></a><p>
+<ol type="a">
+<li><a name="what.6.a"><strong>How are geographic features stored in the data set?</strong></a><p>
+This is a Vector data set.
+It contains the following vector data types (SDTS terminology):
+<ul>
+<li>Entity point (694005)
+<li>Complete chain (5456586)
+<li>GT-polygon composed of chains (445064)
+</ul>
+<p>
+</li>
+<li><a name="what.6.b"><strong>What coordinate system is used to represent geographic features?</strong></a><p>
+The map projection used is Transverse_Mercator.<p>
+<dl>
+<dt>Projection parameters:
+<dd>
+<dl>
+<dt><em>False_Easting:</em>  836694.05</dt>
+<dt><em>False_Northing:</em>  819069.80</dt>
+<dt><em>Latitude_of_Projection_Origin:</em>  22.3121333</dt>
+<dt><em>Longitude_of_Central_Meridian:</em>  114.1785554</dt>
+<dt><em>Scale_Factor_at_Central_Meridian:</em>  1.0</dt>
+</dl>
+</dl>
+<p>
+Planar coordinates are encoded using distance and bearing<br/>
+Planar coordinates are specified using distance and bearing values.
+Resolution of distance values: 1<br/>
+Resolution of bearing values: 0.0002778<br/>
+Bearing is specified in units of Degrees and decimal minutes<br/>
+Bearing is measured North<br/>
+Bearing is measured from the Magnetic meridian<br/>
+Planar coordinates are specified in Millimeters<p>
+<p>
+The horizontal datum used is Hong Kong 1980 Geodetic Datum.<br/>
+The ellipsoid used is International Hayford (1910).<br/>
+The semi-major axis of the ellipsoid used is 6378388.<br/>
+The flattening of the ellipsoid used is 1/297.0.<br/>
+<p>
+</li>
+</ol>
+<p>
+</li>
+<li><a name="what.7"><strong>How does the data set describe geographic features?</strong></a><p>
+<dl>
+<dt><strong><tt>BDYFEAT.AAT</tt></strong><dd>Arc Attribute Table of BDYFEAT
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Boundary line feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CU</td><td>Cultivation bund
+</td></tr>
+<tr><td valign="top">F</td><td>Fence
+</td></tr>
+<tr><td valign="top">GA</td><td>Gate
+</td></tr>
+<tr><td valign="top">WH</td><td>Free standing wall in tenement block
+</td></tr>
+<tr><td valign="top">WL</td><td>Free standing wall
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BENCH.PAT</tt></strong><dd>Point Attribute Table of BENCH
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>BM_NO</tt></strong><dd>Unique number assigned to each bench mark
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BM_NORTH</tt></strong><dd>Northing location of the bench mark in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>800000.0</td></tr>
+<tr><th>Maximum:</th><td>848000.0</td></tr>
+</table>
+<p>
+<dt><strong><tt>BM_EAST</tt></strong><dd>Easting location of the bench mark in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>800000.0</td></tr>
+<tr><th>Maximum:</th><td>867500.0</td></tr>
+</table>
+<p>
+<dt><strong><tt>BM_REDUCLEV</tt></strong><dd>Reduced level (height) of each bench mark in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0.0000</td></tr>
+<tr><th>Maximum:</th><td>999.9999</td></tr>
+</table>
+<p>
+<dt><strong><tt>BM_MARK</tt></strong><dd>A description of the bench mark type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDGPOLY.AAT</tt></strong><dd>Arc Attribute Table of BLDGPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Building polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BP</td><td>Building block outline
+</td></tr>
+<tr><td valign="top">BAP</td><td>Building outline suppressed for annotation
+</td></tr>
+<tr><td valign="top">BUP</td><td>Building outline under elevated structures
+</td></tr>
+<tr><td valign="top">IBP</td><td>Imaginary building subdivision line (Precision=9)
+</td></tr>
+<tr><td valign="top">OSP</td><td>Open-sided structure outline
+</td></tr>
+<tr><td valign="top">PWP</td><td>Party wall / Building subdivision line
+</td></tr>
+<tr><td valign="top">TSP</td><td>Temporary structure outline
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDGPOLY.PAT</tt></strong><dd>Polygon Attribute Table of BLDGPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically. It should be &quot;T&quot; in this layer.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T</td><td>Building Polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_TOP</tt></strong><dd>Approximate level of the top of a building in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_BASE</tt></strong><dd>Approximate level of the base of a building in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_TOP</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the BLDG_TOP item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_BASE</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the BLDG_BASE item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the building's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Buildings pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance / Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation permit and are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">2</td><td>New Territories small Houses
+</td></tr>
+<tr><td valign="top">3</td><td>HA's public housing estates / HOS estates except those developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Government owned properties
+</td></tr>
+<tr><td valign="top">5</td><td>Temporary structures / open-sided structures with address or building name
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDGPOLY.TATBLDGPOLY_CH</tt></strong><dd>Annotation Attribute Table of BLDGPOLY for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDGPOLY.TATBLDGPOLY_ENG</tt></strong><dd>Annotation Attribute Table of BLDGPOLY for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>CONTOUR.AAT</tt></strong><dd>Arc Attribute Table of CONTOUR
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>CON_HT</tt></strong><dd>The reduced level above Hong Kong Principle Datum of the contour in meters
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>CON_ST</tt></strong><dd>The status of each contour
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CIS</td><td>Index contour line
+</td></tr>
+<tr><td valign="top">CIU</td><td>Index contour line (uncertain)
+</td></tr>
+<tr><td valign="top">CNS</td><td>Contour line
+</td></tr>
+<tr><td valign="top">CNU</td><td>Contour line (uncertain)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>GENANNO.PAT</tt></strong><dd>The general annotation layer includes 10 levels of annotation that are not associated with any particular layers in the BMS system. These levels include both English and Chinese annotation for topographic and hydrographic place names, town/ district/ village/ estate names, miscellaneous annotations/ abbreviations/ symbols.
+  (Source: ARC/INFO)
+<p>
+<dl>
+</dl>
+<p>
+<dt><strong><tt>GEODETIC.PAT</tt></strong><dd>Point Attribute Table of GEODETIC
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_TYPE</tt></strong><dd>Type of the station
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Main trigonometric station
+</td></tr>
+<tr><td valign="top">2</td><td>Minor trigonometric station
+</td></tr>
+<tr><td valign="top">3</td><td>Traverse station
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_NO</tt></strong><dd>Unique number assigned to each control station
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_NORTH</tt></strong><dd>Northing location of the control station in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0.000</td></tr>
+<tr><th>Maximum:</th><td>848000.000</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_EAST</tt></strong><dd>Easting location of the control station in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0.000</td></tr>
+<tr><th>Maximum:</th><td>867500.000</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_ZVALUE</tt></strong><dd>The Z value of each control station in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0.0</td></tr>
+<tr><th>Maximum:</th><td>99999.0</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_DNORTH</tt></strong><dd>Accuracy of the control station's northing location in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_DEAST</tt></strong><dd>Accuracy of the control station's easting location in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_MARK</tt></strong><dd>A description of the control station (mark) type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>MISCLINE.AAT</tt></strong><dd>Arc Attribute Table of MISCLINE
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Miscellaneous line feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CHL</td><td>Chimney
+</td></tr>
+<tr><td valign="top">FIR</td><td>Culvert / Large grave / Pipeline / Large shrine / Tank / Unclassified firm line features
+</td></tr>
+<tr><td valign="top">FRB</td><td>Firing range boundary / Rifle range boundary
+</td></tr>
+<tr><td valign="top">NB</td><td>Noise barrier
+</td></tr>
+<tr><td valign="top">PEC</td><td>Archway / Unclassified pecked line features
+</td></tr>
+<tr><td valign="top">PWL</td><td>Powerline
+</td></tr>
+<tr><td valign="top">PY</td><td>Large pylon
+</td></tr>
+<tr><td valign="top">WIP</td><td>Works in progress
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9 with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>MISCPT.PAT</tt></strong><dd>Point Attribute Table of MISCPT
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Miscellaneous points feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BEA</td><td>Beacon / Light
+</td></tr>
+<tr><td valign="top">CEM</td><td>Cemetery
+</td></tr>
+<tr><td valign="top">DOT</td><td>Unclassified dot feature
+</td></tr>
+<tr><td valign="top">GVS</td><td>Small grave
+</td></tr>
+<tr><td valign="top">MA</td><td>Marsh / Swamp
+</td></tr>
+<tr><td valign="top">MN</td><td>Mangrove
+</td></tr>
+<tr><td valign="top">MO</td><td>Monument / Cenotaph / Obelisk / Sculpture / Statue
+</td></tr>
+<tr><td valign="top">MTE</td><td>MTR access / LR platform
+</td></tr>
+<tr><td valign="top">OVT</td><td>Old and valuable tree
+</td></tr>
+<tr><td valign="top">RA</td><td>Restricted access
+</td></tr>
+<tr><td valign="top">SHS</td><td>Small shrine
+</td></tr>
+<tr><td valign="top">TE</td><td>Tree
+</td></tr>
+<tr><td valign="top">URS</td><td>Small burial urn
+</td></tr>
+<tr><td valign="top">VB</td><td>Vehicular barrier
+</td></tr>
+<tr><td valign="top">W</td><td>Well
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ANGLE</tt></strong><dd>Orientation of the marker symbol to the nearest degree
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+<dt><strong><tt>OVD-ID</tt></strong><dd>OVT ID is the OVT Register ID assigned by Leisure &amp; Cultural Service Department
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PODPOLY.AAT</tt></strong><dd>Arc Attribute Table of PODPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Podium polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">PDP</td><td>Podium outline
+</td></tr>
+<tr><td valign="top">PUP</td><td>Podium outline under elevated structures
+</td></tr>
+<tr><td valign="top">IPP</td><td>Imaginary podium outline
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PODPOLY.PAT</tt></strong><dd>Polygon Attribute Table of PODPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically. It should be &quot;P&quot; in this layer.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">P</td><td>Podium Polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_TOP</tt></strong><dd>Approximate level of the top of a podium in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_TOP</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the PODIUM_TOP item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CERTAINTY</tt></strong><dd>This is an indicator which shows the certainty of the podium polygon
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Y</td><td>TYPE of all surrounding arcs are not IPP, i.e. the entire podium outline is well defined and surveyable
+</td></tr>
+<tr><td valign="top">N</td><td>Any one or more arcs is/are IPP
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the podium's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Podiums pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Podiums of legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance / Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation permit and are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">3</td><td>Podiums in HA's public housing estates / HOS estates not developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Podiums in Government owned properties
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PD_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PD_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PODPOLY.TATPODPOLY_CH</tt></strong><dd>Annotation Attribute Table of PODPOLY for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PODPOLY.TATPODPOLY_ENG</tt></strong><dd>Annotation Attribute Table of PODPOLY for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>POLYFEAT.PAT</tt></strong><dd>Polygon Attribute Table of POLYFEAT
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Polyfeat polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">SAN</td><td>Beach / Sand
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>RAIL.AAT</tt></strong><dd>Arc Attribute Table of RAIL
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Rail line feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">LR</td><td>Light Rail Transit
+</td></tr>
+<tr><td valign="top">MTR</td><td>Mass Transit Railway
+</td></tr>
+<tr><td valign="top">PT</td><td>Peak Tramway
+</td></tr>
+<tr><td valign="top">TW</td><td>Tramway
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>RELIEF.AAT</tt></strong><dd>Arc Attribute Table of RELIEF
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Relief and hydrology line feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BO</td><td>Boulder / Rock
+</td></tr>
+<tr><td valign="top">CL</td><td>Cliff / Waterfall / Top limit of Quarry
+</td></tr>
+<tr><td valign="top">CW</td><td>Catchwater
+</td></tr>
+<tr><td valign="top">DA</td><td>Flow direction arrow
+</td></tr>
+<tr><td valign="top">HW</td><td>High water mark / Lower limit of nullah side wall
+</td></tr>
+<tr><td valign="top">PO</td><td>Pond / Pool / Fountain / Reservoir / Service Reservoir (open) / Moat / Swimming pool
+</td></tr>
+<tr><td valign="top">QB</td><td>Bottom limit of Quarry
+</td></tr>
+<tr><td valign="top">RKA</td><td>Rocky area / Group of boulders / Flat rock
+</td></tr>
+<tr><td valign="top">RV</td><td>River / Nullah / Canal bank
+</td></tr>
+<tr><td valign="top">RVR</td><td>Rocky stream bed
+</td></tr>
+<tr><td valign="top">SB</td><td>Slope bottom (when there are no other ground features to delimit)
+</td></tr>
+<tr><td valign="top">SR</td><td>Small river / Stream / Drain (shown with single line)
+</td></tr>
+<tr><td valign="top">ST</td><td>Slope top (when there are no other ground features to delimit)
+</td></tr>
+<tr><td valign="top">SW</td><td>Seawall
+</td></tr>
+<tr><td valign="top">VC</td><td>Vertical cutting / Retaining wall / Artifical slope with depth &lt; 1.5 metres
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>ROAD.AAT</tt></strong><dd>Arc Attribute Table of ROAD
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Road line feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CWY</td><td>Covered walkway
+</td></tr>
+<tr><td valign="top">FBR</td><td>Footbridge (over road / water) / Elevated walkway
+</td></tr>
+<tr><td valign="top">FBU</td><td>Footbridge under elevated structures
+</td></tr>
+<tr><td valign="top">FP</td><td>Footbridge, 0.5-1.5 metres wide
+</td></tr>
+<tr><td valign="top">FPW</td><td>Footbridge, &gt;1.5 metres wide
+</td></tr>
+<tr><td valign="top">FY</td><td>Flyover / Elevated road / Bridge for vehicles or railway
+</td></tr>
+<tr><td valign="top">FYU</td><td>Flyover under another flyover or other elevated structures
+</td></tr>
+<tr><td valign="top">PA</td><td>Pavement (including bicycle track)
+</td></tr>
+<tr><td valign="top">PAU</td><td>Pavement under elevated structures
+</td></tr>
+<tr><td valign="top">RM</td><td>Road margin
+</td></tr>
+<tr><td valign="top">RMU</td><td>Road margin under elevated structures
+</td></tr>
+<tr><td valign="top">STP</td><td>Step
+</td></tr>
+<tr><td valign="top">SWY</td><td>Pedestrian subway
+</td></tr>
+<tr><td valign="top">TC</td><td>Track
+</td></tr>
+<tr><td valign="top">TUR</td><td>Tunnel for vehicles or railway, including cross-harbour tunnel
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>ROAD.TATROAD_CH</tt></strong><dd>Annotation Attribute Table of ROAD for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is a unique code assigned by LIC for a particular street
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>ROAD.TATROAD_ENG</tt></strong><dd>Annotation Attribute Table of ROAD for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is a unique code assigned by LIC for a particular street
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>SLOPE.PAT</tt></strong><dd>Slope symbol is stored as an annotation text font
+  (Source: ARC/INFO)
+<p>
+<dl>
+</dl>
+<p>
+<dt><strong><tt>SPOTHT.PAT</tt></strong><dd>Point Attribute Table of SPOTHT
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>SPOT_HT</tt></strong><dd>Spot height to the nearest one decimal place in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>SPOT_POS</tt></strong><dd>Position to place the height value on the map related to the point
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Upper left
+</td></tr>
+<tr><td valign="top">2</td><td>Upper right
+</td></tr>
+<tr><td valign="top">3</td><td>Lower right
+</td></tr>
+<tr><td valign="top">4</td><td>Lower left
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+<dt><strong><tt>SP_TYPE</tt></strong><dd>Spot Height point feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">G</td><td>Spot height which depicts Ground level, including level of road, pavement, etc.
+</td></tr>
+<tr><td valign="top">E</td><td>Spot height which depicts top level of Elevated structure, such as the top of a podium, rather than the level on ground.
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the SPOT_HT item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>UTILPT.PAT</tt></strong><dd>Point Attribute Table of UTILPT
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Utility point feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">EP</td><td>Electric pole
+</td></tr>
+<tr><td valign="top">ETP</td><td>Electric transformer (pole)
+</td></tr>
+<tr><td valign="top">FH</td><td>Fire hydrant (fresh water)
+</td></tr>
+<tr><td valign="top">LP</td><td>Lamp post
+</td></tr>
+<tr><td valign="top">SFH</td><td>Fire hydrant (salt water)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ANGLE</tt></strong><dd>Orientation of the marker symbol to the nearest degree
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+<dt><strong><tt>NUMBER1</tt></strong><dd>This is the reference number painted on the utility feature, if any.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>NUMBER2</tt></strong><dd>This is the alias reference number painted on the utility feature, if any.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>NUMBER3</tt></strong><dd>This is another alias reference number painted on the utility feature, if any.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDG.AAT</tt></strong><dd>Arc Attribute Table of BLDG
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Building related line feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CA</td><td>Canopy / Balcony
+</td></tr>
+<tr><td valign="top">OS</td><td>Diagonal lines of open-sided structure / Open-sided structure overlapping with BP/PDP/TSP
+</td></tr>
+<tr><td valign="top">PDL</td><td>Internal lines demarcating different levels inside a podium
+</td></tr>
+<tr><td valign="top">PV</td><td>Pavilion
+</td></tr>
+<tr><td valign="top">RP</td><td>Railway Station Platform
+</td></tr>
+<tr><td valign="top">RPU</td><td>Railway Station Platform under elevated structures
+</td></tr>
+<tr><td valign="top">RU</td><td>Ruin
+</td></tr>
+<tr><td valign="top">TS</td><td>Temporary structure overlapping with BP/PDP
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DBLDGPOLY.AAT</tt></strong><dd>Arc Attribute Table of DBLDGPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Building polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BP</td><td>Building block outline
+</td></tr>
+<tr><td valign="top">BAP</td><td>Building outline suppressed for annotation
+</td></tr>
+<tr><td valign="top">BUP</td><td>Building outline under elevated structures
+</td></tr>
+<tr><td valign="top">IBP</td><td>Imaginary building subdivision line (Precision=9)
+</td></tr>
+<tr><td valign="top">OSP</td><td>Open-sided structure outline
+</td></tr>
+<tr><td valign="top">PWP</td><td>Party wall / Building subdivision line
+</td></tr>
+<tr><td valign="top">TSP</td><td>Temporary structure outline
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DBLDGPOLY.PAT</tt></strong><dd>Polygon Attribute Table of DBLDGPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically. It should be &quot;T&quot; in this layer.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T</td><td>Building Polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_TOP</tt></strong><dd>Approximate level of the top of a demolished building in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_BASE</tt></strong><dd>Approximate level of the base of a demolished building in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_TOP</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the BLDG_TOP item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_BASE</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the BLDG_BASE item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the building's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Buildings pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance /
+Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation permit and
+are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">2</td><td>New Territories small Houses
+</td></tr>
+<tr><td valign="top">3</td><td>HA's public housing estates / HOS estates except those developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Government owned properties
+</td></tr>
+<tr><td valign="top">5</td><td>Temporary structures / open-sided structures with address or building name
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DBLDGPOLY.TATBLDGPOLY_CH</tt></strong><dd>Annotation Attribute Table of DBLDGPOLY for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">N/A</td><td>No annotations required
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DBLDGPOLY.TATBLDGPOLY_ENG</tt></strong><dd>Annotation Attribute Table of DBLDGPOLY for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">N/A</td><td>No annotations required
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DPODPOLY.AAT</tt></strong><dd>Arc Attribute Table of DPODPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Podium polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">PDP</td><td>Podium outline
+</td></tr>
+<tr><td valign="top">PUP</td><td>Podium outline under elevated structures
+</td></tr>
+<tr><td valign="top">IPP</td><td>Imaginary podium outline
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy. The code ranges from 1 to 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection or data source used for conversion.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Title survey
+</td></tr>
+<tr><td valign="top">2</td><td>Topographic survey
+</td></tr>
+<tr><td valign="top">3</td><td>Topographic survey by GPS
+</td></tr>
+<tr><td valign="top">4</td><td>1:1000 photogrammetric plot
+</td></tr>
+<tr><td valign="top">5</td><td>1:1000 survey sheet (converted by SMO)
+</td></tr>
+<tr><td valign="top">6</td><td>1:1000 survey sheet (converted by contractor)
+</td></tr>
+<tr><td valign="top">7</td><td>1:1200 survey sheet
+</td></tr>
+<tr><td valign="top">8</td><td>1:5000 survey sheet
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DPODPOLY.PAT</tt></strong><dd>Polygon Attribute Table of DPODPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically. It should be &quot;P&quot; in this layer.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">P</td><td>Podium Polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_TOP</tt></strong><dd>Approximate level of the top of a demolished podium in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_TOP</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the PODIUM_TOP item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CERTAINTY</tt></strong><dd>This is an indicator which shows the certainty of the podium polygon
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Y</td><td>TYPE of all surrounding arcs are not IPP, i.e. the entire podium outline is well defined and surveyable
+</td></tr>
+<tr><td valign="top">N</td><td>Any one or more arcs is/are IPP
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the podium's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Podiums pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Podiums of legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance / Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation
+permit and are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">3</td><td>Podiums in HA's public housing estates / HOS estates not developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Podiums in Government owned properties
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PD_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PD_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DPODPOLY.TATPODPOLY_CH</tt></strong><dd>Annotation Attribute Table of DPODPOLY for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">N/A</td><td>No annotations required
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>DPODPOLY.TATPODPOLY_ENG</tt></strong><dd>Annotation Attribute Table of DPODPOLY for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">N/A</td><td>No annotations required
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PBLDGPOLY.AAT</tt></strong><dd>Arc Attribute Table of PBLDGPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Bldgpoly polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BP</td><td>Proposed building block outline
+</td></tr>
+<tr><td valign="top">BAP</td><td>Proposed building outline suppressed for annotation
+</td></tr>
+<tr><td valign="top">BUP</td><td>Proposed building outline under elevated structures
+</td></tr>
+<tr><td valign="top">IBP</td><td>Proposed imaginary building subdivision line (Precision=9)
+</td></tr>
+<tr><td valign="top">OSP</td><td>Proposed open-sided structure outline
+</td></tr>
+<tr><td valign="top">PSH</td><td>Proposed small house outline
+</td></tr>
+<tr><td valign="top">PWP</td><td>Proposed party wall / Proposed building subdivision line
+</td></tr>
+<tr><td valign="top">TSP</td><td>Proposed temporary structure outline
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PBLDGPOLY.PAT</tt></strong><dd>Polygon Attribute Table of PBLDGPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically. It should be &quot;T&quot; in this layer.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T</td><td>Building Polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_TOP</tt></strong><dd>Approximate level of the top of a proposed building in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_BASE</tt></strong><dd>Approximate level of the base of a proposed building in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_TOP</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the BLDG_TOP item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_BASE</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the BLDG_BASE item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the building's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Buildings pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance /
+Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation permit and
+are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">2</td><td>New Territories small Houses
+</td></tr>
+<tr><td valign="top">3</td><td>HA's public housing estates / HOS estates except those developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Government owned properties
+</td></tr>
+<tr><td valign="top">5</td><td>Temporary structures / open-sided structures with address or building name
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PBLDGPOLY.TATBLDGPOLY_CH</tt></strong><dd>Annotation Attribute Table of PBLDGPOLY for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PBLDGPOLY.TATBLDGPOLY_ENG</tt></strong><dd>Annotation Attribute Table of PBLDGPOLY for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PPODPOLY.AAT</tt></strong><dd>Arc Attribute Table of PPODPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Podium polygon feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">PDP</td><td>Proposed podium outline
+</td></tr>
+<tr><td valign="top">PUP</td><td>Proposed podium outline under elevated structures
+</td></tr>
+<tr><td valign="top">IPP</td><td>Imaginary podium outline
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PPODPOLY.PAT</tt></strong><dd>Polygon Attribute Table of PPODPOLY
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically. It should be &quot;P&quot; in this layer.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">P</td><td>Podium Polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_TOP</tt></strong><dd>Approximate level of the top of a proposed podium in metres above Hong Kong Principal Datum
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC_TOP</tt></strong><dd>A precision code to denote the level of height accuracy. It refers to the value in the PODIUM_TOP item. The code ranges from 1 to 5 and 9, with 1 considered to be the most accurate and 9 to be the least. The level of accuracy refers to the method of data collection.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Precise leveling
+</td></tr>
+<tr><td valign="top">2</td><td>Ordinary leveling
+</td></tr>
+<tr><td valign="top">3</td><td>Trigonometrical heighting or GPS
+</td></tr>
+<tr><td valign="top">4</td><td>Photorammetry
+</td></tr>
+<tr><td valign="top">5</td><td>External sources
+</td></tr>
+<tr><td valign="top">6</td><td>3D project
+</td></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CERTAINTY</tt></strong><dd>This is an indicator which shows the certainty of the podium polygon
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Y</td><td>TYPE of all surrounding arcs are not IPP, i.e. the entire podium outline is well defined and surveyable
+</td></tr>
+<tr><td valign="top">N</td><td>Any one or more arcs is / are IPP
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the podium's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Podiums pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Podiums of legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance / Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation
+permit and are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">3</td><td>Podiums in HA's public housing estates / HOS estates not developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Podiums in Government owned properties
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PD_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PD_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PPODPOLY.TATPODPOLY_CH</tt></strong><dd>Annotation Attribute Table of PODPOLY for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PPODPOLY.TATPODPOLY_ENG</tt></strong><dd>Annotation Attribute Table of PODPOLY for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PROPINFRA.AAT</tt></strong><dd>Arc Attribute Table of PROPINFRA
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Feature type collection of the proposed infrastructure line feature in BDYFEAT, BLDG, MISCLINE and RELIEF layers
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CU</td><td>Proposed cultivation bund
+</td></tr>
+<tr><td valign="top">F</td><td>Proposed fence
+</td></tr>
+<tr><td valign="top">GA</td><td>Proposed gate
+</td></tr>
+<tr><td valign="top">WH</td><td>Proposed free standing wall in tenement block
+</td></tr>
+<tr><td valign="top">WL</td><td>Proposed free standing wall
+</td></tr>
+<tr><td valign="top">CA</td><td>Proposed balcony
+</td></tr>
+<tr><td valign="top">OS</td><td>Proposed open-sided structure with no building name and address / Proposed diagonal lines of open-sided structure with or without building name and address
+</td></tr>
+<tr><td valign="top">PDL</td><td>Proposed internal lines demarcating different levels inside a podium
+</td></tr>
+<tr><td valign="top">PV</td><td>Proposed pavilion
+</td></tr>
+<tr><td valign="top">RP</td><td>Proposed railway station platform
+</td></tr>
+<tr><td valign="top">RPU</td><td>Proposed railway station platform under elevated structures
+</td></tr>
+<tr><td valign="top">RU</td><td>Proposed ruin
+</td></tr>
+<tr><td valign="top">TS</td><td>Proposed temporary structure with no building name and address
+</td></tr>
+<tr><td valign="top">CHL</td><td>Proposed chimney
+</td></tr>
+<tr><td valign="top">FIR</td><td>Proposed culvert / Proposed large grave / Proposed pipeline / Proposed large shrine / Proposed tank / Proposed unclassified firm line features
+</td></tr>
+<tr><td valign="top">FRB</td><td>Proposed firing range boundary / Proposed rifle range boundary
+</td></tr>
+<tr><td valign="top">NB</td><td>Proposed noise barrier
+</td></tr>
+<tr><td valign="top">PEC</td><td>Proposed archway / Proposed unclassified pecked line features
+</td></tr>
+<tr><td valign="top">PWL</td><td>Proposed powerline
+</td></tr>
+<tr><td valign="top">PY</td><td>Proposed large pylon
+</td></tr>
+<tr><td valign="top">WIP</td><td>Proposed works in progress
+</td></tr>
+<tr><td valign="top">BO</td><td>Proposed boulder / Proposed rock
+</td></tr>
+<tr><td valign="top">CL</td><td>Proposed cliff / Proposed waterfall / Proposed top limit of quarry
+</td></tr>
+<tr><td valign="top">CW</td><td>Proposed catchwater
+</td></tr>
+<tr><td valign="top">DA</td><td>Proposed flow direction arrow
+</td></tr>
+<tr><td valign="top">HW</td><td>Proposed high water mark / Proposed lower limit of nullah side wall
+</td></tr>
+<tr><td valign="top">PO</td><td>Proposed pond / Proposed pool / Proposed fountain / Proposed reservoir / Proposed service reservoir (open) / Proposed moat / Proposed swimming pool
+</td></tr>
+<tr><td valign="top">QB</td><td>Proposed bottom limit of quarry
+</td></tr>
+<tr><td valign="top">RKA</td><td>Proposed rocky area / Proposed group of boulders / Proposed flat rock
+</td></tr>
+<tr><td valign="top">RV</td><td>Proposed river / Proposed nullah / Proposed canal bank
+</td></tr>
+<tr><td valign="top">RVR</td><td>Proposed rocky stream bed
+</td></tr>
+<tr><td valign="top">SB</td><td>Proposed slope bottom (when there are no other ground features to delimit)
+</td></tr>
+<tr><td valign="top">SR</td><td>Proposed small river / Proposed stream / Proposed drain (shown with single line)
+</td></tr>
+<tr><td valign="top">ST</td><td>Proposed slope top (when there are no other ground features to delimit)
+</td></tr>
+<tr><td valign="top">SW</td><td>Proposed seawall
+</td></tr>
+<tr><td valign="top">VC</td><td>Proposed vertical cutting / Proposed retaining wall / Proposed artifical slope with depth &lt; 1.5 metres
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear
+at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PROPINFRA.PAT</tt></strong><dd>Point Attribute Table of PROPINFRA
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Feature type collection of the proposed point feature in MISCPT and UTILPT layers
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BEA</td><td>Proposed beacon / light
+</td></tr>
+<tr><td valign="top">CEM</td><td>Proposed cemetery
+</td></tr>
+<tr><td valign="top">DOT</td><td>Proposed unclassified dot feature
+</td></tr>
+<tr><td valign="top">GVS</td><td>Proposed small grave
+</td></tr>
+<tr><td valign="top">MA</td><td>Proposed marsh / Proposed swamp
+</td></tr>
+<tr><td valign="top">MN</td><td>Proposed mangrove
+</td></tr>
+<tr><td valign="top">MO</td><td>Proposed monument / Proposed cenotaph / Proposed obelisk / Proposed sculpture / Proposed statue
+</td></tr>
+<tr><td valign="top">MTE</td><td>Proposed MTR entrance
+</td></tr>
+<tr><td valign="top">RA</td><td>Proposed restricted access
+</td></tr>
+<tr><td valign="top">SHS</td><td>Proposed small shrine
+</td></tr>
+<tr><td valign="top">TE</td><td>Proposed tree
+</td></tr>
+<tr><td valign="top">URS</td><td>proposed small burial urn
+</td></tr>
+<tr><td valign="top">VB</td><td>Proposed vehicular barrier
+</td></tr>
+<tr><td valign="top">W</td><td>Proposed well
+</td></tr>
+<tr><td valign="top">EP</td><td>Proposed electric pole
+</td></tr>
+<tr><td valign="top">ETP</td><td>Proposed electric transformer (pole)
+</td></tr>
+<tr><td valign="top">FH</td><td>Proposed fire hydrant (fresh water)
+</td></tr>
+<tr><td valign="top">LP</td><td>Proposed lamp post
+</td></tr>
+<tr><td valign="top">SFH</td><td>Proposed fire hydrant (salt water)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ANGLE</tt></strong><dd>Orientation of the marker symbol to the nearest degree
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear
+at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+<dt><strong><tt>NUMBER1</tt></strong><dd>This is the reference number of the proposed point feature, if any.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>NUMBER2</tt></strong><dd>This is the alias reference number of the proposed point feature, if any.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>NUMBER3</tt></strong><dd>This is another alias reference number of the proposed point feature, if any.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PROPROAD.AAT</tt></strong><dd>Arc Attribute Table of PROPROAD
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>TYPE</tt></strong><dd>Feature type collection of the proproad line feature in ROAD and RAIL layers
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">CWY</td><td>Proposed covered walkway
+</td></tr>
+<tr><td valign="top">FBR</td><td>Proposed footbridge (over road / water) / Proposed elevated walkway
+</td></tr>
+<tr><td valign="top">FBU</td><td>Proposed footbridge under elevated structures
+</td></tr>
+<tr><td valign="top">FP</td><td>Proposed footbridge, 0.5-1.5 metres wide
+</td></tr>
+<tr><td valign="top">FPW</td><td>Proposed footbridge, &gt;1.5 metres wide
+</td></tr>
+<tr><td valign="top">FY</td><td>Proposed flyover / Proposed elevated road / Proposed bridge for vehicles or railway
+</td></tr>
+<tr><td valign="top">FYU</td><td>Proposed flyover under another flyover or other elevated structures
+</td></tr>
+<tr><td valign="top">PA</td><td>Proposed pavement (including bicycle track)
+</td></tr>
+<tr><td valign="top">PAU</td><td>Proposed pavement under elevated structures
+</td></tr>
+<tr><td valign="top">RM</td><td>Proposed road margin
+</td></tr>
+<tr><td valign="top">RMU</td><td>Proposed road margin under elevated structures
+</td></tr>
+<tr><td valign="top">STP</td><td>Proposed step
+</td></tr>
+<tr><td valign="top">SWY</td><td>Proposed pedestrian subway
+</td></tr>
+<tr><td valign="top">TC</td><td>Proposed track
+</td></tr>
+<tr><td valign="top">TUR</td><td>Proposed tunnel for vehicles or railway, including cross-harbour tunnel
+</td></tr>
+<tr><td valign="top">LR</td><td>Proposed Light Rail Transit
+</td></tr>
+<tr><td valign="top">MTR</td><td>Proposed Mass Transit Railway
+</td></tr>
+<tr><td valign="top">PT</td><td>Proposed Peak Tramway
+</td></tr>
+<tr><td valign="top">TW</td><td>Proposed Tramway
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PREC</tt></strong><dd>A precision code to denote the level of positional accuracy.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">9</td><td>Estimation or proposal
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>Each feature is given a display status which ranges from 0 to 27 and 99. If two features appear at the same location, dominant feature will be displayed. When a feature is displayed in its defaulted symbology, its display status is 0.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0</td></tr>
+<tr><th>Maximum:</th><td>99</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PROPROAD.TATROAD_CH</tt></strong><dd>Annotation Attribute Table of PROPROAD for Chinese annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is a unique code assigned by LIC for a particular street
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PROPROAD.TATROAD_ENG</tt></strong><dd>Annotation Attribute Table of PROPROAD for English annotation
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is a unique code assigned by LIC for a particular street
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Shown
+</td></tr>
+<tr><td valign="top">1</td><td>Hidden
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PROPSITE.PAT</tt></strong><dd>Polygon Attribute Table of PROPSITE
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates
+of the label point inside a site polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>ANT_COMP_DATE</tt></strong><dd>The anticipate completion date of the proposed site
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SITE_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SITE_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PSPOTHT.PAT</tt></strong><dd>Point Attribute Table of PSPOTHT
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>SPOT_HT</tt></strong><dd>Proposed spot height to the nearest one decimal place in metres
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Real number</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>SPOT_POS</tt></strong><dd>Position to place the height value on the map related to the point
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">1</td><td>Upper left
+</td></tr>
+<tr><td valign="top">2</td><td>Upper right
+</td></tr>
+<tr><td valign="top">3</td><td>Lower right
+</td></tr>
+<tr><td valign="top">4</td><td>Lower left
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISP</tt></strong><dd>The value of display status
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">99</td><td>Not displayed
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SP_TYPE</tt></strong><dd>Spot Height point feature type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">G</td><td>Spot height which depicts Ground level, including level of road, pavement, etc.
+</td></tr>
+<tr><td valign="top">E</td><td>Spot height which depicts top level of Elevated structure, such as the top of a podium, rather than the level on ground.
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>Z_PREC</tt></strong><dd>A precision code to denote the level of height accuracy.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">9</td><td>Estimation (by no. of storeys)
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>ADDR_HSNO</tt></strong><dd>Lookup table for address house number
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building/podium/site polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T</td><td>The label belongs to Bldgpoly, Pbldgpoly and Dbldgpoly
+</td></tr>
+<tr><td valign="top">P</td><td>The label belongs to Podpoly, Ppodpoly and Dpodpoly
+</td></tr>
+<tr><td valign="top">(Blank)</td><td>Other layers
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is the code of street/village/estate where the address locates in. It is pre-assigned by LIC.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_HSNOS1</tt></strong><dd>Numeric part of the starting house number of a building / podium / site
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_HSNOS2</tt></strong><dd>Alphabetic part of the starting house number of a building / podium / site
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_HSNOE1</tt></strong><dd>Numeric part of the ending house number of a building / podium / site
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_HSNOE2</tt></strong><dd>Alphabetic part of the ending house number of a building / podium / site
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_TYPE</tt></strong><dd>House number type
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">O</td><td>Odd house number type
+</td></tr>
+<tr><td valign="top">E</td><td>Even house number type
+</td></tr>
+<tr><td valign="top">S</td><td>Squential house number type
+</td></tr>
+<tr><td valign="top">D</td><td>Odd house number with prefix in alpha type
+</td></tr>
+<tr><td valign="top">V</td><td>Even house number with prefix in alpha type
+</td></tr>
+<tr><td valign="top">Q</td><td>Sequential house number with prefix in alpha type
+</td></tr>
+<tr><td valign="top">A</td><td>Odd house number with prefix and suffix in alpha type
+</td></tr>
+<tr><td valign="top">B</td><td>Even house number with prefix and suffix in alpha type
+</td></tr>
+<tr><td valign="top">C</td><td>Sequential house number with prefix and suffix in alpha type
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>LOG</tt></strong><dd>This is an indicator showing the lock status of the current record in the lookup table. If it is being updated, the system will generate a random number in this field so that other user(s) cannot update it at the same time. After this record is updated to Library, the number in the 'LOG' field would be reset to zero (0).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>LAYER</tt></strong><dd>The layer that this record belongs to
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BLDGPOLY</td><td>Building polygon
+</td></tr>
+<tr><td valign="top">DBLDGPOLY</td><td>Demolished building polygon
+</td></tr>
+<tr><td valign="top">PBLDGPOLY</td><td>Proposed building polygon
+</td></tr>
+<tr><td valign="top">PODPOLY</td><td>Podium polygon
+</td></tr>
+<tr><td valign="top">DPODPOLY</td><td>Demolished podium polygon
+</td></tr>
+<tr><td valign="top">PPODPOLY</td><td>Proposed podium polygon
+</td></tr>
+<tr><td valign="top">SITE</td><td>Site polygon
+</td></tr>
+<tr><td valign="top">PROPSITE</td><td>Proposed site polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>NAME_STATUS</tt></strong><dd>Current status of the address-house number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">D</td><td>Demolished
+</td></tr>
+<tr><td valign="top">E</td><td>Existing (default)
+</td></tr>
+<tr><td valign="top">O</td><td>Other name (alias)
+</td></tr>
+<tr><td valign="top">P</td><td>Proposed
+</td></tr>
+<tr><td valign="top">R</td><td>Renamed
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SOURCE</tt></strong><dd>Where the building/podium/site is obtained from
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">DLO</td><td>From District Land Office
+</td></tr>
+<tr><td valign="top">DO</td><td>From District Office
+</td></tr>
+<tr><td valign="top">DSO</td><td>From field survey by District (default)
+</td></tr>
+<tr><td valign="top">FSD</td><td>From Fire Services department
+</td></tr>
+<tr><td valign="top">LIC</td><td>Added by LIC (without field verification)
+</td></tr>
+<tr><td valign="top">LR</td><td>From Land Registry
+</td></tr>
+<tr><td valign="top">PO</td><td>From Post Office
+</td></tr>
+<tr><td valign="top">OSS</td><td>From old survey sheets
+</td></tr>
+<tr><td valign="top">RVD</td><td>From Rating and Valuation Department
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DATE</tt></strong><dd>Date of addition or last updating of the lookup-table record generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDR_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ADDRESS</tt></strong><dd>The full address of a building/podium/site
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDG_NAME</tt></strong><dd>Lookup table for building name and related information
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T</td><td>The record belongs to BLDGPOLY, PBLDGPOLY and DBLDGPOLY
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISTRICT</tt></strong><dd>An abbreviation of the SMO Survey District where the label locates in. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">HK</td><td>Hong Kong
+</td></tr>
+<tr><td valign="top">IS</td><td>Islands
+</td></tr>
+<tr><td valign="top">K</td><td>Kowloon
+</td></tr>
+<tr><td valign="top">KT</td><td>Kwai Tsing
+</td></tr>
+<tr><td valign="top">N</td><td>North
+</td></tr>
+<tr><td valign="top">SK</td><td>Sai Kung
+</td></tr>
+<tr><td valign="top">ST</td><td>Shatin
+</td></tr>
+<tr><td valign="top">TM</td><td>Tuen Mun
+</td></tr>
+<tr><td valign="top">TP</td><td>Tai PO
+</td></tr>
+<tr><td valign="top">TW</td><td>Tsuen Wan
+</td></tr>
+<tr><td valign="top">YL</td><td>Yuen Long
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is the code of the village/estate where the building locates in. It is pre-assigned by LIC.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_PACKNM</tt></strong><dd>Building name, block number with village / estate name and phrase number (if any) in packed format
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_ENGNM</tt></strong><dd>Building name, block number with village / estate name and phrase number (if any) in English
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CHNM</tt></strong><dd>Building name, block number with village / estate name and phrase number (if any) in Chinese
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>LOG</tt></strong><dd>This is an indicator showing the lock status of the current record in the lookup table. If it is being updated, the system will generate a random number in this field so that other user(s) cannot update it at the same time. After this record is updated to Library, the number in the 'LOG' field would be reset to zero (0).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>LAYER</tt></strong><dd>The layer that this record belongs to
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BLDGPOLY</td><td>Building polygon
+</td></tr>
+<tr><td valign="top">DBLDGPOLY</td><td>Demolished building polygon
+</td></tr>
+<tr><td valign="top">PBLDGPOLY</td><td>Proposed building polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>NAME_STATUS</tt></strong><dd>Current status of the building name
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">D</td><td>Demolished
+</td></tr>
+<tr><td valign="top">E</td><td>Existing (default)
+</td></tr>
+<tr><td valign="top">O</td><td>Other name (alias)
+</td></tr>
+<tr><td valign="top">P</td><td>Proposed
+</td></tr>
+<tr><td valign="top">R</td><td>Renamed
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SOURCE</tt></strong><dd>Where the building name is obtained from
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">DLO</td><td>From District Land Office
+</td></tr>
+<tr><td valign="top">DO</td><td>From District Office
+</td></tr>
+<tr><td valign="top">DSO</td><td>From field survey by District Survey Office (default)
+</td></tr>
+<tr><td valign="top">FSD</td><td>From Fire Services department
+</td></tr>
+<tr><td valign="top">LIC</td><td>Added by LIC (without field verification)
+</td></tr>
+<tr><td valign="top">LR</td><td>From Land Registry
+</td></tr>
+<tr><td valign="top">OSS</td><td>From old survey sheets
+</td></tr>
+<tr><td valign="top">PO</td><td>From Hong Kong Post Office
+</td></tr>
+<tr><td valign="top">RVD</td><td>From Rating and Valuation Department
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DATE</tt></strong><dd>Date of addition or last updating of the lookup-table record generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>Lookup table for Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures) and related information
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building/podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T/A/B</td><td>The record belongs to BLDGPOLY, PBLDGPOLY and DBLDGPOLY ('T' record is created by LandsD; 'A' record is provided by ArchSD and 'B' record is provided by BD)
+</td></tr>
+<tr><td valign="top">P/C/D</td><td>The record belongs to PODPOLY, PPODPOLY or DPODPOLY ('P' record is created by LandsD; 'C' record is provided by ArchSD and 'D' record is provided by BD)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>RECORD_STATUS</tt></strong><dd>Current status of a building
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">A</td><td>Active
+</td></tr>
+<tr><td valign="top">D</td><td>Demolished
+</td></tr>
+<tr><td valign="top">P</td><td>Proposed
+</td></tr>
+<tr><td valign="top">W</td><td>Withdrawn
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CSU_CAT</tt></strong><dd>This is a number showing the building / podium's CSU Category (Common Spatial Unit Category) in DAM (Data Alignment Measures).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">0</td><td>Buildings pending for further classification by other departments (default value)
+</td></tr>
+<tr><td valign="top">1</td><td>Legal private buildings / Housing Authority (HA) or Housing Society (HS) buildings under jurisdiction of the Buildings Ordinance /
+Home Ownership Scheme (HOS) buildings developed under the Private Sector Participation Scheme (PSPS) / HS buildings which require occupation permit and
+are under the jurisdiction of the Buildings Ordinance
+</td></tr>
+<tr><td valign="top">2</td><td>New Territories small Houses
+</td></tr>
+<tr><td valign="top">3</td><td>HA's public housing estates / HOS estates except those developed under PSPS
+</td></tr>
+<tr><td valign="top">4</td><td>Government owned properties
+</td></tr>
+<tr><td valign="top">5</td><td>Temporary structures / open-sided structures with address or building name
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DATE</tt></strong><dd>Date of addition or last updating of the lookup-table record generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>LOG</tt></strong><dd>This is an indicator showing the lock status of the current record in the lookup table. If it is being updated, the system will generate a random number in this field so that other user(s) cannot update it at the same time. After this record is updated to Library, the number in the 'LOG' field would be reset to zero (0).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>GEO_REFERENCE</tt></strong><dd>Lookup table for the Geo_reference number
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a building/podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T/A/B</td><td>The record belongs to BLDGPOLY, PBLDGPOLY or DBLDGPOLY ('T' record is created by LandsD; 'A' record is provided by ArchSD and 'B' record is provided by BD)
+</td></tr>
+<tr><td valign="top">P/C/D</td><td>The record belongs to PODPOLY, PPODPOLY or DPODPOLY ('P' record is created by LandsD; 'C' record is provided by ArchSD and 'D' record is provided by BD)
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>OPERATION</tt></strong><dd>This is a code applied to a building/podium polygon.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">M</td><td>Merged multiple polygons into one polygon and assigned a new BLDG_CSUID for the new polygon.
+</td></tr>
+<tr><td valign="top">R</td><td>Re-assigned a new BLDG_CSUID for an existing polygon.
+</td></tr>
+<tr><td valign="top">S</td><td>Splitted one polygon into multiple polygons and assigned new BLDG_CSUIDs for each of the new polygons.
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>O_GEO_REFNO</tt></strong><dd>The previous geo-reference Number of a building/podium polygon.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>O_POLY_TYPE</tt></strong><dd>The previous POLY_TYPE of a building/podium polygon.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">T</td><td>The record belongs to BLDGPOLY, PBLDGPOLY or DBLDGPOLY
+</td></tr>
+<tr><td valign="top">P</td><td>The record belongs to PODPOLY, PPODPOLY or DPODPOLY
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>O_CREATE_DATE</tt></strong><dd>The previous CREATE_DATE of a building/podium polygon.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>LOG</tt></strong><dd>This is an indicator showing the lock status of the current record in the lookup table. If it is being updated, the system will generate a random number in this field so that other user(s) cannot update it at the same time. After this record is updated to Library, the number in the 'LOG' field would be reset to zero (0).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>LAYER</tt></strong><dd>The layer that this record belongs to
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">BLDGPOLY</td><td>Building polygon
+</td></tr>
+<tr><td valign="top">DBLDGPOLY</td><td>Demolished building polygon
+</td></tr>
+<tr><td valign="top">PBLDGPOLY</td><td>Proposed building polygon
+</td></tr>
+<tr><td valign="top">PODPOLY</td><td>Podium polygon
+</td></tr>
+<tr><td valign="top">DPODPOLY</td><td>Demolished podium polygon
+</td></tr>
+<tr><td valign="top">PPODPOLY</td><td>Proposed podium polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>GEO_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>O_GEO_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>O_GEO_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>O_BLDG_CSUID</tt></strong><dd>The previous Building CSU-ID of a building/podium polygon
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>PODIUM_NAME</tt></strong><dd>Lookup table for podium name and related information
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>GEO_REFNO</tt></strong><dd>This is an unique identifier formed by concatenating the Easting(x) and Northing(y) coordinates of the label point inside a podium polygon. Before concatenation, all decimals of the x-y coordinates are trimmed off and their preceding figures '8' are removed. Thus, the 'GRO_REFNO' of a label point of coordinate: '813579.85...E; 824680.12...N' would become '1357924680'.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Range of values</th></tr>
+<tr><th>Minimum:</th><td>0000000000</td></tr>
+<tr><th>Maximum:</th><td>6750048000</td></tr>
+</table>
+<p>
+<dt><strong><tt>POLY_TYPE</tt></strong><dd>This is a code showing the layer which the label belongs to. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">P</td><td>The record belongs to PODPOLY, PPODPOLY and DPODPOLY
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>CREATE_DATE</tt></strong><dd>This is the date when the label is created. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISTRICT</tt></strong><dd>An abbreviation of the SMO Survey District where the label locates in. It is generated by the system automatically.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">HK</td><td>Hong Kong
+</td></tr>
+<tr><td valign="top">IS</td><td>Islands
+</td></tr>
+<tr><td valign="top">K</td><td>Kowloon
+</td></tr>
+<tr><td valign="top">KT</td><td>Kwai Tsing
+</td></tr>
+<tr><td valign="top">N</td><td>North
+</td></tr>
+<tr><td valign="top">SK</td><td>Sai Kung
+</td></tr>
+<tr><td valign="top">ST</td><td>Shatin
+</td></tr>
+<tr><td valign="top">TM</td><td>Tuen Mun
+</td></tr>
+<tr><td valign="top">TP</td><td>Tai PO
+</td></tr>
+<tr><td valign="top">TW</td><td>Tsuen Wan
+</td></tr>
+<tr><td valign="top">YL</td><td>Yuen Long
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is a code of the village/estate where the podium locates in. It is pre-assigned by LIC.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_PACKNM</tt></strong><dd>Podium name in packed format
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_ENGNM</tt></strong><dd>Podium name in English
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_CHNM</tt></strong><dd>Podium namer in Chinese
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>LOG</tt></strong><dd>This is an indicator showing the lock status of the current record in the lookup table. If it is being updated, the system will generate a random number in this field so that other user(s) cannot update it at the same time. After this record is updated to Library, the number in the 'LOG' field would be reset to zero (0).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>LAYER</tt></strong><dd>The layer that this record belongs to
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">PODPOLY</td><td>Podium polygon
+</td></tr>
+<tr><td valign="top">DPODPOLY</td><td>Demolished podium polygon
+</td></tr>
+<tr><td valign="top">PPODPOLY</td><td>Proposed podium polygon
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>NAME_STATUS</tt></strong><dd>Current status of the podium name
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">D</td><td>Demolished
+</td></tr>
+<tr><td valign="top">E</td><td>Existing (default)
+</td></tr>
+<tr><td valign="top">O</td><td>Other name (alias)
+</td></tr>
+<tr><td valign="top">P</td><td>Proposed
+</td></tr>
+<tr><td valign="top">R</td><td>Renamed
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SOURCE</tt></strong><dd>Where the podium name is obtained from
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">DLO</td><td>From District Land Office
+</td></tr>
+<tr><td valign="top">DO</td><td>From District Office
+</td></tr>
+<tr><td valign="top">DSO</td><td>From field survey by District Survey Office (default)
+</td></tr>
+<tr><td valign="top">FSD</td><td>From Fire Services department
+</td></tr>
+<tr><td valign="top">LIC</td><td>Added by LIC (without field verification)
+</td></tr>
+<tr><td valign="top">LR</td><td>From Land Registry
+</td></tr>
+<tr><td valign="top">OSS</td><td>From old survey sheets
+</td></tr>
+<tr><td valign="top">PO</td><td>From Hong Kong Post Office
+</td></tr>
+<tr><td valign="top">RVD</td><td>From Rating and Valuation Department
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DATE</tt></strong><dd>Date of addition or last updating of the lookup-table record generated by the system automatically
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_EAST</tt></strong><dd>The Easting part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>PODIUM_NORTH</tt></strong><dd>The Northing part of the Geographic Reference Number
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>BLDG_CSUID</tt></strong><dd>This is a unique identifier known as Building CSU-ID (Common Spatial Unit ID) in DAM (Data Alignment Measures). It is formed by concatenating the values of GEO_REFNO, POLY_TYPE and CREATE_DATE.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>It is a redefined item
+</td></tr>
+</table>
+<p>
+</dl>
+<p>
+<dt><strong><tt>STREET_CODE</tt></strong><dd>Lookup table for the Street / Village / Estate Code
+  (Source: ARC/INFO)
+<p>
+<dl>
+<dt><strong><tt>ST_CODE</tt></strong><dd>This is a unique number assigned by LIC for a particular street, village or estate
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th colspan="2">Formal codeset</th></tr>
+<tr><th>Codeset Name:</th><td>Street_code</td></tr>
+<tr><th>Codeset Source:</th><td>LIC</td></tr>
+</table>
+<p>
+<dt><strong><tt>ST_PACKNM</tt></strong><dd>Name of street, village or estate in packed format
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>ST_ENGNM</tt></strong><dd>Name of street, village or estate in English
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>ST_CHNM</tt></strong><dd>Name of street, village or estate in Chinese
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>DISTRICT</tt></strong><dd>An abbreviation of the SMO Survey District where the dominant part of the street/village/estate located in.
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">HK</td><td>Hong Kong
+</td></tr>
+<tr><td valign="top">IS</td><td>Islands
+</td></tr>
+<tr><td valign="top">K</td><td>Kowloon
+</td></tr>
+<tr><td valign="top">KT</td><td>Kwai Tsing
+</td></tr>
+<tr><td valign="top">N</td><td>North
+</td></tr>
+<tr><td valign="top">SK</td><td>Sai Kung
+</td></tr>
+<tr><td valign="top">ST</td><td>Shatin
+</td></tr>
+<tr><td valign="top">TM</td><td>Tuen Mun
+</td></tr>
+<tr><td valign="top">TP</td><td>Tai PO
+</td></tr>
+<tr><td valign="top">TW</td><td>Tsuen Wan
+</td></tr>
+<tr><td valign="top">YL</td><td>Yuen Long
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>TILE-NAME</tt></strong><dd>Name of the B1000 tile in which the dominant part of the street / village / estate locates in
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Character</td><td>&nbsp;</td></tr>
+</table>
+<p>
+<dt><strong><tt>NAME_STATUS</tt></strong><dd>Current status of the street/village/estate
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">D</td><td>Demolished
+</td></tr>
+<tr><td valign="top">E</td><td>Existing (default)
+</td></tr>
+<tr><td valign="top">O</td><td>Other name (alias)
+</td></tr>
+<tr><td valign="top">P</td><td>Proposed
+</td></tr>
+<tr><td valign="top">R</td><td>Renamed
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>SOURCE</tt></strong><dd>Where the street/village/estate name is obtained from
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">DLO</td><td>From District Land Office
+</td></tr>
+<tr><td valign="top">DO</td><td>From District Office
+</td></tr>
+<tr><td valign="top">DSO</td><td>From field survey by District Survey Office (default)
+</td></tr>
+<tr><td valign="top">FSD</td><td>From Fire Services Department
+</td></tr>
+<tr><td valign="top">LIC</td><td>Added by LIC (without field verification)
+</td></tr>
+<tr><td valign="top">LR</td><td>From Land Registry
+</td></tr>
+<tr><td valign="top">OSS</td><td>From old survey sheets
+</td></tr>
+<tr><td valign="top">PO</td><td>From Post Office
+</td></tr>
+<tr><td valign="top">RVD</td><td>From Rating and Valuation Department
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>DATE</tt></strong><dd>Date of addition or last updating of the street/village/estate name
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">MM/DD/YYYY</td><td>Month/Day/Year
+</td></tr>
+</table>
+<p>
+<dt><strong><tt>LOG</tt></strong><dd>This is an indicator showing the lock status of the current record in the lookup table. If it is being updated, the system will generate a random number in this field so that other user(s) cannot update it at the same time. After this record is updated to Library, the number in the 'LOG' field would be reset to zero (0).
+  (Source: SMO)<p></p>
+<p>
+<table border="1" cellpadding="4" cellspacing="0">
+<tr><th>Value</th><th>Definition</th></tr>
+<tr><td valign="top">Integer</td><td>&nbsp;</td></tr>
+</table>
+<p>
+</dl>
+<p>
+</dl>
+<p>
+</li>
+</ol>
+<p>
+<hr/>
+<h3><a name="who">Who produced the data set?</a></h3>
+<ol>
+<li><a name="who.1"><strong>Who are the originators of the data set?</strong></a> (may include formal authors, digital compilers, and editors)<p>
+<ul>
+<li>Land Information Centre, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region (HKSAR)
+</ul>
+<p>
+</li>
+<li><a name="who.2"><strong>Who also contributed to the data set?</strong></a><p>
+<p>
+</li>
+<li><a name="who.3"><strong>To whom should users address questions about the data?</strong></a><p>
+<div style="margin-left: 2em">
+Land Informtion Centre, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region<br/>
+Senior Land Surveyor/Land Information Centre (2), Lands Department<br/>
+23/F, North Point Government Offices, 333 Java Road, North Point<br/>
+Hong Kong, Hong Kong Special Administrative Region None<br/>
+The People's Republic of China<br/>
+<p>
+(852) 2231 3443 (voice)<br/>
+(852) 2877 8520 (FAX)<br/>
+slslic2@landsd.gov.hk<br/>
+<dl>
+<dt><em>Hours_of_Service:</em>  0900-1700</dt>
+<dt><em>Contact_Instructions:</em>  
+<dd>
+
+The contract document for the purchase of digital data can also be downloaded. It is a compressed file and the size is about 2MByte.
+
+</dd>
+</dl>
+</div>
+<p>
+</li>
+</ol>
+<hr/>
+<h3><a name="why">Why was the data set created?</a></h3>
+<blockquote>
+The data set are widely used for land administration, planning, engineering development and record purposes by the private sectors and the HKSAR Government. This versatile, up-to-date digital map also serves as a common database for all other GIS applications.
+</blockquote>
+<p>
+<hr/>
+<h3><a name="how">How was the data set created?</a></h3>
+<ol>
+<li><a name="how.1"><strong>From what previous works were the data drawn?</strong></a><p>
+<dl>
+<dt><strong>None</strong> (source 1 of 4)
+<dd>
+<blockquote>
+Survey and Mapping Office, Lands Department, 1995, 1:1000 Survey Sheet: HP1C 1000 BMS, Survey and Mapping Office, Lands Department, Hong Kong Special Administrative Region.<p>
+</blockquote>
+<dl>
+<dt><em>Type_of_Source_Media:</em>  Stable-base material</dt>
+<dt><em>Source_Scale_Denominator:</em>  1000</dt>
+<dt><em>Source_Contribution:</em>  Spatial and attribute information</dt>
+</dl>
+<p>
+<dt><strong>None</strong> (source 2 of 4)
+<dd>
+<blockquote>
+Survey and Mapping Office, Lands Department, 1990, 1:1200 Survey Sheet: Survey and Mapping Office, Lands Department, Hong Kong.<p>
+</blockquote>
+<dl>
+<dt><em>Type_of_Source_Media:</em>  Stable-base material</dt>
+<dt><em>Source_Scale_Denominator:</em>  1200</dt>
+<dt><em>Source_Contribution:</em>  Spatial and attribute information</dt>
+</dl>
+<p>
+<dt><strong>None</strong> (source 3 of 4)
+<dd>
+<blockquote>
+Survey and Mapping Office, Lands Department, 1990, Photogrammetric field sheet.<p>
+</blockquote>
+<dl>
+<dt><em>Type_of_Source_Media:</em>  Digital</dt>
+<dt><em>Source_Contribution:</em>  Spatial and attribute information</dt>
+</dl>
+<p>
+<dt><strong>None</strong> (source 4 of 4)
+<dd>
+<blockquote>
+Survey and Mapping Office, Lands Department, 1992, Title Survey.<p>
+</blockquote>
+<dl>
+<dt><em>Type_of_Source_Media:</em>  Digital</dt>
+<dt><em>Source_Contribution:</em>  Spatial and attribute information</dt>
+</dl>
+<p>
+</dl>
+</li>
+<li><a name="how.2"><strong>How were the data generated, processed, and modified?</strong></a><p>
+<dl>
+<dt>Date: Jul-1999 (process 1 of 6)
+<dd>
+All the Chinese text is added to the database as graphic and textual data
+<p>
+<dt>Date: Aug-2001 (process 2 of 6)
+<dd>
+Three proposd layer; PBLDGPOLY, PROPROAD and PROPINFRA are added to B1000 Mapping System
+<p>
+<dt>Date: May-2005 (process 3 of 6)
+<dd>
+To meet the requirements of DAM (Data Alignment Measures), numbers of enhancement and modification is taken into 1:1000 Basic Mapping System. New layers (DBLDGPOLY, PODPOLY, PPODPOLY and DPODPOLY) and lookup tables (PODIUM_NAME and BLDG_CSUID) are added. Numbers of the existing layers (BLDGPOLY and BLDG) and lookup tables (ADDR_HSNO, BLDG_NAME and GEO_REFERENCE) are modified. The layer OBLDG is removed as it is replaced by DBLDGPOLY.
+Also, some of the modification are not related to DAM exercise; new layer PSPOTHT is added and existing layer SPOTHT is modified.
+<p>
+<dt>Date: Apr-2007 (process 4 of 6)
+<dd>
+Item ANT_COMP_DATE is added in PROPSITE layer
+<p>
+<dt>Date: 2008 (process 5 of 6)
+<dd>
+Version 3.1 is launched
+<p>
+<dt>Date: 2008 (process 6 of 6)
+<dd>
+Version 3.2 is launched
+<p>
+</dl>
+</li>
+<li><a name="how.3"><strong>What similar or related data should the user be aware of?</strong></a><p>
+</li>
+</ol>
+<p>
+<hr/>
+<h3><a name="quality">How reliable are the data; what problems remain in the data set?</a></h3>
+<ol>
+<li><a name="quality.1"><strong>How well have the observations been checked?</strong></a><p>
+Attribute accuracy is checked by manual comparison of the source with the hard copy print-out. The attributes items are also confined by the Item Definition and pre-defined feature type. In addition, DM software tests the attributes against a master set of valid attributes. The program will prohibit data writing to the data library and prompt a warning message if any deviation from the standard is found.
+<p>
+</li>
+<li><a name="quality.2"><strong>How accurate are the geographic locations?</strong></a><p>
+Features in BMS have a &quot;Precision&quot; code to denote its data capturing method or sources. The code ranges from 1 to 9 with 1 being the most accurate and 9 being the least. Accuracy analysis has been carried out to quantify how each of the ranking represents. The analysis is based on the law of propagation of error with the assumption that errors are uncorrelated and normally distributed. The analysis shows that the position accuracy of BMS data varies from about 0.015m in the best to 1.500m to the worst for data captured by title survey method to data digitized from the original 1:1200 scale survey sheet.
+<p>
+</li>
+<li><a name="quality.3"><strong>How accurate are the heights or depths?</strong></a><p>
+<p>
+</li>
+<li><a name="quality.4"><strong>Where are the gaps in the data?  What is missing?</strong></a><p>
+In the 1:1000 scale BMS dataset, only those features defined in the B1000 specifications will be captured. If two or more ground features are separated by less than 1 metre, only the most prominent feature will be shown whereas the others will be suppressed in the graphic presentation. Besides, features may have been eliminated or generalized on the source graphic, due to scale, legibility or change of mapping specifications. Owing to stringent time-frame during data conversion, some of the attribute fields are yet to be filled up.
+<p>
+</li>
+<li><a name="quality.5"><strong>How consistent are the relationships among the observations, including topology?</strong></a><p>
+Polygon and chain node topology present
+</li>
+</ol>
+<p>
+<hr/>
+<h3><a name="getacopy">How can someone get a copy of the data set?</a></h3>
+<blockquote>
+<a name="getacopy.0"><strong>Are there legal restrictions on access or use of the data?</strong></a><p>
+<blockquote>
+<dl>
+<dt><em>Access_Constraints:</em>  
+<dd>
+
+The Government of the HKSAR is the copyright owner of the digital data, which is available for sale to the public at prescribed charges. The Government will issue a non-exclusive and non-transferable licence to the customer after he/she has purchased the data. The licensee is permitted to use the data from the date as set out in the Licence. The licensee must have obtained written consent from the Government and paid the necessary royalty charges before he/she can incorporate the digital data in any product for distribution to any third party. If the licensee ceases using the digital data, the licensee should confirm to the Government in writting that the data has been erased from his/her computer system. Sample data for testing computer system is availabe free of charge. Sample data for academics for teaching purpose are available on request at a nominal administrative fee.
+The digital data would be provided to other government departments or their consultants free of charge.
+
+</dd>
+<dt><em>Use_Constraints:</em>  
+<dd>
+
+The use of the data supplied under the licence shall be subject to the computer configuration, for the purposes and at the location as specified in the Licence Agreement.
+The digital data can be provided to other goverment departments and their consultants for internal use and project purpose respectively. Such data shall not be distributed in part or in whole and in whatever forms and media to a third party. The use of digital data is also subject to some conditions which can be obtained upon request.
+
+</dd>
+</dl>
+</blockquote>
+</blockquote>
+<p>
+<ol>
+<li><a name="getacopy.1"><strong>Who distributes the data set?</strong></a> (Distributor 1 of 1)<p>
+<div style="margin-left: 2em">
+Headquarters Division, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region<br/>
+Senior Cartographer/Headquarter, Lands Department<br/>
+23/F, North Point Government Offices, 333 Java Road, North Point<br/>
+Hong Kong, Hong Kong Special Administrative Region None<br/>
+The People's Republic of China<br/>
+<p>
+(852) 2231 3187 (voice)<br/>
+(852) 2116 0774 (FAX)<br/>
+lic_custsup@landsd.gov.hk<br/>
+</div>
+</li>
+<li><a name="getacopy.2"><strong>What's the catalog number I need to order this data set?</strong></a><p>
+</li>
+<li><a name="getacopy.3"><strong>What legal disclaimers am I supposed to read?</strong></a><p>
+<blockquote>
+As stated in the relevant licence agreement or terms and conditions for using digital map
+</blockquote>
+<p>
+</li>
+<li><a name="getacopy.4"><strong>How can I download or order the data?</strong></a><p>
+<ul>
+<li><strong>Availability in non-digital form:</strong><p>
+Paper map of 1:1000 survey sheet (Map Series HP1C)
+<p>
+<li><strong>Cost to order the data:</strong> <p>
+Price specifies at <a href="http://www.landsd.gov.hk/mapping/en/paper_map/paper.htm">&lt;http://www.landsd.gov.hk/mapping/en/paper_map/paper.htm&gt;</a><p>
+<li><strong>Special instructions:</strong><p>
+<blockquote>
+Approach to the map sales counter of the Lands Department
+</blockquote>
+<p>
+<li><strong>How long will it take to get the data?</strong><p>
+<blockquote>
+Paper map can be obtained immediately
+</blockquote>
+<p>
+</ul>
+<ul>
+<li><strong>Availability in digital form:</strong><p>
+<table border="0" cellpadding="2">
+<tr><th align="left" valign="top">Data&nbsp;format:</th>
+<td>
+Data specifies at <a href="http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm">&lt;http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm&gt;</a>
+ in format ARCE
+ (version ARC/INFO 7.2.1)
+</td>
+</tr>
+<tr><th align="left" valign="top">Network&nbsp;links:</th>
+<td>
+Hong Kong Map Service<br/>
+</td>
+</tr>
+<tr><th align="left" valign="top" style="white-space: nowrap">Media you can order:</th>
+<td>
+DVD
+(Density 4.7
+Gigabytes)
+(format ISO 9660)
+<p>
+</td>
+</tr>
+</table>
+<p>
+<table border="0" cellpadding="2">
+<tr><th align="left" valign="top">Data&nbsp;format:</th>
+<td>
+Data specifies at <a href="http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm">&lt;http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm&gt;</a>. Contour data is in 3D, others are in 2D
+ in format DGN
+ (version Microstation J)
+</td>
+</tr>
+<tr><th align="left" valign="top">Network&nbsp;links:</th>
+<td>
+Hong Kong Map Service<br/>
+</td>
+</tr>
+<tr><th align="left" valign="top" style="white-space: nowrap">Media you can order:</th>
+<td>
+DVD
+(Density 4.7
+Gigabytes)
+(format ISO 9660)
+<p>
+</td>
+</tr>
+</table>
+<p>
+<table border="0" cellpadding="2">
+<tr><th align="left" valign="top">Data&nbsp;format:</th>
+<td>
+Data specifies at <a href="http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm">&lt;http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm&gt;</a>. Contour data is in 3D, others are in 2D.
+ in format DWG
+ (version AutoCAD 2000)
+</td>
+</tr>
+<tr><th align="left" valign="top">Network&nbsp;links:</th>
+<td>
+Hong Kong Map Service<br/>
+</td>
+</tr>
+<tr><th align="left" valign="top" style="white-space: nowrap">Media you can order:</th>
+<td>
+DVD
+(Density 4.7
+Gigabytes)
+(format ISO 9660)
+<p>
+</td>
+</tr>
+</table>
+<p>
+<table border="0" cellpadding="2">
+<tr><th align="left" valign="top">Data&nbsp;format:</th>
+<td>
+Data specifies at <a href="http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm">&lt;http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm&gt;</a>
+ in format DXF
+ (version AutoCAD 2000)
+</td>
+</tr>
+<tr><th align="left" valign="top">Network&nbsp;links:</th>
+<td>
+Hong Kong Map Service<br/>
+</td>
+</tr>
+<tr><th align="left" valign="top" style="white-space: nowrap">Media you can order:</th>
+<td>
+DVD
+(Density 4.7
+Gigabytes)
+(format ISO 9660)
+<p>
+</td>
+</tr>
+</table>
+<p>
+<li><strong>Cost to order the data:</strong> <p>
+Price specifies at <a href="http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm">&lt;http://www.landsd.gov.hk/mapping/en/digital_map/digital_map.htm&gt;</a><p>
+<li><strong>Special instructions:</strong><p>
+<blockquote>
+Digital map data can be ordered at Hong Kong Map Service through <a href="http://www.hkmapservice.gov.hk">&lt;http://www.hkmapservice.gov.hk&gt;</a> or Map Publications Centre, Hong Kong of Lands Department at 23/F, North Point Government Offices, 333 Java Road, North Point, Hong Kong
+</blockquote>
+<p>
+<li><strong>How long will it take to get the data?</strong><p>
+<blockquote>
+Within 2 weeks for survey sheets with quantity 200 or less
+</blockquote>
+<p>
+</ul>
+<p>
+</li>
+</ol>
+<p>
+<hr/>
+<h3><a name="metaref">Who wrote the metadata?</a></h3>
+<dl>
+<dt>Dates:
+<dd>Last modified: 18-Mar-2016<br/>
+</dd>
+<dt>Metadata author:
+<dd>
+<div style="margin-left: 2em">
+Land Information Centre, Survey and Mapping Office, Lands Department, the Government of the Hong Kong Special Administrative Region<br/>
+Land Surveyor/Land Information Centre (2), Lands Department<br/>
+23/F, North Point Government Offices, 333 Java Road, North Point<br/>
+Hong Kong, Hong Kong Special Administrative Region None<br/>
+The People's Republic of China<br/>
+<p>
+(852) 2231 3450 (voice)<br/>
+(852) 2877 8520 (FAX)<br/>
+lslic2@landsd.gov.hk<br/>
+</div>
+</dd>
+<dt>Metadata standard: <dd>FGDC Content Standards for Digital Geospatial Metadata (Version 2.0) (FGDC-STD-001-1998)</dl>
+<p></p>
+<hr/>
+<span class="mp-generated">Generated by <a href="http://geology.usgs.gov/tools/metadata/tools/doc/mp.html"><tt>mp</tt></a> version 2.9.12 on Fri Mar 18 13:59:31 2016<br/></span>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Rooftop Garden unchanged original staged acceptance — 9 October 2026
+
+Agent: Codex terrain recovery. UID `landsd/222781:0`, original provider LOD3 podium `B156592961802063C0`, CSUID `1565929618P20050613`. Source gzip SHA-256 `584b1b2f3d2568bcdc04fcb0700c05e9a5fca6f74e4cb48180636e88b765f0a9`. No source mesh, attributes, root transform or elevation edits; no AI geometry modelling or external modelling calls. AI interpreted code and original evidence.
+
+## Physical and authored exterior proof
+
+Fresh physical batch `government-xl-terrain-recovery-222781-retained-neighbours-20261009` is fenced in Neon job `a24c63af0d99cb509abde7d4bd6e4fe1d1828a189dbdf55c01a1402eb40ab377`. Identity, runtime, full foundation and all 96 current neighbouring forms pass. Seven initial unrelated terrain regressions were caused by the large rectangular terrain batch around the narrow original source. Their complete current footprints lie at least 25.9007 m from every original source projection, including vertical and zero-area faces. The established exact parent-facet retention route preserves their original drawn terrain; no neighbours were removed or hidden. All 96 checks were rerun after retention.
+
+Continuous current terrain/source producer checks all 11,598 original faces, with zero uncovered faces and no omissions. Every ordinary/upward face remains under the original strict clearance test; minimum upward clearance is +0.00136858 m. The exact same 14 independently frozen exposed wall faces cross terrain and connect by original shared edges to clear original roofs. Four original open-body winding conflicts are retained. This is an open authored exterior role, never a closed-solid or basement certification.
+
+Readonly `xl-terrain-recovery-20261009-222781-current-wall-role.py::recheck()` binds original expanded POSITION/NORMAL/COLOR, provider hierarchy/root/materials, raw provider GLTF/bin receipts, original official specification and exact current identity, world geometry, full ground, current manifest/tiles, all 96 current forms and all 6,590 current native whole-source bounds. Every native bound is strictly separate from the credited walls. Fresh strict foundation coverage/count and zero buried/upward faces are independent mandatory assertions. The raw cached bottom warning and fresh wall clearance failure remain in the receipt; only these exact source-bound contextual failures resolve. A fresh numeric bottom/rim, foundation, ordinary face, identity, neighbour or runtime failure cannot receive this role.
+
+Typed current role is fenced in Neon job `8f1b4607177063bf92f9e83a9ecb7e6b1ec1aa5537477f804c14761c4eff8fbd`; all independent physical gates pass. The diagnostic and kernel have meaningful missing-ground, changed-source/context, detached wall/roof, buried upward, omitted actor/face and foreign-intersection rejection fixtures.
+
+## Browser and publication
+
+`acceptance.json` records successful publication dry-run and staged desktop/mobile day/night checks. Original model activation, whole source bounds framing, picking/collision, rendered ground/sampler agreement and mobile intentional 503 failure/fallback/retry pass. The exact role and fresh routed original identity replayed successfully both before and after browser checks. Screenshots and `staged-browser.json` are adjacent.
+
+The staged adapter only writes accepted artefacts and performs publication dry-run. It never updates the live manifest or grants installed credit. All 96 source scopes and candidate terrain reservation were released after successful stage completion. The root agent serializes live publication after independent receipt/image review with `xl-terrain-recovery-20261009-222781-live-install.py`. That continuation repeats current identity and role replay under publication lock, creates a ledger approval snapshot, applies the exact staged plan, runs independent live browser checks (with manifest rollback on failure), then grants installed credit and fences a Neon result. No installation is claimed in this staged record.
+
+Source reference: Lands Department original government model/terrain receipts and official product sheet, not historical map imagery. No `references/` files were edited.

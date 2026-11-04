@@ -1,0 +1,76 @@
+{
+  "batch": "government-xl-disneyland-eastern75643-after-western-fresh-sequence-v1-20261030",
+  "uids": [
+    "landsd/75643:0"
+  ],
+  "resources": [
+    "building:landsd/75643:0",
+    "building:landsd/75642:0",
+    "source-form:way/334029318:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-disneyland-eastern75643-after-western-selection-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-western-pier-native-bounds-v1-20261030",
+        "--capture",
+        "government-xl-disneyland-pier-75643-scoped-selection-v1-20261029",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-disneyland-eastern75643-after-western-current-ground-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-eastern75643-after-western-selection-v1-20261030",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-disneyland-eastern75643-after-western-attributes-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-eastern75643-after-western-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-disneyland-eastern75643-after-western-identity-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-eastern75643-after-western-current-ground-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-disneyland-eastern75643-after-western-source-scope-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-eastern75643-after-western-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-disneyland-eastern75643-after-western-attributes-v1-20261030",
+        "--inventory",
+        "government-xl-after-western-pier-native-bounds-v1-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-disneyland-eastern75643-after-western-current-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-disneyland-eastern75643-after-western-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-disneyland-eastern75643-after-western-attributes-v1-20261030",
+        "--uid",
+        "landsd/75643:0"
+      ]
+    }
+  ]
+}

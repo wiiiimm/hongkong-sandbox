@@ -1,0 +1,81 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-ching-cheung-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Ching Cheung House unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-ching-cheung-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-ching-cheung-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-ching-cheung-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "2b2f4095989b3f2338fa2b9840e0fcde31292593f53f267bfbf401178aac6325"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-ching-cheung-original-v1-20261022.json": "6a40a7cf2853b8a867e0561afc91b36fa8c8d191d674f1d03a1189a720d338ad",
+    "3d-viewer/city/data/official-models/government-xl-ching-cheung-qualified-stage-v1-20261022/catalogue.json": "e08b2476c7a2ab6fcb053ed43fc2cc915d67d06fa8ec7f4f8858e1204634ec92",
+    "3d-viewer/city/data/manifest.json": "46f019906a45fc0c4108be4e741f3a08807df22228faa04e28d3aad03bbcff88"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "05b8c302ad98abe7b66ef40f535b347eaf256e1d",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-ching-cheung-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Ching Cheung House unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -3764.1070405,
+            -23032.4804687,
+            -3708.2744276,
+            -22984.1430349
+          ],
+          "outerBounds": [
+            -3767.2406618629198,
+            -23035.4804687,
+            -3704.0352104110007,
+            -22981.138545820835
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-remaining-adjacent-terrain-batch-v1-20261022-95643-0/sheets/3-SW-11A/terrain/TERRAIN(TB)/T30000390000106E11/T30000390000106E11.gltf",
+            "sha256": "07a73885ef0b0c090986605db050feeecac61c2ffed778d48720066ce204d8a4"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-ching-hin-house-terrain-continuation-v3-20261005/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.gltf",
+            "sha256": "6bb73fede1a367d794501957dea815e12c794e85b1e5f03e64dadea094e189ec"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6a40a7cf2853b8a867e0561afc91b36fa8c8d191d674f1d03a1189a720d338ad",
+      "bytes": 444006
+    }
+  ],
+  "estimatedBases": []
+}

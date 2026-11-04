@@ -1,0 +1,93 @@
+"""DRAFT bounded full Southside/station four-stream current finite diagnostic.
+Reuses reviewed coarse -> paired kernels; no source/terrain/role/acceptance changes.
+Complete captured ground and original zero-area facets remain in every comparison.
+"""
+import importlib.util,json,sys,subprocess,uuid,types
+from pathlib import Path
+import numpy as np
+from run import ROOT,HERE,read,save,digest,connect,reservations
+from exact_original_face_conservative_clearance_v5_20261010 import verify as coarse
+from exact_original_paired_finite_clearance_20261010 import verify as paired
+BASE=ROOT/'docs/astra-city/government-import'
+INPUT=BASE/'government-xl-southside-315025-300867-current-actual-ground-capture-v1-20261012'
+DRAFT=BASE/'government-xl-southside-complete-four-stream-current-finite-draft-v1-20261012'
+BATCH='government-xl-southside-315025-300867-complete-four-stream-current-finite-v1-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+UIDS=['landsd/315025:0','landsd/300867:0'];COUNTS={UIDS[0]:11699,UIDS[1]:1191}
+MODES=['providerOriginal','actualLiteral','explicitLeftAssociatedF32ModelMatrix','explicitBalancedF32ModelMatrix']
+MANIFEST='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+HELPERS=['run.py','exact_original_face_conservative_clearance_v5_20261010.py','exact_original_paired_finite_clearance_20261010.py','exact_original_projection_coverage_v2_20261010.py','exact_original_triangle_pair_column_gap_20261010.py','xl-popcorn-source-investigations-checkpoints-20261009.py']
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def module(name,path):
+ s=importlib.util.spec_from_file_location(name,HERE/path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+
+def imported_local_files(*extras):
+ queue=list(sys.modules.values())+list(extras);seen=set();files=set()
+ while queue:
+  m=queue.pop()
+  if not isinstance(m,types.ModuleType)or id(m)in seen:continue
+  seen.add(id(m));name=getattr(m,'__file__',None)
+  if not name:continue
+  p=Path(name).resolve()
+  if ROOT not in p.parents or not p.is_file():continue
+  files.add(p);queue.extend(v for v in vars(m).values()if isinstance(v,types.ModuleType))
+ return sorted(files)
+
+def preflight():
+ receipt=read(INPUT/'result.json');assert receipt['jobId']=='3aa11a60f740759f78677d151fa2f9c34f494d935b7a208958164e23273f84d9' and not receipt['currentAcceptance']and not receipt['physicalAccepted']
+ refs=[Path(__file__),DRAFT/'METHOD.md',DRAFT/'heya-template-to-southside-caller.diff',DRAFT/'no-worker-schema-validation.json',INPUT/'result.json']+[HERE/n for n in HELPERS]+[HERE.parent/'shared-modelling'/n for n in ['db.py','jobs.py','reservations.py']]
+ for pin in receipt['evidenceRefs']:
+  p=ROOT/pin['path'];assert ref(p)==pin;refs.append(p)
+ manifest=ROOT/'3d-viewer/city/data/manifest.json';before=manifest.read_bytes();assert digest(before)==MANIFEST and before==(INPUT/'captured-manifest.json').read_bytes()
+ data=read(INPUT/'complete-two-actor-four-stream-ground-inputs.json.gz')['rows'];capture=read(INPUT/'capture-inputs.json.gz');assert set(data)==set(UIDS) and [q['uid']for q in capture['rows']]==UIDS and not capture['currentAcceptance']
+ historical=read(INPUT/'historical-obligations-verbatim.json');assert historical['historicalOnly'] and not historical['currentApprovalTransferred']
+ old=historical['obligations'];assert old['completeOriginalPairComponents']==208 and old['completePositiveOriginalGroundPaths']==189 and old['unresolvedOriginalComponents']==19 and old['coordinateBandPositiveComponents']==0 and not old['currentIdentityTransfer'] and not old['groundOrRoleTransfer']
+ assert old['rawRelatedStationOverlapRetained']==[{'basis':'current','relatedPodiumExcessM2':26.197131401667598},{'basis':'primary','relatedPodiumExcessM2':26.200324242743303}]
+ forms=capture['completeCurrentForms'];assert len(forms)==46 and len({f['uid']for f in forms})==46
+ expected=sorted(set(['building:'+u for u in UIDS]+[('building:'+f['uid'])if f['uid'].startswith('landsd/')else('source-form:'+f['uid'])for f in forms]+['terrain-patch:'+u for u in UIDS]));assert capture['canonicalResources']==expected and len(expected)==48
+ for uid in UIDS:
+  item=data[uid];n=COUNTS[uid];source=[q for q in capture['rows']if q['uid']==uid];assert len(source)==1 and item['sourceSHA256']==source[0]['sourceSHA256'] and source[0]['candidate']['entry']['triangles']==n
+  assert set(item['completeWorldStreams'])==set(MODES)
+  ground=np.asarray(item['completeDrawnGround'],dtype='<f8');assert ground.ndim==3 and ground.shape[1:]==(3,3)and np.isfinite(ground).all()and digest(ground.tobytes())==item['completeDrawnGroundSHA256']
+  saved=read(INPUT/('complete-current-actual-source-and-ground-'+uid.split('/')[1].replace(':','-')+'.json.gz'));assert len(ground)==saved['currentDrawnGround']['completeRegionalFaces'] and ground.tolist()==np.asarray(saved['currentDrawnGround']['completeRegionalPosition'],dtype='<f8').reshape(-1,3,3).tolist()
+  assert saved['completeRecursiveLoaderModuleClosure']['schema']=='exact-literal-static-dynamic-resource-closure-v1' and saved['completeRecursiveLoaderModuleClosure']['computedImportsRejected'] and len(saved['completeRecursiveLoaderModuleClosure']['resources'])==3
+  for mode in MODES:
+   stream=item['completeWorldStreams'][mode];world=np.asarray(stream['completeWorldTriangles'],dtype='<f8');assert stream['completeFaces']==n and world.shape==(n,3,3)and np.isfinite(world).all()and digest(world.tobytes())==stream['completeWorldTriangleSHA256']
+ freezer=module('southside_finite_freezer_preflight','xl-popcorn-source-investigations-checkpoints-20261009.py');refs.extend(imported_local_files(freezer));pins={str(p.relative_to(ROOT)):digest(p.read_bytes())for p in refs}
+ assert manifest.read_bytes()==before
+ return receipt,refs,pins,before,data,historical,expected
+
+def owned(state):
+ receipt,refs,pins,before,data,historical,resources=state;lease=read(LEASE);assert lease['resources']==resources and reservations.owns(lease)and not DOC.exists()
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt)
+ cache={};rows=[]
+ for uid in UIDS:
+  item=data[uid];n=COUNTS[uid];ground=np.asarray(item['completeDrawnGround'],dtype='<f8');gsha=digest(ground.tobytes())
+  for mode in MODES:
+   stream=item['completeWorldStreams'][mode];world=np.asarray(stream['completeWorldTriangles'],dtype='<f8');wsha=digest(world.tobytes());faces=[]
+   for face_id in range(n):
+    fsha=digest(world[face_id].tobytes());key=(fsha,gsha)
+    if key not in cache:
+     a=coarse(world[face_id],ground);b=None if a['existingOrdinaryClearanceBoundProved']else paired(world[face_id],ground)
+     cache[key]=dict(coarse=a,paired=b,completeFiniteOrdinaryBoundProved=bool(a['existingOrdinaryClearanceBoundProved']or(b and b['existingOrdinaryClearanceBoundProved'])))
+    faces.append(dict(sourceFace=face_id,completeOriginalFacetSHA256=fsha,currentDrawnGroundComparison=cache[key]))
+    if face_id%2000==0:print(json.dumps(dict(uid=uid,arithmetic=mode,completedSourceFaces=face_id)),flush=True)
+   failed=[f['sourceFace']for f in faces if not f['currentDrawnGroundComparison']['completeFiniteOrdinaryBoundProved']]
+   row=dict(uid=uid,arithmetic=mode,sourceSHA256=item['sourceSHA256'],completeWholeWorldSHA256=wsha,completeCurrentGroundSHA256=gsha,completeOriginalFaceComparisons=faces,failedFacesRetained=failed,completeOriginalFaceCount=n,completeCapturedGroundFacets=len(ground),currentGroundRootAccepted=False,currentAcceptance=False,physicalAccepted=False)
+   rows.append(row);save(LOCAL/('completed-'+uid.split('/')[1].replace(':','-')+'-'+mode+'.json.gz'),row);print(json.dumps(dict(uid=uid,arithmetic=mode,rawFailedFaces=failed)),flush=True)
+ save(DOC/'diagnostic.json.gz',dict(uids=UIDS,rows=rows,currentCaptureReceipt=receipt['jobId'],historicalObligationsVerbatim=historical,allOriginalZeroAreaFacetsRetainedWithoutStructuralCredit=True,allCompleteFacetsAndCapturedFiniteGroundPreserved=True,noHistoricalIdentityGroundOrRoleTransfer=True,bothCurrentBasicActorsRemainIndependent=True,sourceGeometryChanges=0,terrainGeometryChanges=0,currentAcceptance=False,physicalAccepted=False,installationApproved=False))
+ assert reservations.owns(lease)and(ROOT/'3d-viewer/city/data/manifest.json').read_bytes()==before
+ for p,h in pins.items():assert digest((ROOT/p).read_bytes())==h
+ refs.extend(p for p in LOCAL.rglob('*')if p.is_file()and p.name!='reservation.json');refs.append(DOC/'diagnostic.json.gz')
+ freezer=module('southside_current_finite_freezer','xl-popcorn-source-investigations-checkpoints-20261009.py')
+ out=freezer.freeze(BATCH,'southside-whole-two-original-four-stream-current-finite-diagnostic-no-role-credit',refs,dict(uids=UIDS,completeSourceFaces=COUNTS,historicalUnresolvedComponents=19,currentAcceptance=False,physicalAccepted=False))
+ print(json.dumps(dict(jobId=out['jobId'],currentAcceptance=False)),flush=True)
+def main():
+ state=preflight()
+ if '--preflight-only'in sys.argv:
+  print(json.dumps(dict(noWorker=True,noDB=True,noLease=True,noFinitePredicatesRun=True,sourceFaces=COUNTS,completeModes=MODES,completeGroundFacets={u:len(state[4][u]['completeDrawnGround'])for u in UIDS},canonicalResources=state[-1],historicalUnresolvedComponents=19,currentAcceptance=False)),flush=True);return
+ if '--owned'in sys.argv:return owned(state)
+ assert not DOC.exists()and not LOCAL.exists();claim=reservations.claim('southside-complete-current-finite-'+str(uuid.uuid4()),state[-1],batch=BATCH,ttl=3600);assert claim['ok'],claim
+ save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)))
+ subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,str(Path(__file__)),'--owned'],cwd=ROOT,check=True)
+if __name__=='__main__':main()

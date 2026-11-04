@@ -1,0 +1,20 @@
+Museum two-original-TIN clamp and low-rim attribution. Prepared by `/root/xl_upton_repair_sol`; ROOT only executor.
+
+Do not rerun the failed one-sheet constructor or its unchanged ordinary check. Bind ROOT-completed/released north nomination `0a64e0d3…` and ROOT-verified/released south20B acquisition `da1798af1875cf3e95b1988eae28dc64984dbfefe9ac42d94e5e5e13acff523e` (895 verified refs). Reuse north's saved ordered101426 original terrain triangles/SHA; decode only newly acquired south20B through unchanged `pending-context.py:triangles`. Preserve all raw source assets/facets/unused vertex bytes and source lineage. No source modifications, terrain constructor or viewer publication.
+
+Use unchanged `resolve-pass.py:sample_points` on the previously saved actual Museum row. Exact59406-point order includes complete43248POSITION values,15140face centres and existing low-edge samples. A companion lineage function must match that order exactly; indexed unused vertices stay explicit source context, without structural/support roles. The existing low-rim definition (global bottom+.35) retains16875points and is a sampling definition, not a claim that all these points are functional ground feet.
+
+Evaluate north and complete north+south using unchanged `native_terrain.samples`/its closed `covered_by` tree and current area eligibility `>1e-12`. Confirm the closed parent-domain facet selection gives exactly the same maximum source heights as the complete two-source arrays. Retain all whole source terrain triangles, including verticals/degenerates; sampler exclusions are separately accounted source context. Separate low-rim and higher samples; record every remaining missing or below−.5 witness with its source vertex/face/edge IDs, exact XYZ, source maximum height and every containing original terrain facet. No rooftop, wall, basement or support role is assigned by height/normal/adjacency, and no physical acceptance transfers from this source-only audit.
+
+For every selected whole original facet with input minY<1.2, retain all original vertices and identify low vertices inside/outside the full domain and existing raw parent water classification. Show its parent-domain and core polygons/minY through the unchanged constructor's `exact_tin.rect`; this is explicitly legacy constructor clip context, **not a new certified exact-coverage/plane acceptance proof**. This distinguishes unrelated low source vertices outside actual clip extents from actual low core/collar source geometry. The existing water-clamp/below-grade guard remains unresolved; no epsilon, buffer, lowering or threshold waiver is used.
+
+Both old raw failure packets, original building source/pose/1x, independent Star rejection/crossings, current manifest12971667…82c/snapshotbe5f7671a989392d and all current terrain/native assets remain byte-bound. Retain all45actors as exact read-only context; this source-only diagnostic reads only the Museum and two original terrain streams, so own the Museum building key, two immutable-source-sheet keys and its distinct source-proof key (4 resources). Future candidate physical/native/BASIC/installation calculation still retains the full45actors/91geographic scope. Read-only exact receipt queries, timed supervisor/full fences, finally release and source-only freezer apply. Output remains nonaccepting; full current packed physical/native/BASIC/four-world qualification is still required after a genuine new terrain nomination.
+
+ROOT-only commands after the actual20B acquisition is verified:
+
+```sh
+/tmp/astra-city-venv/bin/python docs/astra-city/government-import/government-xl-heritage165054-two-TIN-clamp-lowrim-context-v1-20261014-proposal/prepare-readonly.py
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/heritage165054_two_tin_clamp_lowrim_context_v1_20261014.py --attribute-saved-two-tin-clamp-and-lowrim-only
+```
+
+Read-only preparation binds schema/code/refs only; four small synthetic point-order/resource fixtures run no production calculations. No source or terrain numerical worker, DB, lease or browser execution by the preparing agent.

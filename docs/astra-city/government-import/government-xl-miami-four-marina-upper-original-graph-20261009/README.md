@@ -1,0 +1,5 @@
+# Complete unmodified original source investigation
+
+All original upper-source faces/components are accounted. Block3176571:64of79 exact original-podium paths, no strict whole-component footing seed. Block4179052: no exact geometric podium contact, but body62 has independently strict whole-rim contact to the original podium, and79of80 components connect positively to it. The last10face part69 is investigated separately. Upper sources201643(39faces/onepart) and37001(34faces/threeparts) have complete exact positive-dimensional original-podium paths, but ordinary whole-rim checks remain failing. No depth, contact or global physical threshold has changed. Original anchors must be present/accepted in the runtime assembly; physical/foreign/runtime gates remain independent.
+
+No installed credit. No model or terrain edits, AI geometry modelling, human decision requirement or permanent rejection. All exact source hashes, face IDs and raw failures remain recorded for a later source evidence pass.

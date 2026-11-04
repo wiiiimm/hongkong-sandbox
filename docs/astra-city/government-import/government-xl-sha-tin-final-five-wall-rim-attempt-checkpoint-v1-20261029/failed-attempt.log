@@ -1,0 +1,23 @@
+{'uid': 'landsd/231013:0', 'mode': 'original', 'verified': True, 'ordinaryRimSamples': 1949, 'strictOrdinaryAnchorSamples': 740, 'rawReviewedClearanceFailuresRetained': 10, 'proof': '231013-original-account.json'}
+{'uid': 'landsd/231013:0', 'mode': 'literal', 'verified': True, 'ordinaryRimSamples': 1949, 'strictOrdinaryAnchorSamples': 740, 'rawReviewedClearanceFailuresRetained': 10, 'proof': '231013-literal-account.json'}
+{'uid': 'landsd/231013:0', 'mode': 'leftF32', 'verified': True, 'ordinaryRimSamples': 1949, 'strictOrdinaryAnchorSamples': 740, 'rawReviewedClearanceFailuresRetained': 10, 'proof': '231013-leftF32-account.json'}
+{'uid': 'landsd/231013:0', 'mode': 'balancedF32', 'verified': True, 'ordinaryRimSamples': 1949, 'strictOrdinaryAnchorSamples': 740, 'rawReviewedClearanceFailuresRetained': 10, 'proof': '231013-balancedF32-account.json'}
+{'uid': 'landsd/23220:0', 'mode': 'original', 'verified': True, 'ordinaryRimSamples': 700, 'strictOrdinaryAnchorSamples': 4, 'rawReviewedClearanceFailuresRetained': 5, 'proof': '23220-original-account.json'}
+{'uid': 'landsd/23220:0', 'mode': 'literal', 'verified': True, 'ordinaryRimSamples': 700, 'strictOrdinaryAnchorSamples': 4, 'rawReviewedClearanceFailuresRetained': 5, 'proof': '23220-literal-account.json'}
+{'uid': 'landsd/23220:0', 'mode': 'leftF32', 'verified': True, 'ordinaryRimSamples': 700, 'strictOrdinaryAnchorSamples': 4, 'rawReviewedClearanceFailuresRetained': 5, 'proof': '23220-leftF32-account.json'}
+{'uid': 'landsd/23220:0', 'mode': 'balancedF32', 'verified': True, 'ordinaryRimSamples': 700, 'strictOrdinaryAnchorSamples': 4, 'rawReviewedClearanceFailuresRetained': 5, 'proof': '23220-balancedF32-account.json'}
+{'uid': 'landsd/23759:0', 'mode': 'original', 'verified': True, 'ordinaryRimSamples': 314, 'strictOrdinaryAnchorSamples': 6, 'rawReviewedClearanceFailuresRetained': 9, 'proof': '23759-original-account.json'}
+{'uid': 'landsd/23759:0', 'mode': 'literal', 'verified': True, 'ordinaryRimSamples': 314, 'strictOrdinaryAnchorSamples': 6, 'rawReviewedClearanceFailuresRetained': 9, 'proof': '23759-literal-account.json'}
+{'uid': 'landsd/23759:0', 'mode': 'leftF32', 'verified': True, 'ordinaryRimSamples': 314, 'strictOrdinaryAnchorSamples': 6, 'rawReviewedClearanceFailuresRetained': 9, 'proof': '23759-leftF32-account.json'}
+{'uid': 'landsd/23759:0', 'mode': 'balancedF32', 'verified': True, 'ordinaryRimSamples': 314, 'strictOrdinaryAnchorSamples': 6, 'rawReviewedClearanceFailuresRetained': 9, 'proof': '23759-balancedF32-account.json'}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/sha_tin_final_rim_accounting_v1_20261029.py", line 45, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/sha_tin_final_rim_accounting_v1_20261029.py", line 36, in main
+    proof=verify(position,index,float(position[:,1].min()),rim['completeOriginalSamples'],approved_roles=roles,source_role_review_approved=True,expected_metric=metric)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_reviewed_lower_facet_rim_accounting_v1_20261029.py", line 46, in verify
+    assert anchors, 'Missing genuine ordinary source anchor'
+           ^^^^^^^
+AssertionError: Missing genuine ordinary source anchor

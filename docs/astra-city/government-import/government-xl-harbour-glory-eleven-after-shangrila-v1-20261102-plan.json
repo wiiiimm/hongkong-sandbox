@@ -1,0 +1,201 @@
+{
+  "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-sequence",
+  "uids": [
+    "landsd/108870:0",
+    "landsd/232659:0",
+    "landsd/247461:0",
+    "landsd/258158:0",
+    "landsd/260014:0",
+    "landsd/271909:0",
+    "landsd/273684:0",
+    "landsd/28391:0",
+    "landsd/35148:0",
+    "landsd/67682:0",
+    "landsd/92999:0"
+  ],
+  "resources": [
+    "building:landsd/108870:0",
+    "building:landsd/232659:0",
+    "building:landsd/247461:0",
+    "building:landsd/258158:0",
+    "building:landsd/260014:0",
+    "building:landsd/271909:0",
+    "building:landsd/273684:0",
+    "building:landsd/28391:0",
+    "building:landsd/35148:0",
+    "building:landsd/67682:0",
+    "building:landsd/92999:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_refresh_selection_v1_20261024.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-selection",
+      "args": [
+        "--prior",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-runtime",
+        "--inventory",
+        "government-xl-after-shangrila-current-native-bounds-v2-20261102",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-attributes",
+        "--runtime",
+        "government-xl-harbour-glory-eleven-shared-e12-current-v1-20261101-runtime"
+      ]
+    },
+    {
+      "script": "rebind_private_original_terrain_v2_20261025.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-inset",
+      "args": [
+        "--previous",
+        "government-xl-harbour-glory-three-bodies-shared-e12-trial-v3-20261101-inset",
+        "--capture",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-selection",
+        "--previous-capture",
+        "government-xl-harbour-glory-alexandra-complete-original-context-current-v1-20261101-runtime"
+      ]
+    },
+    {
+      "script": "explicit_original_companion_patch_runtime_v1_20261030.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+      "args": [
+        "--patch",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-inset",
+        "--capture",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-selection",
+        "--companion",
+        "landsd/108870:0",
+        "--companion",
+        "landsd/232659:0",
+        "--companion",
+        "landsd/258158:0",
+        "--companion",
+        "landsd/260014:0",
+        "--companion",
+        "landsd/271909:0",
+        "--companion",
+        "landsd/273684:0",
+        "--companion",
+        "landsd/35148:0",
+        "--companion",
+        "landsd/67682:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+      "args": [
+        "--capture",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-identity",
+      "args": [
+        "--capture",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-terrain-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-shangrila-current-native-bounds-v2-20261102",
+        "--patch",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-inset"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-model-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-shangrila-current-native-bounds-v2-20261102",
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-28391-low-faces",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+        "--uid",
+        "landsd/28391:0"
+      ]
+    },
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-28391-cap-paths",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+        "--low-faces",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-28391-low-faces",
+        "--uid",
+        "landsd/28391:0"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-92999-low-faces",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+        "--uid",
+        "landsd/92999:0"
+      ]
+    },
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-92999-cap-paths",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+        "--low-faces",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-92999-low-faces",
+        "--uid",
+        "landsd/92999:0"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-247461-low-faces",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+        "--uid",
+        "landsd/247461:0"
+      ]
+    },
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-247461-cap-paths",
+      "args": [
+        "--runtime",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-attributes",
+        "--low-faces",
+        "government-xl-harbour-glory-eleven-after-shangrila-v1-20261102-247461-low-faces",
+        "--uid",
+        "landsd/247461:0"
+      ]
+    }
+  ],
+  "qualification": "Current7,076actor inventory and unchanged original11body/threebody terrain rebound with existing validators. Full fresh identity/current scope and existing complete low-face/cap diagnostics. No acceptance transfer or geometry edits."
+}

@@ -1,0 +1,73 @@
+{
+  "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
+  "uids": [
+    "landsd/273672:0"
+  ],
+  "resources": [
+    "building:landsd/273672:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_refresh_selection_v1.py",
+      "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-selection",
+      "args": [
+        "--capture",
+        "government-xl-after-disneyland-piers-next-three-selection-v1-20261030",
+        "--uid",
+        "landsd/273672:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-runtime",
+      "args": [
+        "--capture",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-selection",
+        "--uid",
+        "landsd/273672:0"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-identity",
+      "args": [
+        "--capture",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-attributes",
+      "args": [
+        "--capture",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-scope",
+      "args": [
+        "--runtime",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-attributes",
+        "--inventory",
+        "government-xl-after-harbourfront-current-native-bounds-v1-20261102"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102-attributes",
+        "--uid",
+        "landsd/273672:0"
+      ]
+    }
+  ],
+  "qualification": "Immediate current7092-actor original-source preparation for unfinished Yoho Mall II; reuse exact cached source. No source geometry changes, optimisation, queue creation or acceptance transfer."
+}

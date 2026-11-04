@@ -1,0 +1,117 @@
+{
+ "currentVersion": 10.91,
+ "cimVersion": "2.9.0",
+ "id": 1001,
+ "name": "BuildingName",
+ "type": "Table",
+ "description": null,
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeNone",
+ "displayField": "BuildingNameEN",
+ "typeIdField": null,
+ "subtypeFieldName": null,
+ "subtypeField": null,
+ "defaultSubtypeCode": null,
+ "fields": [
+  {
+   "name": "OBJECTID",
+   "type": "esriFieldTypeOID",
+   "alias": "OBJECTID",
+   "domain": null
+  },
+  {
+   "name": "BuildingCSUID",
+   "type": "esriFieldTypeString",
+   "alias": "BuildingCSUID",
+   "length": 19,
+   "domain": null
+  },
+  {
+   "name": "BuildingNameID",
+   "type": "esriFieldTypeInteger",
+   "alias": "BuildingNameID",
+   "domain": null
+  },
+  {
+   "name": "BuildingNameEN",
+   "type": "esriFieldTypeString",
+   "alias": "BuildingNameEN",
+   "length": 195,
+   "domain": null
+  },
+  {
+   "name": "BuildingNameTC",
+   "type": "esriFieldTypeString",
+   "alias": "BuildingNameTC",
+   "length": 100,
+   "domain": null
+  },
+  {
+   "name": "NameStatus",
+   "type": "esriFieldTypeString",
+   "alias": "NameStatus",
+   "length": 20,
+   "domain": null
+  },
+  {
+   "name": "DataProviderID",
+   "type": "esriFieldTypeString",
+   "alias": "DataProviderID",
+   "length": 6,
+   "domain": null
+  }
+ ],
+ "indexes": [
+  {
+   "name": "FDO_OBJECTID",
+   "fields": "OBJECTID",
+   "isAscending": true,
+   "isUnique": true,
+   "description": ""
+  },
+  {
+   "name": "GDB_7_BuildingCSUID",
+   "fields": "BuildingCSUID",
+   "isAscending": true,
+   "isUnique": false,
+   "description": ""
+  }
+ ],
+ "subtypes": [],
+ "relationships": [],
+ "capabilities": "Map,Query,Data",
+ "maxRecordCount": 3000,
+ "supportsStatistics": true,
+ "supportsExceedsLimitStatistics": true,
+ "supportsAdvancedQueries": true,
+ "supportedQueryFormats": "JSON, PBF",
+ "isDataVersioned": false,
+ "useStandardizedQueries": true,
+ "advancedQueryCapabilities": {
+  "useStandardizedQueries": true,
+  "supportsStatistics": true,
+  "supportsPercentileStatistics": true,
+  "supportsHavingClause": true,
+  "supportsOrderBy": true,
+  "supportsDistinct": true,
+  "supportsCountDistinct": true,
+  "supportsPagination": true,
+  "supportsTrueCurve": false,
+  "supportsReturningQueryExtent": true,
+  "supportsQueryWithDistance": true,
+  "supportsSqlExpression": true,
+  "supportsTimeRelation": true,
+  "supportsSqlFormat": false,
+  "supportsQueryAnalytic": false
+ },
+ "dateFieldsTimeReference": null,
+ "preferredTimeReference": null,
+ "datesInUnknownTimezone": false,
+ "hasMetadata": true,
+ "isDataArchived": false,
+ "archivingInfo": {
+  "supportsQueryWithHistoricMoment": false,
+  "startArchivingMoment": -1
+ },
+ "serviceItemId": "7c81e6b576474450acbd3b1005cd4760"
+}

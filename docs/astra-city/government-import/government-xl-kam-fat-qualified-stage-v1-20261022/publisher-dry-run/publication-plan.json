@@ -1,0 +1,77 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-kam-fat-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Kam Fat Building unchanged government original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-kam-fat-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-kam-fat-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-kam-fat-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "23e9dfcaee0f9e4172b08b684825a8d7d064759f6bfcb69f1db7d3e4fa33bb3d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-kam-fat-original-v1-20261022.json": "74fc6b8358a224ab1d21f87ea07b2e6d08d56d1af51d26d6f81148757dc11077",
+    "3d-viewer/city/data/official-models/government-xl-kam-fat-qualified-stage-v1-20261022/catalogue.json": "48fdeb623f5fe60fdc313a3402f6dc7b8739482d4e8a24a2bb8f68ba5d003740",
+    "3d-viewer/city/data/manifest.json": "d302f7df33c531fe09b24dcb445876ee96d5574c82784060e23e6d2a33503ee7"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "c6551fe85e2d3acadb967ed4fe2e51557a23d827",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-kam-fat-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Kam Fat Building unchanged government original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -740.6165716507348,
+            4836.7809263786985,
+            -712.9410545230224,
+            4866.07864405095
+          ],
+          "outerBounds": [
+            -744.4438256654394,
+            4832.906908639796,
+            -709.1138274670881,
+            4869.90490823505
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-12851-0/sheets/15-NW-3B/terrain/TERRAIN(TB)/T33750114000106E12/T33750114000106E12.gltf",
+            "sha256": "42282fd71177cb9bbc19f09e9a15fe89e11df4eff8a224502c2f30d51f575d72"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "74fc6b8358a224ab1d21f87ea07b2e6d08d56d1af51d26d6f81148757dc11077",
+      "bytes": 542174
+    }
+  ],
+  "estimatedBases": []
+}

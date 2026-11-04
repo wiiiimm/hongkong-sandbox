@@ -1,0 +1,97 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/local/government-xl-wave-verdant-publication-proposal-v1-20261018/plan.json",
+  "areas": [
+    {
+      "area": "Nine unchanged Wave and Verdant originals",
+      "models": 9,
+      "catalogue": "city/data/official-models/government-wave-verdant-original-v1-20261018/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-wave-verdant-original-v1-20261018.json": null,
+    "3d-viewer/city/data/official-models/government-wave-verdant-original-v1-20261018/catalogue.json": null,
+    "3d-viewer/city/data/tiles/-10_-6.json": "51be6c3075c1715dea75035605672e9eab3ceade0c28c9a0e2fff9933a1fbb67",
+    "3d-viewer/city/data/manifest.json": "dcc4a6b6c6bf931861e1f1bea346ed237f5706cbc833623fad3a87811f363f7e"
+  },
+  "after": {
+    "3d-viewer/city/data/government-wave-verdant-original-v1-20261018.json": "a372af20e18d3eedfd2bf2950b1cd445840bb40b1f5324b0c7c8e7597d5cec9c",
+    "3d-viewer/city/data/official-models/government-wave-verdant-original-v1-20261018/catalogue.json": "8effedfe9d233d779a4471cd732f2361e35b8fcaf6b73d60d12fbfb2615a294f",
+    "3d-viewer/city/data/tiles/-10_-6.json": "072f575a938896701fc5818d592901af56064f6320b34de1231533ea78052409",
+    "3d-viewer/city/data/manifest.json": "17d39ba18af82374995a1319c82cfc1c64e3e34cde9c2bcda199e3ab7d2b5702"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "e68e544839363f59163044ebf662aa37432db201",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-wave-verdant-original-v1-20261018.json",
+      "resolution": 5,
+      "area": "Wave and Verdant original source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "616d93285020a2cf02096f3aa963857d60d2af6a5558b90b6d00c9820e4e698f",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-SW-11D",
+            "sourceETag": "\"21d78d1-63dd0a40fcd31\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v5-20261005/sheets/6-SW-11D/terrain/TERRAIN(TB)/T15750264000106E10/T15750264000106E10.bin",
+                "sha256": "8798b3c51a6905374e12dba9aad4c773536e93a372ea9af3a0f61138af11c130"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v5-20261005/sheets/6-SW-11D/terrain/TERRAIN(TB)/T15750264000106E10/T15750264000106E10.gltf",
+                "sha256": "792b7cbece321d7ae01a1f033db86ad713ae277880ae1b7dbaff44869bda8c00"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the union of complete source cores; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a372af20e18d3eedfd2bf2950b1cd445840bb40b1f5324b0c7c8e7597d5cec9c",
+      "bytes": 1868039
+    }
+  ],
+  "illustrativeFoundations": [
+    {
+      "uid": "landsd/268957:0",
+      "foundationBase": 6.352898731998096,
+      "evidence": {
+        "path": "source-scripts/city/government-import/local/government-xl-wave-verdant-publication-proposal-v1-20261018/illustrative-foundation-proof.json",
+        "sha256": "bdb56cd458e077ffea47408ac7397671a8de06d754d6ef994f49a36b5498a6c7"
+      }
+    }
+  ],
+  "estimatedBases": [
+    {
+      "uid": "landsd/207423:0",
+      "before": 10.95,
+      "after": 7.183488292995909
+    },
+    {
+      "uid": "landsd/207682:0",
+      "before": 8.751,
+      "after": 4.613144108785348
+    }
+  ]
+}

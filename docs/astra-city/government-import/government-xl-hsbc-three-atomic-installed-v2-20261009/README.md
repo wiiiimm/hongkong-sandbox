@@ -1,0 +1,13 @@
+# HSBC Centre: three original government models installed
+
+Codex, 9 October 2026, HKS-203. Installed the unchanged original podium `landsd/265848:0` and Towers 2/3 `landsd/337075:0`, `landsd/337079:0`. Original compressed assets, root transforms, elevations and all 27,904 faces remain intact. No procedural windows, actor suppression or AI geometry modelling.
+
+Verified Neon installation job `b3402fcaced6adc39bd077e23840882bdd36d99cc0bf8449a94da8ea38beab14`, snapshot `fed4bbdc5903cd73`. Read `result.json`, `installed-acceptance.json` and `full-xl-current-count.json`. The fixed 521-source XL inventory is **208 installed / 313 remaining**; only the podium is XL. The two towers are additional installations. Whole-map progress: **346,108 source forms, 4,471 enhanced**, including **4,454 / 212,669** exact government-source matches.
+
+All three identities, full continuous source contexts, foundations, runtime checks, 77 current neighbouring forms and retained originals 227099/229310 pass. Eight genuine ground-root components and 107 exact positive-dimensional original interfaces independently root every structural component. The single five-face mounted visual panel has two distinct exact top-corner attachments to the rooted original body; it adds no ground root or load-bearing edge and cannot support another component. The final v3 role is bound to the real source assembly, with 19 independently rerun tests. Historical v2 test bytes are separately archived; their old receipt is not current acceptance authority.
+
+Publication reserves the complete affected scope and applies one guarded terrain replacement preserving both retained original neighbours. Towers explicitly depend on the exact podium UID, CSUID and SHA. Staged and live solid desktop/mobile day/night views, original framing/face counts, picking, collision, three forced failed-load retries and eight retained-neighbour own-camera views pass. Exported assembly and mobile PNGs were inspected. Failure banners during deliberately injected 503 tests are expected diagnostic states, not source corruption. The publisher releases its lease and rolls the manifest back on a failed live check.
+
+The exact source/stage replay scope and historical manifest/test aliases are in `../xl-terrain-recovery-20261009-hsbc-three-current-replay-scope-v1/`. Serialized terrain acquisition metadata preserves source lineage; unrelated historical raw caches are not claimed to be current replay inputs. No historical Lantau reference imagery was used.
+
+Continue Harbourfront, Yoho and independent source recoveries. Installation, commits and pushes are checkpoints; the wider model goal remains unfinished.

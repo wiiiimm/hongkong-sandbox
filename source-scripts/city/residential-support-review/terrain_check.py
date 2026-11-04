@@ -1,0 +1,7 @@
+"""Check real native terrain underneath the newly fetched podium, no terrain patch."""
+import importlib.util,pathlib,json,numpy as np,hashlib
+ROOT=pathlib.Path(__file__).resolve().parents[3];HERE=pathlib.Path(__file__).resolve().parent;DOC=ROOT/'docs/astra-city/residential-support-review'
+s=importlib.util.spec_from_file_location('native',ROOT/'source-scripts/city/assembly-support-review/native_terrain.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+r=json.loads((DOC/'support.json').read_text());folder=HERE/'native-terrain/staged/12-SW-1D';manifest,spec,_,_,usable,tree=m.terrain_index(folder)
+points=np.array([[s['position'][0],s['position'][2]]for s in r['podium']['rim']]);values=m.samples(points,usable,tree);assert np.isfinite(values).all();rows=[{'position':s['position'],'renderedGround':s['ground'],'nativeGround':float(v),'nativeGroundToSourceBase':float(v-s['position'][1])}for s,v in zip(r['podium']['rim'],values)]
+out={'uid':r['podium']['uid'],'nativeManifest':str((folder/'manifest.json').relative_to(ROOT)),'manifestSHA256':hashlib.sha256((folder/'manifest.json').read_bytes()).hexdigest(),'sourceHashes':spec['sourceHashes'],'samples':len(rows),'nativeTerrainRange':[float(values.min()),float(values.max())],'sourceBaseToNativeTerrainRange':[min(-s['nativeGroundToSourceBase']for s in rows),max(-s['nativeGroundToSourceBase']for s in rows)],'rows':rows,'runtimeChanged':False};(DOC/'terrain-check.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({k:v for k,v in out.items()if k not in ['rows','sourceHashes']}))

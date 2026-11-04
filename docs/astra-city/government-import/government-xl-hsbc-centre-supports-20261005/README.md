@@ -1,0 +1,3 @@
+# Exact HSBC Centre tower recovery
+
+See `../government-xl-hsbc-centre-contact-20261005/README.md` for the combined podium/terrain/interface outcome and verified Neon job. `selection.json.gz` pins the two original native cache/results/source identities; `recovery.json` verifies exact original payload SHA256s and byte counts. `interfaces.json.gz` preserves every failed support sample and source face evidence. `result.json` records the combined technical hold with no installation or AI requirement inferred. Source leases are released; no workers/queue remain. Caches are local-only, not R2 backups.

@@ -1,0 +1,60 @@
+diff --git a/source-scripts/city/government-import/upton_three_own_layer_actual_production_runtime_draft_v1_20261013.mjs b/source-scripts/city/government-import/upton_full22_current_plane_actual_production_runtime_v1_20261014.mjs
+index 6a9d17970..edabaf3cb 100644
+--- a/source-scripts/city/government-import/upton_three_own_layer_actual_production_runtime_draft_v1_20261013.mjs
++++ b/source-scripts/city/government-import/upton_full22_current_plane_actual_production_runtime_v1_20261014.mjs
+@@ -9,10 +9,15 @@ const root=new URL('../../../',import.meta.url),doc=process.argv[2],nomDoc=proce
+ const sha=b=>createHash('sha256').update(b).digest('hex');
+ function raw(p){const b=readFileSync(new URL(p,root)),h=sha(b);if(hashes[p])assert.equal(hashes[p],h,p);hashes[p]=h;return b;}
+ function read(p){const b=raw(p);return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b);}
+-const input=read(doc+'/input.json.gz'),nom=read(nomDoc+'/private-own-layer-projected-edge-subdivision-nomination.json.gz');
+-assert.equal(nom.candidateRawPositionTriplets.length,11580);assert.equal(nom.completeOldNewIndexMapping.length,11575);assert.equal(nom.protectedWholeCurrentTripletsUnchanged.length,68);
+-assert.equal(nom.computedOwnLayer11577To11580Mapping.length,11577);for(const [old,ids]of [[732,[732,733]],[734,[735,736]],[736,[738,739]]])assert.deepEqual(nom.computedOwnLayer11577To11580Mapping[old].newCandidateFaces,ids);assert(nom.wholeSourceAndForeignAndCoverageFiniteSeamMAXRuntimeAcceptancePending&&!nom.physicalAccepted&&!nom.installationApproved);
+-// Retained ring12 mappings/partition proofs/count flags are historical context, not current geometry bindings.
++const input=read(doc+'/input.json.gz'),nom=read(nomDoc+'/private-full22-current-plane-restoration-nomination.json.gz');
++assert.equal(nom.schema,'upton-full22-current-plane-restoration-nomination-v1');
++assert.equal(nom.candidateRawPositionTriplets.length,input.completeNewNativeFacets);
++assert.equal(nom.completeNewCandidateFacets,input.completeNewNativeFacets);
++assert.equal(nom.completeNewRawCandidateSHA256,input.completeNewRawSHA256);
++assert.equal(nom.completePreviousCandidateMapping.length,11580);assert.equal(nom.protectedWholeCurrentTripletsUnchanged.length,68);
++assert(nom.all11580ExistingFacetsPreserved&&nom.all68ProtectedLiteralTripletsUnchanged&&!nom.physicalAccepted&&!nom.installationApproved);
++assert(nom.freshPackedCoverageFiniteOverlapMAXSeamRuntimeBrowserRequired&&nom.noOverlapApprovalTransferred);
++// Earlier own-layer/ring mappings remain historical old-prefix context only.
+ const current='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';assert.equal(input.currentManifest.sha256,current);
+ for(const [p,h]of [['source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs','c91ebfa352d1f610c832f882ff1e156ab0c3a4e1c04a9d4d44937e0234238579'],['source-scripts/city/government-import/dependency-closure-vendor/acorn-8.8.1/acorn.mjs','a8524d1734aecc543068d3c801aba2b6ad8f68dd7d751bace79d783f8ecd9e55'],['source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs','e5cfacfaf2361a0ce4444ee02f082a1341d8aa033ce8da432ff34b56d13ee6d9']])assert.equal(sha(raw(p)),h,p);
+ const closure=snapshotModuleClosure(import.meta.url,root);
+@@ -41,9 +46,16 @@ for(let r=0;r<candidate.h;r++)for(let c=0;c<candidate.w;c++){
+  else {grids.elev.push(beforeSampler.raw(x,z));grids.renderedElev.push(beforeSampler.height(x,z));const bg=base.meta.georef,bc=Math.max(0,Math.min(base.w-1,Math.round((x+834500-bg.bE)/bg.aE))),br=Math.max(0,Math.min(base.h-1,Math.round((816500-z-bg.bN)/bg.aN)));grids.vegetation.push(base.vegetation[br*base.w+bc]);gridRows.push({row:r,column:c,baseVegetationNode:br*base.w+bc,convention:'JS Math.round then clamp; current sampler raw/rendered for new nodes'});}
+ }
+ for(const [k,v]of Object.entries(grids)){assert(v.length===candidate.w*candidate.h&&v.every(Number.isFinite));candidate[k]=v;}
+-const pos=[],index=[];for(const face of nom.candidateRawPositionTriplets){assert.equal(face.length,3);for(const p of face){assert.equal(p.length,3);assert(p.every(Number.isFinite));const i=pos.length/3;for(const v of p){pos.push(v);}index.push(i);}}
+-candidate.id='government-native-upton-three-own-layer-projected-subdivision-private-nomination';
+-candidate.nativeMesh={position:pos,index,source:{kind:'separately labelled own-source49215 projected-edge subdivisions with own original-plane heights on saved ring12/source35676 original-TIN/current-ring/mask join nomination',originalTINSource:'11-SW-7A',preservedOriginalTripletsReference:nomDoc+'/private-own-layer-projected-edge-subdivision-nomination.json.gz',computedFragmentsAndVerticalJoinsAreNotUntouchedGovernmentGeometry:true,noNativeReacceptance:true,noNewCoverageOrOverlapApproval:true,historicalNominationMapsProofsAndCountsAreContextOnly:true,currentGeometryUsesOwnLayer11577To11580Map:true}};
++const previous=read(input.previousPrivateCandidate.path);assert.equal(hashes[input.previousPrivateCandidate.path],input.previousPrivateCandidate.sha256);
++assert.deepEqual(previous.coarseCells,input.coarseCells);assert.deepEqual(previous.meta.georef,candidate.meta.georef);
++for(const key of ['elev','renderedElev','vegetation'])assert.deepEqual(candidate[key],previous[key]);
++const pos=nom.newNativeMesh.position,index=nom.newNativeMesh.index;
++assert.deepEqual(pos.slice(0,previous.nativeMesh.position.length),previous.nativeMesh.position);
++assert.deepEqual(index.slice(0,previous.nativeMesh.index.length),previous.nativeMesh.index);
++assert.equal(index.length/3,input.completeNewNativeFacets);assert.equal(pos.length/3,input.completeNewPositionVertices);
++candidate.id='government-native-upton-full22-current-plane-restoration-private';
++candidate.nativeMesh=structuredClone(nom.newNativeMesh);
++candidate.nativeMesh.source={kind:'private-authentic-current-own-plane-restoration-inside-complete22-residual-regions',completedNominationJob:input.completedNominationJob,nominationReference:nomDoc+'/private-full22-current-plane-restoration-nomination.json.gz',previousActualCaptureReference:input.previousPrivateCandidate,all11580OldRawProvenancePositionIndexPrefixesAnd68LiteralsPreserved:true,allOldProofsAndCountFlagsHistoricalOnly:true,noNewCoverageOrOverlapApproval:true,noNativeReacceptance:true};
+ // Old sourceOverlap/numerical fallback approvals apply to old geometry only.
+ assert(!candidate.nativeMesh.sourceOverlap&&!candidate.nativeMesh.source.numericalCoverageGap);
+ assert.deepEqual(candidate.meta.targetUids,old.meta.targetUids);assert.deepEqual(candidate.meta.georef,old.meta.georef);
+@@ -52,7 +64,7 @@ function touches(t){const xs=[t[0],t[3],t[6]],zs=[t[2],t[5],t[8]];return !(Math.
+ const identity=[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
+ function draw(data){const object=makeTerrain(data);object.updateMatrixWorld(true);const exterior=createHash('sha256'),rows=[];let total=0,outside=0,meshCount=0;object.traverse(m=>{if(!m.isMesh)return;meshCount++;assert.deepEqual(m.matrixWorld.elements,identity);const a=m.geometry.attributes.position,ix=m.geometry.index,n=ix?.count??a.count;assert.equal(n%3,0);for(let i=0;i<n;i+=3){const t=[];for(let j=0;j<3;j++){const k=ix?ix.getX(i+j):i+j;t.push(a.getX(k),a.getY(k),a.getZ(k));}assert(t.every(Number.isFinite));total++;if(touches(t))rows.push(t);else{const bytes=Buffer.allocUnsafe(72);for(let k=0;k<9;k++)bytes.writeDoubleLE(t[k],k*8);exterior.update(bytes);outside++;}}});object.traverse(m=>{m.geometry?.dispose();for(const v of [].concat(m.material||[]))v?.dispose();});return {total,outside,meshCount,exteriorOrderedBinary64SHA256:exterior.digest('hex'),closedDomainDrawnTriplets:rows};}
+ const before=draw(beforeData),after=draw(afterData);assert.equal(before.exteriorOrderedBinary64SHA256,after.exteriorOrderedBinary64SHA256);assert.equal(before.outside,after.outside);
+-assert.equal(before.closedDomainDrawnTriplets.length,9214);assert.equal(before.outside,8164251);assert.equal(after.closedDomainDrawnTriplets.length,11608);
++assert.equal(before.closedDomainDrawnTriplets.length,9214);assert.equal(before.outside,8164251);assert.equal(after.closedDomainDrawnTriplets.length,input.expectedClosedDomainDrawnFacets);
+ const afterSampler=makeTerrainSampler(afterData),sampler=[];
+ for(let r=0;r<candidate.h;r++)for(let c=0;c<candidate.w;c++){
+  const x=g.bE+c*g.aE-834500,z=816500-(g.bN+r*g.aN);let error=null,rawValue=null,height=null;try{rawValue=afterSampler.raw(x,z);height=afterSampler.height(x,z);assert(Number.isFinite(rawValue)&&Number.isFinite(height));}catch(e){error=String(e);}sampler.push({row:r,column:c,x,z,rawValue,height,error,sampledOnlyNotCompleteCoverageProof:true});
+@@ -101,5 +113,5 @@ for(const prior of saved.rows){
+ assert.equal(protectionGuards.length,6);assert.equal(protectionGuards.reduce((s,r)=>s+r.rows.length,0),516);
+ await writeExactJsonGzip(new URL(doc+'/six-existing-production-protection-guards.json.gz',root),{rows:protectionGuards,allSamplerErrors,allPassed:protectionGuards.every(q=>q.passed),noToleranceChanges:true,noSamplerErrorWaiver:true});
+ verifyModuleClosure(closure,root);for(const [p,h]of Object.entries(hashes))assert.equal(sha(readFileSync(new URL(p,root))),h,p);
+-await writeExactJsonGzip(new URL(doc+'/actual-production-replay.json.gz',root),{currentManifestSHA256:current,completeRecursiveProductionModuleClosure:closure,inputHashes:hashes,startEndAllInputsVerified:true,actualCandidateWrittenBeforeGuards:true,completeSamplerErrors:allSamplerErrors,noSamplerErrorWaiver:true,before,after,gridNodeMapping:gridRows,completeOldGridNodeCount:old.w*old.h,actualCandidateSamplerGridFindings:sampler,completeSamplerProof:false,historicalNominationMapsProofsAndCountsAreContextOnly:true,actualPOSITIONCastIsFloat32:true,untouchedRawTripletsDoNotImplyBinary64EqualsShaderPositions:true,currentExteriorXYZOrderedHashMatched:true,currentExteriorSamplerInputsUnchanged:true,globalWatertightTopologyNotRequired:true,verticalFacetsNotHeightIndexedByRuntime:true,actualNativeHeightIndexProjectedDeterminantThreshold:1e-10,sourceCurrentExteriorNormalAndColourByteEqualityNotClaimed:true,sourcePositionChanges:0,sourcePoseChanges:0,liveTerrainChanges:0,physicalAccepted:false,installationApproved:false});
++await writeExactJsonGzip(new URL(doc+'/actual-production-replay.json.gz',root),{currentManifestSHA256:current,completeRecursiveProductionModuleClosure:closure,inputHashes:hashes,startEndAllInputsVerified:true,actualCandidateWrittenBeforeGuards:true,completeSamplerErrors:allSamplerErrors,noSamplerErrorWaiver:true,before,after,gridNodeMapping:gridRows,completeOldGridNodeCount:old.w*old.h,actualCandidateSamplerGridFindings:sampler,completeSamplerProof:false,historicalNominationMapsProofsAndCountsAreContextOnly:true,complete6650ActorScopeAnd1911Basic52AffectedRetained:input.fullScopeBindings,allOldPositionIndexPrefixesIncludingUnusedRetained:true,actualPOSITIONCastIsFloat32:true,untouchedRawTripletsDoNotImplyBinary64EqualsShaderPositions:true,currentExteriorXYZOrderedHashMatched:true,currentExteriorSamplerInputsUnchanged:true,globalWatertightTopologyNotRequired:true,verticalFacetsNotHeightIndexedByRuntime:true,actualNativeHeightIndexProjectedDeterminantThreshold:1e-10,sourceCurrentExteriorNormalAndColourByteEqualityNotClaimed:true,sourcePositionChanges:0,sourcePoseChanges:0,liveTerrainChanges:0,physicalAccepted:false,installationApproved:false});
+ console.log(JSON.stringify({candidateFaces:index.length/3,currentFaces:before.closedDomainDrawnTriplets.length,proposedFaces:after.closedDomainDrawnTriplets.length,exteriorXYZMatched:true,samplerGridErrors:sampler.filter(x=>x.error).length,guardSamplerErrors:allSamplerErrors.length,sixExistingGuardsPassed:protectionGuards.every(q=>q.passed),noAcceptance:true}));

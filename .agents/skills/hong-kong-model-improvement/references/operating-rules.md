@@ -1,0 +1,273 @@
+## Preflight the actual runtime catalogue before browser capture
+
+Run `original_private_catalogue_preflight_v1_20261103.mjs` against the exact staged catalogue before starting expensive browser work. It calls the production `prepareModelCatalogue` and dependency/activation closure. A private proposal wrapper is not a runtime catalogue: preserve exact model entries and approval flags while supplying the supported staged kind and correct `counts.packedModels`. Never weaken the production parser to accept a diagnostic wrapper. Assert that the browser's explicit catalogue load succeeds before visiting actors.
+
+For a retained owner whose native dependency is being staged, explicitly load its exact current catalogue through the private support-only replacement route before observing either native activation or BASIC fallback. Verify the original owner SHA and proposed dependency metadata. An unloaded catalogue is an observer setup error, not failed geometry/support or a corrupt source. Preserve failed runs; reuse only completed cases whose entire source/owner/configuration/production input bindings still match.
+
+## Compose installed terrain-policy validators exactly once
+
+A private original-import dry run must validate every already-installed terrain policy, including finite pairs, three-member chains and five-member groups. Reuse `complete_boundary_validators` from the existing five-member stage when those groups coexist. Enter that context exactly once around the canonical terrain call inside the source hook; nesting the exclusive three-member `private_validator` inside it is an orchestration error. Keep all ordinary and group-specific membership/byte checks, reject unknown policies and propagate canonical failures. Test context restoration and run the canonical dry run against the actual current manifest before publication. Preserve failed attempts; neither dispatch failure establishes corrupt government geometry.
+
+## Hash runtime files as bytes, parse only declared structured data
+
+A pinned JavaScript, GLB or other runtime asset needs a raw-byte hash check, not the generic JSON reader. Separate format parsing from reference verification: check the exact declared path/SHA for every file, and call `read` only for JSON or gzip-JSON inputs. June Garden desktop rebind and its later camera supplement exposed this same orchestration mistake in two producers; neither failure was source corruption. Preserve failed attempts, repair only the erroneous parsing call, and reuse completed unchanged browser evidence. Do not weaken input hashes, remove files from the proof, or rerun a completed whole batch for a pre-browser parser error.
+
+# Model acquisition and acceptance operating rules
+
+Extracted verbatim from the archived skill on 30 October 2026, except supporting reference links now resolve from this directory. Historical case counts in examples are not current inventory. Current HANDOFF/current-work and actual repository/Neon state govern progress.
+
+## Look up exact companion identity across available source profiles
+
+Use the existing flagged-neighbour original lookup with exact UID/CSUID and pinned source sheets before declaring a companion unavailable. Search the authenticated native inventory across available model profiles; a hardcoded3Cidentifier can miss an authentic2Goriginal for the same surveyed form. A zero result in one guessed identifier or cached sheet is not government-wide absence. Prefer the highest available authentic detail; do not fabricate a match, simplify geometry or transfer acceptance between assets.
+
+## Reuse canonical support anchors before expensive component searches
+
+For unchanged sources with remaining rim warnings, first run `original_four_world_strict_root_paths_v1_20261024.py` against the current runtime, attributes and strict-support receipt. It independently reproduces canonical accepted support roots under the existing [-0.1, 1] m gap interval, then seeks paths along shared original edges under the existing endpoint-height ceiling and 1 mm source-incidence limit. It does not add intersections or grant support, physical or publication approval. Retain raw warnings and independently complete identity, ground clearance, neighbours and browser checks. Only investigate component joins when this cheaper shared-edge method leaves unresolved paths.
+
+Royal Green Block 8 proves this distinction: all 18 remaining tower warnings reach existing strict roots along shared source edges in all four coordinate streams, with no rise above their endpoints and no intercomponent joins. Neither the source geometry nor support thresholds changed. Eight adversarial kernel tests cover raised paths, point-only contact, forged strict acceptance and off-source roots. Current installation totals remain 354 / 167 / 521 until actual publication and readback.
+
+## Retry existing endpoints before treating a minimax path as a hold
+
+A minimum absolute-height route can end at a lower strict root and exceed its own endpoint ceiling, even when another already verified root gives a valid path. An endpoint failure from that selected route does not prove that every original route fails. Use `original_endpoint_root_retry_v1_20261102.py` to retry only failed targets against the authenticated existing strict roots, prioritising roots on an incident source face and stopping after the first complete passing witness. Preserve the original failed rows; reuse passing rows without more search.
+
+Do not create or move a root, change its gap, raise the endpoint ceiling, bridge through zero-area primitives, or loosen the existing 1 mm source-incidence check. `original_exposed_grade_endpoint_retry_v1_20261102.py` binds the exact original/ground arrays and independently verified root receipts. Five adversarial geometry tests cover alternate endpoints, absent valid alternatives, unchanged passing witnesses, off-source roots and the strict gap interval. The result is path evidence only; identity, actual source roles, neighbours, collision, browser and publication checks remain separate.
+
+## Plan source-floor terrain from all current upward negatives
+
+Before constructing a bounded lower-only terrain return, inspect exact initial source/ground contacts for partially as well as wholly buried upward facets. Wholly buried counts alone can miss a partially embedded floor and cause repeated candidate construction. Bind every nominated facet to the exact unchanged source and current ground arrays. Disconnected domains retain the existing clearance/core/return constants; preserve pre-existing low terrain outside the edit domain exactly and run complete affected-scope regressions after any candidate change. A passing foundation count alone grants no physical or publication approval.
+
+## Check the actual renderer contract first
+
+Read the production draw, surface-index and height-sampler contracts before adding geometry requirements. Mong Kok recovery established that `makeNativeTerrain` draws every retained triangle, while `nativeTerrainSurface` deliberately excludes projected-vertical faces from its height index and returns the maximum finite nonvertical surface. Preserve and account for all drawn source faces, separately account for excluded verticals, and prove the actual maximum-surface coverage. Requiring every rendered face to be height-indexed, every lower layer centroid to equal the maximum height, or every source surface to be globally watertight would impose additional requirements unrelated to this renderer. This changes no existing runtime threshold or genuine physical/source guard.
+
+For terrain replacements, nominate affected installed actors from the entire parent coarse-cell replacement extent and all actual packed vertices, including unused vertices and the relevant Float32 representations. Derive the coarse extent from the exact parent georef and cells; do not substitute owned building bounds or recorded geographic footprints. Compare with all current actors' actual whole-source/literal/Float32 bounds and current source/entry/form/module tuples. Every touching actor retains its complete before/after terrain regression obligation. A source-only separation certificate does not clear the changed terrain domain.
+
+Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
+
+## Use existing viewer acceptance requirements
+
+Uninterpreted authored components and source crossings alone are not holds. Preserve original facets, component accounts, zero facets and crossings as source context. Investigate a component or attachment when it explains a specific current identity, placement, collision, support, runtime or neighbour failure. Do not add engineering, legal/common-ownership, global watertightness or per-component structural-root requirements. This supersedes historical progress notes that treated unqualified component labels or authored crossings as independent admission gates; it does not waive any genuine existing failure, threshold or whole-source obligation.
+
+Use `acceptance-policy.py` (`reasons`), `installed_support_acceptance.py` (`resolve_contact`), `terrain_diagnostic_resolution.py` (`resolve_global_bottom_warning`), `building-batch/validate_candidates.mjs`, `check-neighbours.mjs` and `check-native-neighbours.mjs` as the concrete guard authority. Retain the existing strict original support interface and complete compound-foundation requirements when resolving their actual contact warnings. A contextual marker in a diagnostic wrapper is not a new failure returned by these functions.
+
+Before expensive physical work, preflight every installed UID used by dependency lookup against the exact current form census. A historical census predating a new installation must be reconciled with verified current source/entry/parent evidence; never skip an unknown actor with an empty dictionary. Hash duplicate evidence declarations once per distinct path/SHA within a phase, reject conflicting hashes, and recheck fresh bytes at subsequent phase fences. Keep source-only checkpoints separate from installations.
+
+## Prefer authentic terrain replacement before expensive role work
+
+For floating projection coverage negatives, keep the raw context and use exact rational coverage of the identical source/ground bytes. Fu Yuet's7GEOSnegatives all resolve exactly. An exact coverage proof alone does not certify clearance: bind its source/ground hashes and conservatively bound residual source minimum height against every closed-AABB candidate ground maximum, then replay ordinary samples/rims in all4coordinate representations. original_four_world_exact_rims_v1.py and the independent Fu Yuet root check provide this path without geometry edits or tolerance credit. A pre-existing current native coverage residue should be judged by the unchanged production native validator, not an extra exact-zero surrogate precheck; all actual source/neighbour gates still apply.
+
+When a lower-only native terrain inset clears burial but leaves raised original low rims, test the existing bounded original-TIN replacement before spending tokens on detailed attachment interpretations. It can restore authentic higher source terrain as well as lower terrain. Source157125 on22October demonstrates this:82raised warnings became a strict179sample rim range[-.4054072483,+.0619577542]m with unchanged building geometry. This grants no automatic acceptance: keep source bytes/1xpose, native terrain validators, full affected current actor scope, continuous/four-stream/contact checks and browser/publication gates. Preserve old failures as history; do not raise terrain from model base metadata or invent supports.
+
+Previous ROOT22October: Olympic Station81242 is installed, exact Neon25c8be0865fe59e9fe5bbc9d2c5ec85646a934c1bbc94bae2e14d0d02a836205, snapshot27a10219df393948; fixedXL325installed/196unfinished/521,6842detailedactors. Read latest government-xl-scripted-continuation-20261022/HANDOFF.md and installed-root-check evidence; older running statements below are historical. Original geometry unchanged; no AI modelling/optimisation. Commit/push each installation and continue unfinished sources.
+
+Latest checkpoint,22October2026: original source157125 is installed unchanged, pinnedNeon f3468e8b9d151cb38874173832f73d6b9f31e5b3b41af7ff3019007a977970dd, snapshot2ac46036712f710f. FixedXL326installed/195unfinished/521;6843detailedcatalogueactors. Complete original-TIN replacement cleared82raised warnings; original building geometry stayed immutable. ROOT verified8254references andactual live desktop/mobile exports. Read latest government-xl-scripted-continuation-20261022/HANDOFF.md; originalXLgoal remains active. Near-grade recovered native terrain can merit a replacement test; sources whose original terrain already leaves large gaps need authentic source/support investigation instead of another lower-ground replay.
+
+## Reuse verified work and original government detail
+
+User direction, 11 September 2026: remove full skip-screening from the import pipeline. Reuse current accepted decisions and source/model hashes to avoid repeat work. Do not run metadata or shape-comparison sampling as an enhancement prerequisite. The 6,000-form experiment found only 24 potential new skips, all already containing detailed geometry; its results remain historical diagnostics, not an import queue or acceptance proof.
+
+Use the shared acceptance planner in `source-scripts/city/enhancement-screening/README.md` for existing ledger/hash checks. Skip unchanged `enhanced` and `good-to-go` forms; preserve explicit rework decisions and required dependency models. Recheck current inputs after obtaining source ownership. Offline plans are previews, never shared authority.
+
+For other forms, proceed directly to cached government source lookup and scripted identity, component, placement/support and runtime validation. `unassessed` does not require a new good-enough assessment or an `enhancement-required` event before mechanical preparation. It also does not authorise AI modelling or imply that enhancement is needed. Reuse original government detail by default; integrate only subsets that pass the existing acceptance and guarded publication requirements. Source downloads or clean diagnostics alone are not publication approval.
+
+Keep the current model when the source is missing, ambiguous or fails validation. Record the reason for scripted investigation and continue independent work. The agent owns batch routing; do not ask the user to decide individual buildings. Simplify original detail only when measured runtime costs justify local scripted reductions. High/Light describe mesh detail, not AI reasoning effort.
+
+Keep source-form counting and the existing evidenced acceptance ledger. Public progress separates total map models, exact government-source matches and completed work within that source group; see `source-scripts/city/building-progress/README.md`. New good-to-go/rework records still require current input/evidence hashes and live source ownership. Historical pilot candidates grant no progress credit. No source form automatically completes a whole landmark or region.
+
+## Inventory size groups and future passes
+
+User direction, 11 September 2026: store several size brackets in Neon before
+building queues. See `source-scripts/city/government-import/size-groups/README.md`.
+Use the indexed, source-bound XS/Small/Medium/Large/XL/XXL groups and separate
+Unmeasured group. Raw triangle counts, download/decoded geometry bytes and native
+physical dimensions remain separate. Complexity does not establish visual quality,
+AI effort, acceptance or whether enhancement is worthwhile. Classification must
+not create a queue or change a model's work/review status.
+
+For later authorised import batches, prefer a broad scripted first pass: install
+passing original meshes, persist exact held reasons/checks/input and source hashes
+in Neon, then investigate shared blocker categories during a second pass. Reuse
+unchanged completed evidence. Preserve repository/R2 evidence references and
+identify local-only caches honestly. Do not spend per-building AI effort chasing
+exceptions during the broad pass. The later explicit request authorises a bounded first pass of all 22 XXL sources;
+see `source-scripts/city/government-import/xxl-pass.py` and the batch handoff.
+Generic territory-wide queue construction remains deferred. Reuse exact installed
+source hashes; leave failed identity/terrain cases for the grouped second pass.
+Run browser/publication checks only for the subset passing the scripted contract. The user has now authorised a grouped scripted second pass of the 18 XXL holds. Exact source lookup, geometry diagnostics and source-backed terrain processing remain code/compute work. The completed checkpoint is `docs/astra-city/government-import/government-xxl-20260911/second-pass/README.md`: six of 22 XXL parts installed, 16 held, zero in process, plus one supporting podium outside XXL. Resume from its Neon receipt and preserved evidence rather than rerunning completed imports.
+
+The bounded 50-model XL pass is complete at `docs/astra-city/government-import/government-xl-50-20260913/README.md`: one unchanged source model (WEST9ZONE) is installed, 49 are held for later local scripted processing, and zero are in process or held for AI/human decisions. Reuse completed Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`, review snapshot `7e5ad5d98b43c2a4` and the frozen per-model reasons. Group future work by blocker rather than reacquiring or rerunning all 50 sources.
+
+Commit each newly verified installed model or coherent group promptly, with its runtime assets, acceptance evidence and refreshed progress. Do not wait for held models or the rest of a batch before committing available models (user direction, 11 September 2026).
+
+The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
+
+## Scripted acceptance of original government imports
+
+User direction, 11 September 2026: advance the clear subset through automated
+acceptance; per-building AI architectural review is not a required import step.
+Use the documented `source-scripts/city/government-import/DIRECT-IMPORT-POLICY.md`
+contract for unchanged original meshes. Exact source/identity, current input hashes,
+conservative drawn-terrain/contact checks, existing holds, runtime budgets and real
+browser loading/picking/collision/fallback evidence remain required. Record the
+scripted method and bounded scope through the existing fenced review/publisher.
+This accepts a faithful source port, not architectural reconstruction or whole-landmark
+completion. Models outside this contract keep their current fallback and explicit
+pending reason; do not waive a failed check to reach a target batch count.
+
+## Report status in the user’s six stages
+
+User direction, 11 September 2026: retain detailed Neon/job/review statuses and
+map them to a separate human report. Do not change the shared schema, acceptance
+states or progress credit merely to rename a status. Follow
+[references/human-status.md](human-status.md) for the mapping and report
+contract. This applies to chat updates, final reports and cross-device handoffs.
+
+Lead with **Installed**, **To do**, **Held for human decision**, **Held for AI
+processing**, **Held for unknown state**, and **In process**. Technical terms such
+as advanced, runtime-validated, awaiting acceptance, pending or held are supporting
+check details, never unexplained top-level statuses. Every selected source form
+has exactly one human status; report the original batch denominator.
+
+The key distinction is who or what is needed next. More local CPU work, downloads,
+script repairs, terrain/source investigation or automatic checks mean **In process**
+(queued or running), not an AI/human hold. AI-assisted code development is not
+per-model AI processing. A human hold requires an exact unanswered user decision;
+an AI hold requires a documented need for AI modelling/architectural judgement.
+A failed script or missing source does not establish either. **Held for unknown
+state** is for an unclassified blocker or unreliable state, with a concrete next
+investigation step. Keep those cases visible; do not silently equate unknown with AI.
+
+**In process** means started and unfinished, including queued scripted follow-up;
+state queued/running separately and never imply a live worker without evidence.
+**Installed** requires current verified integration, not downloaded/prepared data.
+**To do** means not started. Reclassifying reports grants no acceptance or deployment
+credit and does not authorise AI work. Continue autonomous scripted work within the
+user’s scope; notify before any AI modelling or necessary human decision.
+
+## Choose the phase
+
+- **Mechanical preparation:** follow [references/pipeline.md](pipeline.md). Reuse exact IDs, caches, pinned source batches and existing packers. Medium effort is generally sufficient. Parallelise independent sheet requests and processing, but coordinate a single SQLite writer and one process per acquisition batch.
+- **Architectural improvement:** only begin when the user explicitly re-enables that work; it is currently paused under the token constraint above. Prefer original detailed government geometry and use AI only where identity, placement or missing architecture requires judgement. Keep geometry detail separate from reasoning effort; choose reasoning effort for the actual unresolved problem. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
+- **Acceptance and integration:** use the existing review and guarded publisher mechanisms with fresh evidence for the selected components. A previously approved sample is not approval for another batch.
+
+The user may park modelling after a mechanical pass. Finish the agreed pass, record the hand-off, and leave the later modelling phase pending; do not silently continue it.
+
+## Territory-wide native preparation
+
+For HKS-222, read `source-scripts/city/citywide-native/README.md` and the latest evidence under `docs/astra-city/citywide-native/`. Use its existing shared Neon stage results before downloading or converting anything. A complete source catalogue (HKS-221) alone is not complete native acquisition. The native runner records each indexed model outcome and checksum-verified original/prepared R2 bundles. It has its own fenced stage leases and per-attempt folders; do not run a competing SQLite writer for these jobs. Medium effort is sufficient for running and diagnosing mechanical failures.
+
+If inputs and code match, reuse the exact completed stage. If conversion code changes, reuse original source bundles through `source_cache.py`, then rerun the changed stage with new fingerprints. Do not re-fetch government files just because the local cache is absent. Never interpret candidate or diagnostic states as installed, architecturally accepted or region-complete. Investigate failed/unsupported-source outcomes before declaring that only AI-heavy modelling remains.
+
+## Reserve concurrent work
+
+Before parallel sessions process or edit overlapping model parts, follow `source-scripts/city/shared-modelling/RESERVATIONS.md` on the shared, pinned Neon branch. Reserve all canonical source keys for the intended group atomically, including the complete building UID and polygon suffix (for example `building:landsd/123456:0`); batch names do not isolate ownership. Use a unique session owner and receipt per group. Wrap long-running commands with `reservations.py run` so the script renews a 30-minute lease every five minutes while work is alive. For interactive modelling, heartbeat at work checkpoints; never leave an unattended keepalive daemon.
+
+If ownership is lost, stop and reacquire before continuing. Expired work can be reclaimed normally; an explicit takeover requires the observed token snapshot and a reason. Keep separate worktrees/outputs, check ownership before shared edits, and retain the publisher's own guards: reservations do not atomically lock arbitrary files or R2 publication. Session/audit history remains after lease expiry. Do not discard expired work's evidence or imply that its models were accepted.
+
+## Preserve the actual nested terrain basis
+
+A standalone inset can pass its root-grid boundary checks yet disagree with an already installed native leaf. Before composing it into a nested parent, compare complete finite before/after seams against the actual captured current surfaces. Rebuild the established bounded original-source return against those surfaces when the standalone metadata template changes their heights. Keep the failed candidate and raw differences; do not widen the boundary tolerance or transfer standalone validation into nested publication approval.
+
+Prefer retaining each affected native leaf’s full rectangle and appending only the required uncovered root rectangle when that avoids cutting distant, unedited surfaces. Independently account for every old face, effective Float32 winding/multiplicity, unchanged faces outside the return, root grid and unrelated children. Validate every resulting finite adjacency. The existing three-member chain contract covers two edges only; a three-edge cycle requires its own complete contract, not a fabricated chain or missing edge. Coverage, runtime, affected actors, source acceptance and real browser/publication checks remain separate.
+
+An unchanged installed child may have an old overlap audit that mistakenly pins the mutable manifest as a geometry source. Do not ignore that failure or rewrite the old audit. Check every referenced hash, distinguish stale context from changed geometry, and regenerate the complete ordinary overlap proof on the exact same child body. A typed parent-retention contract must permit only that evidence-metadata change and prove every position, index and other field unchanged; the full native validator must authenticate the new proof. Keep the current manifest independently pinned and preserve the historical negative.
+
+Replay the actual producer of a frozen identity record. The complete-record selected identity path and older `verify_files` shim can use different projection/route representations. A mismatch is a runner investigation, not source corruption or permission to alter stored proofs. Fresh named identity must preserve unknown reasons, source revisions, complete foreign geometry and all physical/browser gates.
+
+A checksum-verified HTTP response or cached asset is not an active rendered actor. On browser activation timeout, retain the failed run and inspect the exact registered source, cache errors, activation queue, camera and navigation state before changing a timeout or loading rule. Do not borrow a newer harness that requires an unrelated diagnostic experiment; keep the complete declared retained-model scope.
+
+Terrain retention must preserve sampler semantics as well as indexed faces. Dropping a retained `numericalCoverageGap` declaration can pass the ordinary rectangle-area tolerance yet make `geo.js` throw while constructing roads or BASIC tiles. Regenerate the existing `approve_roundoff` proof for each exact new member body under its unchanged 0.25 m² and 2 mm limits; never copy a stale geometry hash, add faces, enlarge limits or suppress the error. A real hole outside those bounds still fails. Rerun current native/BASIC regression, actual drawn source foundations and the real browser after restoring the declaration. Baseline / terrain-only / terrain-plus-source browser controls can distinguish a terrain sampling regression from an asset or identity failure.
+
+## Test atomic peer failures independently
+
+The ordinary per-source browser harness initially denies every nominated download. That is incompatible with an atomic group when retry permits just one member: the remaining deliberate HTTP503 prevents the whole group activating. Preserve that negative and its BASIC fallback evidence; do not label the sources corrupt or enlarge the timeout. Use the existing `model_atomic_lifecycle_browser_v4_20261101.mjs` to deny each peer separately, allow all peers on retry, and verify complete BASIC fallback, frame-level atomic transitions, Base/Auto and eviction. A normal full mobile preview may set `failureTestUids=[]` only while explicitly requiring the authenticated complete per-peer lifecycle receipt for the exact source hashes/group. It still must capture every declared source and retained actor and pass ordinary picking/collision/runtime checks. Completed unchanged desktop evidence may be reused only with its exact report/image/catalogue/terrain/production-module bindings; failed mobile evidence remains preserved.
+
+## Preserve these invariants
+
+- Native **1× metres/HKPD** throughout terrain, models, water, bridges, collision and cameras. Do not port the old vertical multiplier or move surveyed elevations to hide a terrain problem.
+- Comprehensive government footprints, downloaded government 3D geometry and OSM data are distinct sources. Preserve stable IDs, provenance, irregular outlines, holes and multipart geometry. Unnamed buildings and estimated heights retain their basic forms.
+- Exact identity and component membership matter. Nearby or similarly named objects, unnamed podiums and historical replacements are not automatically interchangeable. Proposals remain proposals until reviewed.
+- Keep download absence, incomplete source coverage, acquired matching holds, prepared candidates, installed parts and whole-landmark readiness separate. A complete job queue does not resolve an unknown identity or approve placement.
+- Preserve native model bytes and node transforms. Changed source revisions/ZIP offsets require a new pinned batch, retaining the old evidence. Do not bypass matching, checksum, completeness or budget checks to reach a target count.
+- Sampled ground gaps may describe a supported tower or overhang; terrain above a base may describe legitimate foundations. Inspect context before correcting either. A bounding-box support hint is not a triangle-level proof.
+- Gallery capture is not visual acceptance. Check actual loaded candidate IDs, camera occupancy/occlusion, framing and the rendered artefact. Saved screenshots, CPU loading tests and a clear camera do not establish complete architecture, walking routes, rooftop landing or mobile performance.
+- Approved detailed geometry replaces its corresponding fallback without duplicates; held or unavailable geometry keeps a usable fallback. Validate streaming, picking, collision and existing lighting behaviour after integration.
+
+## Record modelling effort
+
+For every new model review/refinement, follow `source-scripts/city/model-review-ledger/README.md` (HKS-224). Pass explicit effort metadata with the existing fenced `record` / `record_many` operation: geometry method, AI model and actual reasoning setting, run/job and output references where available. Use a stable request ID for retries and a new ID for a revision. Record measured token/time values only when attributable; omit unknown values. Never infer historic effort from appearance, agent name or the current session setting. Inspect `ledger.py history --uid CANONICAL_UID` before revising a model. Lightweight/detailed method does not itself imply acceptance.
+
+## Deliver and track
+
+Long installation workers must write stdout/stderr to a regular log file and keep their existing bounded lease supervisor. Use a persistent process session when the tool runner has an observation timeout; record the actual PID, child and log. A closed observation handle is not a stopped worker. Verify the process and lease before any recovery.
+
+Cosmetic console failures must not roll back completed model publication. `source-scripts/city/government-import/safe_status_output_v1_20261031.py` handles only stdout BrokenPipe; real validation, file and publisher errors still propagate. Its regression checks exercise a real closed OS pipe. If a post-success exception restores public bytes while retaining historical installed ledger rows, independently verify every restored destination, active pointer and historical receipt. A result file alone does not prove the model remains installed; use a distinct fenced recovery without duplicate current credit.
+
+Bind every installation acceptance to its unique transactionBatch before deriving the review snapshot ID, and refuse to reseed an existing attempt snapshot. Identical source geometry across retries does not make the publication attempts identical. Reuse immutable model proofs, while keeping retry snapshot/ledger identity distinct; see `source-scripts/city/government-import/installation_snapshot_identity_v1_20261031.py`.
+
+
+Use the existing HKS issue/milestone mapping in local tracking and Linear. Record the executor, commit, source and rendered counts, evidence and remaining gaps in relevant leaf issues and parents. Move implemented, reviewable scope to **In Review**; leave broader identity, architecture or regional scope open when incomplete.
+
+Use the existing Linear `model` and `Workflow` label groups. For this workflow, preserve the executor’s actual model attribution and use `ai-software-factory`. Use an existing matching model label when available; otherwise record the actual/user-selected model in the issue text rather than substituting another model. Earlier Astra work retains its attribution; switch the workflow label to `human-review-required` only for a concrete deliverable awaiting named human sign-off, with the reviewer, review link and exact checks recorded. Preserve unrelated labels and other models' attribution. Agent architectural/terrain review remains software-factory work. Human review of a completed slice does not automatically block other work. Explain required user action directly in chat; never rely on an ambiguous In Review status. Recommend Low reasoning effort for tracking, Medium for routine scripting, and heavier reasoning only for a specific unresolved architectural/terrain exception; retaining a High detail government mesh does not itself require a high-effort AI run. Do not treat an effort switch as a blocker.
+
+Run checks appropriate to the change. For model integration, inspect real browser output as well as source/CPU checks; measure performance only when making performance claims. Commit logical units with HKS references and use the requested branch/PR workflow.
+
+A skill invocation does not grant deployment, R2-upload or release permission. Honour the user's actual authorisation. Keep working-state snapshots separate from production runtime assets and do not describe local staging as deployed content.
+
+## Bound attachment-proof work to the actual acceptance question
+
+Sol City, 21 October 2026: when acceptance requires one continuous finite source-face attachment path, stop after the first path that passes every existing face/contact/point-residual check. Do not construct and verify hundreds of alternative paths after a complete witness exists. `sol_city_rendered_facade_paths_v2_20261021.py` retained exact geometry, scoped face-role checks and all numerical limits while replacing redundant alternative-path enumeration. A failed or terminated producer is not a completed receipt; retain its partial output and run a distinct corrected producer.
+
+Bind support proofs to the exact current warning list. Byte-identical building/support arrays do not guarantee that historical diagnostics sampled identical witness positions or labels. Recompute incidence at current witnesses, reuse only positively proven contacts bound to identical arrays, and verify fresh paths for the remaining current witnesses. Never equate lists by count or silently drop mismatched warnings. See Sol City's current-original-contacts/current-original-paths/current-original-facade-paths receipts and physical-review-v2.
+
+Sol City installation checkpoint,21October: five unchanged originals installed, verifiedjobc96f40525648abcf78d73afebd32b5585a1bf4fbf930ebfbfcbe80a25cc78d79 snapshot829287787467f46b. FixedXL300installed/221unfinishedof521;6807actors. Four-mode physical,64neighbours,staged/live desktop/mobile/picking/collision/failure-retry pass. NoAIgeometry. Continue remainingXL; finalhandoff governs currentstate.
+
+
+## Reuse captured-source diagnostics and distinguish terrain parent types
+
+Before writing a one-off coordinator, inspect `parallel_captured_source_diagnostics_v2_20261101.py`. Its explicit plan permits only existing immutable foundation, clearance, grade-contact and below-grade-context producers under one complete renewing lease. Run dependent stages sequentially: below-grade context requires a completed exact grade-contact receipt. Completion of these diagnostics does not grant source-role, support, physical or publication approval.
+
+Use `selected_original_primary_revision_diagnostic_v1_20261101.py` when fresh provider OBJECTIDs differ from cached viewer keys. Record both IDs, stable CSUID/BuildingID/GeoRef fields, current geometry differences and original-byte bindings. Do not call a changed provider OBJECTID exact, declare the source corrupt, or silently substitute a UID. Bounded named source-association review and current runtime identity consumption remain separate.
+
+Coarse terrain-retention closure may nominate a large grid containing distant native children. Inspect actual hierarchy/leaf geometry using `selected_original_native_leaf_nominations_v1_20261101.py` before reconstructing the whole region. Zero touching native leaves does not prove containment in the regional grid: verify full source/world bounds against its boundary. A domain spanning root/grid or grid/native children needs the corresponding coordinated preservation contract; do not alias a nested leaf to a manifest root or omit sibling obligations.
+
+A constructor-specific terrain cap is not evidence of the renderer's universal limit. Inspect the actual existing route and model/device profiles, retaining every cap and failed admission. A private unadmitted renderer probe may measure remaining source/ground failures, but it must keep admission false and cannot be consumed as an accepted candidate. Official basement metadata is source context only; use complete existing grade/cap/foreign evidence before any bounded role decision. Do not remove guards or borrow another route's approval.
+
+
+## Supported-original publication from a captured cohort
+
+When a complete fresh scalar bounds inventory predates one verified additive installation, `refresh_fresh_native_bounds_additions_v1_20261101.py` can reuse old bounds only after exact old entry/form/asset and all recorded production geometry-dependency comparisons, plus independent installed readback. Every addition is freshly loaded and includes unused POSITION vertices. This adapter expects the full fresh inventory input/export schema; it is not a general multi-install chain adapter. Its output honestly records reused runtime rows. Do not rerun every unchanged actor or invent an absent scheduler hash to satisfy an older inventory helper. Any actual input mismatch still requires fresh capture/investigation.
+
+`leased_installed_original_support_diagnostic_v1_20261101.py` reserves every native actor nominated by the current whole-source scope before running the existing support diagnostic. Finite paths and an unapproved browser preview do not override zero strict contacts, failed compound-envelope results or negative parent review flags. Isolate the exact failing component and source interface before bounded interpretation; preserve raw failures and every ordinary publication gate. Historical freezers may embed a complete graph in authenticated `result.json` without pinning a sibling diagnostic file: consume the authenticated embedded record, never assume the sibling is covered.
+
+Use `single_original_installed_supported_unapproved_preview_v2_20261101.py` for the existing installed-parent route: it owns localhost4177 and uses the final V15 browser, preserving all preview-only and source/support checks. Read the complete authenticated `identity.json["proof"]` when binding exact object ID, CSUID, unique-viewer and accepted-identity fields; a summary `passed` row is not that schema.
+
+For a selected publication from a larger immutable capture, `bind_original_publication_subset_v1_20261101.py` preserves every selected actor/form/native nomination and copies complete four-world proofs byte-for-byte. It grants no acceptance and must not omit a selected source's neighbour. Do not rerun unchanged geometry math just to reshape a publication record.
+
+Use `owned_loopback_supported_install_v1_20261101.py` to own the local server while the unchanged atomic publisher/live verifier runs. Record actually inspected live exports with the existing recorder. The independent installed readback V2 enumerates every catalogue URL from the exact preserved pre-install manifest, including nonstandard filenames; retain all previous actor/asset bytes, global support, live image and full521ledger checks. Preserve pre-existing dirty generated audit bytes before committing the installer's necessary progress refresh, and exclude unrelated edits.
+
+`acquired_original_preparation_v1_20261101.py` runs the existing renderer, identity and attribute producers for an explicitly acquired original batch, including required supports outside fixed521. It owns every recovered UID and refuses installed actors. Missing acquired matches remain unresolved lookup records, not provider absence or corruption. No supporting-source diagnostic grants XL installation credit.
+
+`parallel_captured_source_diagnostics_v3_20261101.py` additionally allows the existing complete installed-support compound-clearance and buried-face-context producers. It requires the authenticated support summary and complete nominated parent lease; it grants no support/physical acceptance. An exact source-component identity review may interpret explicitly evidenced footprint-proxy failures separately from whole-landmark completeness, but must preserve the complete raw failed proof, unchanged catalogue flags and current source/route/cell/foreign-form evidence. Identity interpretation alone never resolves physical support or approves a new dependency.
+
+## Fresh-local runners and revised primary records
+
+Before claiming a lease, validate required local source paths. A producer that asserts its own local output directory does not exist must receive its lease through a separate control directory; do not weaken that fresh-output guard. Put preparation, serialization and execution inside cleanup scope. If preparation stops before saving the lease, recover/release only the exactly matched own owner/batch/token; never take over another worker. Preserve failed attempts as runner errors, not model corruption.
+
+Changed primary OBJECTIDs or footprint bytes require distinct current revision evidence and a new identity review. Preserve the rejected legacy hash/flags. Recompute exact current source/installed-foreign projections and normal numeric limits from freshly bound geometry; do not re-sign historical approvals or falsely claim current provider IDs equal legacy viewer IDs. Diagnostic success alone grants no physical, placement or publication credit.
+
+
+## Single retained-terrain originals and exact evidence metadata
+
+Use the complete current retained patch scope, dependency bindings and native neighbour regression for original ports that replace an existing terrain leaf. The private retained-terrain previewV1 requires exact old bytes/envelope/target set and fresh complete ordinary/native checks; use the existing V15 browser and keep all source approval flags false until named review. Preserve complete raw source/native intersections; a reviewed authored interface is source-specific, never a blanket contact exception.
+
+The retained qualified-stageV4 and guarded publisherV11 replay existing `complete_boundary_validators` for all installed terrain families. Do not omit those validators or weaken their schemas. The exact single-replacement helper normalizes the two existing descriptor formats only, rejects conflicting/multiple replacements and retains all current byte/owner/envelope/target checks. Evidence file verification compares required exact path/SHA; authenticated image dimensions or labels are additional metadata, not a different file hash. Distinct installation attempts must bind transactionBatch and refuse an existing snapshot before seeding.
+
+For final verification, use existing hash-bound full-frame inspection sheets, actually inspect every panel, then live-inspectionV3 verifies exact coverage of all source and retained exports. Full retained readbackV3 enumerates every prior catalogue from the saved pre-install manifest, including nonstandard filenames, rehashes all prior assets, compares all521keys, preserves global supports and checks exact terrain replacement. Image composition/metadata normalization alone grants no acceptance; final installed receipt, ROOT inspection, independent readback and prompt commit/push remain mandatory. Keep active handles and counts in canonical handoff files, not in this skill.
+
+
+## Bound current ZIP64 directories and preserve valid index formats
+
+When a current individualised government archive exceeds 4 GiB, resolve its ZIP64 end record and locator before requesting the central directory. `bounded_zip_directory_v1_20261103.py` reads a complete single-disk directory through bounded ETag-pinned ranges, validates counts/offsets/unique names, and gives the standard ZIP reader an absolute read-only directory window. It rejects payload seeks, split archives, malformed locators and oversized directories. Preserve the existing transfer cap; never treat a truncated 32-bit offset or a download-cap refusal as model corruption or government-wide absence. Seven synthetic tests cover normal archives, virtual archives above 4 GiB and malformed inputs.
+
+`exact_packed_world_geometry_v2_20261103.py` adds unsigned-byte (5121) accessor support while preserving all original geometry/transform/index checks and the original V1 file. Four tests cover exact byte-index geometry, unchanged 16/32-bit streams and invalid indices. A valid unsupported accessor is a decoder repair, not a corrupt source. Fresh package/individualised and GLTF/FBX directory matches are acquisition nominations only; all roots, source bytes, identity, placement and publication obligations still apply.

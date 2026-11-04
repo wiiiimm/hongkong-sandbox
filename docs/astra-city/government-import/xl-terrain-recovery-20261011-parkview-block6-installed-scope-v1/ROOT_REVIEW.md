@@ -1,0 +1,3 @@
+Root independently verified 1119 exact referenced versions across 248 scoped paths (64766590 bytes). All new numerical/current/source proofs were recursively closed, with exact referenced committed dependencies hash-checked. Every initial, tracked and audit-context pin was checked separately. Historical manifests use exact archived bytes. Prior audit declarations are separately pinned metadata only; their superseded inventories confer no numerical approval.
+
+All staged/live actual exports reviewed; 4 owned and20 retained own-camera views plus failed-download/retry pass. Neon receipt, current counts and progress checked. Unchanged government geometry; all existing terrain/native bytes preserved. XL225 installed/296 remaining. Continue active whole-XL goal.

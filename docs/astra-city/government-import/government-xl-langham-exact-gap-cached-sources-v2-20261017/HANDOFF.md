@@ -1,0 +1,1 @@
+36 cached sheets / 12,145 originals searched at the exact failed support witness. Only two known originals nominated. Existing 0.108417 m gap exceeds 0.1 m guard. No permanent rejection or installation. Historical shared inputs resolved to exact Tai Kwei pre-installation snapshots; no fresh-provider or whole-edge exclusion.

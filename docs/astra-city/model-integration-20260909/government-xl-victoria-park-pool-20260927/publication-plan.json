@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-victoria-park-pool-20260927/plan.json",
+  "areas": [
+    {
+      "area": "Victoria Park Swimming Pool original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-victoria-park-pool-20260927/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-72324-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-victoria-park-pool-20260927/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "9f34ede581659ff8782985988302eedb5f1d98332f6240868af88f4906ff3420"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-72324-0.json": "16e9c948b1c38f41edad724656e3c53e40687d625849ec19a84f8160d6b5b1e5",
+    "3d-viewer/city/data/official-models/government-xl-victoria-park-pool-20260927/catalogue.json": "e7105d401a09e064f561165bb13335f058f08a46475aae5958c839e16168976b",
+    "3d-viewer/city/data/manifest.json": "6ab9cbd5662f8a6e83b2c6266926fbab41026ca593388aae27e79e763eff5fa5"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "5cf1191e824cb7b1905ffcbc30ba193cedd64739",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-72324-0.json",
+      "resolution": 5,
+      "area": "Victoria Park Swimming Pool original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "aca0eeec2a4c684175c85c1d42e22dc32894be9af980dde4cfc568adea078b55",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-SE-6C",
+            "sourceETag": "\"3a0a59b-65bf6654e9021\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-6C/terrain/TERRAIN(TB)/T37500156000106E12/T37500156000106E12.bin",
+                "sha256": "d7e1b4840dc835510693b8a429b588df645d110c9c02440edfcc1c437d2a91cc"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-6C/terrain/TERRAIN(TB)/T37500156000106E12/T37500156000106E12.gltf",
+                "sha256": "9609178bc79dbf6c87424e2329d892b4ba6830c884afb4a86680b525011d43d5"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "16e9c948b1c38f41edad724656e3c53e40687d625849ec19a84f8160d6b5b1e5",
+      "bytes": 2105264
+    }
+  ],
+  "estimatedBases": []
+}

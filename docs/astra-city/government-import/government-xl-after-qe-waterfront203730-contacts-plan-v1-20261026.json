@@ -1,0 +1,56 @@
+{
+  "batch": "government-xl-after-qe-waterfront203730-contacts-sequence-v1-20261026",
+  "uids": [
+    "landsd/203730:0"
+  ],
+  "resources": [
+    "building:landsd/203729:0",
+    "building:landsd/203730:0",
+    "building:landsd/203736:0",
+    "building:landsd/273061:0",
+    "building:landsd/327542:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-qe-waterfront203730-foundations-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-waterfront203730-ground-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-waterfront203730-attributes-v1-20261026",
+        "--uid",
+        "landsd/203730:0"
+      ]
+    },
+    {
+      "script": "selected_original_overlapping_native_contacts_v3_20261024.py",
+      "batch": "government-xl-after-qe-waterfront203730-native-contacts-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-waterfront203730-ground-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-waterfront203730-attributes-v1-20261026",
+        "--scope",
+        "government-xl-after-qe-waterfront203730-model-scope-v1-20261026",
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-after-qe-waterfront203730-foreign-contacts-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-waterfront203730-ground-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-waterfront203730-attributes-v1-20261026",
+        "--scope",
+        "government-xl-after-qe-waterfront203730-model-scope-v1-20261026",
+        "--native-contacts",
+        "government-xl-after-qe-waterfront203730-native-contacts-v1-20261026"
+      ]
+    }
+  ]
+}

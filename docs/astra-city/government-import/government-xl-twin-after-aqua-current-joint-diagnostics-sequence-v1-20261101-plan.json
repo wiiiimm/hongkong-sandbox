@@ -1,0 +1,72 @@
+{
+  "batch": "government-xl-twin-after-aqua-current-joint-diagnostics-sequence-v1-20261101",
+  "uids": [
+    "landsd/223207:0"
+  ],
+  "resources": [
+    "building:landsd/223206:0",
+    "building:landsd/223207:0"
+  ],
+  "phases": [
+    {
+      "batch": "government-xl-twin-after-aqua-complete-source-scope-v1-20261101",
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "args": [
+        "--runtime",
+        "government-xl-twin-after-aqua-current-original-checks-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-twin-after-aqua-original-attributes-v1-20261101",
+        "--inventory",
+        "government-xl-after-aqua-fresh-native-bounds-v1-20261101"
+      ]
+    },
+    {
+      "batch": "government-xl-twin-after-aqua-installed-native-contacts-v1-20261101",
+      "script": "selected_original_overlapping_native_contacts_v3_20261024.py",
+      "args": [
+        "--scope",
+        "government-xl-twin-after-aqua-complete-source-scope-v1-20261101",
+        "--runtime",
+        "government-xl-twin-after-aqua-current-original-checks-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-twin-after-aqua-original-attributes-v1-20261101",
+        "--inventory",
+        "government-xl-after-aqua-fresh-native-bounds-v1-20261101"
+      ]
+    },
+    {
+      "batch": "government-xl-twin-after-aqua-installed-support-v1-20261101",
+      "script": "proposed_original_installed_support_diagnostic_v1_20261024.py",
+      "args": [
+        "--runtime",
+        "government-xl-twin-after-aqua-current-original-checks-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-twin-after-aqua-original-attributes-v1-20261101",
+        "--inventory",
+        "government-xl-after-aqua-fresh-native-bounds-v1-20261101",
+        "--native-contacts",
+        "government-xl-twin-after-aqua-installed-native-contacts-v1-20261101",
+        "--historical-attributes",
+        "government-xl-twin-after-aqua-original-attributes-v1-20261101",
+        "--uid",
+        "landsd/223207:0",
+        "--support",
+        "landsd/223206:0"
+      ]
+    },
+    {
+      "batch": "government-xl-twin-after-aqua-complete-compound-context-v1-20261101",
+      "script": "installed_support_complete_compound_clearance_v1_20261024.py",
+      "args": [
+        "--runtime",
+        "government-xl-twin-after-aqua-current-original-checks-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-twin-after-aqua-original-attributes-v1-20261101",
+        "--uid",
+        "landsd/223207:0",
+        "--support-checks",
+        "government-xl-twin-after-aqua-installed-support-v1-20261101"
+      ]
+    }
+  ]
+}
