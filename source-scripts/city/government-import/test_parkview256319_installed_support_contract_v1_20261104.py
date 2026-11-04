@@ -1,14 +1,17 @@
 """Adverse checks for the exact original, parent-audit and adjacent-seam route."""
 from copy import deepcopy
 import unittest
-from run import ROOT,read
+from run import ROOT,read,digest
 import parkview256319_installed_support_contract_v1_20261104 as c
 import original_installed_support_model_only_contract_v1_20261027 as generic
 class ContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         b=ROOT/'docs/astra-city/government-import';cfg=read(b/'government-xl-parkview256319-installation-plan-v1-20261104/config.json');cls.cfg=cfg
-        cls.current={m['uid']:m for url in read(ROOT/'3d-viewer/city/data/manifest.json')['officialModelCatalogues']for m in read(ROOT/'3d-viewer'/url)['models']}
+        # Pin the prepared scene, so these adverse fixtures also work after installation.
+        census=read(b/cfg['previousNativeInventory']/'input.json.gz');refs=census['currentCatalogueRefs']
+        assert all(digest((ROOT/r['path']).read_bytes())==r['sha256']for r in refs)
+        cls.current={m['uid']:m for r in refs for m in read(ROOT/r['path'])['models']};assert len(cls.current)==7108
         cls.models=read(ROOT/'source-scripts/city/government-import/local'/cfg['browser']/'catalogue.json')['models']
         cls.original={r['uid']:r['candidate']['entry']for r in read(b/cfg['originalSelection']/'selection.json.gz')['rows']}
         cls.audit=read(b/cfg['parentApprovalAudit']/'audit.json');cls.scope=read(b/cfg['scope']/'summary.json');cls.contacts=read(b/cfg['nativeContacts']/'summary.json');cls.review=read(b/cfg['physical']/'ROOT-PHYSICAL-REVIEW.json')
