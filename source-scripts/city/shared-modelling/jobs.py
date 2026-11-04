@@ -4,7 +4,7 @@ import json
 import uuid
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
-from db import connect
+from db import connect, transaction
 
 
 def encode(value):
@@ -21,33 +21,38 @@ def enqueue(batch, stage, payload):
     return identity
 
 
-def claim(batch, owner, stages, lease_seconds=60):
+def claim(batch, owner, stages, lease_seconds=60, *, connection=None, job_ids=None):
     if not owner or not stages or not 1 <= lease_seconds <= 3600:
         raise ValueError('Owner, explicit supported stages and lease of 1–3600 seconds required')
-    with connect() as con:
+    if job_ids is not None and not job_ids:
+        return None
+    scope = ' AND id=ANY(%s)' if job_ids is not None else ''
+    scope_args = (list(job_ids),) if job_ids is not None else ()
+    with connect() if connection is None else transaction(connection) as con:
         con.row_factory = dict_row
         # Expired final attempts are terminal. Scope to this batch and worker capability.
         con.execute('''UPDATE astra_modelling.jobs SET status='failed',error='lease-expired-retry-limit',
             owner=NULL,token=NULL,lease_until=NULL,updated_at=clock_timestamp()
             WHERE batch=%s AND stage=ANY(%s) AND status='running'
-            AND lease_until<=clock_timestamp() AND attempts>=max_attempts''', (batch,list(stages)))
+              AND lease_until<=clock_timestamp() AND attempts>=max_attempts''' + scope,
+            (batch,list(stages),*scope_args))
         row = con.execute('''WITH picked AS (
             SELECT id FROM astra_modelling.jobs WHERE batch=%s AND stage=ANY(%s)
               AND attempts<max_attempts AND ready_at<=clock_timestamp()
               AND (status='pending' OR (status='running' AND lease_until<=clock_timestamp()))
-            ORDER BY ready_at,id FOR UPDATE SKIP LOCKED LIMIT 1
+            ''' + scope + ''' ORDER BY ready_at,id FOR UPDATE SKIP LOCKED LIMIT 1
           ) UPDATE astra_modelling.jobs j SET status='running',owner=%s,token=%s,
               lease_until=clock_timestamp()+make_interval(secs=>%s),attempts=attempts+1,
               updated_at=clock_timestamp()
             FROM picked WHERE j.id=picked.id RETURNING j.*''',
-            (batch,list(stages),owner,uuid.uuid4(),lease_seconds)).fetchone()
+            (batch,list(stages),*scope_args,owner,uuid.uuid4(),lease_seconds)).fetchone()
     return row
 
 
-def heartbeat(job, lease_seconds=60):
+def heartbeat(job, lease_seconds=60, *, connection=None):
     if not 1 <= lease_seconds <= 3600:
         raise ValueError('Invalid lease duration')
-    with connect() as con:
+    with connect() if connection is None else transaction(connection) as con:
         return con.execute('''UPDATE astra_modelling.jobs SET
             lease_until=clock_timestamp()+make_interval(secs=>%s),updated_at=clock_timestamp()
             WHERE id=%s AND owner=%s AND token=%s AND status='running'
@@ -55,10 +60,10 @@ def heartbeat(job, lease_seconds=60):
             (lease_seconds,job['id'],job['owner'],job['token'])).rowcount == 1
 
 
-def finish(job, result=None, error=None, retry=False):
+def finish(job, result=None, error=None, retry=False, *, connection=None):
     # Results must contain metadata/immutable object keys, never credentials or mutable shared paths.
     status = 'complete' if error is None else ('pending' if retry and job['attempts']<job['max_attempts'] else 'failed')
-    with connect() as con:
+    with connect() if connection is None else transaction(connection) as con:
         return con.execute('''UPDATE astra_modelling.jobs SET status=%s,result=%s,error=%s,
             owner=NULL,token=NULL,lease_until=NULL,
             ready_at=clock_timestamp()+make_interval(secs=>%s),updated_at=clock_timestamp()
