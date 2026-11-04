@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_multiple_four_world_support_v1_20261023.py", line 85, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_multiple_four_world_support_v1_20261023.py", line 31, in main
+    geometry = {r['uid']: r for r in take(a.runtime, HERE / 'local' / a.runtime / 'runtime-geometry.json.gz')['rows']}
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_multiple_four_world_support_v1_20261023.py", line 27, in take
+    assert digest(path.read_bytes()) == cache[name][str(path.relative_to(ROOT))]
+                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source-scripts/city/government-import/local/government-xl-southside-viable-originals-current-rebind-v2-20261104-runtime/runtime-geometry.json.gz'

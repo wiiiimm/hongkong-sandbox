@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_original_support_sequence_v1_20261104.py", line 97, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_original_support_sequence_v1_20261104.py", line 77, in main
+    result=future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_original_support_sequence_v1_20261104.py", line 68, in run
+    assert proc.returncode==0,uid+' support diagnostic failed; preserve '+str(logpath.relative_to(ROOT))
+           ^^^^^^^^^^^^^^^^^^
+AssertionError: landsd/311758:0 support diagnostic failed; preserve docs/astra-city/government-import/government-xl-southside-viable-original-support-sequence-v1-20261104/311758:0.log
+{"reservationAction": "heartbeat", "ok": true, "attempt": 1, "leaseLost": false}
+{"reservationAction": "release", "ok": true, "attempt": 1, "leaseLost": false}
+{"ok": false, "exitCode": 1, "released": true}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_original_support_sequence_v1_20261104.py", line 97, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/southside_viable_original_support_sequence_v1_20261104.py", line 39, in main
+    return execute_reserved(claim['reservation'],LEASE,[sys.executable,__file__,'--owned'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v4_20261103.py", line 55, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval
