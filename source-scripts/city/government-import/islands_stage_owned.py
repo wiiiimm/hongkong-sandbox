@@ -10,7 +10,7 @@ from run import reservations
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--batch',required=True);p.add_argument('--script',required=True);p.add_argument('--attempt',type=int,default=1);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--batch',required=True);p.add_argument('--script',required=True);p.add_argument('--attempt',type=int,default=1);p.add_argument('--pass-batch',action='store_true');a=p.parse_args()
     assert a.batch.startswith('government-islands-') and '/' not in a.batch
     script=HERE/a.script;assert script.parent==HERE and script.name.startswith('islands_') and script.suffix=='.py' and script.is_file()
     doc=ROOT/'docs/astra-city/government-import'/a.batch;local=HERE/'local'/a.batch
@@ -24,7 +24,7 @@ def main():
     claim=reservations.claim('codex-islands-stage-'+str(uuid.uuid4()),resources,batch=a.batch,ttl=3600);assert claim['ok'],'Existing owner; no takeover'
     receipt=json.loads(json.dumps(claim['reservation'],default=str));save(receipt_path,receipt);save(local/'reservations.json',[receipt])
     try:
-        subprocess.run([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',receipt_path,'--ttl','3600','--',sys.executable,script],cwd=ROOT,check=True)
+        subprocess.run([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',receipt_path,'--ttl','3600','--',sys.executable,script,*(['--batch',a.batch] if a.pass_batch else [])],cwd=ROOT,check=True)
     finally:
         if reservations.owns(receipt):reservations.release(receipt)
 

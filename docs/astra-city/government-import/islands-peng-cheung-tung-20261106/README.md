@@ -4,8 +4,8 @@ Executor: Codex. Branch: `feature/islands-model-enhancement-and-compression`. Ne
 
 | Region | Installed detail | New in this campaign | Selected originals still unresolved | Current compression checkpoint |
 |---|---:|---:|---:|---|
-| Peng Chau | 36 | 35 | 1,390 | 35 sources / 140 complete candidates; refresh for addition next |
-| Cheung Chau | 137 | 137 | 3,283 | 125 sources / 500 complete candidates; refresh for additions next |
+| Peng Chau | 36 | 35 | 1,390 | 36 sources / 144 complete candidates |
+| Cheung Chau | 137 | 137 | 3,283 | 137 sources / 548 complete candidates |
 
 Peng Chau's census contains 1,809 forms: 36 detailed and 1,773 basic-only. The campaign selection (`targets.json.gz`) freezes 1,425 Peng Chau, 3,420 Cheung Chau and 1,771 paused Tung Chung sources. It excludes unmatched basic forms and grants no automatic acceptance. These counts represent source/form records, not independently deduplicated physical structures. The whole viewer currently contains 7,281 native detailed actors; the map's 346,108-form marketing total is unchanged.
 
@@ -18,3 +18,5 @@ The 3,278-source Cheung TIN context pass is complete in Neon. It nominates 672 p
 Peng Chau's earlier 31-domain pass retains 30 negative cases, and its one clear source is now installed above. Seven negative groups have only eligible unsurveyed estimated BASIC bases as blockers; their diagnostic groupings are retained for full actual-drawn-terrain measurement, with no base changes yet. A different set of 31 disjoint Peng sources is now running under ordinary renewing leases, then full current bounds/scope/runtime checks. The continuation never approves images or installs the next batch automatically. Actual handles are in `current-work.json`.
 
 Compression is separate from installation. Current completed snapshots: `docs/astra-city/model-optimisation/peng-chau-installed-20261106-v3/` (35 / 140) and `cheung-chau-installed-20261106-v3/` (125 / 500), all unreviewed/unpublished with zero failed variants and exact Neon/file/portable-archive readback. Next snapshot includes all 173 installed island sources, from committed bytes only. Keep originals when candidates are larger. No visual preset, physical phone FPS, runtime variant approval, deployment, main merge or R2 upload is implied. Prior Lantau bundle: 6,787 sources / 27,148 unreviewed candidates, commit `87c413cde7`.
+
+Latest compression: all 173 installed island originals / 692 variants are complete, zero failed, all unreviewed/unpublished, with exact Neon/file/archive readback. Combined package: `docs/astra-city/model-optimisation/peng-cheung-installed-20261106-v5/`. The next 31 Peng trials finished: seven native-TIN negatives plus 24 neighbour failures, all 31 recorded as held for compute with zero in process in the outcomes checkpoint `bd0781b7e0f9dbeaff5e5b6b12dc11a95a1009dca00bffd5cece923070881f30`. A source-deduplicated sweep is now examining remaining disjoint current Peng candidates with ordinary CPU workers; no automatic installation or browser approval.
