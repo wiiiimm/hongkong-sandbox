@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
   "branch": "feature/islands-model-enhancement-and-compression",
-  "checkpoint": "157a074e6a",
+  "checkpoint": "dd64b1083d",
   "originalXLCampaign": "paused",
   "newlyInstalled": 134,
   "bulkCompressionStarted": true,
@@ -12,9 +12,28 @@
       "log": "/tmp/astra-cheung-chau-next-003-20261106-v1.log"
     },
     {
-      "phase": "cheung-authentic-source-terrain-recovery-12-sheets",
-      "session": 73771,
-      "log": "/tmp/astra-cheung-chau-source-terrain-20261106-v4.log"
+      "phase": "cheung-remaining-authentic-terrain-context",
+      "shard": 0,
+      "session": 97384,
+      "log": "/tmp/astra-cheung-chau-context-0-20261106-v1.log"
+    },
+    {
+      "phase": "cheung-remaining-authentic-terrain-context",
+      "shard": 1,
+      "session": 23942,
+      "log": "/tmp/astra-cheung-chau-context-1-20261106-v1.log"
+    },
+    {
+      "phase": "cheung-remaining-authentic-terrain-context",
+      "shard": 2,
+      "session": 77222,
+      "log": "/tmp/astra-cheung-chau-context-2-20261106-v1.log"
+    },
+    {
+      "phase": "cheung-remaining-authentic-terrain-context",
+      "shard": 3,
+      "session": 75032,
+      "log": "/tmp/astra-cheung-chau-context-3-20261106-v1.log"
     }
   ],
   "completed": [
@@ -194,5 +213,13 @@
     "snapshot": "source-scripts/city/model-optimisation/staging/regional-cheung-chau-installed-20261106-v1/sources.json",
     "log": "/tmp/astra-cheung-chau-compression-launch-v1-20261106.log",
     "next": "Freeze combined committed installed set after batch 002 readback; exact completed variants reusable; do not relax manifest checks"
-  }
+  },
+  "cheungChauSourceTerrain": {
+    "state": "complete",
+    "sheets": 12,
+    "decodedOriginals": 3403,
+    "modelsWithoutExactAsset": 17,
+    "report": "docs/astra-city/government-import/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain.json"
+  },
+  "nextManifestChange": "Wait for all current context shards and compression before installing another batch; do not invalidate pinned evidence."
 }

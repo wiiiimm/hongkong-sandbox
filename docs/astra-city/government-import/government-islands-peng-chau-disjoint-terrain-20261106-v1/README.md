@@ -1,0 +1,7 @@
+# Peng Chau — 31 disjoint original-terrain proposals
+
+Private diagnostic follow-up to broad terrain groups. Select 31 mutually disjoint parent-cell rectangles among 256 uninstalled original-TIN-positive sources that do not overlap retained installed patches. Use the same source-TIN construction, 20 m domain margin, 10 m transition, source bytes/pose and all existing numeric guards. No installed terrain is replaced.
+
+Current full native scope: 7,243 actors; 7,109 exact old entry/form/source tuples reused and 134 additions decoded in independent groups of at most 40. The first oversized capture refused before geometry processing; its input remains in the v1 bounds folder. The successful v2 uses the unchanged capture limit, verifies all chunk hashes and exact disjoint UID coverage. One early scope invocation stopped before an unfinished neighbour-input writer completed; successful retry follows the finished source worker. Neither startup failure is model corruption or a guard waiver.
+
+Fresh runtime tests cover 31 unchanged source models, 1,405 affected BASIC/native forms, and 17 full native nominations (16 pass). One source is script-clear; 30 retain neighbour regressions, including five source contact negatives. Exact Neon job `7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105`; all results read back. Clear subset is staged separately, not installed. Publication remains false. Later manifest changes require a fresh bound context; preserve these reports.

@@ -55,10 +55,34 @@ def capture(out):
               'expectedSourceByUid': {u: [models[u]['entry']['sha256'], models[u]['entry']['triangles']] for u in additions},
               'rows': [{'uid': u, **models[u], 'building': forms[u]} for u in additions]}
     save(out / 'addition-input.json.gz', frozen)
-    subprocess.run(['node', str(HERE / 'selected_original_render_attributes_v1.mjs'),
-                    rel(out / 'addition-input.json.gz'), rel(out / 'addition-attributes.json.gz')], cwd=ROOT, check=True)
-    attributes = read(out / 'addition-attributes.json.gz')
-    assert attributes['startEndAllInputsVerified']
+    # The unchanged renderer capture accepts at most 40 exact actors per call.
+    # Keep that guard and aggregate independently bound, disjoint captures.
+    attributes = {'rows': [], 'inputHashes': {}, 'chunkRefs': [],
+                  'startEndAllInputsVerified': True, 'sourceGeometryChanges': 0}
+    for start in range(0, len(additions), 40):
+        members = additions[start:start + 40]
+        chunk = {**frozen, 'rows': frozen['rows'][start:start + 40],
+                 'expectedSourceByUid': {u: frozen['expectedSourceByUid'][u] for u in members}}
+        inp = out / f'addition-chunk-{start // 40:03d}-input.json.gz'
+        dst = out / f'addition-chunk-{start // 40:03d}-attributes.json.gz'
+        save(inp, chunk)
+        subprocess.run(['node', str(HERE / 'selected_original_render_attributes_v1.mjs'),
+                        rel(inp), rel(dst)], cwd=ROOT, check=True)
+        captured = read(dst)
+        assert captured['startEndAllInputsVerified']
+        assert [r['uid'] for r in captured['rows']] == members
+        assert captured['sourceGeometryChanges'] == 0
+        for path, digest in captured['inputHashes'].items():
+            assert sha(ROOT / path) == digest, path
+            assert path not in attributes['inputHashes'] or attributes['inputHashes'][path] == digest
+            attributes['inputHashes'][path] = digest
+        attributes['rows'].extend(captured['rows'])
+        attributes['chunkRefs'].append({'path': rel(dst), 'sha256': sha(dst),
+                                       'input': rel(inp), 'inputSHA256': sha(inp)})
+    assert [r['uid'] for r in attributes['rows']] == additions
+    for path, digest in attributes['inputHashes'].items():
+        assert sha(ROOT / path) == digest, path
+    save(out / 'addition-attributes.json.gz', attributes)
     bounds = list(old.values())
     for row in attributes['rows']:
         proof = packed_world_bounds((ROOT / models[row['uid']]['path']).read_bytes())
