@@ -37,3 +37,7 @@ Smaller meshes can grow because of codec/container overhead. Preserve non-benefi
 Large generated GLBs and raw receipts are ignored and kept out of Git/Vercel. Final source/variant indexes, hashes and measured summaries belong here; durable object-storage delivery remains separate from local generation. No R2 migration or deployment is performed by this batch.
 
 Validation before launch: 22 optimisation Python tests (18 passed, 4 dedicated-database skips), plus the previously passing shared-worker and Node codec/export suites. No AI geometry modelling or per-model AI call is used.
+
+## Runner performance correction
+
+The first lossless run exposed redundant per-model lease renewals. Its successful immutable results remain reusable; three interrupted own jobs were fenced back to pending. The runner now uses the existing 60-second renewal cadence and the compression branch’s single-snapshot ownership query. Every member must still belong to the exact active owner/token; ordinary claim, renewal, release, group-boundary ownership and job stale-token checks remain. Four actual pinned-database comparisons (active group, wrong owner, unknown token, released group) match the ordinary ownership checker; only two unique private test keys were used. See `ownership-readback.json`. A fresh source freeze will bind the corrected producer; source/recipe identities must compare identical before resuming.

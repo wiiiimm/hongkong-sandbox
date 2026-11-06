@@ -14,10 +14,11 @@ import re
 import subprocess
 import sys
 import time
+import uuid
 
 import batch
 import registry
-from db import connect, CONFIG
+from db import connect, CONFIG, transaction
 import jobs
 import reservations
 from psycopg.rows import dict_row
@@ -261,6 +262,25 @@ def output_path(relative):
     return path
 
 
+def lease_snapshot_owned(lease, connection):
+    """Same active-token/all-members rule as _current, in one read snapshot.
+
+    This is the existing compression branch's read-only ownership query. Claims,
+    renewals, release and job completion retain their ordinary locking/fencing.
+    """
+    with transaction(connection) as con:
+        con.row_factory = dict_row
+        row = con.execute('''SELECT
+            (SELECT count(*) FROM astra_modelling.reservations r
+                WHERE r.resource=ANY(g.resources) AND r.token=g.token)
+                = cardinality(g.resources) AS owned
+            FROM astra_modelling.reservation_groups g
+            WHERE g.token=%s AND g.owner=%s AND g.released_at IS NULL
+                AND g.lease_until>clock_timestamp()''',
+            (uuid.UUID(str(lease['token'])), lease['owner'])).fetchone()
+        return bool(row and row['owned'])
+
+
 def verify_result(source, recipe, variant, result, auditor):
     for key, expected in [('variantId', variant), ('revisionId', source['revisionId']),
             ('recipeSha256', registry.digest(recipe)), ('sourceSha256', source['sourceSha256'])]:
@@ -300,6 +320,9 @@ def worker(snapshot_path, recipe_path, output, batch_name, shard, workers):
                 outcomes.extend({'uid': s['uid'], 'state': 'held-reservation', 'error': claim['error']} for s in group)
                 continue
             lease = claim['reservation']
+            if not reservations.owns(lease, connection=connection):
+                raise ValueError('Reservation lost immediately after claim')
+            renewed = time.monotonic()
             variants = batch.register_group(connection, group, recipe, batch_name)
             records = connection.execute('''SELECT v.variant_id,j.id,j.batch,j.status,j.result,j.error
                 FROM astra_modelling.optimisation_variants v JOIN astra_modelling.jobs j ON j.id=v.job_id
@@ -328,7 +351,7 @@ def worker(snapshot_path, recipe_path, output, batch_name, shard, workers):
                         except TimeoutError:
                             if not jobs.heartbeat(job, lease_seconds=300, connection=connection) or not reservations.heartbeat(lease, ttl=1800, connection=connection)['ok']:
                                 raise ValueError('Lease lost during compression')
-                    if not reservations.owns(lease, connection=connection):
+                    if not lease_snapshot_owned(lease, connection):
                         raise ValueError('Reservation lost')
                     artifact = response['artifact']
                     artifact['path'] = str(Path(artifact['path']).relative_to(ROOT))
@@ -352,8 +375,10 @@ def worker(snapshot_path, recipe_path, output, batch_name, shard, workers):
                     outcomes.append({'uid': source['uid'], 'variantId': variant, 'state': 'failed', 'error': str(error)[:600]})
                     if codec.poll() is not None or auditor.poll() is not None:
                         raise
-                if not reservations.heartbeat(lease, ttl=1800, connection=connection)['ok']:
-                    raise ValueError('Reservation lost between models')
+                if time.monotonic() - renewed >= 60:
+                    if not reservations.heartbeat(lease, ttl=1800, connection=connection)['ok']:
+                        raise ValueError('Reservation lost between models')
+                    renewed = time.monotonic()
             if not reservations.release(lease, connection=connection)['ok']:
                 raise ValueError('Reservation release failed')
             lease = None
