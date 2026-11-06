@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 0,
+  "activeAcquisitionWorkers": 1,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -24,9 +24,9 @@
     "variants": 500
   },
   "cheungChauInstalled": {
-    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-sweep-002-20261106-v1-clear/independent-installed-readback.json",
-    "models": 161,
-    "snapshotId": "816c44ce97234d51"
+    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-post-four-direct-union-20261107-v1/independent-installed-readback.json",
+    "models": 189,
+    "snapshotId": "8b9fe84957e9b65d"
   },
   "cheungChauResume": {
     "additionalTerrainIdentity": {
@@ -45,10 +45,10 @@
     "identityOnlyUnresolved": 82,
     "initialMissing": 183,
     "initialRecovered": 3237,
-    "installed": 161,
+    "installed": 189,
     "originalRecoveryGroups": 51,
     "potentialClearPool": 125,
-    "remainingSelected": 3259,
+    "remainingSelected": 3231,
     "reused": 1398,
     "scriptClear": 67,
     "sourceExceptions": 17,
@@ -68,7 +68,7 @@
       "state": "runtime-complete-in-neon",
       "terrainProposals": 47
     },
-    "state": "161 installed and independently verified; source/terrain follow-ups remain",
+    "state": "189 installed; remaining original source/contact/terrain follow-ups",
     "toRecover": 2022
   },
   "cheungChauSourceTerrain": {
@@ -212,8 +212,14 @@
     "state": "installed-verified"
   },
   "lantauBundleCommit": "87c413cde7",
-  "newlyInstalled": 203,
-  "next": "Install 28 staged Cheung Chau direct originals, independently review live evidence, then refresh the committed compression cohort.",
+  "linearCheckpoint": {
+    "HKS-199": "f32fc1f7-b824-4de4-91a0-e150f950dfd9",
+    "HKS-203": "5dec4614-632b-49b7-a302-5b532ce59458",
+    "HKS-229": "a8012c1b-a438-4ce5-a7d9-e38b2865524b",
+    "milestoneUpdated": true
+  },
+  "newlyInstalled": 231,
+  "next": "Freeze committed 232-source cohort and refresh compression; complete 17 recovered source checks and next Cheung TIN nominees.",
   "nextManifestChange": "204-source compression complete; 28 direct originals staged and visually inspected",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
@@ -325,7 +331,9 @@
     "clearScriptCandidates": 28,
     "control": "docs/astra-city/government-import/government-islands-cheung-post-four-direct-control-20261107-v1",
     "models": 185,
-    "state": "checks-complete;28-staged-browser-verified"
+    "newlyInstalled": 28,
+    "snapshotId": "8b9fe84957e9b65d",
+    "state": "28-installed-verified;157-script-followups"
   },
   "postJointPengRecheck": {
     "batch": "government-islands-peng-chau-post-joint21-direct-recheck-20261106-v1",
@@ -344,14 +352,15 @@
     "bucket": "hk-sandbox-assets",
     "compressedBranchAlsoConfiguredInCode": true,
     "credentialsExposed": false,
-    "currentDeviceCredentialConnection": "not configured; current process and known private env files contain no R2 connection",
+    "currentDeviceCredentialConnection": "Verified read-only GitHub Actions connection; no direct local credentials",
     "gitHubBucketVariableVerified": true,
     "gitHubSecretNamesVerified": true,
     "historicalCloudUseVerified": true,
-    "missingExactCheungSources": 17,
+    "missingExactCheungSources": 0,
     "prefix": "astra-modelling/",
     "recoveryPlan": "docs/astra-city/government-import/government-islands-cheung-r2-recovery-20261107-v1/plan.json",
-    "recoveryState": "awaiting explicit R2-to-GitHub artifact transfer approval; no keys required from user"
+    "recoveryState": "17 exact originals recovered and independently verified; normal acceptance checks running",
+    "workflowRun": 42264710088
   },
   "sourceContext": {
     "models": 1404,
@@ -362,5 +371,13 @@
   "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
   "state": "in-process",
   "tungChungRecovered": 1771,
-  "workers": []
+  "workers": [
+    {
+      "batch": "government-islands-cheung-r2-recovered-check-20261107-v1",
+      "log": "/tmp/astra-cheung-r2-recovered-check-20261107-v1.log",
+      "phase": "recovered-original-checks",
+      "session": 77924,
+      "state": "running"
+    }
+  ]
 }
