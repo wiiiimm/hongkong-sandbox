@@ -34,10 +34,12 @@ def main():
             row = sources[uid]
             if row['sourceSHA256'] in index:
                 continue
-            directory = local / 'sheets' / row['native']['sheet'] / 'directory/result.json'
-            if not directory.exists():
+            directories = list((HERE / 'local').glob(
+                'government-xl-islands-cheung-current-v2-*/sheets/' + row['native']['sheet'] + '/directory/result.json'))
+            if not directories:
                 wanted.append(uid)
                 continue
+            directory = max(directories, key=lambda p: p.stat().st_mtime_ns)
             snapshot = read(directory)
             assert sha(directory.parent / 'zip-directory.bin') == snapshot['directorySHA256']
             model = row['modelId']

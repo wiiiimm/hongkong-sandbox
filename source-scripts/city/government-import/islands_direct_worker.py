@@ -1,7 +1,8 @@
 """Lease-fenced strict island original ports, with staged/live browser evidence.
 
 Existing direct-import numeric, identity, dependency and publication guards remain.
-No terrain edits, invented supports, original geometry edits or variant approval.
+Only separately validated terrain plans may be published. No invented supports,
+original building geometry edits or variant approval.
 """
 import argparse
 import functools
@@ -177,7 +178,7 @@ def worker(batch, phase, attempt=1):
         assert sha(stage/model['asset']) == model['sha256']
         assert not model.get('supportDependencies') and not model.get('retainedBasicSupportDependencies')
         model.update(placementReviewed=True, sourceIdentityReviewed=True, identityReviewApproved=True, publicationApproved=True,
-            placementReview='Strict original-government-import-v1; exact original source/identity, unchanged terrain, fresh complete direct contact metrics and staged/live desktop/mobile loading/picking/collision/failure-retry. No AI geometry modelling.')
+            placementReview='Strict original-government-import-v1; exact original source/identity and unchanged original building geometry; validated current/proposed terrain, fresh complete direct contact metrics and staged/live desktop/mobile loading/picking/collision/failure-retry. No AI geometry modelling.')
     approved = local/('approved'if attempt==1 else f'approved-{attempt}')
     assert not approved.exists()
     save(approved/'catalogue.json', catalogue)
@@ -219,7 +220,7 @@ def worker(batch, phase, attempt=1):
     ledger.seed(inv,inherit=pointer['snapshotId'])
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     effort={'method':'scripted','ai_model':None,'reasoning_effort':'not-applicable','issue':'HKS-203','run_id':snapshot,'output_ref':rel(doc/'decision.json')}
-    note='Strict original-government source port; unchanged original geometry and terrain; direct contact/runtime/source identity and all staged/live desktop/mobile checks. No architectural reconstruction or AI geometry modelling.'
+    note='Strict original-government source port; unchanged original building geometry; validated current/proposed terrain, direct contact/runtime/source identity and all staged/live desktop/mobile checks. No architectural reconstruction or AI geometry modelling.'
     ledger.record_many(snapshot,receipt_path,[(uid,'approved-for-integration',doc/'decision.json',note,commit) for uid in uids],effort=effort,request_id=batch+'-approve-'+snapshot)
     publication=[sys.executable,HERE/'islands_guarded_publish.py',rel(approved/'plan.json'),'--receipt',receipt_path,'--phase',batch+(f'-attempt-{attempt}'if attempt!=1 else'')]
     call(publication)

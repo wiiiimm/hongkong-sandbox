@@ -7,19 +7,14 @@
   "bulkCompressionStarted": true,
   "workers": [
     {
-      "phase": "cheung-chau-source-recovery",
-      "session": 47150,
-      "log": "/tmp/astra-cheung-chau-recovery-20261106-v2.log"
+      "phase": "cheung-chau-check-continuation-with-peer-repair",
+      "session": 39071,
+      "log": "/tmp/astra-cheung-chau-check-continuation-20261106-v3.log"
     },
     {
-      "phase": "cheung-chau-check-continuation",
-      "session": 11146,
-      "log": "/tmp/astra-cheung-chau-check-continuation-20261106-v2.log"
-    },
-    {
-      "phase": "cheung-chau-failed-group-peer-recovery",
-      "session": 71097,
-      "log": "/tmp/astra-cheung-chau-repair-20261106-v2-attempt1.log"
+      "phase": "install-reviewed-peng-three-then-stage-and-browser-cheung-clear",
+      "session": 40907,
+      "log": "/tmp/astra-islands-after-checks-20261106-v1.log"
     }
   ],
   "completed": [
@@ -134,8 +129,25 @@
   },
   "cheungChauResume": {
     "batch": "government-islands-cheung-chau-resume-20261106-v2",
-    "state": "recovering-exact-originals",
+    "state": "peer-recovery-then-automatic-checks",
     "reused": 1398,
-    "toRecover": 2022
-  }
+    "toRecover": 2022,
+    "initialRecovered": 3237,
+    "initialMissing": 183,
+    "originalRecoveryGroups": 51
+  },
+  "completedWorkerSupervisors": [
+    {
+      "session": 11146,
+      "state": "stopped while waiting, replaced by repair-aware continuation; no source worker or lease interrupted"
+    },
+    {
+      "session": 71097,
+      "state": "first peer-repair completed, saved all per-group source proofs"
+    },
+    {
+      "session": 47150,
+      "state": "all 51 original recovery groups finished; initial index 3237/3420; remaining peers being repaired before checks"
+    }
+  ]
 }

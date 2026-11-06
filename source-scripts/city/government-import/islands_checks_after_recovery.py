@@ -33,6 +33,31 @@ def main():
     selected = campaign.verify_frozen()
     recovered = read(checkpoint)
     assert 'assets' in recovered and 'missingUids' in recovered
+    # This is a mutable coordinator asset index, not a source/acceptance receipt.
+    # Preserve its initial bytes and every source recovery attempt, then finish
+    # unattempted peers before claiming the four full check-shard leases.
+    initial = checkpoint.with_name('recovered-assets-initial.json')
+    assert not initial.exists()
+    initial.write_bytes(checkpoint.read_bytes())
+    repairs = []
+    for attempt in (9, 8, 7):
+        before = len(recovered['assets'])
+        log = campaign.LOCAL / f'continuation-repair-{attempt}.log'
+        with log.open('x') as stream:
+            code = subprocess.run([sys.executable, '-u', HERE / 'islands_recover_failed_groups.py',
+                                   '--attempt', str(attempt)], cwd=ROOT,
+                                  stdout=stream, stderr=subprocess.STDOUT).returncode
+        assert code == 0, 'Peer repair coordinator failed; keep its exact evidence'
+        report = campaign.DOC / f'repair-{attempt}/summary.json'
+        repairs.append({'path': rel(report), 'sha256': sha(report)})
+        index = campaign.asset_index(selected['rows'])
+        recovered = {**recovered, 'assets': index,
+            'missingUids': [r['uid'] for r in selected['rows'] if r['sourceSHA256'] not in index],
+            'initialIndex': {'path': rel(initial), 'sha256': sha(initial)}, 'peerRecoveryRefs': repairs}
+        temporary = checkpoint.with_name('recovered-assets-next.json')
+        save(temporary, recovered); os.replace(temporary, checkpoint)
+        if len(index) == before:
+            break
     save(state, {'state': 'checking-originals', 'models': len(selected['rows']),
                  'recoveryCheckpointSHA256': sha(checkpoint), 'publication': False})
     def one(shard):
