@@ -3,13 +3,13 @@
   "branch": "feature/islands-model-enhancement-and-compression",
   "checkpoint": "dd7fd38e300399d506665697ad70731e7158b241",
   "originalXLCampaign": "paused",
-  "newlyInstalled": 21,
-  "bulkCompressionStarted": false,
+  "newlyInstalled": 23,
+  "bulkCompressionStarted": true,
   "workers": [
     {
-      "phase": "peng-chau-300-current-runtime",
-      "session": 94760,
-      "log": "/tmp/astra-peng-chau-terrain-runtime-20261106-v1.log"
+      "phase": "peng-chau-eight-existing-terrain-browser",
+      "session": 55012,
+      "log": "/tmp/astra-peng-chau-exact-eight-browser-20261106-v1.log"
     }
   ],
   "completed": [
@@ -87,18 +87,23 @@
   },
   "lantauBundleCommit": "87c413cde7",
   "installedPengChau": {
-    "batch": "government-islands-peng-chau-direct-20261106-v1",
-    "models": 21,
-    "snapshotId": "376c021a57415687",
+    "models": 23,
+    "totalInstalled": 24,
+    "batches": [
+      "government-islands-peng-chau-direct-20261106-v1",
+      "government-islands-peng-chau-clear-terrain-20261106-v1"
+    ],
+    "snapshotId": "5119dbb27b397f91",
     "status": "verified-feature-branch"
   },
   "pengChauFollowup": {
     "models": 1404,
     "identitiesPositive": 707,
     "sourceTINCandidates": 300,
-    "state": "queued-current-runtime-and-neighbour-checks"
+    "state": "300 checks complete; 2 installed, 298 retain negative evidence; eight additional existing-terrain candidates in browser checks",
+    "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614"
   },
-  "next": "Commit installed originals, compress committed installed Peng Chau detail, then continue 300 source-TIN candidates; Cheung Chau follows.",
+  "next": "Finish eight fresh existing-terrain originals, compress all additions from committed catalogues, then continue unresolved Peng Chau groups before Cheung Chau.",
   "pengChauCompression": {
     "state": "processing-complete-unreviewed",
     "models": 22,

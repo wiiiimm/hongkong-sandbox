@@ -53,11 +53,12 @@ def solid_verified(report, models):
     return True
 
 
-def worker(batch, phase):
+def worker(batch, phase, attempt=1):
     doc = ROOT/'docs/astra-city/government-import'/batch
+    if attempt!=1:doc=doc/f'attempt-{attempt}'
     stage = HERE/'accepted'/batch
     local = HERE/'local'/batch
-    receipt_path = local/f'{phase}-reservation.json'
+    receipt_path = local/(f'{phase}-reservation.json'if attempt==1 else f'{phase}-{attempt}-reservation.json')
     receipt = read(receipt_path)
     assert reservations.owns(receipt)
     proof = read(doc/'stage.json')
@@ -68,13 +69,23 @@ def worker(batch, phase):
     assert sha(stage/'plan.json') == proof['planSHA256']
     uids = proof['uids']
     assert set(uids) == {r['uid'] for r in selected['rows']}
+    for row in selected['rows']:
+        if not row.get('identityProof'):continue
+        from government_georef_cell_identity import verify_files
+        identity_record=read(ROOT/proof['identityEvidencePath'])
+        previous=next(r for r in identity_record['rows']if r['uid']==row['uid'])
+        entry=row['candidate']['entry']
+        replay=verify_files({**row,'sourceSHA256':entry['sha256'],'modelId':entry['modelId'],'triangles':entry['triangles']},
+                            previous['context'],local/'identity-replay'/row['uid'].replace('/','-').replace(':','-'))
+        assert replay['passed'] and replay['proof']==row['identityProof']
     with connect() as db:
         db.execute('SET TRANSACTION READ ONLY')
         states = dict(db.execute('SELECT DISTINCT ON(uid) uid,review_state FROM astra_modelling.model_reviews WHERE uid=ANY(%s) ORDER BY uid,updated_at DESC', (uids,)))
     assert not any(s in ('held','source-unavailable','identity-unresolved','installed-verified') for s in states.values())
     config = stage/'browser-config.json'
+    visibility_uids=read(config).get('visibilitySupplementUids',['landsd/191632:0','landsd/81779:0','landsd/81809:0'])
     if phase == 'browser-visible':
-        obscured=['landsd/191632:0','landsd/81779:0','landsd/81809:0']
+        obscured=visibility_uids
         assert set(obscured)<=set(uids)
         reports=[]
         for width in(1280,390):
@@ -93,8 +104,18 @@ def worker(batch, phase):
         print(json.dumps({'visibilitySupplementComplete':len(obscured),'installed':0}),flush=True)
         return
     if phase == 'browser-solid':
-        staged=read(doc/'staged-complete.json')
-        assert staged['freshMetricsSHA256']==sha(doc/'fresh-metrics.json')
+        if (doc/'staged-complete.json').exists():
+            staged=read(doc/'staged-complete.json')
+            assert staged['freshMetricsSHA256']==sha(doc/'fresh-metrics.json')
+        else:
+            args=['node',HERE/'acceptance-metrics.mjs','--selection',rel(doc/'selection.json.gz'),'--candidates',rel(stage),'--out',rel(doc/'fresh-metrics.json')]
+            if proof.get('terrainCandidates'):args+=['--terrain-candidates',proof['terrainCandidates']]
+            call(args);metrics=read(doc/'fresh-metrics.json');by_source={r['uid']:r for r in selected['rows']}
+            assert {r['uid']for r in metrics['rows']}==set(uids)
+            for metric in metrics['rows']:
+                row=by_source[metric['uid']]
+                assert not policy.reasons({'state':'runtime-validated-awaiting-acceptance','sourceSHA256':row['candidate']['entry']['sha256'],
+                    'identityProof':row.get('identityProof')},metric,metrics['profiles']['mobile'])
         verify_inputs(read(doc/'fresh-metrics.json')['inputHashes'])
         call(['node',HERE/'original_private_catalogue_preflight_v1_20261103.mjs',rel(stage/'catalogue.json')])
         reports=[]
@@ -144,10 +165,12 @@ def worker(batch, phase):
     assert inspection['stagedBrowserSHA256'] == staged['stagedBrowserSHA256']
     for image in inspection['images']:
         assert sha(ROOT/image['path']) == image['sha256']
-    supplement=read(doc/'visibility-staged-browser.json')
-    solid_verified(supplement,[m for m in read(stage/'catalogue.json')['models']if m['uid']in{'landsd/191632:0','landsd/81779:0','landsd/81809:0'}])
-    assert inspection['visibilitySupplementSHA256']==sha(doc/'visibility-staged-browser.json')
-    expected_images={rel(doc/v['file'])for report in(read(doc/'solid-staged-browser.json'),supplement)for v in report['views']if'time'in v}
+    supplements=[]
+    if visibility_uids:
+        supplement=read(doc/'visibility-staged-browser.json')
+        solid_verified(supplement,[m for m in read(stage/'catalogue.json')['models']if m['uid']in set(visibility_uids)])
+        assert inspection['visibilitySupplementSHA256']==sha(doc/'visibility-staged-browser.json');supplements.append(supplement)
+    expected_images={rel(doc/v['file'])for report in[read(doc/'solid-staged-browser.json'),*supplements]for v in report['views']if'time'in v}
     assert {r['path']for r in inspection['images']}==expected_images
     catalogue = read(stage/'catalogue.json')
     for model in catalogue['models']:
@@ -155,7 +178,7 @@ def worker(batch, phase):
         assert not model.get('supportDependencies') and not model.get('retainedBasicSupportDependencies')
         model.update(placementReviewed=True, sourceIdentityReviewed=True, identityReviewApproved=True, publicationApproved=True,
             placementReview='Strict original-government-import-v1; exact original source/identity, unchanged terrain, fresh complete direct contact metrics and staged/live desktop/mobile loading/picking/collision/failure-retry. No AI geometry modelling.')
-    approved = local/'approved'
+    approved = local/('approved'if attempt==1 else f'approved-{attempt}')
     assert not approved.exists()
     save(approved/'catalogue.json', catalogue)
     for model in catalogue['models']:
@@ -186,7 +209,8 @@ def worker(batch, phase):
             'sourceProgress':'prepared-for-review','classification':'script-verified-original-government-import','knownHold':False}
     decision={'batch':batch,'transactionBatch':batch+'-'+str(uuid.uuid4()),'policy':policy.POLICY,
               'uids':uids,'stagedBrowserSHA256':sha(doc/'solid-staged-browser.json'),'freshMetricsSHA256':sha(doc/'fresh-metrics.json'),
-              'inspectionSHA256':sha(doc/'staged-inspection.json'),'oldManifestSHA256':sha(manifest_path),'sourceGeometryChanges':0,'terrainChanges':0,'aiCalls':0}
+              'inspectionSHA256':sha(doc/'staged-inspection.json'),'oldManifestSHA256':sha(manifest_path),'sourceGeometryChanges':0,
+              'terrainChanges':len(plan.get('topLevelTerrainPatches',[])),'aiCalls':0}
     save(doc/'decision.json',decision)
     ordered=sorted(parts.values(),key=lambda r:r['uid']);snapshot=hashlib.sha256(jobs.encode([ordered,decision]).encode()).hexdigest()[:16]
     inv=pointer_path.parent/f'source-review-inventory-{snapshot}.json'
@@ -197,7 +221,7 @@ def worker(batch, phase):
     effort={'method':'scripted','ai_model':None,'reasoning_effort':'not-applicable','issue':'HKS-203','run_id':snapshot,'output_ref':rel(doc/'decision.json')}
     note='Strict original-government source port; unchanged original geometry and terrain; direct contact/runtime/source identity and all staged/live desktop/mobile checks. No architectural reconstruction or AI geometry modelling.'
     ledger.record_many(snapshot,receipt_path,[(uid,'approved-for-integration',doc/'decision.json',note,commit) for uid in uids],effort=effort,request_id=batch+'-approve-'+snapshot)
-    publication=[sys.executable,HERE.parent/'model-integration-20260909/publish.py',rel(approved/'plan.json'),'--receipt',receipt_path,'--phase',batch]
+    publication=[sys.executable,HERE/'islands_guarded_publish.py',rel(approved/'plan.json'),'--receipt',receipt_path,'--phase',batch+(f'-attempt-{attempt}'if attempt!=1 else'')]
     call(publication)
     verify_inputs(old_inputs)
     call(publication+['--apply'])
@@ -205,7 +229,7 @@ def worker(batch, phase):
         reports=[]
         for width in (1280,390):
             c=read(config);c.update(viewportWidths=[width],doc=rel(doc/f'live-solid-{width}')+'/')
-            c['captureDirectionByModel']={uid:[.1,4,.1]for uid in('landsd/191632:0','landsd/81779:0','landsd/81809:0')}
+            if visibility_uids:c['captureDirectionByModel']={uid:[.1,4,.1]for uid in visibility_uids}
             cp=local/f'live-solid-browser-config-{width}.json';save(cp,c)
             call(['node',HERE/'ronsdale_three_live_browser_v15_20261026.mjs','live',rel(cp)])
             r=read(doc/f'live-solid-{width}/live-browser.json');assert r['passed'] and not r['errors']
@@ -220,7 +244,8 @@ def worker(batch, phase):
         manifest_path.write_bytes(before)
         raise
     installed={**decision,'snapshotId':snapshot,'installed':len(uids),'liveBrowserSHA256':sha(doc/'live-browser.json'),
-               'manifestSHA256':sha(manifest_path),'retainedInputsVerified':len(old_inputs),'productionPublished':False}
+               'manifestSHA256':sha(manifest_path),'retainedInputsVerified':len(old_inputs),'productionPublished':False,
+               'terrainChanges':len(plan.get('topLevelTerrainPatches',[]))}
     save(doc/'installed-acceptance.json',installed)
     ledger.record_many(snapshot,receipt_path,[(uid,'installed-verified',doc/'installed-acceptance.json',note,commit) for uid in uids],effort=effort,request_id=batch+'-installed-'+snapshot)
     assert read(pointer_path)==pointer
@@ -240,15 +265,20 @@ def main():
     parser.add_argument('phase',choices=('browser','browser-solid','browser-visible','install'))
     parser.add_argument('--batch',required=True)
     parser.add_argument('--owned',action='store_true')
+    parser.add_argument('--attempt',type=int,default=1)
     args=parser.parse_args();assert args.batch.startswith('government-islands-') and '/' not in args.batch
+    assert 1<=args.attempt<=9
     local=HERE/'local'/args.batch
+    doc=ROOT/'docs/astra-city/government-import'/args.batch
+    if args.attempt!=1:doc=doc/f'attempt-{args.attempt}'
     if not args.owned:
-        uids=read(ROOT/'docs/astra-city/government-import'/args.batch/'stage.json')['uids']
-        lp=local/f'{args.phase}-reservation.json';assert not lp.exists()
-        claim=reservations.claim('codex-islands-direct-'+str(uuid.uuid4()),['building:'+uid for uid in uids]+['server:127.0.0.1:4176'],batch=args.batch,ttl=3600)
+        stage_proof=read(doc/'stage.json');uids=stage_proof['uids']
+        lp=local/(f'{args.phase}-reservation.json'if args.attempt==1 else f'{args.phase}-{args.attempt}-reservation.json');assert not lp.exists()
+        resources=sorted(set(['building:'+uid for uid in uids]+['server:127.0.0.1:4176']+stage_proof.get('additionalLeaseResources',[])))
+        claim=reservations.claim('codex-islands-direct-'+str(uuid.uuid4()),resources,batch=args.batch,ttl=3600)
         assert claim['ok'],'Existing owner; no takeover'
         save(lp,json.loads(json.dumps(claim['reservation'],default=str)))
-        call([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',lp,'--ttl','3600','--',sys.executable,__file__,args.phase,'--batch',args.batch,'--owned'])
+        call([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',lp,'--ttl','3600','--',sys.executable,__file__,args.phase,'--batch',args.batch,'--attempt',str(args.attempt),'--owned'])
         return
     class Handler(http.server.SimpleHTTPRequestHandler):
         def log_message(self,*args):pass
@@ -258,7 +288,7 @@ def main():
             super().handle_error(request,client_address)
     server=Server(('127.0.0.1',4176),functools.partial(Handler,directory=str(ROOT/'3d-viewer')))
     threading.Thread(target=server.serve_forever,daemon=True).start()
-    try:worker(args.batch,args.phase)
+    try:worker(args.batch,args.phase,args.attempt)
     finally:server.shutdown();server.server_close()
 
 
