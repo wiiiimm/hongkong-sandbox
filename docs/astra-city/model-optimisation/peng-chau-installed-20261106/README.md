@@ -1,3 +1,5 @@
+Latest installed compression checkpoint: [`../peng-chau-installed-20261106-v3/README.md`](../peng-chau-installed-20261106-v3/README.md), covering 35 originals and 140 candidates. This folder retains the earlier immutable slice.
+
 # Peng Chau installed-model compression — HKS-229
 
 Executor: Codex, 6 November 2026. Source commit `954b4c6eda356015ecbefbe22aec3075659657fb` on `feature/islands-model-enhancement-and-compression`.

@@ -1,3 +1,5 @@
+Latest installed compression checkpoint: [`../peng-chau-installed-20261106-v3/README.md`](../peng-chau-installed-20261106-v3/README.md), covering 35 originals and 140 candidates. This folder retains the earlier immutable slice.
+
 # Peng Chau installed compression, second checkpoint — HKS-229
 
 Executor: Codex. Source commit `6f2acf302cd2f234ff10a6266b23116b6faaea74` on `feature/islands-model-enhancement-and-compression`. **32 installed originals / 128 completed variants / zero failures / 128 unreviewed / zero published**. All original/high/balanced/lightweight outputs passed independent decoder and exact Neon/file/receipt checks (256 hashes). Reused the earlier 88 exact variants; processed 40 variants for ten newly installed originals. No AI geometry modelling or per-model AI calls.
