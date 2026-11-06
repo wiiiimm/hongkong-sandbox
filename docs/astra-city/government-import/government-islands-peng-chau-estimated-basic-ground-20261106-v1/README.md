@@ -1,0 +1,9 @@
+# Peng Chau — seven base-only correction diagnostics
+
+All seven complete candidate groups retain at least one neighbour that fails a base-only correction. No building base, height, footprint, surveyed field, government model or live terrain was changed. Exact Neon job: `9da0ee57f8f673e6551d78dc8c6eb051869432307493584ac12377c4379fb583`.
+
+Each case uses unchanged `wave_basic_ground_capture_v1_20261017.mjs <case-directory>` with its `input.json.gz`, pinning the current 7,281 native catalogue entries and manifest. It enumerates all current forms and actual BASIC constructors, captures complete relevant before/after drawn terrain including vertical/degenerate facets, and verifies the exact ordered exterior terrain hash. Native whole-source obligations are deliberately outside this BASIC-only diagnostic; no installation approval is claimed.
+
+Measurements use unchanged `wave_multicore_estimated_bases_v4_20261017.measure` to clip actual drawn triangles against every flagged unsurveyed BASIC footprint. Eligibility retains full coverage (<1e-8 m² residual), no overlapping projected surfaces (<1e-8 m²), unchanged height and at least 1.8m roof clearance above the highest terrain. All source base/top fields must be null, baseSource terrain-estimated, heightSource estimated, and no embedded geometry/foundation. Every complete group has an actual failure; successful individual base proposals grant no group credit.
+
+The full raw BASIC enumeration and terrain captures remain local, with exact paths/SHA-256/byte sizes in `artifact-index.json` and Neon. Smaller configs, closure/hash receipts, per-footprint measurements and proposals are committed here. This report diagnoses held cases; it does not resize buildings, weaken neighbour checks or install partial patches. Source-native/fallback alternatives still need current complete physical/browser/publication evidence.
