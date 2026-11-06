@@ -5,7 +5,13 @@
   "originalXLCampaign": "paused",
   "newlyInstalled": 0,
   "bulkCompressionStarted": false,
-  "workers": [],
+  "workers": [
+    {
+      "phase": "peng-chau-direct-browser",
+      "session": 19155,
+      "log": "/tmp/astra-peng-chau-direct-browser-20261106-v1.log"
+    }
+  ],
   "completed": [
     {
       "session": 79070,
@@ -55,8 +61,8 @@
     "leasePath": "source-scripts/city/government-import/local/government-islands-peng-chau-0000-1000-20261106/reservation.json",
     "next": "Verify ownership, then retry only concrete supervisor using same owned receipt. Do not restart completed recovery or acquire another overlapping owner."
   },
-  "state": "paused-by-user",
-  "pauseReason": "6 November 2026: pause all other model processing; compress existing enhanced Lantau models first.",
+  "state": "in-process",
+  "pauseReason": null,
   "activeAcquisitionWorkers": 0,
   "sourceRefreshSession": 26262,
   "firstPassSession": 83473,
@@ -66,5 +72,18 @@
   "freshCheungChauVerified": 680,
   "pengChauRecovered": 1425,
   "tungChungRecovered": 1771,
-  "allOtherModelProcessing": "stopped at user request"
+  "allOtherModelProcessing": "stopped at user request",
+  "priorityOrder": [
+    "peng-chau-original-installation",
+    "peng-chau-compression",
+    "cheung-chau-original-installation",
+    "cheung-chau-compression"
+  ],
+  "otherCampaigns": "Tung Chung and fixed-521 XL remain paused",
+  "sourceContext": {
+    "state": "complete",
+    "models": 1404,
+    "summary": "docs/astra-city/government-import/government-islands-peng-chau-context-20261106-v1/summary.json"
+  },
+  "lantauBundleCommit": "87c413cde7"
 }
