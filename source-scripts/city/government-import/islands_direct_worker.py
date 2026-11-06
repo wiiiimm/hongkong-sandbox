@@ -147,6 +147,8 @@ def worker(batch, phase):
     supplement=read(doc/'visibility-staged-browser.json')
     solid_verified(supplement,[m for m in read(stage/'catalogue.json')['models']if m['uid']in{'landsd/191632:0','landsd/81779:0','landsd/81809:0'}])
     assert inspection['visibilitySupplementSHA256']==sha(doc/'visibility-staged-browser.json')
+    expected_images={rel(doc/v['file'])for report in(read(doc/'solid-staged-browser.json'),supplement)for v in report['views']if'time'in v}
+    assert {r['path']for r in inspection['images']}==expected_images
     catalogue = read(stage/'catalogue.json')
     for model in catalogue['models']:
         assert sha(stage/model['asset']) == model['sha256']
