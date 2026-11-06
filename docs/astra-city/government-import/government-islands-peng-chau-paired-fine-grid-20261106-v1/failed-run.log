@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_peng_pair_fine_grid_probe.py", line 94, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_peng_pair_fine_grid_probe.py", line 83, in main
+    for path in (source_doc/'proposal.json',source_doc/'runtime-current/results.json.gz',source_doc/'runtime-current/neon-sync.json',Path(__file__),HERE/'tai-o-terrain-pass.py'):
+                                                                                                                                     ^^^^
+NameError: name 'Path' is not defined. Did you mean: 'path'?
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_peng_pair_fine_grid_probe.py", line 94, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_peng_pair_fine_grid_probe.py", line 38, in main
+    subprocess.run([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',lease,'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', PosixPath('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py'), 'run', '--lease-file', PosixPath('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-islands-peng-chau-paired-fine-grid-20261106-v1/reservation.json'), '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_peng_pair_fine_grid_probe.py', '--owned']' returned non-zero exit status 1.
