@@ -3,7 +3,7 @@
   "branch": "feature/islands-model-enhancement-and-compression",
   "checkpoint": "dd7fd38e300399d506665697ad70731e7158b241",
   "originalXLCampaign": "paused",
-  "newlyInstalled": 31,
+  "newlyInstalled": 34,
   "bulkCompressionStarted": true,
   "workers": [
     {
@@ -92,14 +92,15 @@
   },
   "lantauBundleCommit": "87c413cde7",
   "installedPengChau": {
-    "models": 31,
-    "totalInstalled": 32,
+    "models": 34,
+    "totalInstalled": 35,
     "batches": [
       "government-islands-peng-chau-direct-20261106-v1",
       "government-islands-peng-chau-clear-terrain-20261106-v1",
-      "government-islands-peng-chau-exact-direct-eight-20261106-v1"
+      "government-islands-peng-chau-exact-direct-eight-20261106-v1",
+      "government-islands-peng-chau-narrow-clear-20261106-v2"
     ],
-    "snapshotId": "37a61336ab66488b",
+    "snapshotId": "226a7903fcd56cd9",
     "status": "verified-feature-branch"
   },
   "pengChauFollowup": {
@@ -110,12 +111,13 @@
     "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
     "narrowTerrain": {
       "models": 3,
-      "state": "all numeric, dependency and desktop/mobile staged browser checks passed; all 12 exports actually inspected; publication queued after Cheung source capture",
+      "state": "installed-verified",
       "affectedForms": 134,
       "currentNatives": 7140,
       "nominatedNatives": 8,
       "neonJob": "3620a0fe53feafe4eb18bddc815ef2a3a83b37397905a507cf07ab0108797a07",
-      "publicationDeferredUntilCheungSourceCaptureCompletes": true
+      "publicationDeferredUntilCheungSourceCaptureCompletes": true,
+      "snapshotId": "226a7903fcd56cd9"
     }
   },
   "next": "Finish Cheung source recovery and automatic four-shard checks; publish the three verified Peng Chau terrain originals once manifest-pinned acquisition/checks finish; compress that new committed slice; install and compress clear Cheung originals.",
@@ -129,12 +131,16 @@
   },
   "cheungChauResume": {
     "batch": "government-islands-cheung-chau-resume-20261106-v2",
-    "state": "peer-recovery-then-automatic-checks",
+    "state": "all first-pass checks complete; first 50 in staged browser",
     "reused": 1398,
     "toRecover": 2022,
     "initialRecovered": 3237,
     "initialMissing": 183,
-    "originalRecoveryGroups": 51
+    "originalRecoveryGroups": 51,
+    "sourceRecovered": 3403,
+    "sourceExceptions": 17,
+    "scriptClear": 67,
+    "identityOnly": 140
   },
   "completedWorkerSupervisors": [
     {
