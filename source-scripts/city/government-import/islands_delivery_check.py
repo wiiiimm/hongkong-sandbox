@@ -13,7 +13,8 @@ from run import connect
 
 
 def images(doc, phase):
-    report = doc / ('solid-staged-browser.json' if phase == 'staged' else 'live-browser.json')
+    report = doc / ({'staged': 'solid-staged-browser.json', 'live': 'live-browser.json',
+                     'visibility': 'visibility-staged-browser.json'}[phase])
     rows = [v for v in read(report)['views'] if 'time' in v]
     return report, rows
 
@@ -50,12 +51,26 @@ def inspect(doc, batch, phase):
     assert sha(ROOT / metadata['report']) == metadata['reportSHA256']
     stage = HERE / 'accepted' / batch
     report, rows = images(doc, phase)
-    solid_verified(read(report), read(stage / 'catalogue.json')['models'])
+    models = read(stage / 'catalogue.json')['models']
+    if phase == 'visibility':
+        selected = read(stage / 'browser-config.json')['visibilitySupplementUids']
+        models = [m for m in models if m['uid'] in selected]
+    solid_verified(read(report), models)
     result = {**metadata, 'actuallyViewed': True, 'renderingAccepted': True,
               'stagedBrowserSHA256' if phase == 'staged' else 'liveBrowserSHA256': sha(report),
               'limitations': 'Original source geometry and retained neighbours; no every-facet/as-built or physical-device performance claim.'}
+    if phase == 'visibility':
+        save(doc / 'visibility-inspection.json', result)
+        return
     if phase == 'staged':
-        assert not read(stage / 'browser-config.json').get('visibilitySupplementUids')
+        if read(stage / 'browser-config.json').get('visibilitySupplementUids'):
+            supplement = read(doc / 'visibility-inspection.json')
+            assert supplement['actuallyViewed'] and supplement['renderingAccepted']
+            assert supplement['reportSHA256'] == sha(doc / 'visibility-staged-browser.json')
+            for item in supplement['images'] + supplement['sheets']:
+                assert sha(ROOT / item['path']) == item['sha256']
+            result['images'] += supplement['images']
+            result['visibilitySupplementSHA256'] = supplement['reportSHA256']
         save(doc / 'staged-inspection.json', result)
         return
     installed = read(doc / 'integration.json')
@@ -100,7 +115,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('operation', choices=('sheets', 'inspect'))
     parser.add_argument('--batch', required=True)
-    parser.add_argument('--phase', required=True, choices=('staged', 'live'))
+    parser.add_argument('--phase', required=True, choices=('staged', 'live', 'visibility'))
     parser.add_argument('--attempt', type=int, default=1)
     args = parser.parse_args()
     assert args.batch.startswith('government-islands-') and '/' not in args.batch
