@@ -4,8 +4,8 @@ Executor: Codex. Branch: `feature/islands-model-enhancement-and-compression`. Ne
 
 | Region | Installed detail | New in this campaign | Selected originals still unresolved | Current compression checkpoint |
 |---|---:|---:|---:|---|
-| Peng Chau | 36 | 35 | 1,390 | 36 sources / 144 complete candidates |
-| Cheung Chau | 137 | 137 | 3,283 | 137 sources / 548 complete candidates |
+| Peng Chau | 37 | 36 | 1,389 | 36 sources / 144 complete; refresh next |
+| Cheung Chau | 157 | 157 | 3,263 | 137 sources / 548 complete; refresh next |
 
 Peng Chau's census contains 1,809 forms: 36 detailed and 1,773 basic-only. The campaign selection (`targets.json.gz`) freezes 1,425 Peng Chau, 3,420 Cheung Chau and 1,771 paused Tung Chung sources. It excludes unmatched basic forms and grants no automatic acceptance. These counts represent source/form records, not independently deduplicated physical structures. The whole viewer currently contains 7,281 native detailed actors; the map's 346,108-form marketing total is unchanged.
 
@@ -20,3 +20,5 @@ Peng Chau's earlier 31-domain pass retains 30 negative cases, and its one clear 
 Compression is separate from installation. Current completed snapshots: `docs/astra-city/model-optimisation/peng-chau-installed-20261106-v3/` (35 / 140) and `cheung-chau-installed-20261106-v3/` (125 / 500), all unreviewed/unpublished with zero failed variants and exact Neon/file/portable-archive readback. Next snapshot includes all 173 installed island sources, from committed bytes only. Keep originals when candidates are larger. No visual preset, physical phone FPS, runtime variant approval, deployment, main merge or R2 upload is implied. Prior Lantau bundle: 6,787 sources / 27,148 unreviewed candidates, commit `87c413cde7`.
 
 Latest compression: all 173 installed island originals / 692 variants are complete, zero failed, all unreviewed/unpublished, with exact Neon/file/archive readback. Combined package: `docs/astra-city/model-optimisation/peng-cheung-installed-20261106-v5/`. The next 31 Peng trials finished: seven native-TIN negatives plus 24 neighbour failures, all 31 recorded as held for compute with zero in process in the outcomes checkpoint `bd0781b7e0f9dbeaff5e5b6b12dc11a95a1009dca00bffd5cece923070881f30`. A source-deduplicated sweep is now examining remaining disjoint current Peng candidates with ordinary CPU workers; no automatic installation or browser approval.
+
+Latest original installation: 21 more models (one Peng, 20 Cheung), snapshot `7d9cdd22fad430c3`, giving 37/157 detailed originals and 7,302 native actors scene-wide. All 84 staged views were inspected; 47 changed live views were inspected, with 37 exact-byte previously viewed images reused. Fresh functional checks cover every new source, and independent readback preserves all 8,595 old asset/catalogue/terrain/tile files, all source/pose fields and exact Neon installed states. Only one new source-TIN patch was needed: the 20 Cheung sources passed a fresh current-terrain recheck. Complete unused vertex bounds in four coordinate streams prove those direct originals cannot touch the Peng patch, and fresh joint metrics/browser checks passed. Source government geometry remains unchanged. Full evidence: `government-islands-joint-current-direct-tin-20261106-v1/`. Next compression snapshot expects all 194 installed originals / 776 unreviewed variants.

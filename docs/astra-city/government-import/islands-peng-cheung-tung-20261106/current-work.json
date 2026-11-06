@@ -16,9 +16,9 @@
     "variants": 500
   },
   "cheungChauInstalled": {
-    "independentReadback": "docs/astra-city/government-import/government-islands-combined-clear-install-20261106-v1/independent-installed-readback.json",
-    "models": 137,
-    "snapshotId": "53352d7e8bb0aa4f"
+    "independentReadback": "docs/astra-city/government-import/government-islands-joint-current-direct-tin-20261106-v1/independent-installed-readback.json",
+    "models": 157,
+    "snapshotId": "7d9cdd22fad430c3"
   },
   "cheungChauResume": {
     "additionalTerrainIdentity": {
@@ -37,10 +37,10 @@
     "identityOnlyUnresolved": 82,
     "initialMissing": 183,
     "initialRecovered": 3237,
-    "installed": 137,
+    "installed": 157,
     "originalRecoveryGroups": 51,
     "potentialClearPool": 125,
-    "remainingSelected": 3283,
+    "remainingSelected": 3263,
     "reused": 1398,
     "scriptClear": 67,
     "sourceExceptions": 17,
@@ -173,27 +173,29 @@
       "government-islands-peng-chau-clear-terrain-20261106-v1",
       "government-islands-peng-chau-exact-direct-eight-20261106-v1",
       "government-islands-peng-chau-narrow-clear-20261106-v2",
-      "government-islands-combined-clear-install-20261106-v1"
+      "government-islands-combined-clear-install-20261106-v1",
+      "government-islands-joint-current-direct-tin-20261106-v1"
     ],
-    "models": 35,
-    "snapshotId": "53352d7e8bb0aa4f",
+    "models": 36,
+    "snapshotId": "7d9cdd22fad430c3",
     "status": "verified-feature-branch",
-    "totalInstalled": 36
+    "totalInstalled": 37
   },
   "jointNextImport": {
     "batch": "government-islands-joint-current-direct-tin-20261106-v1",
     "browserContinuationSession": 9753,
     "cheungChau": 20,
     "log": "/tmp/astra-islands-joint21-after-sweep-browser-20261106-v1.log",
-    "newlyInstalled": 0,
+    "newlyInstalled": 21,
     "pengChau": 1,
+    "snapshotId": "7d9cdd22fad430c3",
     "sources": 21,
-    "state": "staged-desktop-capture-complete-mobile-browser-running"
+    "state": "installed-verified"
   },
   "lantauBundleCommit": "87c413cde7",
-  "newlyInstalled": 172,
-  "next": "Finish explicit 16-wave Peng CPU sweep, then actual joint21 staged/browser/guarded/live verification; compress any installed additions from committed bytes. Neither island complete.",
-  "nextManifestChange": "Current compression pass complete; further original installation still requires actual fresh browser/guarded/live acceptance.",
+  "newlyInstalled": 193,
+  "next": "Compress all 194 committed installed island originals using exact UID selection; continue source-preserving work on held originals afterwards. Both islands incomplete.",
+  "nextManifestChange": "Keep manifest/source bytes frozen until 194-source compression delivery completes.",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
     "constructed": 24,
@@ -258,7 +260,7 @@
     },
     "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
     "sourceTINCandidates": 300,
-    "state": "35 new originals installed; 1390 selected originals unresolved; next 31-source scripted wave running"
+    "state": "36 new originals installed; 1389 selected originals unresolved; 16 additional waves checked, one clear now installed"
   },
   "pengChauRecovered": 1425,
   "pengSweep": {
@@ -287,11 +289,5 @@
   "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
   "state": "in-process",
   "tungChungRecovered": 1771,
-  "workers": [
-    {
-      "log": "/tmp/astra-islands-joint21-after-sweep-browser-20261106-v1.log",
-      "phase": "joint21-staged-desktop-mobile-browser",
-      "session": 9753
-    }
-  ]
+  "workers": []
 }

@@ -1,0 +1,147 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/local/government-islands-joint-current-direct-tin-20261106-v1/approved/plan.json",
+  "areas": [
+    {
+      "area": "Joint unchanged Peng Chau and Cheung Chau originals",
+      "models": 21,
+      "catalogue": "city/data/official-models/government-islands-joint-current-direct-tin-20261106-v1/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/islands-peng-chau-sweep-001-20261106-v1-003.json": null,
+    "3d-viewer/city/data/official-models/government-islands-joint-current-direct-tin-20261106-v1/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "54efd244f426ff71f4737979aeb317e5074cb586f5b0117a7856c3bfba1de75e"
+  },
+  "after": {
+    "3d-viewer/city/data/islands-peng-chau-sweep-001-20261106-v1-003.json": "8d1a1dc572b308f9dcd88eb23a681554953b6143cba809a97d9076ce835e9e61",
+    "3d-viewer/city/data/official-models/government-islands-joint-current-direct-tin-20261106-v1/catalogue.json": "6c7f25589d5369cee5cb099e77d235a441fba13ea1e38d111f7f1020c5bd0d80",
+    "3d-viewer/city/data/manifest.json": "24dc7abc270c36fd63fc45674c0ed048363a8293f28e2238e9d9c997b97a1a04"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "9f7ed73d1822ba4aa0f2ca4c0fb70d619feba965",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/islands-peng-chau-sweep-001-20261106-v1-003.json",
+      "resolution": 5,
+      "area": "Peng Chau original-source terrain candidates",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "compactArchiveSHA256": "113f56f88bc9744d6a23615589acc6b7c4293bf4c9951b53a5f023f152b7ed3b",
+            "directorySHA256": "9e7a5f24c9332eb00ebdaf5c9d70dbd92cd0ed972111091f3e44cf09c78021b0",
+            "revisionDate": "2026-07-16T16:00:00+00:00",
+            "sheet": "10-SW-10B",
+            "sourceETag": "\"2a92d42-655febc68f1d3\"",
+            "sourceFiles": [
+              {
+                "bytes": 33886296,
+                "path": "source-scripts/city/government-import/local/government-islands-peng-chau-source-terrain-20261106/source-terrain/10-SW-10B/decoded/TERRAIN(TB)/T21750162000106E11/T21750162000106E11.bin",
+                "sha256": "5b6ac117603c85496f412d5b780e09057955662c213684cf3ffdceff3b8d5e9d"
+              },
+              {
+                "bytes": 2560,
+                "path": "source-scripts/city/government-import/local/government-islands-peng-chau-source-terrain-20261106/source-terrain/10-SW-10B/decoded/TERRAIN(TB)/T21750162000106E11/T21750162000106E11.gltf",
+                "sha256": "497ceaf9ef3ab5e356d4e8537af264483c71d42fc7d112b1f6a955ceb1ad0529"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 225,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8d1a1dc572b308f9dcd88eb23a681554953b6143cba809a97d9076ce835e9e61",
+      "bytes": 1127961
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "unsurveyedBasicFoundations": [],
+  "retainedUnsurveyedBasicFoundationChecks": [
+    "landsd/31181:0",
+    "landsd/309838:0",
+    "landsd/339024:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}
