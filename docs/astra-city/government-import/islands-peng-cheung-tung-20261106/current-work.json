@@ -137,7 +137,24 @@
       "state": "all 51 original recovery groups finished; initial index 3237/3420; remaining peers being repaired before checks"
     }
   ],
+  "currentTerrainRechecks": {
+    "cheungChau": 112,
+    "clearScriptCandidates": 20,
+    "control": "docs/astra-city/government-import/government-islands-current-installed-terrain-recheck-control-20261106-v1/state.json",
+    "models": 116,
+    "newlyInstalled": 0,
+    "pengChau": 4,
+    "state": "checks-complete"
+  },
   "date": "2026-11-06",
+  "estimatedBasicDiagnostics": {
+    "basicFormChanges": 0,
+    "groupsWithAllPrivateEstimatesEligible": 0,
+    "neonJob": "9da0ee57f8f673e6551d78dc8c6eb051869432307493584ac12377c4379fb583",
+    "sourceCandidates": 7,
+    "sourceGeometryChanges": 0,
+    "state": "complete-in-neon"
+  },
   "failedSupervisor": {
     "count": 1000,
     "error": "lease-not-owned-or-unreachable; no child model check started",
@@ -163,23 +180,45 @@
     "status": "verified-feature-branch",
     "totalInstalled": 36
   },
+  "jointNextImport": {
+    "batch": "government-islands-joint-current-direct-tin-20261106-v1",
+    "browserContinuationSession": 9753,
+    "cheungChau": 20,
+    "log": "/tmp/astra-islands-joint21-after-sweep-browser-20261106-v1.log",
+    "newlyInstalled": 0,
+    "pengChau": 1,
+    "sources": 21,
+    "state": "prepared-complete-four-world-spatial-proof-awaiting-sweep-and-browser"
+  },
   "lantauBundleCommit": "87c413cde7",
   "newlyInstalled": 172,
-  "next": "Complete current disjoint Peng CPU sweep; inspect/install any actually clear groups and retain exact negative/held reasons in Neon. Compression for all 173 currently installed island sources is complete but unreviewed.",
+  "next": "Finish explicit 16-wave Peng CPU sweep, then actual joint21 staged/browser/guarded/live verification; compress any installed additions from committed bytes. Neither island complete.",
   "nextManifestChange": "Current compression pass complete; further original installation still requires actual fresh browser/guarded/live acceptance.",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
-    "eligibleNominationPool": 308,
-    "prior31DisjointTrialsExcluded": true,
-    "sources": 31,
-    "state": "checks-complete-held-for-compute",
     "constructed": 24,
+    "eligibleNominationPool": 308,
     "heldForCompute": 31,
     "inProcess": 0,
-    "neonJob": "bd0781b7e0f9dbeaff5e5b6b12dc11a95a1009dca00bffd5cece923070881f30"
+    "neonJob": "bd0781b7e0f9dbeaff5e5b6b12dc11a95a1009dca00bffd5cece923070881f30",
+    "prior31DisjointTrialsExcluded": true,
+    "sources": 31,
+    "state": "checks-complete-held-for-compute"
   },
   "originalXLCampaign": "paused",
   "otherCampaigns": "Tung Chung and fixed-521 XL remain paused",
+  "pairedIslandsCompression": {
+    "cheungChau": 137,
+    "failedVariants": 0,
+    "models": 173,
+    "neonJob": "473b09bd754239e5fa9c3fb0a75d32b59fa2671552aecf7f0c426ea0eb6800f8",
+    "pengChau": 36,
+    "portableBundleSHA256": "6877e2aac55620a285abeac8aab4e59cfffdc2e66e9f0c4c6a01e4cf0c45d0fb",
+    "published": false,
+    "report": "docs/astra-city/model-optimisation/peng-cheung-installed-20261106-v5",
+    "state": "processing-complete-unreviewed",
+    "variants": 692
+  },
   "pauseReason": null,
   "pengChauCompression": {
     "failures": 0,
@@ -222,6 +261,15 @@
     "state": "35 new originals installed; 1390 selected originals unresolved; next 31-source scripted wave running"
   },
   "pengChauRecovered": 1425,
+  "pengSweep": {
+    "batch": "government-islands-peng-chau-sweep-013-20261106-v1",
+    "clearScriptCandidates": 1,
+    "completedSources": 122,
+    "completedWaves": 12,
+    "newlyInstalled": 0,
+    "session": 14599,
+    "state": "nominate"
+  },
   "priorityOrder": [
     "peng-chau-original-installation",
     "peng-chau-compression",
@@ -239,24 +287,12 @@
   "tungChungRecovered": 1771,
   "workers": [
     {
-      "phase": "remaining-current-disjoint-peng-tin-sweep",
-      "session": 14599,
       "log": "/tmp/astra-peng-chau-tin-sweep-20261106-v1.log",
-      "state": "docs/astra-city/government-import/government-islands-peng-chau-sweep-control-20261106-v1/state.json",
       "maxExplicitWaves": 16,
-      "publication": false
+      "phase": "remaining-current-disjoint-peng-tin-sweep",
+      "publication": false,
+      "session": 14599,
+      "state": "docs/astra-city/government-import/government-islands-peng-chau-sweep-control-20261106-v1/state.json"
     }
-  ],
-  "pairedIslandsCompression": {
-    "state": "processing-complete-unreviewed",
-    "models": 173,
-    "variants": 692,
-    "failedVariants": 0,
-    "pengChau": 36,
-    "cheungChau": 137,
-    "published": false,
-    "report": "docs/astra-city/model-optimisation/peng-cheung-installed-20261106-v5",
-    "portableBundleSHA256": "6877e2aac55620a285abeac8aab4e59cfffdc2e66e9f0c4c6a01e4cf0c45d0fb",
-    "neonJob": "473b09bd754239e5fa9c3fb0a75d32b59fa2671552aecf7f0c426ea0eb6800f8"
-  }
+  ]
 }
