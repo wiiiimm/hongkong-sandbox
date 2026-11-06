@@ -1,5 +1,6 @@
 """Explicit, pinned modelling branch; never falls back to application DATABASE_URL."""
 import json
+from contextlib import contextmanager
 import os
 from pathlib import Path
 import certifi
@@ -65,3 +66,15 @@ if __name__ == '__main__':
         with connect() as con:
             database, version = con.execute('SELECT current_database(),current_setting(\'server_version\')').fetchone()
         print(json.dumps(dict(branch=CONFIG['branch_name'], database=database, version=version)))
+
+
+@contextmanager
+def transaction(connection):
+    """Borrow a pinned connection for one fenced operation without closing it."""
+    # Callers obtain this connection through connect(); transactions still commit
+    # or roll back per operation, rather than retaining locks across model work.
+    hosts = (CONFIG['host'], CONFIG['host'].replace('.c-', '-pooler.c-', 1))
+    if connection.info.host not in hosts or connection.info.dbname != CONFIG['database']:
+        raise ValueError('Borrowed connection must use the pinned modelling branch')
+    with connection.transaction():
+        yield connection

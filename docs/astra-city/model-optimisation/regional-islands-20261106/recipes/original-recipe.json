@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "tier": "original",
+  "status": "ready",
+  "lossy": false,
+  "tools": {
+    "meshoptimizer": "0.24.0",
+    "node": "24.18.0"
+  },
+  "parameters": {
+    "adapter": "meshopt-exact-buffer-views-v1",
+    "geometryCodec": "meshopt",
+    "transportEncoding": "gzip",
+    "gzipLevel": 9,
+    "quantisation": false,
+    "simplification": false,
+    "cleanup": false,
+    "reorder": false,
+    "attributeFilter": "NONE",
+    "indexMode": "INDICES",
+    "runtimeDecoderSha256": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd",
+    "adapterSha256": "c52af2d4f9e0001e51dedf3a6cc5cf1a9a50d0c87e32cfbf957e4e729ba0dc21",
+    "npmLockSha256": "2694b2090de35715560ece0eaa2291318d22af425ab03f5ed713a253eb54ae22"
+  },
+  "acceptance": {
+    "processing": "Exact runtime-decoder bufferView readback; unchanged accessors, scene/materials/transforms; finite original attributes; source/output SHA256; no vertex/triangle/corner reordering or removal.",
+    "beneficial": "Whole output GLB.gzip smaller than existing source GLB.gzip; all non-beneficial attempts retained.",
+    "approval": "Separate six-gate review required. Visual, current physical context, collisions and device performance stay untested.",
+    "publication": "Private staging only; no runtime catalogue or source assets changed."
+  }
+}
