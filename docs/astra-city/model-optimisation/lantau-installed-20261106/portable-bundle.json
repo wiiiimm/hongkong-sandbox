@@ -9,5 +9,23 @@
   "objectPathPolicy": "objects/<compressed SHA-256>.glb.gz; original source bytes and candidate bytes are included; metadata source/variant indexes resolve hashes",
   "published": false,
   "validationStatus": "unreviewed",
-  "qualification": "Portable geometry/source/variant data and recipes only. Viewer/terrain/runtime integration and quality approval are separate. Individual processing receipts remain in pinned Neon/private staging at indexed paths."
+  "qualification": "Portable geometry/source/variant data and recipes only. Viewer/terrain/runtime integration and quality approval are separate. Individual processing receipts remain in pinned Neon/private staging at indexed paths.",
+  "gitParts": [
+    {
+      "path": "docs/astra-city/model-optimisation/lantau-installed-20261106/bundle/lantau-enhanced-compression-20261106.tar.gz.part-000",
+      "bytes": 41943040,
+      "sha256": "2e3508fb45f119d3a6bb81430706ac9853bfcd1f07c2d383f70cf3eb9cad9462"
+    },
+    {
+      "path": "docs/astra-city/model-optimisation/lantau-installed-20261106/bundle/lantau-enhanced-compression-20261106.tar.gz.part-001",
+      "bytes": 41943040,
+      "sha256": "09a1afbe5345bfd54df825f65b998afd039cb5d3ece429bba4e5a7b8e51572e9"
+    },
+    {
+      "path": "docs/astra-city/model-optimisation/lantau-installed-20261106/bundle/lantau-enhanced-compression-20261106.tar.gz.part-002",
+      "bytes": 28047680,
+      "sha256": "27965af1f26fc9a61dc8918f2c01e45d2815d377b42e48f7378328950bbcec81"
+    }
+  ],
+  "reassemble": "cat bundle/lantau-enhanced-compression-20261106.tar.gz.part-* > lantau-enhanced-compression-20261106.tar.gz"
 }

@@ -36,7 +36,7 @@ The actual committed renderer exports embedded meshes, including its existing fo
 
 Smaller meshes can grow because of codec/container overhead. Preserve non-beneficial candidates and retain original bytes where smaller. Four tier labels do not promise four triangle counts. Offline byte/geometry checks are not visual, collision, physical-device or runtime publication approval. Outputs stay private and unreviewed; no compressed Lantau variants are served by the viewer yet. Embedded variants additionally need a compatible runtime routing path before publication.
 
-Large generated GLBs and raw receipts are ignored and kept out of Git/Vercel. Final source/variant indexes, hashes and measured summaries belong here; durable object-storage delivery remains separate from local generation. No R2 migration or deployment is performed by this batch.
+Raw staging GLBs and receipts remain ignored. At the user’s explicit request, the portable Lantau geometry archive is committed as three parts under `bundle/` for transfer to the new project. It is outside the deployable viewer. Final source/variant indexes, hashes and measured summaries belong here; durable object-storage delivery remains separate from local generation. No R2 migration or deployment is performed by this batch.
 
 Validation before launch: 22 optimisation Python tests (18 passed, 4 dedicated-database skips), plus the previously passing shared-worker and Node codec/export suites. No AI geometry modelling or per-model AI call is used.
 
@@ -59,6 +59,13 @@ The progressive baseline is 17,797,559 gzip bytes. Embedded render exports are a
 
 `variants.json.gz` contains all exact source/recipe/output identities, hashes, local asset/receipt paths and measured bytes/triangles/benefit flags. `sources.json.gz` preserves the exact original snapshot bytes. `summary.json` and `neon-sync.json` bind the completed cohort and checkpoint.
 
-A portable data bundle (111,933,760 bytes) contains all 33,923 unique original/candidate geometry objects, the source/variant metadata and four recipes. See `portable-bundle.json` for its ignored local path and SHA-256, and `portable-bundle-readback.json` for full object and metadata readback. Binary assets are intentionally absent from Git; another machine needs that bundle or a separately configured asset sync. This is geometry/source/variant data, not a viewer/terrain package or approved runtime release.
+A portable data bundle (111,933,760 bytes) contains all 33,923 unique original/candidate geometry objects, the source/variant metadata and four recipes. See `portable-bundle.json` for its ignored local path and SHA-256, and `portable-bundle-readback.json` for full object and metadata readback. At the user’s explicit request, all bundle bytes are now committed in three ordered parts under `bundle/`; per-part hashes and byte counts are in `portable-bundle.json`. From this directory, reassemble with:
+
+```sh
+cat bundle/lantau-enhanced-compression-20261106.tar.gz.part-* > lantau-enhanced-compression-20261106.tar.gz
+printf '41ef88f637bb1d717c8815497b4754ddf0ead63881ea5bd251423f24f6474f2b  lantau-enhanced-compression-20261106.tar.gz\n' | sha256sum --check
+```
+
+Committing transport data does not approve variants for runtime serving. This is geometry/source/variant data, not a viewer/terrain package or approved runtime release.
 
 Validation: **66 unit/codec tests passed, 15 dedicated-database tests skipped**, plus four actual ownership-equivalence cases. Both source/recipe identities remained identical across the bounded runner correction; no completed variant was re-encoded after that correction. No AI geometry modelling or per-model AI call.
