@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-06",
+  "branch": "feature/islands-model-enhancement-and-compression",
+  "checkpoint": "dd7fd38e300399d506665697ad70731e7158b241",
+  "originalXLCampaign": "paused",
+  "newlyInstalled": 0,
+  "bulkCompressionStarted": false,
+  "workers": [],
+  "completed": [
+    {
+      "session": 79070,
+      "phase": "recover",
+      "region": "peng-chau",
+      "offset": 0,
+      "count": 1000,
+      "assets": 1000,
+      "errors": 0,
+      "aiCalls": 0
+    },
+    {
+      "session": 6772,
+      "phase": "prepare",
+      "region": "peng-chau",
+      "offset": 0,
+      "count": 1000
+    },
+    {
+      "session": 6820,
+      "phase": "prepare",
+      "region": "peng-chau",
+      "offset": 1000,
+      "count": 425
+    },
+    {
+      "session": 24683,
+      "phase": "prepare",
+      "region": "cheung-chau",
+      "offset": 0,
+      "count": 1000
+    },
+    {
+      "session": 78962,
+      "phase": "prepare",
+      "region": "cheung-chau",
+      "offset": 1000,
+      "count": 1000
+    }
+  ],
+  "failedSupervisor": {
+    "session": 63283,
+    "phase": "check",
+    "region": "peng-chau",
+    "count": 1000,
+    "error": "lease-not-owned-or-unreachable; no child model check started",
+    "leasePath": "source-scripts/city/government-import/local/government-islands-peng-chau-0000-1000-20261106/reservation.json",
+    "next": "Verify ownership, then retry only concrete supervisor using same owned receipt. Do not restart completed recovery or acquire another overlapping owner."
+  },
+  "state": "paused-by-user",
+  "pauseReason": "6 November 2026: pause all other model processing; compress existing enhanced Lantau models first.",
+  "activeAcquisitionWorkers": 0,
+  "sourceRefreshSession": 26262,
+  "firstPassSession": 83473,
+  "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
+  "firstPassState": "supervised workers stopped; completed and partial proofs retained",
+  "activeSourceLeases": 0,
+  "freshCheungChauVerified": 680,
+  "pengChauRecovered": 1425,
+  "tungChungRecovered": 1771,
+  "allOtherModelProcessing": "stopped at user request"
+}
