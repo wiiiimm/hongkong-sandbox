@@ -86,10 +86,10 @@ def claim(owner, resources, ttl=DEFAULT_TTL, batch=None, *, expected_tokens=None
             (token,owner,batch,resources,lease_until) VALUES(%s,%s,%s,%s,
             clock_timestamp()+make_interval(secs=>%s)) RETURNING *''',
             (token, owner, batch, resources, ttl)).fetchone()
-        for resource in resources:
-            con.execute('''INSERT INTO astra_modelling.reservations(resource,token) VALUES(%s,%s)
+        con.cursor().executemany('''INSERT INTO astra_modelling.reservations(resource,token) VALUES(%s,%s)
                 ON CONFLICT(resource) DO UPDATE SET token=EXCLUDED.token,
-                generation=nextval('astra_modelling.reservation_generation')''', (resource, token))
+                generation=nextval('astra_modelling.reservation_generation')''',
+            [(resource, token) for resource in resources])
         _event(con, 'takeover' if override else ('reclaim' if previous else 'claim'),
                owner, token, resources, previous, reason)
         generations = {row['resource']: row['generation'] for row in _rows(con, resources)}
