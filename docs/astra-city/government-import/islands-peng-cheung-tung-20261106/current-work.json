@@ -5,7 +5,13 @@
   "originalXLCampaign": "paused",
   "newlyInstalled": 21,
   "bulkCompressionStarted": false,
-  "workers": [],
+  "workers": [
+    {
+      "phase": "peng-chau-300-current-runtime",
+      "session": 94760,
+      "log": "/tmp/astra-peng-chau-terrain-runtime-20261106-v1.log"
+    }
+  ],
   "completed": [
     {
       "session": 79070,
@@ -92,5 +98,12 @@
     "sourceTINCandidates": 300,
     "state": "queued-current-runtime-and-neighbour-checks"
   },
-  "next": "Commit installed originals, compress committed installed Peng Chau detail, then continue 300 source-TIN candidates; Cheung Chau follows."
+  "next": "Commit installed originals, compress committed installed Peng Chau detail, then continue 300 source-TIN candidates; Cheung Chau follows.",
+  "pengChauCompression": {
+    "state": "processing-complete-unreviewed",
+    "models": 22,
+    "variants": 88,
+    "failures": 0,
+    "published": false
+  }
 }

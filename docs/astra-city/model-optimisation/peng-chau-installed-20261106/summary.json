@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "executor": "codex-islands-compression-20261106",
+  "branchId": "br-icy-silence-b3wjwz0q",
+  "sourceCommit": "954b4c6eda356015ecbefbe22aec3075659657fb",
+  "sourceSnapshotSha256": "94d547acf1d5c257fcdc2692f39dcf0436975335263ad6812c64f2447d4e9610",
+  "sourceArchiveSha256": "bb6b784a722569a48ec078e93e8d57540075677ab1c892104d845756e805d6fb",
+  "variantIndexSha256": "0a264429d092bfd09c37f4b00ab271054012d8f76b5485d35d0c930c3bd104dc",
+  "models": 22,
+  "variants": 88,
+  "tiers": [
+    "original",
+    "high",
+    "balanced",
+    "lightweight"
+  ],
+  "sourceKinds": {
+    "progressive-glb-v1": 22
+  },
+  "sections": {
+    "10.12": 22
+  },
+  "reviewStates": {
+    "unreviewed": 88
+  },
+  "failedVariants": 0,
+  "workerReports": [
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/original/workers/1793955385742173467-1.json",
+      "sha256": "3ba50102f3f19646cc4422059b605da2c02fb67e09ef3ad735eb24da46932064"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/original/workers/1793955404569821440-0.json",
+      "sha256": "6ab5aed281345fe7af6c1e8acb68365d833c3438aa03fa6c4f3b02ba08875971"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/high/workers/1793955407580840170-1.json",
+      "sha256": "5242421547eb98fdcbda68c64a8e39e26f906c9bd43ab1f6adffc5c3b1e3961b"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/high/workers/1793955425748917662-0.json",
+      "sha256": "7e6fb655c96a2c8b1686727236146f4034677051ed8df9c8ae4f92c37ec71cc3"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/balanced/workers/1793955428707639874-1.json",
+      "sha256": "660c55a7d0d7e8a5f39934297efcd7db7c99d9e3bfe510a23dab66b7e76c611e"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/balanced/workers/1793955447052493321-0.json",
+      "sha256": "e44a1019928e7486bbcec0f2ab522c6892e4f07e26e2bfbd7ab3885df8845c99"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/lightweight/workers/1793955450047733703-1.json",
+      "sha256": "02626829f067c7894190a6e1436fd1bc81cd1a72d31b0773215916aebec25ff8"
+    },
+    {
+      "path": "source-scripts/city/model-optimisation/staging/regional-peng-chau-installed-20261106-v1/lightweight/workers/1793955468990436836-0.json",
+      "sha256": "330f9b7d573b605540080bf4729461cbddc82260c83c1b040282e3fc4bd7af8c"
+    }
+  ],
+  "verifiedFileCount": 176,
+  "measurementsBySourceKindAndTier": {
+    "progressive-glb-v1 / high": {
+      "models": 22,
+      "sourceBytes": 37083,
+      "candidateBytes": 42278,
+      "effectiveBytesKeepingSmaller": 37083,
+      "beneficialModels": 0,
+      "sourceTriangles": 1957,
+      "candidateTriangles": 1957,
+      "potentialSavingsPercent": 0.0
+    },
+    "progressive-glb-v1 / balanced": {
+      "models": 22,
+      "sourceBytes": 37083,
+      "candidateBytes": 41269,
+      "effectiveBytesKeepingSmaller": 37066,
+      "beneficialModels": 1,
+      "sourceTriangles": 1957,
+      "candidateTriangles": 1909,
+      "potentialSavingsPercent": 0.04584310870210384
+    },
+    "progressive-glb-v1 / lightweight": {
+      "models": 22,
+      "sourceBytes": 37083,
+      "candidateBytes": 39125,
+      "effectiveBytesKeepingSmaller": 36642,
+      "beneficialModels": 3,
+      "sourceTriangles": 1957,
+      "candidateTriangles": 1907,
+      "potentialSavingsPercent": 1.1892241728015507
+    },
+    "progressive-glb-v1 / original": {
+      "models": 22,
+      "sourceBytes": 37083,
+      "candidateBytes": 46035,
+      "effectiveBytesKeepingSmaller": 37083,
+      "beneficialModels": 0,
+      "sourceTriangles": 1957,
+      "candidateTriangles": 1957,
+      "potentialSavingsPercent": 0.0
+    }
+  },
+  "published": false,
+  "sourceGeometryChanges": 0,
+  "modelReviewWrites": 0,
+  "qualification": "All expected variants complete with independent worker decoder checks and final Neon/file/receipt readback. Embedded bytes are a new rendered-GLB export baseline, not existing JSON tile transfer savings. Visual/physical/collision/device approval and runtime publication remain separate."
+}
