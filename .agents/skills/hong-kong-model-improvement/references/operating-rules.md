@@ -54,6 +54,13 @@ Before expensive physical work, preflight every installed UID used by dependency
 
 ## Prefer authentic terrain replacement before expensive role work
 
+After a verified installation adds terrain, first recheck nearby uninstalled
+originals against that now-installed surface before constructing more patches.
+Nominate using complete source bounds and the exact current manifest; replay
+source identity, contact, dependencies and runtime checks. Existing terrain can
+benefit other originals, but proximity or a prior source's acceptance grants no
+credit: every new port still needs its own staged/live browser and publisher gates.
+
 Before proposing another original to replace a blocking BASIC neighbour, replay
 the existing `resolve-pass.py` full vertex/triangle-centre and <=1 m low-rim
 `sample_points`/`audit_native` checks against its exact original terrain. A prior
