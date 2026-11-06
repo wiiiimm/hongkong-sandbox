@@ -22,20 +22,27 @@ on:
     paths:
       - '3d-viewer/data/**'
       - '.github/workflows/sync-r2-assets.yml'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Sync viewer data or recover the approved 17 exact Cheung originals
+        type: choice
+        required: true
+        default: sync
+        options: [sync, recover-originals]
 
 permissions:
   contents: read
 
 concurrency:
-  group: r2-sync
+  group: ${{ github.event_name == 'workflow_dispatch' && inputs.operation == 'recover-originals' && 'r2-original-recovery' || 'r2-sync' }}
   cancel-in-progress: false
 
 jobs:
   sync:
     # opt-in: only runs where the destination bucket variable is configured
     # (vars — unlike secrets — are available in job-level if conditions)
-    if: ${{ vars.R2_BUCKET != '' }}
+    if: ${{ vars.R2_BUCKET != '' && (github.event_name != 'workflow_dispatch' || inputs.operation != 'recover-originals') }}
     runs-on: ubuntu-latest
     steps:
       # sparse checkout: only the data payload, not the rest of the repo
@@ -62,3 +69,38 @@ jobs:
             --no-progress \
             --content-type "application/json" \
             --cache-control "public, max-age=3600"
+
+  recover-originals:
+    # Explicitly approved bounded read-only recovery; never runs the sync job.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.operation == 'recover-originals' && github.ref == 'refs/heads/feature/islands-model-enhancement-and-compression' && vars.R2_BUCKET == 'hk-sandbox-assets' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            source-scripts/city/government-import/recover_r2_originals.py
+            docs/astra-city/government-import/government-islands-cheung-r2-recovery-20261107-v1/plan.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned read-only recovery client
+        run: python -m pip install --disable-pip-version-check boto3==1.34.46
+      - name: Recover only the approved exact original files
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+        run: |
+          python source-scripts/city/government-import/recover_r2_originals.py \
+            --plan docs/astra-city/government-import/government-islands-cheung-r2-recovery-20261107-v1/plan.json \
+            --plan-sha256 7038555e77c0c43f8402d4260548e435ca1922272bea30655ae9a21f85d201ca \
+            --output "$RUNNER_TEMP/recovered-originals"
+      - name: Export only verified originals and the recovery report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cheung-chau-exact-originals-${{ github.run_id }}
+          path: ${{ runner.temp }}/recovered-originals/
+          if-no-files-found: error
+          retention-days: 7
