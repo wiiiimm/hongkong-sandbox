@@ -3,32 +3,13 @@
   "branch": "feature/islands-model-enhancement-and-compression",
   "checkpoint": "dd64b1083d",
   "originalXLCampaign": "paused",
-  "newlyInstalled": 134,
+  "newlyInstalled": 159,
   "bulkCompressionStarted": true,
   "workers": [
     {
-      "phase": "cheung-remaining-authentic-terrain-context",
-      "shard": 0,
-      "session": 47948,
-      "log": "/tmp/astra-cheung-chau-context-0-20261106-v2.log"
-    },
-    {
-      "phase": "cheung-remaining-authentic-terrain-context",
-      "shard": 1,
-      "session": 96196,
-      "log": "/tmp/astra-cheung-chau-context-1-20261106-v2.log"
-    },
-    {
-      "phase": "cheung-remaining-authentic-terrain-context",
-      "shard": 2,
-      "session": 83993,
-      "log": "/tmp/astra-cheung-chau-context-2-20261106-v2.log"
-    },
-    {
-      "phase": "cheung-remaining-authentic-terrain-context",
-      "shard": 3,
-      "session": 98547,
-      "log": "/tmp/astra-cheung-chau-context-3-20261106-v2.log"
+      "phase": "cheung-50-disjoint-authentic-terrain-proposals",
+      "session": 22843,
+      "log": "/tmp/astra-cheung-chau-tin-stage-20261106-v1.log"
     }
   ],
   "completed": [
@@ -148,7 +129,7 @@
       "clearBatch": "government-islands-peng-chau-disjoint-clear-20261106-v1"
     }
   },
-  "next": "Compress combined 100 committed Cheung originals before another manifest publication; review final 25 staged exports. Preserve Peng 31 diagnostics and bind the one clear candidate to fresh final context before installation.",
+  "next": "Compress 125 committed Cheung originals; finish fresh terrain/runtime follow-up and Peng single-source current-context checks before further publication.",
   "pengChauCompression": {
     "state": "processing-complete-unreviewed",
     "models": 35,
@@ -159,7 +140,7 @@
   },
   "cheungChauResume": {
     "batch": "government-islands-cheung-chau-resume-20261106-v2",
-    "state": "100 originals installed and independently verified; last 25 of current clear pool in staged browser",
+    "state": "Initial 125-candidate pool all installed and independently verified; authentic-TIN follow-up running",
     "reused": 1398,
     "toRecover": 2022,
     "initialRecovered": 3237,
@@ -172,8 +153,8 @@
     "identityOnlyResolved": 58,
     "identityOnlyUnresolved": 82,
     "potentialClearPool": 125,
-    "installed": 100,
-    "remainingSelected": 3320,
+    "installed": 125,
+    "remainingSelected": 3295,
     "additionalTerrainIdentity": {
       "models": 1871,
       "positiveIdentities": 861,
@@ -183,7 +164,14 @@
         "government-islands-cheung-chau-identity-terrain-1-20261106-v1"
       ]
     },
-    "currentFinal25": "All 100 staged exports viewed and inspection recorded; wait for current source-context shards before guarded installation"
+    "currentFinal25": "installed-verified",
+    "sourceTINFollowup": {
+      "contextModels": 3278,
+      "eligibleNominationPool": 672,
+      "disjointSelected": 50,
+      "batch": "government-islands-cheung-chau-disjoint-terrain-20261106-v1",
+      "currentFullNativeScope": 7268
+    }
   },
   "completedWorkerSupervisors": [
     {
@@ -200,9 +188,9 @@
     }
   ],
   "cheungChauInstalled": {
-    "models": 100,
-    "snapshotId": "433fa3f10f17a6aa",
-    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-direct-002-20261106-v2/independent-installed-readback.json"
+    "models": 125,
+    "snapshotId": "992a2368b17a0f4f",
+    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-direct-003-20261106-v2/independent-installed-readback.json"
   },
   "cheungChauCompression": {
     "state": "processing-complete-unreviewed",
@@ -220,5 +208,5 @@
     "modelsWithoutExactAsset": 17,
     "report": "docs/astra-city/government-import/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain.json"
   },
-  "nextManifestChange": "Compression checkpoint complete. Wait for all current context shards before installing final 25 so pinned source-context evidence is not invalidated."
+  "nextManifestChange": "Wait for current 50-domain proposal, full-scope checks and 125-source compression checkpoint; retain all source/context bindings."
 }
