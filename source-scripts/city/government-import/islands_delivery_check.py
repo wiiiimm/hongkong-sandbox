@@ -19,8 +19,45 @@ def images(doc, phase):
     return report, rows
 
 
+def same_visual_subject(a, b):
+    keys = ('uid', 'width', 'time', 'sourceSHA256', 'originalTriangles')
+    return all(k in a and k in b and a[k] == b[k] for k in keys)
+
+
+def exact_visual_reuse(doc, rows):
+    """Reuse viewed PNG bytes only; every live functional gate still runs."""
+    inspection_path = doc / 'staged-inspection.json'
+    if not inspection_path.exists():
+        return rows, []
+    inspection = read(inspection_path)
+    assert inspection['actuallyViewed'] and inspection['renderingAccepted']
+    assert inspection['stagedBrowserSHA256'] == sha(doc / 'solid-staged-browser.json')
+    approved_images = {r['path']: r['sha256'] for r in inspection['images']}
+    staged = {(v['uid'], v['width'], v['time']): v
+              for v in read(doc / 'solid-staged-browser.json')['views'] if 'time' in v}
+    changed, reused = [], []
+    for row in rows:
+        previous = staged[row['uid'], row['width'], row['time']]
+        old, new = doc / previous['file'], doc / row['file']
+        old_sha, new_sha = sha(old), sha(new)
+        assert approved_images[rel(old)] == old_sha
+        if same_visual_subject(row, previous) and old_sha == new_sha:
+            reused.append({'path': rel(new), 'sha256': new_sha,
+                'previouslyViewedImage': rel(old), 'stagedInspectionPath': rel(inspection_path),
+                'stagedInspectionSHA256': sha(inspection_path)})
+        else:
+            changed.append(row)
+    return changed, reused
+
+
 def sheets(doc, phase):
     report, rows = images(doc, phase)
+    all_rows = rows
+    reused = []
+    if phase == 'live':
+        batch = read(doc / 'stage.json')['batch']
+        solid_verified(read(report), read(HERE / 'accepted' / batch / 'catalogue.json')['models'])
+        rows, reused = exact_visual_reuse(doc, rows)
     paths = []
     for start in range(0, len(rows), 8):
         group = rows[start:start + 8]
@@ -38,10 +75,13 @@ def sheets(doc, phase):
         paths.append({'path': rel(path), 'sha256': sha(path)})
     save(doc / f'{phase}-inspection-sheets.json', {
         'report': rel(report), 'reportSHA256': sha(report), 'sheets': paths,
-        'images': [{'path': rel(doc / v['file']), 'sha256': sha(doc / v['file'])} for v in rows],
+        'images': [{'path': rel(doc / v['file']), 'sha256': sha(doc / v['file'])} for v in all_rows],
+        'sheetedImagePaths': [rel(doc / v['file']) for v in rows],
+        'exactPreviouslyViewedVisualReuse': reused,
         'actuallyViewed': False,
     })
-    print({'images': len(rows), 'sheets': [p['path'] for p in paths]}, flush=True)
+    print({'images': len(all_rows), 'newImagesToInspect': len(rows), 'identicalViewedImages': len(reused),
+           'sheets': [p['path'] for p in paths]}, flush=True)
 
 
 def inspect(doc, batch, phase):
@@ -49,6 +89,16 @@ def inspect(doc, batch, phase):
     for item in metadata['images'] + metadata['sheets']:
         assert sha(ROOT / item['path']) == item['sha256']
     assert sha(ROOT / metadata['report']) == metadata['reportSHA256']
+    reused = metadata.get('exactPreviouslyViewedVisualReuse', [])
+    sheeted = set(metadata.get('sheetedImagePaths', [r['path'] for r in metadata['images']]))
+    assert not sheeted.intersection(r['path'] for r in reused)
+    assert sheeted | {r['path'] for r in reused} == {r['path'] for r in metadata['images']}
+    for item in reused:
+        old_inspection = read(ROOT / item['stagedInspectionPath'])
+        assert old_inspection['actuallyViewed'] and old_inspection['renderingAccepted']
+        assert sha(ROOT / item['stagedInspectionPath']) == item['stagedInspectionSHA256']
+        assert sha(ROOT / item['previouslyViewedImage']) == sha(ROOT / item['path']) == item['sha256']
+        assert {'path': item['previouslyViewedImage'], 'sha256': item['sha256']} in old_inspection['images']
     stage = HERE / 'accepted' / batch
     report, rows = images(doc, phase)
     models = read(stage / 'catalogue.json')['models']
@@ -95,8 +145,14 @@ def inspect(doc, batch, phase):
     catalogue_path = ROOT / '3d-viewer' / destination
     models = read(catalogue_path)['models']
     assert set(installed['uids']) == {m['uid'] for m in models}
+    # Publication may change review fields only, never source pose/assembly data.
+    review_fields = {'placementReviewed', 'sourceIdentityReviewed', 'identityReviewApproved',
+                     'publicationApproved', 'placementReview'}
+    originals = {m['uid']: m for m in read(stage / 'catalogue.json')['models']}
     for model in models:
         assert sha(catalogue_path.parent / model['asset']) == model['sha256']
+        assert {k: v for k, v in model.items() if k not in review_fields} == {
+            k: v for k, v in originals[model['uid']].items() if k not in review_fields}
     with connect() as db:
         db.execute('SET TRANSACTION READ ONLY')
         rows = dict(db.execute('SELECT uid,review_state FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=ANY(%s)',
@@ -107,6 +163,9 @@ def inspect(doc, batch, phase):
         'allOldCatalogueAssetTerrainAndTileBytesPreserved': True, 'oldFilesVerified': len(pins),
         'onlyManifestChange': f'Append one catalogue and {len(additions)} exact terrain patches',
         'sourceGeometryChanges': 0, 'exactNeonRows': len(rows),
+        'newModelEntryFieldsPreservedExceptReview': True,
+        'newLiveImagesActuallyInspected': len(sheeted),
+        'liveImagesMatchingPreviouslyInspectedBytes': len(reused),
     })
     print({'installedReadback': len(models), 'oldFilesVerified': len(pins), 'terrainAdditions': len(additions)}, flush=True)
 

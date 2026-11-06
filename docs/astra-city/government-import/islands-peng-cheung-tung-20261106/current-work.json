@@ -3,13 +3,13 @@
   "branch": "feature/islands-model-enhancement-and-compression",
   "checkpoint": "dd7fd38e300399d506665697ad70731e7158b241",
   "originalXLCampaign": "paused",
-  "newlyInstalled": 34,
+  "newlyInstalled": 84,
   "bulkCompressionStarted": true,
   "workers": [
     {
-      "phase": "cheung-first-50-guarded-installation-and-live-browser",
-      "session": 80110,
-      "log": "/tmp/astra-cheung-chau-direct-001-install-20261106-v1.log"
+      "phase": "cheung-next-50-staged-browser",
+      "session": 31268,
+      "log": "source-scripts/city/government-import/local/government-islands-cheung-chau-direct-002-20261106-v2-continuation/browser.log"
     }
   ],
   "completed": [
@@ -102,7 +102,7 @@
     "models": 1404,
     "identitiesPositive": 707,
     "sourceTINCandidates": 300,
-    "state": "First pass and available 300-terrain plus eight existing-terrain follow-ups complete; 1394 source/placement exceptions remain for grouped compute investigation",
+    "state": "34 new sources installed; 1391 selected originals require grouped identity/source/terrain investigation",
     "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
     "narrowTerrain": {
       "models": 3,
@@ -115,7 +115,7 @@
       "snapshotId": "226a7903fcd56cd9"
     }
   },
-  "next": "Complete the first 50 Cheung installations and inspect/read back actual live images; commit/push, compress, then install the remaining 75 strict/identity-resolved candidates.",
+  "next": "Commit/push first 50 Cheung originals and compress; inspect next 50 staged exports before guarded installation. Both whole islands remain incomplete.",
   "pengChauCompression": {
     "state": "processing-complete-unreviewed",
     "models": 35,
@@ -126,7 +126,7 @@
   },
   "cheungChauResume": {
     "batch": "government-islands-cheung-chau-resume-20261106-v2",
-    "state": "all first-pass checks complete; first 50 in staged browser",
+    "state": "First 50 installed and independently verified; next 50 staged browser running",
     "reused": 1398,
     "toRecover": 2022,
     "initialRecovered": 3237,
@@ -138,7 +138,9 @@
     "identityOnly": 140,
     "identityOnlyResolved": 58,
     "identityOnlyUnresolved": 82,
-    "potentialClearPool": 125
+    "potentialClearPool": 125,
+    "installed": 50,
+    "remainingSelected": 3370
   },
   "completedWorkerSupervisors": [
     {
@@ -153,5 +155,10 @@
       "session": 47150,
       "state": "all 51 original recovery groups finished; initial index 3237/3420; remaining peers being repaired before checks"
     }
-  ]
+  ],
+  "cheungChauInstalled": {
+    "models": 50,
+    "snapshotId": "2b9e12762d2145b6",
+    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-direct-001-20261106-v2/independent-installed-readback.json"
+  }
 }
