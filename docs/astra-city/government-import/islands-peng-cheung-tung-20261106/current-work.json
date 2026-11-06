@@ -5,7 +5,18 @@
   "originalXLCampaign": "paused",
   "newlyInstalled": 31,
   "bulkCompressionStarted": true,
-  "workers": [],
+  "workers": [
+    {
+      "phase": "cheung-chau-source-recovery",
+      "session": 47150,
+      "log": "/tmp/astra-cheung-chau-recovery-20261106-v2.log"
+    },
+    {
+      "phase": "cheung-chau-check-continuation",
+      "session": 11146,
+      "log": "/tmp/astra-cheung-chau-check-continuation-20261106-v2.log"
+    }
+  ],
   "completed": [
     {
       "session": 79070,
@@ -96,14 +107,30 @@
     "identitiesPositive": 707,
     "sourceTINCandidates": 300,
     "state": "First pass and available 300-terrain plus eight existing-terrain follow-ups complete; 1394 source/placement exceptions remain for grouped compute investigation",
-    "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614"
+    "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
+    "narrowTerrain": {
+      "models": 3,
+      "state": "script-clear-awaiting-browser-and-publication",
+      "affectedForms": 134,
+      "currentNatives": 7140,
+      "nominatedNatives": 8,
+      "neonJob": "3620a0fe53feafe4eb18bddc815ef2a3a83b37397905a507cf07ab0108797a07",
+      "publicationDeferredUntilCheungSourceCaptureCompletes": true
+    }
   },
   "next": "Compress all 32 committed Peng Chau installed sources; source-only Cheung Chau acquisition resumes with 1398 exact local originals reused and 2022 missing.",
   "pengChauCompression": {
     "state": "processing-complete-unreviewed",
-    "models": 22,
-    "variants": 88,
+    "models": 32,
+    "variants": 128,
     "failures": 0,
-    "published": false
+    "published": false,
+    "report": "docs/astra-city/model-optimisation/peng-chau-installed-20261106-v2"
+  },
+  "cheungChauResume": {
+    "batch": "government-islands-cheung-chau-resume-20261106-v2",
+    "state": "recovering-exact-originals",
+    "reused": 1398,
+    "toRecover": 2022
   }
 }
