@@ -3,15 +3,9 @@
   "branch": "feature/islands-model-enhancement-and-compression",
   "checkpoint": "dd7fd38e300399d506665697ad70731e7158b241",
   "originalXLCampaign": "paused",
-  "newlyInstalled": 0,
+  "newlyInstalled": 21,
   "bulkCompressionStarted": false,
-  "workers": [
-    {
-      "phase": "peng-chau-direct-browser",
-      "session": 19155,
-      "log": "/tmp/astra-peng-chau-direct-browser-20261106-v1.log"
-    }
-  ],
+  "workers": [],
   "completed": [
     {
       "session": 79070,
@@ -85,5 +79,18 @@
     "models": 1404,
     "summary": "docs/astra-city/government-import/government-islands-peng-chau-context-20261106-v1/summary.json"
   },
-  "lantauBundleCommit": "87c413cde7"
+  "lantauBundleCommit": "87c413cde7",
+  "installedPengChau": {
+    "batch": "government-islands-peng-chau-direct-20261106-v1",
+    "models": 21,
+    "snapshotId": "376c021a57415687",
+    "status": "verified-feature-branch"
+  },
+  "pengChauFollowup": {
+    "models": 1404,
+    "identitiesPositive": 707,
+    "sourceTINCandidates": 300,
+    "state": "queued-current-runtime-and-neighbour-checks"
+  },
+  "next": "Commit installed originals, compress committed installed Peng Chau detail, then continue 300 source-TIN candidates; Cheung Chau follows."
 }
