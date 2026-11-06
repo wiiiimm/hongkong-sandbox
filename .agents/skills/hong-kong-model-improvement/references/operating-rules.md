@@ -54,6 +54,15 @@ Before expensive physical work, preflight every installed UID used by dependency
 
 ## Prefer authentic terrain replacement before expensive role work
 
+Before proposing another original to replace a blocking BASIC neighbour, replay
+the existing `resolve-pass.py` full vertex/triangle-centre and <=1 m low-rim
+`sample_points`/`audit_native` checks against its exact original terrain. A prior
+foundation summary or positive identity is a nomination, not proof that every low
+edge passes the original terrain contract. Resolve this inexpensive source check
+before constructing finer terrain grids or spending staged/live browser work on
+the entire coupled group. Preserve every raw negative and require all members of
+an atomic terrain group to pass; one clear member does not make the group ready.
+
 For floating projection coverage negatives, keep the raw context and use exact rational coverage of the identical source/ground bytes. Fu Yuet's7GEOSnegatives all resolve exactly. An exact coverage proof alone does not certify clearance: bind its source/ground hashes and conservatively bound residual source minimum height against every closed-AABB candidate ground maximum, then replay ordinary samples/rims in all4coordinate representations. original_four_world_exact_rims_v1.py and the independent Fu Yuet root check provide this path without geometry edits or tolerance credit. A pre-existing current native coverage residue should be judged by the unchanged production native validator, not an extra exact-zero surrogate precheck; all actual source/neighbour gates still apply.
 
 When a lower-only native terrain inset clears burial but leaves raised original low rims, test the existing bounded original-TIN replacement before spending tokens on detailed attachment interpretations. It can restore authentic higher source terrain as well as lower terrain. Source157125 on22October demonstrates this:82raised warnings became a strict179sample rim range[-.4054072483,+.0619577542]m with unchanged building geometry. This grants no automatic acceptance: keep source bytes/1xpose, native terrain validators, full affected current actor scope, continuous/four-stream/contact checks and browser/publication gates. Preserve old failures as history; do not raise terrain from model base metadata or invent supports.

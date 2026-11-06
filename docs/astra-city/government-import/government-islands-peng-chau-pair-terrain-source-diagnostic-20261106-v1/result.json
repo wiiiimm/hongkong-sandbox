@@ -1,0 +1,109 @@
+{
+  "bounds": [
+    -12277.5,
+    242.5,
+    -12207.5,
+    382.5
+  ],
+  "guardOverrides": 0,
+  "inputHashes": {
+    "docs/astra-city/government-import/government-islands-peng-chau-paired-neighbour-20261106-v1/selection.json.gz": "b9ca742a9e5a1ab87db0d5f63c978730e9854f4bdea01c2bd322dbe790bd41ad",
+    "source-scripts/city/government-import/accepted/government-islands-peng-chau-paired-neighbour-20261106-v1/terrain/islands-peng-chau-paired-neighbour-20261106-v1.json": "bbf34f0a487e90d4b1b6cde9382b4893e82284fd842932358fe7bf24b982d1c5",
+    "source-scripts/city/government-import/local/government-islands-peng-chau-source-terrain-20261106/geometry.json.gz": "56796445aea56672b4155da5d953367dcbbdd2dfe4a627666c5fe9b0a34abcc9",
+    "source-scripts/city/government-import/resolve-pass.py": "c95654eef753e2265ee7f60db71f04a5cd03bf545d516c8d84d544d46d612936"
+  },
+  "publication": false,
+  "qualification": "Read-only per-source-terrain samples only; no candidate, approval or guard override",
+  "rows": [
+    {
+      "audits": [
+        {
+          "audit": {
+            "checks": 329,
+            "covered": 0,
+            "gapRange": null,
+            "lowRimChecks": 29,
+            "lowRimGapRange": null,
+            "passed": false,
+            "reasons": [
+              "native-terrain-coverage",
+              "native-ground-contact"
+            ]
+          },
+          "sourceSHA256": "de1556efb1b718c80ba72899b27940dcfcfe578c3ac5f10bfffb9182fcf466e9",
+          "uid": "landsd/190119:0"
+        },
+        {
+          "audit": {
+            "checks": 120,
+            "covered": 0,
+            "gapRange": null,
+            "lowRimChecks": 52,
+            "lowRimGapRange": null,
+            "passed": false,
+            "reasons": [
+              "native-terrain-coverage",
+              "native-ground-contact"
+            ]
+          },
+          "sourceSHA256": "46b9b0e25404b4597e6b7ff2b97e83e37a890fb7d3925da789b49beed23242aa",
+          "uid": "landsd/297799:0"
+        }
+      ],
+      "belowClampVerticesInsideDomain": 2020,
+      "belowClampVerticesOutsideDomain": 77,
+      "facets": 2806,
+      "sheet": "10-SW-10B"
+    },
+    {
+      "audits": [
+        {
+          "audit": {
+            "checks": 329,
+            "covered": 329,
+            "gapRange": [
+              -0.22084849452972488,
+              10.624717102843803
+            ],
+            "lowRimChecks": 29,
+            "lowRimGapRange": [
+              -0.22084849452972488,
+              0.5054757954894056
+            ],
+            "passed": true,
+            "reasons": []
+          },
+          "sourceSHA256": "de1556efb1b718c80ba72899b27940dcfcfe578c3ac5f10bfffb9182fcf466e9",
+          "uid": "landsd/190119:0"
+        },
+        {
+          "audit": {
+            "checks": 120,
+            "covered": 120,
+            "gapRange": [
+              -0.7514572383989488,
+              5.698616175532724
+            ],
+            "lowRimChecks": 52,
+            "lowRimGapRange": [
+              -0.7514572383989488,
+              0.025173412412385687
+            ],
+            "passed": false,
+            "reasons": [
+              "native-source-below-grade"
+            ]
+          },
+          "sourceSHA256": "46b9b0e25404b4597e6b7ff2b97e83e37a890fb7d3925da789b49beed23242aa",
+          "uid": "landsd/297799:0"
+        }
+      ],
+      "belowClampVerticesInsideDomain": 0,
+      "belowClampVerticesOutsideDomain": 0,
+      "facets": 6212,
+      "sheet": "10-SW-10D"
+    }
+  ],
+  "sourceGeometryChanges": 0,
+  "terrainChanges": 0
+}
