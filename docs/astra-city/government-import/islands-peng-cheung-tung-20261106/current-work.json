@@ -3,11 +3,12 @@
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
-    "batch": "government-islands-peng-chau-bounded-core-20261106-v1",
+    "batch": "government-islands-peng-chau-bounded-core-20261106-v2",
     "clampOverride": false,
+    "clearSources": 0,
     "requiresAIModeling": false,
     "sources": 4,
-    "state": "prepared-not-started"
+    "state": "checks-complete-retained-negatives"
   },
   "branch": "feature/islands-model-enhancement-and-compression",
   "bulkCompressionStarted": true,
@@ -23,9 +24,9 @@
     "variants": 500
   },
   "cheungChauInstalled": {
-    "independentReadback": "docs/astra-city/government-import/government-islands-joint-current-direct-tin-20261106-v1/independent-installed-readback.json",
-    "models": 157,
-    "snapshotId": "7d9cdd22fad430c3"
+    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-sweep-002-20261106-v1-clear/independent-installed-readback.json",
+    "models": 161,
+    "snapshotId": "816c44ce97234d51"
   },
   "cheungChauResume": {
     "additionalTerrainIdentity": {
@@ -44,10 +45,10 @@
     "identityOnlyUnresolved": 82,
     "initialMissing": 183,
     "initialRecovered": 3237,
-    "installed": 157,
+    "installed": 161,
     "originalRecoveryGroups": 51,
     "potentialClearPool": 125,
-    "remainingSelected": 3263,
+    "remainingSelected": 3259,
     "reused": 1398,
     "scriptClear": 67,
     "sourceExceptions": 17,
@@ -67,7 +68,7 @@
       "state": "runtime-complete-in-neon",
       "terrainProposals": 47
     },
-    "state": "157 installed and independently verified; source/contact/terrain follow-ups remain",
+    "state": "161 installed and independently verified; source/terrain follow-ups remain",
     "toRecover": 2022
   },
   "cheungChauSourceTerrain": {
@@ -79,12 +80,13 @@
   },
   "cheungContinuationPrepared": {
     "constructor": "Existing Cheung kernel unchanged; only unique patch IDs supplied",
+    "newlyInstalled": 4,
     "nominated": 50,
     "queuedAfterPeng": false,
     "scope": "Next explicit disjoint original TIN cohorts, exclude every earlier trial and installed/review-held sources",
     "script": "source-scripts/city/government-import/islands_cheung_tin_sweep.py",
     "started": true,
-    "state": "terrain-processing"
+    "state": "4-installed-verified;46-script-followups"
   },
   "combinedClearFollowup": {
     "affectedForms": 142,
@@ -210,9 +212,9 @@
     "state": "installed-verified"
   },
   "lantauBundleCommit": "87c413cde7",
-  "newlyInstalled": 199,
+  "newlyInstalled": 203,
   "next": "Complete Cheung 50 current checks/private browser and bounded Peng four-source diagnostics; freeze current 200-source manifest until both finish. Then install verified clear subset and refresh compression.",
-  "nextManifestChange": "Keep current source/manifest bytes stable until the running bounded diagnostic sweep ends; 200-source compression is complete.",
+  "nextManifestChange": "Freeze 204-source manifest while compression and direct catchment checks run",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
     "constructed": 24,
@@ -319,6 +321,11 @@
     "session": 14599,
     "state": "explicit-wave-limit-complete"
   },
+  "postCheungFourRecheck": {
+    "control": "docs/astra-city/government-import/government-islands-cheung-post-four-direct-control-20261107-v1",
+    "models": 185,
+    "state": "prepared"
+  },
   "postJointPengRecheck": {
     "batch": "government-islands-peng-chau-post-joint21-direct-recheck-20261106-v1",
     "clearScriptCandidates": 6,
@@ -354,16 +361,5 @@
   "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
   "state": "in-process",
   "tungChungRecovered": 1771,
-  "workers": [
-    {
-      "control": "docs/astra-city/government-import/government-islands-cheung-chau-sweep-002-20261106-v1/continuation/state.json",
-      "phase": "Cheung 50 terrain/source/runtime and private browser",
-      "session": 86807
-    },
-    {
-      "control": "docs/astra-city/government-import/government-islands-peng-chau-bounded-core-20261106-v1/continuation/state.json",
-      "phase": "bounded Peng four-source test queued after Cheung private checks",
-      "session": 20902
-    }
-  ]
+  "workers": []
 }

@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_bounded_core_tin_stage.py", line 58, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_bounded_core_tin_stage.py", line 48, in main
+    engine.main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_peng_tin_sweep_stage.py", line 74, in main
+    rejected_terrain=read(context_path)['terrainValidationExceptions']
+                     ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'terrainValidationExceptions'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_stage_owned.py", line 40, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_stage_owned.py", line 35, in main
+    subprocess.run([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',receipt_path,'--ttl','3600','--',sys.executable,script,*(['--batch',a.batch] if a.pass_batch else [])],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', PosixPath('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py'), 'run', '--lease-file', PosixPath('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-islands-peng-chau-bounded-core-20261106-v1/reservation.json'), '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', PosixPath('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_bounded_core_tin_stage.py'), '--batch', 'government-islands-peng-chau-bounded-core-20261106-v1']' returned non-zero exit status 1.
