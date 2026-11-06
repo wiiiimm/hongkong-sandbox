@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_stage_owned.py", line 32, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/islands_stage_owned.py", line 24, in main
+    claim=reservations.claim('codex-islands-stage-'+str(uuid.uuid4()),resources,batch=a.batch,ttl=3600);assert claim['ok'],'Existing owner; no takeover'
+                                                                                                               ~~~~~^^^^^^
+AssertionError: Existing owner; no takeover

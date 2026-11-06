@@ -4,13 +4,14 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import time
 import uuid
 from islands_direct_stage import ROOT,HERE,read,save,sha
 from run import reservations
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--batch',required=True);p.add_argument('--script',required=True);p.add_argument('--attempt',type=int,default=1);p.add_argument('--pass-batch',action='store_true');a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--batch',required=True);p.add_argument('--script',required=True);p.add_argument('--attempt',type=int,default=1);p.add_argument('--pass-batch',action='store_true');p.add_argument('--wait',action='store_true');a=p.parse_args()
     assert a.batch.startswith('government-islands-') and '/' not in a.batch
     script=HERE/a.script;assert script.parent==HERE and script.name.startswith('islands_') and script.suffix=='.py' and script.is_file()
     doc=ROOT/'docs/astra-city/government-import'/a.batch;local=HERE/'local'/a.batch
@@ -21,7 +22,14 @@ def main():
     plan=read(doc/'nomination.json');assert 0<len(plan['uids'])==len(set(plan['uids']))<=50
     assert plan['manifestSHA256']==sha(ROOT/'3d-viewer/city/data/manifest.json')
     resources=['building:'+u for u in plan['uids']]+['terrain:city/data/terrain.json']
-    claim=reservations.claim('codex-islands-stage-'+str(uuid.uuid4()),resources,batch=a.batch,ttl=3600);assert claim['ok'],'Existing owner; no takeover'
+    owner='codex-islands-stage-'+str(uuid.uuid4());deadline=time.monotonic()+14400
+    while True:
+        assert plan['manifestSHA256']==sha(ROOT/'3d-viewer/city/data/manifest.json'),'Context changed while queued'
+        claim=reservations.claim(owner,resources,batch=a.batch,ttl=3600)
+        if claim['ok']:break
+        assert a.wait and time.monotonic()<deadline,'Existing owner; no takeover'
+        save(doc/'stage-wait.json',{'state':'waiting-for-existing-source-owner','resourceCount':len(resources),'publication':False})
+        time.sleep(15)
     receipt=json.loads(json.dumps(claim['reservation'],default=str));save(receipt_path,receipt);save(local/'reservations.json',[receipt])
     try:
         subprocess.run([sys.executable,HERE.parent/'shared-modelling/reservations.py','run','--lease-file',receipt_path,'--ttl','3600','--',sys.executable,script,*(['--batch',a.batch] if a.pass_batch else [])],cwd=ROOT,check=True)

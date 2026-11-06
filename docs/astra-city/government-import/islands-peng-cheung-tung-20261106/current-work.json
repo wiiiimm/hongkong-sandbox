@@ -70,6 +70,12 @@
     "sheets": 12,
     "state": "complete"
   },
+  "cheungContinuationPrepared": {
+    "constructor": "Existing Cheung kernel unchanged; only unique patch IDs supplied",
+    "scope": "Next explicit disjoint original TIN cohorts, exclude every earlier trial and installed/review-held sources",
+    "script": "source-scripts/city/government-import/islands_cheung_tin_sweep.py",
+    "started": false
+  },
   "combinedClearFollowup": {
     "affectedForms": 142,
     "batch": "government-islands-combined-clear-install-20261106-v1",
@@ -223,10 +229,18 @@
     "variants": 800
   },
   "pairedOriginalDiagnostic": {
+    "atomicOutcomeJobs": [
+      "d537ca56afbf97c33f17ce6e097701909e535d12d686628989dc2db837d4c15e",
+      "3ea035a52df062bc15288dfc3d86627e9bcb09da0653b69c28cf1250a69dd13d"
+    ],
     "batch": "government-islands-peng-chau-paired-neighbour-20261106-v1",
+    "defaultNativeProbe": "native-terrain-near-water-clamp: original coastal terrain reaches -0.2061m HKPD",
     "failedUID": "landsd/297799:0",
+    "finerGridJob": "d6b170ac36da30053cdafb6b4d4f306ba8c504c2a9a1d21136edd329f0f6ab58",
+    "finerGridState": "complete-same-failed-member",
     "jointlyInstallable": false,
     "neonJob": "d1f4774186b887bc47d215a785afe09cd2b3f0f0c8ae581e9015272de016bd74",
+    "privateNativeOverride": "pending explicit user approval after automatic approval review rejection; do not run before reply",
     "reason": "terrain-intersects-source-over-0.5m",
     "sources": 2,
     "state": "checks-complete-whole-pair-unresolved"
@@ -317,16 +331,10 @@
   "tungChungRecovered": 1771,
   "workers": [
     {
-      "completedRecovery": "docs/astra-city/government-import/government-islands-peng-chau-sweep-017-recovery-20261106-v1/state.json",
-      "control": "docs/astra-city/government-import/government-islands-peng-chau-sweep-018-064-control-20261106-v1/state.json",
-      "phase": "Peng sweep 018 through 064",
-      "session": 56243
-    },
-    {
-      "batch": "government-islands-peng-chau-paired-fine-grid-20261106-v2",
-      "log": "/tmp/astra-peng-paired-fine-grid-runtime-20261106-v2.log",
-      "phase": "paired-fine-grid-current-runtime",
-      "session": 2039
+      "control": "docs/astra-city/government-import/government-islands-peng-chau-sweep-021-064-control-20261106-v1/state.json",
+      "phase": "sequential-wave-020-recovery-then-021-064",
+      "recovery": "docs/astra-city/government-import/government-islands-peng-chau-sweep-020-recovery-20261106-v1/state.json",
+      "session": 57289
     }
   ]
 }

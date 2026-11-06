@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "case": "default-refuses-conflict",
+      "passed": true
+    },
+    {
+      "case": "wait-retries-under-same-owner",
+      "passed": true
+    },
+    {
+      "case": "queued-context-change-stops",
+      "passed": true
+    }
+  ],
+  "defaultBehaviorUnchanged": true,
+  "manifestRecheckedWhileQueued": true,
+  "method": "Actual CLI main under temporary paths and mocked reservation/subprocess interfaces; no database mutations",
+  "reason": "Terrain stages must queue behind existing owners rather than fail ordinary overlapping diagnostics",
+  "sourceGeometryChanges": 0,
+  "takeoverAllowed": false
+}

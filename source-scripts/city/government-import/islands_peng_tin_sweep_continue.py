@@ -43,7 +43,7 @@ def main():
         if not uids:
             save(control / 'state.json', {'state':'current-disjoint-nominations-exhausted','completed':completed,'sourcesExamined':len(seen),'newlyInstalled':0,'publication':False})
             return
-        call('terrain', [sys.executable,HERE/'islands_stage_owned.py','--batch',batch,'--script','islands_peng_tin_sweep_stage.py','--pass-batch'])
+        call('terrain', [sys.executable,HERE/'islands_stage_owned.py','--batch',batch,'--script','islands_peng_tin_sweep_stage.py','--pass-batch','--wait'])
         identity = doc / 'identity-evidence.json.gz'
         if read(doc / 'terrain-stage.json')['stagedSourceCandidates']:
             call('scope', [sys.executable,HERE/'islands_tin_current_scope.py','--batch',batch,'--bounds',bounds,'--identity',identity])
