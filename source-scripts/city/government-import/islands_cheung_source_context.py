@@ -45,10 +45,18 @@ def owned(batch):
     for p,digest in geometry['inputHashes'].items():assert sha(ROOT/p)==digest;pins[p]=digest
     geometries={r['uid']:r for r in geometry['rows']}
     assert set(selection)<=set(geometries)
-    terrains={}
+    terrains={};terrain_errors={}
+    needed_sheets={r['native']['sheet'] for r in rows}
     for proof in read(terrain_doc/'source-terrain.json')['sheets']:
         for p in proof['members']:assert sha(ROOT/p['path'])==p['sha256'];pins[p['path']]=p['sha256']
-        terrains[proof['sheet']]=np.concatenate([old.context.triangles(p) for p in sorted((terrain_local/'source-terrain'/proof['sheet']/'decoded').rglob('*.gltf'))])
+        if proof['sheet'] not in needed_sheets:continue
+        try:
+            terrains[proof['sheet']]=np.concatenate([old.context.triangles(p) for p in sorted((terrain_local/'source-terrain'/proof['sheet']/'decoded').rglob('*.gltf'))])
+        except (ValueError,AssertionError) as error:
+            # Do not admit malformed terrain or stop unrelated valid sheets.
+            terrain_errors[proof['sheet']]={'error':str(error),'sourceFiles':proof['members'],
+                'sourceCorruptionEstablished':False,'acceptance':False}
+
     # Build only the bounded island form tree; every source tile is still pinned.
     limits=np.array([r['candidate']['entry']['worldBounds'] for r in rows])
     extent=box(limits[:,:,0].min()-20,limits[:,:,2].min()-20,limits[:,:,0].max()+20,limits[:,:,2].max()+20)
@@ -64,20 +72,25 @@ def owned(batch):
         triangles=old.geometry_triangles(geometries[row['uid']]);lo,hi=triangles.min(axis=(0,1)),triangles.max(axis=(0,1))
         nearby=[forms[int(i)] for i in tree.query(box(lo[0]-2,lo[2]-2,hi[0]+2,hi[2]+2))]
         identity,_=old.identity_context(row,triangles,nearby)
-        foundation=old.foundation_context(triangles,terrains[row['native']['sheet']])
+        terrain_error=terrain_errors.get(row['native']['sheet'])
+        foundation=({'available':False,'validationException':terrain_error} if terrain_error else
+                    old.foundation_context(triangles,terrains[row['native']['sheet']]))
         reasons=[]
         if not identity['exactObjectAndCSUID']:reasons.append('exact-identity-mismatch')
         if identity['officialOverlapOfSmallerFootprint']<.98 or identity['officialFootprintCentroidDistanceM']>1:reasons.append('strict-identity-fit')
-        if foundation['completeTerrainTriangles']!=foundation['triangles']:reasons.append('source-terrain-coverage')
-        if foundation['minimumGapM'] is None or foundation['minimumGapM']<-.5:reasons.append('source-terrain-burial-over-0.5m')
-        if foundation['minimumGapM'] is not None and foundation['minimumGapM']>.1:reasons.append('source-terrain-contact-unresolved')
+        if terrain_error:
+            reasons.append('source-terrain-validation-exception')
+        else:
+            if foundation['completeTerrainTriangles']!=foundation['triangles']:reasons.append('source-terrain-coverage')
+            if foundation['minimumGapM'] is None or foundation['minimumGapM']<-.5:reasons.append('source-terrain-burial-over-0.5m')
+            if foundation['minimumGapM'] is not None and foundation['minimumGapM']>.1:reasons.append('source-terrain-contact-unresolved')
         outcomes.append({'uid':row['uid'],'sourceSHA256':row['candidate']['entry']['sha256'],'sourceSheet':row['native']['sheet'],
              'identity':identity,'foundation':foundation,'diagnosticReasons':reasons,'humanStatus':'in-process',
              'next':'Current rendered-terrain construction/contact and identity continuation; diagnostic grants no acceptance',
              'requiresAI':False,'requiresUserDecision':False,'publication':False})
         if n%50==0:print(json.dumps({'contextChecked':n,'total':len(rows),'sourceTINStrictPreliminary':sum(not r['diagnosticReasons'] for r in outcomes)}),flush=True)
     for p,digest in pins.items():assert sha(ROOT/p)==digest,p
-    report={'batch':batch,'rows':outcomes,'models':len(rows),'reasonCounts':dict(Counter(x for r in outcomes for x in r['diagnosticReasons'])),
+    report={'batch':batch,'terrainValidationExceptions':terrain_errors,'rows':outcomes,'models':len(rows),'reasonCounts':dict(Counter(x for r in outcomes for x in r['diagnosticReasons'])),
             'sourceTINStrictPreliminary':sum(not r['diagnosticReasons'] for r in outcomes),'inputHashes':pins,
             'modelGeometryChanges':0,'terrainChanges':0,'aiCalls':0,'newlyInstalled':0,'publication':False,
             'qualification':'Reuses original full-face terrain and projected identity diagnostics, not acceptance or runtime terrain. All failures retained.'}
