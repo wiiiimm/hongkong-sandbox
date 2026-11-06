@@ -1,15 +1,20 @@
 {
   "date": "2026-11-06",
   "branch": "feature/islands-model-enhancement-and-compression",
-  "checkpoint": "dd7fd38e300399d506665697ad70731e7158b241",
+  "checkpoint": "157a074e6a",
   "originalXLCampaign": "paused",
-  "newlyInstalled": 84,
+  "newlyInstalled": 134,
   "bulkCompressionStarted": true,
   "workers": [
     {
-      "phase": "cheung-next-50-staged-browser",
-      "session": 31268,
-      "log": "source-scripts/city/government-import/local/government-islands-cheung-chau-direct-002-20261106-v2-continuation/browser.log"
+      "phase": "cheung-final-25-staged-browser",
+      "session": 37355,
+      "log": "/tmp/astra-cheung-chau-next-003-20261106-v1.log"
+    },
+    {
+      "phase": "cheung-authentic-source-terrain-recovery-12-sheets",
+      "session": 73771,
+      "log": "/tmp/astra-cheung-chau-source-terrain-20261106-v4.log"
     }
   ],
   "completed": [
@@ -113,9 +118,23 @@
       "neonJob": "3620a0fe53feafe4eb18bddc815ef2a3a83b37397905a507cf07ab0108797a07",
       "publicationDeferredUntilCheungSourceCaptureCompletes": true,
       "snapshotId": "226a7903fcd56cd9"
+    },
+    "disjointTerrain": {
+      "models": 31,
+      "state": "runtime-checks-complete",
+      "currentBounds": "docs/astra-city/government-import/government-islands-peng-chau-disjoint-bounds-20261106-v2/complete-bounds.json.gz",
+      "currentNativeActors": 7243,
+      "boundsCapture": "complete, 134 new actors in unchanged <=40 actor capture chunks; prior oversized invocation retained",
+      "clearScriptCandidates": 1,
+      "remainingNegatives": 30,
+      "affectedForms": 1405,
+      "nominatedNatives": 17,
+      "nativePassed": 16,
+      "neonJob": "7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105",
+      "clearBatch": "government-islands-peng-chau-disjoint-clear-20261106-v1"
     }
   },
-  "next": "Commit/push first 50 Cheung originals and compress; inspect next 50 staged exports before guarded installation. Both whole islands remain incomplete.",
+  "next": "Compress combined 100 committed Cheung originals before another manifest publication; review final 25 staged exports. Preserve Peng 31 diagnostics and bind the one clear candidate to fresh final context before installation.",
   "pengChauCompression": {
     "state": "processing-complete-unreviewed",
     "models": 35,
@@ -126,7 +145,7 @@
   },
   "cheungChauResume": {
     "batch": "government-islands-cheung-chau-resume-20261106-v2",
-    "state": "First 50 installed and independently verified; next 50 staged browser running",
+    "state": "100 originals installed and independently verified; last 25 of current clear pool in staged browser",
     "reused": 1398,
     "toRecover": 2022,
     "initialRecovered": 3237,
@@ -139,8 +158,17 @@
     "identityOnlyResolved": 58,
     "identityOnlyUnresolved": 82,
     "potentialClearPool": 125,
-    "installed": 50,
-    "remainingSelected": 3370
+    "installed": 100,
+    "remainingSelected": 3320,
+    "additionalTerrainIdentity": {
+      "models": 1871,
+      "positiveIdentities": 861,
+      "state": "complete-in-neon-no-installation-credit",
+      "batches": [
+        "government-islands-cheung-chau-identity-terrain-0-20261106-v1",
+        "government-islands-cheung-chau-identity-terrain-1-20261106-v1"
+      ]
+    }
   },
   "completedWorkerSupervisors": [
     {
@@ -157,8 +185,14 @@
     }
   ],
   "cheungChauInstalled": {
-    "models": 50,
-    "snapshotId": "2b9e12762d2145b6",
-    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-direct-001-20261106-v2/independent-installed-readback.json"
+    "models": 100,
+    "snapshotId": "433fa3f10f17a6aa",
+    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-direct-002-20261106-v2/independent-installed-readback.json"
+  },
+  "cheungChauCompression": {
+    "state": "first-50-original-high-balanced-complete-lightweight-not-started-stale-manifest-guard",
+    "snapshot": "source-scripts/city/model-optimisation/staging/regional-cheung-chau-installed-20261106-v1/sources.json",
+    "log": "/tmp/astra-cheung-chau-compression-launch-v1-20261106.log",
+    "next": "Freeze combined committed installed set after batch 002 readback; exact completed variants reusable; do not relax manifest checks"
   }
 }

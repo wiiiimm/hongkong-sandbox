@@ -5,7 +5,7 @@ Executor: Codex. Branch: `feature/islands-model-enhancement-and-compression`. Ne
 | Region | Installed detail | Newly installed | Four-tier compression |
 |---|---:|---:|---|
 | Peng Chau | 35 | 34 | 140 complete, zero failed, unreviewed/unpublished |
-| Cheung Chau | 50 | 50 | Next: freeze these committed installed originals |
+| Cheung Chau | 100 | 100 | Next: compress the combined committed set |
 
 Peng Chau census contains 1,809 forms: 35 installed detail and 1,774 basic-only. Of the original selected 1,425 uninstalled matched sources, 1,391 still require source/identity/terrain investigation. This does not label them corrupt or require AI modelling. Exact receipts are retained in the individual immutable batch directories and Neon.
 
@@ -18,3 +18,7 @@ The first Cheung batch passed current desktop/mobile day/night, picking/collisio
 `targets.json.gz` preserves the original 6,616-source campaign selection: Peng Chau 1,425; Cheung Chau 3,420; Tung Chung 1,771. It excludes unmatched basic forms and grants no acceptance. `current-work.json` tracks actual continuation handles. Do not restart completed recovery/checks or overwrite failed attempts. Same-GeoRef archive identifiers are lookup leads, not confirmed replacement identities. Private R2 access is pending; if available, immutable archived originals may recover the 17 missing exact Cheung IDs.
 
 The prior Lantau compression bundle (6,787 sources, 27,148 unreviewed candidates) is committed/pushed as `87c413cde7`. Current work acquires and installs originals separately from compression processing. Variants are private candidates until exact-output review/publication; no runtime catalogue change, deployment, main merge or R2 upload is authorised by processing completion.
+
+Second Cheung slice: 50 more installed originals, snapshot `433fa3f10f17a6aa`. All 200 staged images were viewed; 116 changed live exports were viewed and 84 exact-byte previously viewed exports reused. Fresh live functional checks passed for every actor. Independent readback verifies all 8,491 old files and exact Neon rows, with only one catalogue appended and no terrain changes. The first-50 compression snapshot processed original/high/balanced, then correctly refused the lightweight tier after this new manifest publication. Those 150 exact candidates remain reusable; a fresh combined snapshot is required. No failed model codec job or guard waiver.
+
+Further compute: exact GeoRef-cell identity checks for 1,871 additional Cheung terrain-held sources finished: 861 positive identity proofs, no installation credit. Both complete result sets are read back in Neon. Twelve authentic terrain sheets and full unchanged arrays for 3,403 recovered models are being prepared for contact follow-up. Peng Chau’s 31 disjoint smaller terrain proposals were checked against 1,405 affected forms and 17 full native nominations (16 pass). One source is script-clear; 30 retain actual neighbour/contact negatives, job `7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105`. It still requires fresh browser/guarded installation.
