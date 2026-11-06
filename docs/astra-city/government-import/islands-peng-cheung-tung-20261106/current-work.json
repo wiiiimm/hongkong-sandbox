@@ -60,7 +60,7 @@
       "state": "runtime-complete-in-neon",
       "terrainProposals": 47
     },
-    "state": "137 installed and independently verified; source/contact/terrain follow-ups remain",
+    "state": "157 installed and independently verified; source/contact/terrain follow-ups remain",
     "toRecover": 2022
   },
   "cheungChauSourceTerrain": {
@@ -142,7 +142,7 @@
     "clearScriptCandidates": 20,
     "control": "docs/astra-city/government-import/government-islands-current-installed-terrain-recheck-control-20261106-v1/state.json",
     "models": 116,
-    "newlyInstalled": 0,
+    "newlyInstalled": 20,
     "pengChau": 4,
     "state": "checks-complete"
   },
@@ -194,8 +194,8 @@
   },
   "lantauBundleCommit": "87c413cde7",
   "newlyInstalled": 193,
-  "next": "Compress all 194 committed installed island originals using exact UID selection; continue source-preserving work on held originals afterwards. Both islands incomplete.",
-  "nextManifestChange": "Keep manifest/source bytes frozen until 194-source compression delivery completes.",
+  "next": "Validate six fresh Peng Chau direct positives in actual staged/live desktop/mobile browser; install only verified subset and compress new originals. Both islands incomplete.",
+  "nextManifestChange": "194-source compression complete; normal guarded original installations may proceed",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
     "constructed": 24,
@@ -210,16 +210,16 @@
   "originalXLCampaign": "paused",
   "otherCampaigns": "Tung Chung and fixed-521 XL remain paused",
   "pairedIslandsCompression": {
-    "cheungChau": 137,
+    "cheungChau": 157,
     "failedVariants": 0,
-    "models": 173,
-    "neonJob": "473b09bd754239e5fa9c3fb0a75d32b59fa2671552aecf7f0c426ea0eb6800f8",
-    "pengChau": 36,
-    "portableBundleSHA256": "6877e2aac55620a285abeac8aab4e59cfffdc2e66e9f0c4c6a01e4cf0c45d0fb",
+    "models": 194,
+    "neonJob": "ea1c868baea749d215c17c5b1fca22c40483ed29230397eb5b7f963e4d9700b6",
+    "pengChau": 37,
+    "portableBundleSHA256": "c9707e12b3fa72f23b5be929a5ddd07d1f8381f5d9537b8ad2da34461e6b09ba",
     "published": false,
-    "report": "docs/astra-city/model-optimisation/peng-cheung-installed-20261106-v5",
+    "report": "docs/astra-city/model-optimisation/peng-cheung-installed-20261106-v6",
     "state": "processing-complete-unreviewed",
-    "variants": 692
+    "variants": 776
   },
   "pauseReason": null,
   "pengChauCompression": {
@@ -270,9 +270,15 @@
     "completedWaves": 16,
     "heldForCompute": 141,
     "inProcess": 0,
-    "newlyInstalled": 0,
+    "newlyInstalled": 1,
     "session": 14599,
     "state": "explicit-wave-limit-complete"
+  },
+  "postJointPengRecheck": {
+    "batch": "government-islands-peng-chau-post-joint21-direct-recheck-20261106-v1",
+    "clearScriptCandidates": 6,
+    "models": 33,
+    "state": "checks-complete-six-in-browser-review"
   },
   "priorityOrder": [
     "peng-chau-original-installation",
@@ -289,5 +295,12 @@
   "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
   "state": "in-process",
   "tungChungRecovered": 1771,
-  "workers": []
+  "workers": [
+    {
+      "batch": "government-islands-peng-chau-post-joint21-clear-six-20261106-v1",
+      "log": "/tmp/astra-peng-post-joint21-clear-six-browser-20261106-v1.log",
+      "phase": "browser-solid",
+      "session": 29430
+    }
+  ]
 }
