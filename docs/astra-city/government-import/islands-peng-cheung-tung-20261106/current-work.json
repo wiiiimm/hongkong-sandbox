@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 2,
+  "activeAcquisitionWorkers": 1,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -213,9 +213,9 @@
   },
   "lantauBundleCommit": "87c413cde7",
   "linearCheckpoint": {
-    "HKS-199": "f32fc1f7-b824-4de4-91a0-e150f950dfd9",
-    "HKS-203": "5dec4614-632b-49b7-a302-5b532ce59458",
-    "HKS-229": "a8012c1b-a438-4ce5-a7d9-e38b2865524b",
+    "HKS-199": "28aaee91-97e0-453a-aa46-688cf5b192b0",
+    "HKS-203": "a5b418f4-34a2-413c-a925-f757921b28e0",
+    "HKS-229": "b8e9fcc9-6394-4473-871a-233ebbb55af0",
     "milestoneUpdated": true
   },
   "newlyInstalled": 231,
@@ -363,6 +363,17 @@
     "recoveryState": "17 exact originals recovered and independently verified; normal acceptance checks running",
     "workflowRun": 42264710088
   },
+  "recoveredOriginalFollowup": {
+    "checksJob": "87483c11dff490e7107492afeb6e6afab783509f02e852a58600952661837742",
+    "directBatch": "government-islands-cheung-r2-current-direct-clear-20261107-v2",
+    "directState": "staged-browser-verified;installation-waits-for-frozen-TIN-pass",
+    "directUID": "landsd/193423:0",
+    "identityJob": "fc7a0c058379ed9ea052b81cdb33bfad7126566e2e87c8257f5704166b0a7325",
+    "newlyInstalled": 0,
+    "normalChecks": 17,
+    "sourceContextJob": "29844f884dac49eecb40ad68deb05e4547a759b1a040ba5f2993a03336480a11",
+    "sourceTINStrictPreliminary": 5
+  },
   "sourceContext": {
     "models": 1404,
     "state": "complete",
@@ -375,6 +386,7 @@
   "workers": [
     {
       "log": "/tmp/astra-cheung-sweep-003-016-20261107-v1.log",
+      "manifestFrozenUntilComplete": true,
       "phase": "Cheung-private-TIN-waves-003-016",
       "session": 27624,
       "state": "running"
