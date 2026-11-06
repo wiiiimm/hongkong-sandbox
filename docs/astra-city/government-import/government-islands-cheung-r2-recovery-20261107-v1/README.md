@@ -1,0 +1,7 @@
+# Exact Cheung Chau source recovery
+
+Executor: Codex. Explicit user approval authorised this bounded R2-to-GitHub transfer. Workflow run [42264710088](https://github.com/wiiiimm/hongkong-sandbox/actions/runs/42264710088) used the existing hk-sandbox-assets connection. The recovery job succeeded; the upload/sync job was skipped. All four immutable archives were checked against exact SHA-256 and byte lengths. Only the 17 allowlisted original files (38,667 bytes total) and report were exported, with seven-day retention. No archive payload, credential, R2 write or deployment was included.
+
+Independent local readback verified all 17 exact source hashes, byte lengths and GLB headers. Source failures and old recovery attempts remain preserved. Source assets are in the documented private local recovery directory; repeat the exact pinned approved plan for recovery on another device. Plan SHA-256: 7038555e77c0c43f8402d4260548e435ca1922272bea30655ae9a21f85d201ca.
+
+Ordinary fresh original-source checks completed under leases and exact native-result fencing: Neon job 87483c11dff490e7107492afeb6e6afab783509f02e852a58600952661837742, 17 exact result rows, zero review writes. One source (landsd/193423:0) passed preliminary checks; 16 retain source/terrain/contact/identity diagnostics for further compute. Recovery and these initial checks grant no installation credit. No source geometry edits or AI geometry modelling.

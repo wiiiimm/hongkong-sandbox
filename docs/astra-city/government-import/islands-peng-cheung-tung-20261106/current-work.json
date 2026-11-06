@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 1,
+  "activeAcquisitionWorkers": 2,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -51,8 +51,8 @@
     "remainingSelected": 3231,
     "reused": 1398,
     "scriptClear": 67,
-    "sourceExceptions": 17,
-    "sourceRecovered": 3403,
+    "sourceExceptions": 0,
+    "sourceRecovered": 3420,
     "sourceTINFollowup": {
       "affectedForms": 658,
       "batch": "government-islands-cheung-chau-disjoint-terrain-20261106-v1",
@@ -373,10 +373,21 @@
   "tungChungRecovered": 1771,
   "workers": [
     {
-      "batch": "government-islands-cheung-r2-recovered-check-20261107-v1",
-      "log": "/tmp/astra-cheung-r2-recovered-check-20261107-v1.log",
-      "phase": "recovered-original-checks",
-      "session": 77924,
+      "log": "/tmp/astra-islands-compression-delivery-v9-20261107.log",
+      "phase": "232-source-compression",
+      "session": 75957,
+      "state": "running"
+    },
+    {
+      "log": "/tmp/astra-cheung-sweep-003-016-20261107-v1.log",
+      "phase": "Cheung-private-TIN-waves-003-016",
+      "session": 27624,
+      "state": "running"
+    },
+    {
+      "log": "/tmp/astra-cheung-r2-current-direct-20261107-v1.log",
+      "phase": "one-recovered-original-current-direct-check",
+      "session": 24873,
       "state": "running"
     }
   ]
