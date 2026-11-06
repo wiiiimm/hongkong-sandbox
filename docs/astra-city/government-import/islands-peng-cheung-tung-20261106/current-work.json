@@ -1,15 +1,15 @@
 {
   "date": "2026-11-06",
   "branch": "feature/islands-model-enhancement-and-compression",
-  "checkpoint": "dd64b1083d",
+  "checkpoint": "ca9cfa91e6",
   "originalXLCampaign": "paused",
   "newlyInstalled": 159,
   "bulkCompressionStarted": true,
   "workers": [
     {
-      "phase": "cheung-50-disjoint-authentic-terrain-proposals",
-      "session": 22843,
-      "log": "/tmp/astra-cheung-chau-tin-stage-20261106-v1.log"
+      "phase": "cheung-47-current-complete-scope",
+      "session": 40215,
+      "log": "/tmp/astra-cheung-chau-tin-scope-20261106-v1.log"
     }
   ],
   "completed": [
@@ -126,10 +126,11 @@
       "nominatedNatives": 17,
       "nativePassed": 16,
       "neonJob": "7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105",
-      "clearBatch": "government-islands-peng-chau-disjoint-clear-20261106-v1"
+      "clearBatch": "government-islands-peng-chau-disjoint-clear-20261106-v1",
+      "currentClearBatch": "government-islands-peng-chau-rebound-clear-20261106-v2"
     }
   },
-  "next": "Compress 125 committed Cheung originals; finish fresh terrain/runtime follow-up and Peng single-source current-context checks before further publication.",
+  "next": "Finish full current renderer/contact/neighbour checks for 47 Cheung terrain proposals; combine eligible sources with the fresh Peng single-source proposal before guarded installation. Both islands incomplete.",
   "pengChauCompression": {
     "state": "processing-complete-unreviewed",
     "models": 35,
@@ -170,7 +171,9 @@
       "eligibleNominationPool": 672,
       "disjointSelected": 50,
       "batch": "government-islands-cheung-chau-disjoint-terrain-20261106-v1",
-      "currentFullNativeScope": 7268
+      "currentFullNativeScope": 7268,
+      "terrainProposals": 47,
+      "state": "private-terrain-complete-current-full-scope-next"
     }
   },
   "completedWorkerSupervisors": [
@@ -194,12 +197,13 @@
   },
   "cheungChauCompression": {
     "state": "processing-complete-unreviewed",
-    "models": 100,
-    "variants": 400,
+    "models": 125,
+    "variants": 500,
     "failures": 0,
     "published": false,
-    "report": "docs/astra-city/model-optimisation/cheung-chau-installed-20261106-v2",
-    "portableBundleSHA256": "a85431f576a78b68a33d43b036345537d7a3f96fc0f405a80067900804d5dbe0"
+    "report": "docs/astra-city/model-optimisation/cheung-chau-installed-20261106-v3",
+    "portableBundleSHA256": "423cda266b9e3d7c46a7a605a55b85602071afeab1f539a25338986ec6d0289e",
+    "neonJob": "e66bdf6f0af4f8c648a607aa4deb651568fab268e86ccd9e86b559d27da2e5f7"
   },
   "cheungChauSourceTerrain": {
     "state": "complete",
@@ -208,5 +212,5 @@
     "modelsWithoutExactAsset": 17,
     "report": "docs/astra-city/government-import/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain.json"
   },
-  "nextManifestChange": "Wait for current 50-domain proposal, full-scope checks and 125-source compression checkpoint; retain all source/context bindings."
+  "nextManifestChange": "Compression checkpoint complete. Require fresh full-scope runtime and actual staged/live review before installing further originals."
 }

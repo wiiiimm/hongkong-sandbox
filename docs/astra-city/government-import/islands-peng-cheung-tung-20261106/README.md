@@ -5,7 +5,7 @@ Executor: Codex. Branch: `feature/islands-model-enhancement-and-compression`. Ne
 | Region | Installed detail | Newly installed | Four-tier compression |
 |---|---:|---:|---|
 | Peng Chau | 35 | 34 | 140 complete, zero failed, unreviewed/unpublished |
-| Cheung Chau | 125 | 125 | 400 candidates complete for the first 100; additions next |
+| Cheung Chau | 125 | 125 | 500 complete, zero failed, unreviewed/unpublished |
 
 Peng Chau census contains 1,809 forms: 35 installed detail and 1,774 basic-only. Of the original selected 1,425 uninstalled matched sources, 1,391 still require source/identity/terrain investigation. This does not label them corrupt or require AI modelling. Exact receipts are retained in the individual immutable batch directories and Neon.
 
@@ -24,3 +24,5 @@ Second Cheung slice: 50 more installed originals, snapshot `433fa3f10f17a6aa`. A
 Further compute: exact GeoRef-cell identity checks for 1,871 additional Cheung terrain-held sources finished: 861 positive identity proofs, no installation credit. Both complete result sets are read back in Neon. Twelve authentic terrain sheets and full unchanged arrays for 3,403 recovered models are being prepared for contact follow-up. Peng Chau’s 31 disjoint smaller terrain proposals were checked against 1,405 affected forms and 17 full native nominations (16 pass). One source is script-clear; 30 retain actual neighbour/contact negatives, job `7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105`. It still requires fresh browser/guarded installation.
 
 The final 25 of the initial pool are installed in snapshot `992a2368b17a0f4f`; all 8,542 prior files and exact Neon states are independently verified. All 125 initial candidates are installed; Cheung has 3,295 selected originals left. The 3,278-source authentic-terrain context pass is complete in Neon and nominates 672 strict/full-cell identity plus TIN candidates. A first 50 disjoint, low-neighbour-count wave is processing; original terrain/contact/identity/current-actor/runtime guards remain unchanged. Two source models retain the one canonical terrain-attribute exception. The Peng single clear source remains uninstalled while current context is rechecked.
+
+Current compression checkpoint: all 125 installed Cheung originals have 500 complete candidates, zero failed, unreviewed/unpublished. Portable bundle and final Neon readback are in `docs/astra-city/model-optimisation/cheung-chau-installed-20261106-v3/`. A subsequent 47-source terrain proposal is private and finished construction after a fail-closed lease interruption; complete current-scope runtime checks follow. Peng source 80912 has refreshed current-context numeric/neighbour checks but is not installed. All previous attempts remain preserved. Neither island is complete.
