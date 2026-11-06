@@ -1,187 +1,128 @@
 {
-  "date": "2026-11-06",
-  "branch": "feature/islands-model-enhancement-and-compression",
-  "checkpoint": "ca9cfa91e6",
-  "originalXLCampaign": "paused",
-  "newlyInstalled": 159,
-  "bulkCompressionStarted": true,
-  "workers": [
-    {
-      "phase": "combine-13-script-clear-originals-private",
-      "session": 45030,
-      "log": "/tmp/astra-islands-combined-clear-20261106-v1.log"
-    }
-  ],
-  "completed": [
-    {
-      "session": 79070,
-      "phase": "recover",
-      "region": "peng-chau",
-      "offset": 0,
-      "count": 1000,
-      "assets": 1000,
-      "errors": 0,
-      "aiCalls": 0
-    },
-    {
-      "session": 6772,
-      "phase": "prepare",
-      "region": "peng-chau",
-      "offset": 0,
-      "count": 1000
-    },
-    {
-      "session": 6820,
-      "phase": "prepare",
-      "region": "peng-chau",
-      "offset": 1000,
-      "count": 425
-    },
-    {
-      "session": 24683,
-      "phase": "prepare",
-      "region": "cheung-chau",
-      "offset": 0,
-      "count": 1000
-    },
-    {
-      "session": 78962,
-      "phase": "prepare",
-      "region": "cheung-chau",
-      "offset": 1000,
-      "count": 1000
-    }
-  ],
-  "failedSupervisor": {
-    "session": 63283,
-    "phase": "check",
-    "region": "peng-chau",
-    "count": 1000,
-    "error": "lease-not-owned-or-unreachable; no child model check started",
-    "leasePath": "source-scripts/city/government-import/local/government-islands-peng-chau-0000-1000-20261106/reservation.json",
-    "next": "Verify ownership, then retry only concrete supervisor using same owned receipt. Do not restart completed recovery or acquire another overlapping owner."
-  },
-  "state": "in-process",
-  "pauseReason": null,
   "activeAcquisitionWorkers": 0,
-  "sourceRefreshSession": 26262,
-  "firstPassSession": 83473,
-  "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
-  "firstPassState": "supervised workers stopped; completed and partial proofs retained",
   "activeSourceLeases": 0,
-  "freshCheungChauVerified": 680,
-  "pengChauRecovered": 1425,
-  "tungChungRecovered": 1771,
   "allOtherModelProcessing": "stopped at user request",
-  "priorityOrder": [
-    "peng-chau-original-installation",
-    "peng-chau-compression",
-    "cheung-chau-original-installation",
-    "cheung-chau-compression"
-  ],
-  "otherCampaigns": "Tung Chung and fixed-521 XL remain paused",
-  "sourceContext": {
-    "state": "complete",
-    "models": 1404,
-    "summary": "docs/astra-city/government-import/government-islands-peng-chau-context-20261106-v1/summary.json"
-  },
-  "lantauBundleCommit": "87c413cde7",
-  "installedPengChau": {
-    "models": 34,
-    "totalInstalled": 35,
-    "batches": [
-      "government-islands-peng-chau-direct-20261106-v1",
-      "government-islands-peng-chau-clear-terrain-20261106-v1",
-      "government-islands-peng-chau-exact-direct-eight-20261106-v1",
-      "government-islands-peng-chau-narrow-clear-20261106-v2"
-    ],
-    "snapshotId": "226a7903fcd56cd9",
-    "status": "verified-feature-branch"
-  },
-  "pengChauFollowup": {
-    "models": 1404,
-    "identitiesPositive": 707,
-    "sourceTINCandidates": 300,
-    "state": "34 new sources installed; 1391 selected originals require grouped identity/source/terrain investigation",
-    "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
-    "narrowTerrain": {
-      "models": 3,
-      "state": "installed-verified",
-      "affectedForms": 134,
-      "currentNatives": 7140,
-      "nominatedNatives": 8,
-      "neonJob": "3620a0fe53feafe4eb18bddc815ef2a3a83b37397905a507cf07ab0108797a07",
-      "publicationDeferredUntilCheungSourceCaptureCompletes": true,
-      "snapshotId": "226a7903fcd56cd9"
-    },
-    "disjointTerrain": {
-      "models": 31,
-      "state": "runtime-checks-complete",
-      "currentBounds": "docs/astra-city/government-import/government-islands-peng-chau-disjoint-bounds-20261106-v2/complete-bounds.json.gz",
-      "currentNativeActors": 7243,
-      "boundsCapture": "complete, 134 new actors in unchanged <=40 actor capture chunks; prior oversized invocation retained",
-      "clearScriptCandidates": 1,
-      "remainingNegatives": 30,
-      "affectedForms": 1405,
-      "nominatedNatives": 17,
-      "nativePassed": 16,
-      "neonJob": "7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105",
-      "clearBatch": "government-islands-peng-chau-disjoint-clear-20261106-v1",
-      "currentClearBatch": "government-islands-peng-chau-rebound-clear-20261106-v2"
-    }
-  },
-  "next": "Fresh combined scope/runtime/browser checks for 12 Cheung and one Peng original, all unchanged and not yet installed.",
-  "pengChauCompression": {
-    "state": "processing-complete-unreviewed",
-    "models": 35,
-    "variants": 140,
+  "branch": "feature/islands-model-enhancement-and-compression",
+  "bulkCompressionStarted": true,
+  "checkpoint": "ca9cfa91e6",
+  "cheungChauCompression": {
     "failures": 0,
+    "models": 125,
+    "neonJob": "e66bdf6f0af4f8c648a607aa4deb651568fab268e86ccd9e86b559d27da2e5f7",
+    "portableBundleSHA256": "423cda266b9e3d7c46a7a605a55b85602071afeab1f539a25338986ec6d0289e",
     "published": false,
-    "report": "docs/astra-city/model-optimisation/peng-chau-installed-20261106-v3"
+    "report": "docs/astra-city/model-optimisation/cheung-chau-installed-20261106-v3",
+    "state": "processing-complete-unreviewed",
+    "variants": 500
+  },
+  "cheungChauInstalled": {
+    "independentReadback": "docs/astra-city/government-import/government-islands-combined-clear-install-20261106-v1/independent-installed-readback.json",
+    "models": 137,
+    "snapshotId": "53352d7e8bb0aa4f"
   },
   "cheungChauResume": {
-    "batch": "government-islands-cheung-chau-resume-20261106-v2",
-    "state": "Initial 125-candidate pool all installed and independently verified; authentic-TIN follow-up running",
-    "reused": 1398,
-    "toRecover": 2022,
-    "initialRecovered": 3237,
-    "initialMissing": 183,
-    "originalRecoveryGroups": 51,
-    "sourceRecovered": 3403,
-    "sourceExceptions": 17,
-    "scriptClear": 67,
-    "identityOnly": 140,
-    "identityOnlyResolved": 58,
-    "identityOnlyUnresolved": 82,
-    "potentialClearPool": 125,
-    "installed": 125,
-    "remainingSelected": 3295,
     "additionalTerrainIdentity": {
-      "models": 1871,
-      "positiveIdentities": 861,
-      "state": "complete-in-neon-no-installation-credit",
       "batches": [
         "government-islands-cheung-chau-identity-terrain-0-20261106-v1",
         "government-islands-cheung-chau-identity-terrain-1-20261106-v1"
-      ]
+      ],
+      "models": 1871,
+      "positiveIdentities": 861,
+      "state": "complete-in-neon-no-installation-credit"
     },
+    "batch": "government-islands-cheung-chau-resume-20261106-v2",
     "currentFinal25": "installed-verified",
+    "identityOnly": 140,
+    "identityOnlyResolved": 58,
+    "identityOnlyUnresolved": 82,
+    "initialMissing": 183,
+    "initialRecovered": 3237,
+    "installed": 137,
+    "originalRecoveryGroups": 51,
+    "potentialClearPool": 125,
+    "remainingSelected": 3283,
+    "reused": 1398,
+    "scriptClear": 67,
+    "sourceExceptions": 17,
+    "sourceRecovered": 3403,
     "sourceTINFollowup": {
-      "contextModels": 3278,
-      "eligibleNominationPool": 672,
-      "disjointSelected": 50,
-      "batch": "government-islands-cheung-chau-disjoint-terrain-20261106-v1",
-      "currentFullNativeScope": 7268,
-      "terrainProposals": 47,
-      "state": "runtime-complete-in-neon",
-      "currentChecked": 47,
-      "clearScriptCandidates": 12,
-      "negativeCandidates": 35,
       "affectedForms": 658,
+      "batch": "government-islands-cheung-chau-disjoint-terrain-20261106-v1",
+      "clearScriptCandidates": 12,
+      "contextModels": 3278,
+      "currentChecked": 47,
+      "currentFullNativeScope": 7268,
+      "disjointSelected": 50,
+      "eligibleNominationPool": 672,
+      "nativePassed": 11,
+      "negativeCandidates": 35,
       "nominatedNatives": 11,
-      "nativePassed": 11
-    }
+      "state": "runtime-complete-in-neon",
+      "terrainProposals": 47
+    },
+    "state": "137 installed and independently verified; source/contact/terrain follow-ups remain",
+    "toRecover": 2022
   },
+  "cheungChauSourceTerrain": {
+    "decodedOriginals": 3403,
+    "modelsWithoutExactAsset": 17,
+    "report": "docs/astra-city/government-import/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain.json",
+    "sheets": 12,
+    "state": "complete"
+  },
+  "combinedClearFollowup": {
+    "affectedForms": 142,
+    "batch": "government-islands-combined-clear-install-20261106-v1",
+    "cheungChau": 12,
+    "currentRuntimeClear": 13,
+    "fullNativeNeighboursPassed": 8,
+    "models": 13,
+    "newlyInstalled": 13,
+    "pengChau": 1,
+    "runtimeJob": "4fc0f7bf32de59e3123e91ab5ffdee30d740be305a33fd3b44201329b169fa7b",
+    "snapshotId": "53352d7e8bb0aa4f",
+    "state": "installed-verified"
+  },
+  "completed": [
+    {
+      "aiCalls": 0,
+      "assets": 1000,
+      "count": 1000,
+      "errors": 0,
+      "offset": 0,
+      "phase": "recover",
+      "region": "peng-chau",
+      "session": 79070
+    },
+    {
+      "count": 1000,
+      "offset": 0,
+      "phase": "prepare",
+      "region": "peng-chau",
+      "session": 6772
+    },
+    {
+      "count": 425,
+      "offset": 1000,
+      "phase": "prepare",
+      "region": "peng-chau",
+      "session": 6820
+    },
+    {
+      "count": 1000,
+      "offset": 0,
+      "phase": "prepare",
+      "region": "cheung-chau",
+      "session": 24683
+    },
+    {
+      "count": 1000,
+      "offset": 1000,
+      "phase": "prepare",
+      "region": "cheung-chau",
+      "session": 78962
+    }
+  ],
   "completedWorkerSupervisors": [
     {
       "session": 11146,
@@ -196,27 +137,108 @@
       "state": "all 51 original recovery groups finished; initial index 3237/3420; remaining peers being repaired before checks"
     }
   ],
-  "cheungChauInstalled": {
-    "models": 125,
-    "snapshotId": "992a2368b17a0f4f",
-    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-direct-003-20261106-v2/independent-installed-readback.json"
+  "date": "2026-11-06",
+  "failedSupervisor": {
+    "count": 1000,
+    "error": "lease-not-owned-or-unreachable; no child model check started",
+    "leasePath": "source-scripts/city/government-import/local/government-islands-peng-chau-0000-1000-20261106/reservation.json",
+    "next": "Verify ownership, then retry only concrete supervisor using same owned receipt. Do not restart completed recovery or acquire another overlapping owner.",
+    "phase": "check",
+    "region": "peng-chau",
+    "session": 63283
   },
-  "cheungChauCompression": {
-    "state": "processing-complete-unreviewed",
-    "models": 125,
-    "variants": 500,
+  "firstPassSession": 83473,
+  "firstPassState": "supervised workers stopped; completed and partial proofs retained",
+  "freshCheungChauVerified": 680,
+  "installedPengChau": {
+    "batches": [
+      "government-islands-peng-chau-direct-20261106-v1",
+      "government-islands-peng-chau-clear-terrain-20261106-v1",
+      "government-islands-peng-chau-exact-direct-eight-20261106-v1",
+      "government-islands-peng-chau-narrow-clear-20261106-v2",
+      "government-islands-combined-clear-install-20261106-v1"
+    ],
+    "models": 35,
+    "snapshotId": "53352d7e8bb0aa4f",
+    "status": "verified-feature-branch",
+    "totalInstalled": 36
+  },
+  "lantauBundleCommit": "87c413cde7",
+  "newlyInstalled": 172,
+  "next": "Freeze committed 173 installed Peng/Cheung sources for 692 compression candidates; continue the current 31-source Peng stage/scope/runtime and retain exact negatives in Neon.",
+  "nextManifestChange": "Do not install additional originals until the frozen 173-source compression pass finishes.",
+  "nextPengWave": {
+    "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
+    "eligibleNominationPool": 308,
+    "prior31DisjointTrialsExcluded": true,
+    "sources": 31,
+    "state": "running-owned-terrain-stage"
+  },
+  "originalXLCampaign": "paused",
+  "otherCampaigns": "Tung Chung and fixed-521 XL remain paused",
+  "pauseReason": null,
+  "pengChauCompression": {
     "failures": 0,
+    "models": 35,
     "published": false,
-    "report": "docs/astra-city/model-optimisation/cheung-chau-installed-20261106-v3",
-    "portableBundleSHA256": "423cda266b9e3d7c46a7a605a55b85602071afeab1f539a25338986ec6d0289e",
-    "neonJob": "e66bdf6f0af4f8c648a607aa4deb651568fab268e86ccd9e86b559d27da2e5f7"
+    "report": "docs/astra-city/model-optimisation/peng-chau-installed-20261106-v3",
+    "state": "processing-complete-unreviewed",
+    "variants": 140
   },
-  "cheungChauSourceTerrain": {
+  "pengChauFollowup": {
+    "disjointTerrain": {
+      "affectedForms": 1405,
+      "boundsCapture": "complete, 134 new actors in unchanged <=40 actor capture chunks; prior oversized invocation retained",
+      "clearBatch": "government-islands-peng-chau-disjoint-clear-20261106-v1",
+      "clearScriptCandidates": 1,
+      "currentBounds": "docs/astra-city/government-import/government-islands-peng-chau-disjoint-bounds-20261106-v2/complete-bounds.json.gz",
+      "currentClearBatch": "government-islands-peng-chau-rebound-clear-20261106-v2",
+      "currentNativeActors": 7243,
+      "models": 31,
+      "nativePassed": 16,
+      "neonJob": "7859ff465c4c5c84b29ce1b9f7dbe8b3cbc7b0681ad5a3a22956b5145dee1105",
+      "nominatedNatives": 17,
+      "remainingNegatives": 30,
+      "state": "runtime-checks-complete"
+    },
+    "identitiesPositive": 707,
+    "models": 1404,
+    "narrowTerrain": {
+      "affectedForms": 134,
+      "currentNatives": 7140,
+      "models": 3,
+      "neonJob": "3620a0fe53feafe4eb18bddc815ef2a3a83b37397905a507cf07ab0108797a07",
+      "nominatedNatives": 8,
+      "publicationDeferredUntilCheungSourceCaptureCompletes": true,
+      "snapshotId": "226a7903fcd56cd9",
+      "state": "installed-verified"
+    },
+    "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
+    "sourceTINCandidates": 300,
+    "state": "35 new originals installed; 1390 selected originals unresolved; next 31-source scripted wave running"
+  },
+  "pengChauRecovered": 1425,
+  "priorityOrder": [
+    "peng-chau-original-installation",
+    "peng-chau-compression",
+    "cheung-chau-original-installation",
+    "cheung-chau-compression"
+  ],
+  "sourceContext": {
+    "models": 1404,
     "state": "complete",
-    "sheets": 12,
-    "decodedOriginals": 3403,
-    "modelsWithoutExactAsset": 17,
-    "report": "docs/astra-city/government-import/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain.json"
+    "summary": "docs/astra-city/government-import/government-islands-peng-chau-context-20261106-v1/summary.json"
   },
-  "nextManifestChange": "Compression checkpoint complete. Require fresh full-scope runtime and actual staged/live review before installing further originals."
+  "sourceRefreshSession": 26262,
+  "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
+  "state": "in-process",
+  "tungChungRecovered": 1771,
+  "workers": [
+    {
+      "log": "/tmp/astra-peng-chau-wave002-continuation-20261106.log",
+      "phase": "next-peng-31-stage-scope-runtime",
+      "session": 25362,
+      "state": "source-scripts/city/government-import/local/government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1-continuation/state.json"
+    }
+  ]
 }
