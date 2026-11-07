@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 0,
+  "activeAcquisitionWorkers": 1,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -35,9 +35,9 @@
     "variants": 500
   },
   "cheungChauInstalled": {
-    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-post-four-direct-union-20261107-v1/independent-installed-readback.json",
-    "models": 189,
-    "snapshotId": "8b9fe84957e9b65d"
+    "independentReadback": "docs/astra-city/government-import/government-islands-cheung-chau-sweep-003-20261106-v1-clear/independent-installed-readback.json",
+    "models": 190,
+    "snapshotId": "21d56b4facfd9666"
   },
   "cheungChauResume": {
     "additionalTerrainIdentity": {
@@ -56,10 +56,10 @@
     "identityOnlyUnresolved": 82,
     "initialMissing": 183,
     "initialRecovered": 3237,
-    "installed": 189,
+    "installed": 190,
     "originalRecoveryGroups": 51,
     "potentialClearPool": 125,
-    "remainingSelected": 3231,
+    "remainingSelected": 3230,
     "reused": 1398,
     "scriptClear": 67,
     "sourceExceptions": 0,
@@ -79,7 +79,7 @@
       "state": "runtime-complete-in-neon",
       "terrainProposals": 47
     },
-    "state": "189 installed; remaining original source/contact/terrain follow-ups",
+    "state": "190 verified installed; further Cheung work deferred for Peng Chau priority",
     "toRecover": 2022
   },
   "cheungChauSourceTerrain": {
@@ -229,8 +229,8 @@
     "HKS-229": "b8e9fcc9-6394-4473-871a-233ebbb55af0",
     "milestoneUpdated": true
   },
-  "newlyInstalled": 231,
-  "next": "Complete staged/live acceptance and guarded installation for two positive sources (one direct R2 recovery, one source-TIN candidate); preserve 304 new scripted follow-ups. All 232 current originals already have 928 compression candidates.",
+  "newlyInstalled": 232,
+  "next": "Peng Chau largest-first current checks and source/terrain diagnostics; no uploads via GitHub Actions.",
   "nextManifestChange": "Current frozen diagnostic pass complete; installation may proceed under ordinary leases and fresh context guards.",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
@@ -354,10 +354,9 @@
     "state": "six-installed-verified"
   },
   "priorityOrder": [
-    "peng-chau-original-installation",
-    "peng-chau-compression",
-    "cheung-chau-original-installation",
-    "cheung-chau-compression"
+    "peng-chau-largest-originals-first",
+    "peng-chau-remaining-originals",
+    "peng-chau-compression"
   ],
   "r2Access": {
     "bucket": "hk-sandbox-assets",
@@ -394,5 +393,9 @@
   "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
   "state": "in-process",
   "tungChungRecovered": 1771,
+  "uploads": {
+    "githubActions": "held-by-user",
+    "r2": "user-preparing-upload;no-agent-upload-started"
+  },
   "workers": []
 }
