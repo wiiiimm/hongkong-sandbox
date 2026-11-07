@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 1,
+  "activeAcquisitionWorkers": 2,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -327,6 +327,22 @@
     "state": "42 new originals installed; 1383 selected originals unresolved; pair/source-TIN compute follow-up continues"
   },
   "pengChauRecovered": 1425,
+  "pengLargestFirst": {
+    "firstChecked": 50,
+    "firstDirectClear": 2,
+    "firstDirectJob": "a884015412e25ba0131129f0eda20febb1655ad34d9ab0d0d31f4b786f2b75e0",
+    "floorProbeModels": 9,
+    "priority": "descending size group, source triangles, original bytes",
+    "rankedRemaining": 1383,
+    "report": "docs/astra-city/government-import/government-islands-peng-chau-largest-first-20261107-v1",
+    "sizeGroups": {
+      "large": 2,
+      "medium": 7,
+      "small": 410,
+      "xs": 964
+    },
+    "uploads": false
+  },
   "pengSweep": {
     "batch": "government-islands-peng-chau-sweep-013-20261106-v1",
     "clearScriptCandidates": 1,
@@ -397,5 +413,20 @@
     "githubActions": "held-by-user",
     "r2": "user-preparing-upload;no-agent-upload-started"
   },
-  "workers": []
+  "workers": [
+    {
+      "batch": "government-islands-peng-chau-largest-first-20261107-v1-direct-001-clear",
+      "log": "/tmp/astra-peng-largest-first-direct-001-browser-20261107-v1.log",
+      "phase": "staged-browser",
+      "session": 91264,
+      "state": "running"
+    },
+    {
+      "batch": "government-islands-peng-chau-largest-nine-floor-probe-20261107-v1",
+      "log": "/tmp/astra-peng-largest-nine-floor-probe-20261107-v1.log",
+      "phase": "largest-nine-private-source-floor-diagnostic",
+      "session": 9104,
+      "state": "running"
+    }
+  ]
 }
