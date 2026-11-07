@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 1,
+  "activeAcquisitionWorkers": 0,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -13,6 +13,17 @@
   "branch": "feature/islands-model-enhancement-and-compression",
   "bulkCompressionStarted": true,
   "checkpoint": "ca9cfa91e6",
+  "cheungAdditionalTINPass": {
+    "all14NeonOutcomeReferencesVerified": true,
+    "awaitingBrowserReview": 1,
+    "control": "docs/astra-city/government-import/government-islands-cheung-chau-sweep-003-016-control-20261106-v1",
+    "heldForCompute": 304,
+    "newlyInstalled": 0,
+    "requiresAI": 0,
+    "requiresUserDecision": 0,
+    "sourcesExamined": 305,
+    "state": "checks-complete"
+  },
   "cheungChauCompression": {
     "failures": 0,
     "models": 125,
@@ -219,8 +230,8 @@
     "milestoneUpdated": true
   },
   "newlyInstalled": 231,
-  "next": "Freeze committed 232-source cohort and refresh compression; complete 17 recovered source checks and next Cheung TIN nominees.",
-  "nextManifestChange": "204-source compression complete; 28 direct originals staged and visually inspected",
+  "next": "Complete staged/live acceptance and guarded installation for two positive sources (one direct R2 recovery, one source-TIN candidate); preserve 304 new scripted follow-ups. All 232 current originals already have 928 compression candidates.",
+  "nextManifestChange": "Current frozen diagnostic pass complete; installation may proceed under ordinary leases and fresh context guards.",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
     "constructed": 24,
@@ -383,13 +394,5 @@
   "sourceRefreshState": "supervised workers stopped; completed and partial proofs retained",
   "state": "in-process",
   "tungChungRecovered": 1771,
-  "workers": [
-    {
-      "log": "/tmp/astra-cheung-sweep-003-016-20261107-v1.log",
-      "manifestFrozenUntilComplete": true,
-      "phase": "Cheung-private-TIN-waves-003-016",
-      "session": 27624,
-      "state": "running"
-    }
-  ]
+  "workers": []
 }

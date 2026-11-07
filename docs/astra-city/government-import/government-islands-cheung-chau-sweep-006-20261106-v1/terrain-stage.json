@@ -1,0 +1,817 @@
+{
+  "affectedCurrentForms": 1359,
+  "batch": "government-islands-cheung-chau-sweep-006-20261106-v1",
+  "eligibleOriginalTIN": 21,
+  "inputHashes": {
+    "3d-viewer/city/data/manifest.json": "947f37e9a84c4256a711303f182555d31cab3ef8427d3e8bc034b643e2d1a501",
+    "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "3d-viewer/city/data/tiles/-7_3.json": "f4d7e827c46486a96b2cb0c0b5a1d69d01fcabc265cdd9275f6b43841517c267",
+    "3d-viewer/city/data/tiles/-7_4.json": "78cbfe0fb0568bdf9146a664c5bd381996a9f0bfa68db59f4a60d4a193f55eb4",
+    "3d-viewer/city/data/tiles/-8_4.json": "4fb19276c31d727f0495df0c0b022002483e75ad2ae12331db3d7df52f6623a9",
+    "docs/astra-city/government-import/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain.json": "67123d25d90c75345a1678b746171fa98e1f40ffefd8839961c0f151f4fd7574",
+    "docs/astra-city/government-import/government-islands-cheung-chau-sweep-006-20261106-v1/constructor-adapter.json": "720c35d189df450655740e4d5383be16eb60b09014534808554e06f26c0396c3",
+    "docs/astra-city/government-import/government-islands-cheung-chau-sweep-006-20261106-v1/context-evidence.json.gz": "931314a740ab6b16a008ed2aea9a3d9fe27beadde72cd00b2113cca03981212b",
+    "docs/astra-city/government-import/government-islands-cheung-chau-sweep-006-20261106-v1/identity-evidence.json.gz": "3d6a9196769e731e56c5f34d78865575c7ad08191cbdcc7a83df6727fd3a7af0",
+    "docs/astra-city/government-import/government-islands-cheung-chau-sweep-006-20261106-v1/nomination.json": "5118f65fed522302ffec93dd52bb61d4033238af69fb120d06104b45d93ef79e",
+    "source-scripts/city/government-import/islands_cheung_tin_stage.py": "a84cbdb12a4b7c3e9934a835c93df5ab796dddfc21b1750ea7f9ed4015245e80",
+    "source-scripts/city/government-import/islands_cheung_tin_sweep_stage.py": "e0403e09d1c84a5afa3ee8d96c982b5a203bf0ea7aa110b834aaebf302ec96a7",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-14D/decoded/TERRAIN(TB)/T20250084000106E11/T20250084000106E11.bin": "19c9d43e797ff1b0b1baf84c6d3704930bdfcf630c4ab7d0f96ca0b04a9909cd",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-14D/decoded/TERRAIN(TB)/T20250084000106E11/T20250084000106E11.gltf": "895ece09c1e698020cde76a63868e009963e0c6bbbfb25411b19326f19667d4e",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-15A/decoded/TERRAIN(TB)/T21000090000106E10/T21000090000106E10.bin": "0c098dae8fde0b849f68265763a1046e766c35257dafeaf4aa53781f6b9ade10",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-15A/decoded/TERRAIN(TB)/T21000090000106E10/T21000090000106E10.gltf": "80a5ac8ccdc2bf365313d35bece3b4eb32fbaff74ee81323acabcf60c3e86db0",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-15C/decoded/TERRAIN(TB)/T21000084000106E10/T21000084000106E10.bin": "26ea0b95c1e123dbc8b345b21f7dbad35a33ad5bdf98280bffc0edfc47350ec3",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-15C/decoded/TERRAIN(TB)/T21000084000106E10/T21000084000106E10.gltf": "40bcd386312d3ac1b95fd94dd51e78119112ec961b8f58292f550d47e53890f5",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-19B/decoded/TERRAIN(TB)/T20250078000106E11/T20250078000106E11.bin": "fffcf49ca8ae9da2af3f295413ffa5a2568917005fab5609f90e7131425a416a",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-19B/decoded/TERRAIN(TB)/T20250078000106E11/T20250078000106E11.gltf": "6754609efd1c08bda554740576a9301ebc35fa3650d55f550dd487f5c5f47e25",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-19D/decoded/TERRAIN(TB)/T20250072000106E11/T20250072000106E11.bin": "c2a7ff7842971a4985209964c32d7833dcd4ceba5dc891e59006bc10e64d33c5",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-19D/decoded/TERRAIN(TB)/T20250072000106E11/T20250072000106E11.gltf": "2ca2879193a3a74c33c3e51f435d815323d50e5408c0f33bd6c6d148bfa6f6fc",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20A/decoded/TERRAIN(TB)/T21000078000106E11/T21000078000106E11.bin": "af41270375350db66a080b866b7d450c920dcb973e4a8ec8c4a1c975f38792bd",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20A/decoded/TERRAIN(TB)/T21000078000106E11/T21000078000106E11.gltf": "6fd99ce5a4512db3996778647e1b530b5e37bdc447289a3034e51a9bef3506ea",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20C/decoded/TERRAIN(TB)/T21000072000106E11/T21000072000106E11_1.bin": "8c87ce95ccc2442d996a29d9b072f28c5ef7921bbe5302d9b2f8af65f5f81094",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20C/decoded/TERRAIN(TB)/T21000072000106E11/T21000072000106E11_1.gltf": "2860a8b997511142ca0c2ba9128533d26a3ad22489d8dbba9bff01cd19f43579",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20C/decoded/TERRAIN(TB)/T21000072000106E11/T21000072000106E11_2.bin": "627cd4c5d0ad0189a5c93747fd22d5b0230250867fc2f45bfbd475add8de8e6a",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20C/decoded/TERRAIN(TB)/T21000072000106E11/T21000072000106E11_2.gltf": "171b1f53fd0b6dfaf0c008e63e4109a71438ed16f792c8b664ea318adcc69984",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20D/decoded/TERRAIN(TB)/T21750072000106E11/T21750072000106E11.bin": "e7ebecca4f437e287df383ce91e7477ce0647433a1ce89918e87d59a571ae6ac",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-20D/decoded/TERRAIN(TB)/T21750072000106E11/T21750072000106E11.gltf": "47dad67555449762fb413136e7b1d4b518b4eaf037c73cdca77208a8d354c8e9",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-24A/decoded/TERRAIN(TB)/T19500066000106E11/T19500066000106E11.bin": "a40a0ee2609f3bef5509117700636c47003082985dd2a3cd177772a91d23205f",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-24A/decoded/TERRAIN(TB)/T19500066000106E11/T19500066000106E11.gltf": "d387008747026150cac9f529d7a7f165aa62e8aacc4fb402c2469d6ce7000580",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-24B/decoded/TERRAIN(TB)/T20250066000106E11/T20250066000106E11_1.bin": "225dc31cd75363c5b9f0546c204f50261ff606a762fc1437ec4ebe151b960475",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-24B/decoded/TERRAIN(TB)/T20250066000106E11/T20250066000106E11_1.gltf": "f5260d141d91592b415ed7de678499f8b45f46a6031578b553dc8ff5cccd73d9",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-24B/decoded/TERRAIN(TB)/T20250066000106E11/T20250066000106E11_2.bin": "010fbe29d83bcc16b96f97cbf8ea3b53ecf8528c04ac05bb000106e174231b2a",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-24B/decoded/TERRAIN(TB)/T20250066000106E11/T20250066000106E11_2.gltf": "a96bdce150daf19b3c5e20c05c0a63c0c5bc8b18e150b856e0dee61427daa159",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-25A/decoded/TERRAIN(TB)/T21000066000106E11/T21000066000106E11.bin": "14d30500ac398ac724683235dd360407f48f2ec38abe8566b81bc5a0bd6c4a1c",
+    "source-scripts/city/government-import/local/government-islands-cheung-chau-source-terrain-20261106-v1/source-terrain/14-NW-25A/decoded/TERRAIN(TB)/T21000066000106E11/T21000066000106E11.gltf": "b0e5b497fefe2a09ed1fdd090a4e6ba38c076358ba241040103be19a197a4108",
+    "source-scripts/city/government-import/resolve-pass.py": "c95654eef753e2265ee7f60db71f04a5cd03bf545d516c8d84d544d46d612936",
+    "source-scripts/city/government-import/source_triangle_windows.py": "0adaf9e4931a227134edce1550afc28e5b84664a9c423d52e3886392393d1ed3",
+    "source-scripts/city/government-import/tai-o-terrain-pass.py": "7e6f369ba81f115cc53c09620c4b7830c593342720bd9e2154f44d6f38246ef2"
+  },
+  "modelsExamined": 27,
+  "nativeAudits": {
+    "landsd/109020:0": {
+      "checks": 90,
+      "covered": 90,
+      "gapRange": [
+        -0.09446334838867188,
+        2.601238250732422
+      ],
+      "lowRimChecks": 18,
+      "lowRimGapRange": [
+        -0.09446334838867188,
+        -0.09446334838867188
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/136213:0": {
+      "checks": 517,
+      "covered": 517,
+      "gapRange": [
+        -0.1831532075532536,
+        9.247202318849133
+      ],
+      "lowRimChecks": 41,
+      "lowRimGapRange": [
+        -0.1831532075532536,
+        0.6307892975803355
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/191470:0": {
+      "checks": 264,
+      "covered": 264,
+      "gapRange": [
+        -0.02658756001914142,
+        10.636475780844616
+      ],
+      "lowRimChecks": 32,
+      "lowRimGapRange": [
+        -0.02658756001914142,
+        0.08304658475132065
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/191494:0": {
+      "checks": 462,
+      "covered": 462,
+      "gapRange": [
+        -0.01123930474990864,
+        10.039005103258138
+      ],
+      "lowRimChecks": 38,
+      "lowRimGapRange": [
+        -0.01123930474990864,
+        1.1310621074490967
+      ],
+      "passed": false,
+      "reasons": [
+        "native-ground-contact"
+      ]
+    },
+    "landsd/196720:0": {
+      "checks": 235,
+      "covered": 235,
+      "gapRange": [
+        -0.09975827231021395,
+        11.358155639200273
+      ],
+      "lowRimChecks": 8,
+      "lowRimGapRange": [
+        -0.09975827231021395,
+        -0.047776058550009104
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/197027:0": {
+      "checks": 277,
+      "covered": 277,
+      "gapRange": [
+        -0.11864356462728498,
+        10.392843857585158
+      ],
+      "lowRimChecks": 40,
+      "lowRimGapRange": [
+        -0.11864356462728498,
+        -0.0169137689372727
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/204443:0": {
+      "checks": 121,
+      "covered": 121,
+      "gapRange": [
+        -0.18977694027125835,
+        11.848904347138518
+      ],
+      "lowRimChecks": 35,
+      "lowRimGapRange": [
+        -0.18977694027125835,
+        0.4557411148808601
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/204700:0": {
+      "checks": 192,
+      "covered": 192,
+      "gapRange": [
+        -0.4131239811910241,
+        10.584019553819173
+      ],
+      "lowRimChecks": 52,
+      "lowRimGapRange": [
+        -0.4131239811910241,
+        0.03367894070845434
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/206501:0": {
+      "checks": 360,
+      "covered": 360,
+      "gapRange": [
+        -0.07362174987792969,
+        11.24448013305664
+      ],
+      "lowRimChecks": 30,
+      "lowRimGapRange": [
+        -0.07362174987792969,
+        -0.07362174987792969
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/207271:0": {
+      "checks": 482,
+      "covered": 482,
+      "gapRange": [
+        0.09449005126953036,
+        9.816490173339844
+      ],
+      "lowRimChecks": 32,
+      "lowRimGapRange": [
+        0.09449005126953036,
+        0.09449005126953214
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/207846:0": {
+      "checks": 76,
+      "covered": 76,
+      "gapRange": [
+        -0.032299041748046875,
+        6.273900985717773
+      ],
+      "lowRimChecks": 24,
+      "lowRimGapRange": [
+        -0.032299041748046875,
+        -0.032299041748046875
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/214530:0": {
+      "checks": 358,
+      "covered": 358,
+      "gapRange": [
+        -0.15045275647527756,
+        10.64127966213514
+      ],
+      "lowRimChecks": 36,
+      "lowRimGapRange": [
+        -0.15045275647527756,
+        0.07101687835846349
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/233856:0": {
+      "checks": 461,
+      "covered": 461,
+      "gapRange": [
+        0.05721855163574041,
+        9.47831916809082
+      ],
+      "lowRimChecks": 57,
+      "lowRimGapRange": [
+        0.05721855163574041,
+        0.057218551635743964
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/270530:0": {
+      "checks": 414,
+      "covered": 414,
+      "gapRange": [
+        0.028668763283555165,
+        10.332012295976718
+      ],
+      "lowRimChecks": 40,
+      "lowRimGapRange": [
+        0.028668763283555165,
+        0.3835575309678241
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/274480:0": {
+      "checks": 162,
+      "covered": 162,
+      "gapRange": [
+        -0.40210860788494784,
+        4.8502901422757745
+      ],
+      "lowRimChecks": 60,
+      "lowRimGapRange": [
+        -0.40210860788494784,
+        0.5132636862565292
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/276871:0": {
+      "checks": 198,
+      "covered": 198,
+      "gapRange": [
+        -0.034844787826170176,
+        5.942821081288876
+      ],
+      "lowRimChecks": 38,
+      "lowRimGapRange": [
+        -0.034844787826170176,
+        0.6509179519705306
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/310109:0": {
+      "checks": 282,
+      "covered": 282,
+      "gapRange": [
+        -0.12362623214721946,
+        4.993974208831787
+      ],
+      "lowRimChecks": 70,
+      "lowRimGapRange": [
+        -0.12362623214721946,
+        -0.12362623214721413
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/74999:0": {
+      "checks": 419,
+      "covered": 419,
+      "gapRange": [
+        -0.07935635422965603,
+        8.240250565897846
+      ],
+      "lowRimChecks": 41,
+      "lowRimGapRange": [
+        -0.07935635422965603,
+        1.091048028387977
+      ],
+      "passed": false,
+      "reasons": [
+        "native-ground-contact"
+      ]
+    },
+    "landsd/75963:0": {
+      "checks": 650,
+      "covered": 650,
+      "gapRange": [
+        -1.3576989978155085,
+        9.837755854726161
+      ],
+      "lowRimChecks": 118,
+      "lowRimGapRange": [
+        -1.3576989978155085,
+        2.6766125066066477
+      ],
+      "passed": false,
+      "reasons": [
+        "native-source-below-grade",
+        "native-ground-contact"
+      ]
+    },
+    "landsd/77185:0": {
+      "checks": 592,
+      "covered": 592,
+      "gapRange": [
+        -0.269662187390999,
+        11.073924741688401
+      ],
+      "lowRimChecks": 35,
+      "lowRimGapRange": [
+        -0.269662187390999,
+        1.504322156583342
+      ],
+      "passed": false,
+      "reasons": [
+        "native-ground-contact"
+      ]
+    },
+    "landsd/78585:0": {
+      "checks": 514,
+      "covered": 514,
+      "gapRange": [
+        -0.3243656753136879,
+        11.155530809794367
+      ],
+      "lowRimChecks": 94,
+      "lowRimGapRange": [
+        -0.3243656753136879,
+        1.9492052459506457
+      ],
+      "passed": false,
+      "reasons": [
+        "native-ground-contact"
+      ]
+    },
+    "landsd/79348:0": {
+      "checks": 354,
+      "covered": 354,
+      "gapRange": [
+        0.04869346803766916,
+        10.581626892089844
+      ],
+      "lowRimChecks": 40,
+      "lowRimGapRange": [
+        0.04869346803766916,
+        0.14321484524204564
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/79560:0": {
+      "checks": 356,
+      "covered": 356,
+      "gapRange": [
+        -0.12444869625570387,
+        12.141749260871393
+      ],
+      "lowRimChecks": 47,
+      "lowRimGapRange": [
+        -0.12444869625570387,
+        1.684067246645864
+      ],
+      "passed": false,
+      "reasons": [
+        "native-ground-contact"
+      ]
+    },
+    "landsd/80250:0": {
+      "checks": 198,
+      "covered": 198,
+      "gapRange": [
+        0.07602503223311885,
+        4.824330057950476
+      ],
+      "lowRimChecks": 28,
+      "lowRimGapRange": [
+        0.07602503223311885,
+        0.33352585731948636
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/80276:0": {
+      "checks": 382,
+      "covered": 382,
+      "gapRange": [
+        -0.2341429644366939,
+        7.938874062281465
+      ],
+      "lowRimChecks": 138,
+      "lowRimGapRange": [
+        -0.2341429644366939,
+        -0.021666594897677083
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/80813:0": {
+      "checks": 244,
+      "covered": 244,
+      "gapRange": [
+        -0.2071990966796875,
+        6.097600936889648
+      ],
+      "lowRimChecks": 38,
+      "lowRimGapRange": [
+        -0.2071990966796875,
+        0.20204663894525332
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "landsd/80822:0": {
+      "checks": 79,
+      "covered": 79,
+      "gapRange": [
+        -0.3966178894042969,
+        3.3683815002441406
+      ],
+      "lowRimChecks": 40,
+      "lowRimGapRange": [
+        -0.3966178894042969,
+        -0.3966178894042969
+      ],
+      "passed": true,
+      "reasons": []
+    }
+  },
+  "patches": [
+    {
+      "bounds": [
+        -13537.5,
+        8082.5,
+        -13397.5,
+        8222.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-001.json",
+      "sha256": "4c1f32654f22061d5b7170cc3cd3ec869d6de477cd42e578891223e2ec07f65c",
+      "triangles": 0,
+      "uids": [
+        "landsd/197027:0"
+      ]
+    },
+    {
+      "bounds": [
+        -14027.5,
+        9132.5,
+        -13887.5,
+        9202.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-002.json",
+      "sha256": "1c1c252afdb354b398759dfc54540899d0d7f7e4368594a363b3f03b5ed59717",
+      "triangles": 0,
+      "uids": [
+        "landsd/191470:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13817.5,
+        7942.5,
+        -13677.5,
+        8082.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-003.json",
+      "sha256": "0d78e2070cd34268d9375758b9b6c0e78999806f1de8b3d84e75700d068c8691",
+      "triangles": 0,
+      "uids": [
+        "landsd/109020:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13187.5,
+        8922.5,
+        -13047.5,
+        9062.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-004.json",
+      "sha256": "3af7b7bcbbfe7c79bccb764f14df6fbffb708d99790c928727765ba07bd26d31",
+      "triangles": 0,
+      "uids": [
+        "landsd/274480:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13957.5,
+        9202.5,
+        -13887.5,
+        9342.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-005.json",
+      "sha256": "0fc041c12ea02706e44ac3fb7ed3aeb8e249f7aaeb5d19f0d986def2f4f63ba0",
+      "triangles": 0,
+      "uids": [
+        "landsd/79348:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13677.5,
+        7802.5,
+        -13607.5,
+        7942.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-006.json",
+      "sha256": "551cf20f881b9df326f4faae7f2773e66378ec0cace754d4ecf6c8d4ee704e4a",
+      "triangles": 0,
+      "uids": [
+        "landsd/80822:0"
+      ]
+    },
+    {
+      "bounds": [
+        -14097.5,
+        9062.5,
+        -14027.5,
+        9202.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-007.json",
+      "sha256": "4994d70329ccbc9794d874e5ab80a07f23050edc5dbfedda2fc662679b4714ca",
+      "triangles": 0,
+      "uids": [
+        "landsd/80813:0"
+      ]
+    },
+    {
+      "bounds": [
+        -14167.5,
+        9202.5,
+        -14027.5,
+        9342.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-008.json",
+      "sha256": "741cba0c076457566230a629dca2c37d7a7c8a15a7d01fb2dfe6c45dd41f7a99",
+      "triangles": 0,
+      "uids": [
+        "landsd/233856:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13817.5,
+        9202.5,
+        -13747.5,
+        9342.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-009.json",
+      "sha256": "a0af6682dcf9ddc25a00bd6b6cab13b6a7eba16fa22cda9bcf2d421bab16d69f",
+      "triangles": 0,
+      "uids": [
+        "landsd/206501:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13257.5,
+        8992.5,
+        -13187.5,
+        9132.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-010.json",
+      "sha256": "864d3277758dd9b7305030415631edc3aee8ac81901e209e7cefa044ba989600",
+      "triangles": 0,
+      "uids": [
+        "landsd/136213:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13537.5,
+        8222.5,
+        -13397.5,
+        8362.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-011.json",
+      "sha256": "8e3f84895a22182ce03deb5d077b6334776751ba062c7a852af1be961429232f",
+      "triangles": 0,
+      "uids": [
+        "landsd/196720:0"
+      ]
+    },
+    {
+      "bounds": [
+        -14167.5,
+        9342.5,
+        -14027.5,
+        9482.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-012.json",
+      "sha256": "da9ed0d98c02d1f0850a9c343b591d8e36edca5a3e56327f3c347bd33132f5fd",
+      "triangles": 0,
+      "uids": [
+        "landsd/80250:0"
+      ]
+    },
+    {
+      "bounds": [
+        -14447.5,
+        9552.5,
+        -14377.5,
+        9692.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-013.json",
+      "sha256": "eb40d199470a7e3c56f9b8eda0f3d9d1f410ba9ccd8340f9ac5a00e9ac36cbd5",
+      "triangles": 0,
+      "uids": [
+        "landsd/207271:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13397.5,
+        8852.5,
+        -13257.5,
+        8922.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-014.json",
+      "sha256": "e838e4f7b4775bf67f1c50a15a10ac00bfa5542e36f6752bfb8fe3ddfdba1823",
+      "triangles": 0,
+      "uids": [
+        "landsd/276871:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13607.5,
+        9132.5,
+        -13537.5,
+        9272.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-015.json",
+      "sha256": "76fc757078fc44308ad90ea1f8d2b3188e805659992b5f95095b7bde3ecad7ad",
+      "triangles": 0,
+      "uids": [
+        "landsd/204443:0"
+      ]
+    },
+    {
+      "bounds": [
+        -14517.5,
+        9622.5,
+        -14447.5,
+        9692.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-016.json",
+      "sha256": "08d464c316854171bcbdc7c4bc34be27017c63b7c69fd20ae758d0c0e4f9f431",
+      "triangles": 33707,
+      "uids": [
+        "landsd/207846:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13467.5,
+        8432.5,
+        -13327.5,
+        8572.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-017.json",
+      "sha256": "b6309b441904eaa804f834df7f1ba1a5b8fa89e138e59a059a35ab62c367827b",
+      "triangles": 0,
+      "uids": [
+        "landsd/310109:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13607.5,
+        8782.5,
+        -13467.5,
+        8922.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-018.json",
+      "sha256": "93d685ff72265ea7555bb0871e9fb040e3e9bd7e442afb6189a7c7a77d8f261e",
+      "triangles": 0,
+      "uids": [
+        "landsd/80276:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13397.5,
+        9202.5,
+        -13257.5,
+        9342.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-019.json",
+      "sha256": "cc45c722476f981fd620d5d455e259f5b75f0c5d874d665ec0b7dfb165a66ecf",
+      "triangles": 0,
+      "uids": [
+        "landsd/270530:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13537.5,
+        8572.5,
+        -13397.5,
+        8642.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-020.json",
+      "sha256": "cc9e367aca8957da0091fd0a473a8421afce94c10983b9d04276ce8c22ec497e",
+      "triangles": 0,
+      "uids": [
+        "landsd/214530:0"
+      ]
+    },
+    {
+      "bounds": [
+        -13467.5,
+        8782.5,
+        -13397.5,
+        8922.5
+      ],
+      "path": "source-scripts/city/government-import/accepted/government-islands-cheung-chau-sweep-006-20261106-v1/terrain/islands-cheung-chau-sweep-006-20261106-v1-021.json",
+      "sha256": "5af16cef9a824e17f4cdaf37e273b2d77361773206c6d8bcfae1639adbc8dae4",
+      "triangles": 0,
+      "uids": [
+        "landsd/204700:0"
+      ]
+    }
+  ],
+  "publication": false,
+  "qualification": "Private source-terrain construction only; full current renderer/contact/neighbour/native/browser and guarded publication still required.",
+  "reasonCounts": {
+    "native-ground-contact": 6,
+    "native-source-below-grade": 1
+  },
+  "reasons": {
+    "landsd/191494:0": [
+      "native-ground-contact"
+    ],
+    "landsd/74999:0": [
+      "native-ground-contact"
+    ],
+    "landsd/75963:0": [
+      "native-source-below-grade",
+      "native-ground-contact"
+    ],
+    "landsd/77185:0": [
+      "native-ground-contact"
+    ],
+    "landsd/78585:0": [
+      "native-ground-contact"
+    ],
+    "landsd/79560:0": [
+      "native-ground-contact"
+    ]
+  },
+  "sourceGeometryChanges": 0,
+  "sourceUids": [
+    "landsd/109020:0",
+    "landsd/136213:0",
+    "landsd/191470:0",
+    "landsd/196720:0",
+    "landsd/197027:0",
+    "landsd/204443:0",
+    "landsd/204700:0",
+    "landsd/206501:0",
+    "landsd/207271:0",
+    "landsd/207846:0",
+    "landsd/214530:0",
+    "landsd/233856:0",
+    "landsd/270530:0",
+    "landsd/274480:0",
+    "landsd/276871:0",
+    "landsd/310109:0",
+    "landsd/79348:0",
+    "landsd/80250:0",
+    "landsd/80276:0",
+    "landsd/80813:0",
+    "landsd/80822:0"
+  ],
+  "stagedSourceCandidates": 21
+}

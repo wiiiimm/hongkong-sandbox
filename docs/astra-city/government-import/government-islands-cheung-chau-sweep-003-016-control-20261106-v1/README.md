@@ -1,0 +1,5 @@
+# Cheung Chau source-TIN continuation — waves 003–016
+
+Executor: Codex with scripted original-source diagnostics. All 305 distinct nominated sources completed checks; one awaits actual browser/guarded publication and 304 retain scripted source/terrain/neighbour follow-ups. No new installation credit, AI geometry modelling, human-decision dependency or variant publication. ROOT read back all 14 fenced Neon actionable-outcome evidence references in completion-readback.json. Current installation totals remain Peng Chau 43 / Cheung Chau 189, with 928 four-tier candidates complete for those 232 sources.
+
+Negative candidate terrain artifacts remain private in the existing accepted/local directories, referenced by exact hashes in these reports. These diagnostics do not authorise their installation. The explicit wave limit is complete; the older saved running handle is closed. Next: complete acceptance for the one positive source-TIN candidate and the independently staged recovered direct original, while retaining current input bindings and the existing guards.
