@@ -1,5 +1,5 @@
 {
-  "activeAcquisitionWorkers": 2,
+  "activeAcquisitionWorkers": 1,
   "activeSourceLeases": 0,
   "allOtherModelProcessing": "stopped at user request",
   "boundedCorePrepared": {
@@ -204,12 +204,13 @@
       "government-islands-peng-chau-narrow-clear-20261106-v2",
       "government-islands-combined-clear-install-20261106-v1",
       "government-islands-joint-current-direct-tin-20261106-v1",
-      "government-islands-peng-chau-post-joint21-clear-six-20261106-v1"
+      "government-islands-peng-chau-post-joint21-clear-six-20261106-v1",
+      "government-islands-peng-chau-largest-first-20261107-v1-direct-001-clear"
     ],
-    "models": 42,
-    "snapshotId": "de41e5f5650343d7",
+    "models": 44,
+    "snapshotId": "43090b0a9deeb435",
     "status": "verified-feature-branch",
-    "totalInstalled": 43
+    "totalInstalled": 45
   },
   "jointNextImport": {
     "batch": "government-islands-joint-current-direct-tin-20261106-v1",
@@ -229,8 +230,8 @@
     "HKS-229": "b8e9fcc9-6394-4473-871a-233ebbb55af0",
     "milestoneUpdated": true
   },
-  "newlyInstalled": 232,
-  "next": "Peng Chau largest-first current checks and source/terrain diagnostics; no uploads via GitHub Actions.",
+  "newlyInstalled": 234,
+  "next": "Finish exact current/literal wall/grade diagnostics for Kam Peng House and Peng Lai Court; keep descending Peng priority. No uploads.",
   "nextManifestChange": "Current frozen diagnostic pass complete; installation may proceed under ordinary leases and fresh context guards.",
   "nextPengWave": {
     "batch": "government-islands-peng-chau-disjoint-wave002-terrain-20261106-v1",
@@ -324,16 +325,20 @@
     },
     "runtimeNeonJob": "235ec705f5ea22ed019d6c9695e328999f5999367f1262d7bd17c5f243367614",
     "sourceTINCandidates": 300,
-    "state": "42 new originals installed; 1383 selected originals unresolved; pair/source-TIN compute follow-up continues"
+    "state": "44 new Peng originals installed; 1381 selected originals remain; descending-size investigation active"
   },
   "pengChauRecovered": 1425,
   "pengLargestFirst": {
     "firstChecked": 50,
     "firstDirectClear": 2,
     "firstDirectJob": "a884015412e25ba0131129f0eda20febb1655ad34d9ab0d0d31f4b786f2b75e0",
+    "floorProbeJob": "d8737c787d7a87d5a11f44b77ca6b3ee0c1c4bad35787ff9136e8323b41eb29f",
     "floorProbeModels": 9,
+    "floorProbeState": "nine completed; zero self-contact passes; all negatives retained",
+    "newlyInstalled": 2,
     "priority": "descending size group, source triangles, original bytes",
     "rankedRemaining": 1383,
+    "remaining": 1381,
     "report": "docs/astra-city/government-import/government-islands-peng-chau-largest-first-20261107-v1",
     "sizeGroups": {
       "large": 2,
@@ -415,17 +420,10 @@
   },
   "workers": [
     {
-      "batch": "government-islands-peng-chau-largest-first-20261107-v1-direct-001-clear",
-      "log": "/tmp/astra-peng-largest-first-direct-001-browser-20261107-v1.log",
-      "phase": "staged-browser",
-      "session": 91264,
-      "state": "running"
-    },
-    {
-      "batch": "government-islands-peng-chau-largest-nine-floor-probe-20261107-v1",
-      "log": "/tmp/astra-peng-largest-nine-floor-probe-20261107-v1.log",
-      "phase": "largest-nine-private-source-floor-diagnostic",
-      "session": 9104,
+      "batch": "government-islands-peng-two-largest-grade-probe-20261107-v1",
+      "log": "/tmp/astra-peng-two-largest-grade-probe-20261107-v1.log",
+      "phase": "exact finite-facet/grade proof for two largest Peng sources",
+      "session": 52261,
       "state": "running"
     }
   ]
